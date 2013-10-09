@@ -53,7 +53,9 @@
 					<div class="col-md-3"></div>
 				</div>
 			</div>
-			<div class="panel-footer"></div>
+			<div class="panel-footer">
+				Foolter
+			</div>
 		</div>
 	</div>
 </body>

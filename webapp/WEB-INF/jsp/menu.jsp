@@ -39,7 +39,7 @@
 				<c:if test="${sessionScope.user != null}">
 				<div class="btn-group">
 					<button type="button" class="btn btn-default">${sessionScope.user.login}</button>
-	  				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="min-height: 34px;">
+	  				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 	  					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">

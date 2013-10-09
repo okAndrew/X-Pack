@@ -42,6 +42,16 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public int updateUser(int userId, String userLogin, String userEmail,
+			int userIdTariff, String userToken) {
+		String sql = "UPDATE users SET login=? email=?, id_tariff=?, token=?) WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql, userEmail, userIdTariff,
+				userToken, userId);
+		return result;
+
+	}
+
+	@Override
 	public int delete(long id) {
 		String sql = "DELETE FROM users WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, id);
@@ -54,4 +64,5 @@ public class UserDAOImpl implements UserDAO {
 		User result = queryExecutor.executeQuerySingle(User.class, sql, email);
 		return result;
 	}
+
 }

@@ -49,5 +49,12 @@ public class UserService {
 	public User getUserByEmail(String email) {
 		return new UserDAOImpl().getByEmail(email);
 	}
+	
+	public void updateUser(int userId, String userLogin, String userEmail, int userIdTariff,
+			String userToken){
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		int result = userDaoImpl.updateUser(userId, userLogin, userEmail, userIdTariff, userToken);
+		logger.info("User with id "+userId+" is updated. Number of updated rows: "+ result);
+	}
 
 }

@@ -59,8 +59,15 @@ body {
 								<td>${user.password}</td>
 								<td>${user.capacity}</td>
 								<td>${user.idTariff}</td>
-								<td>view more</td>
-								
+								<td>
+							<!-- 		<form action="adminUser" method="post">
+										<input type="text" name="userid" value="${user.id}"
+											hidden="yes"> <input type="submit" value="View more"
+											class="btn btn-default">
+									</form>
+							 -->
+								</td>
+
 							</tr>
 						</c:forEach>
 					</tbody>

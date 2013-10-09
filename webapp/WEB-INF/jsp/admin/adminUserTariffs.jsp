@@ -63,7 +63,7 @@
 								<td>Here will be Description ${payment.description}</td>
 								<td>Here will be Status ${payment.status}</td>
 								<td>Here will be date ${payment.date}</td>
-								<td>Here will be Avaliable ${payment.avaliable}</td>
+								<td>Here will be Avaliable ${payment.available}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

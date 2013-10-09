@@ -20,8 +20,8 @@ public class Payment {
 	@TableColumn("id_user")
 	private long idUser;
 
-	@TableColumn("avaliable")
-	private boolean avaliable;
+	@TableColumn("available")
+	private boolean available;
 
 	public long getId() {
 		return id;
@@ -59,6 +59,14 @@ public class Payment {
 		return this;
 	}
 
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
 	public long getIdUser() {
 		return idUser;
 	}
@@ -68,20 +76,11 @@ public class Payment {
 		return this;
 	}
 
-	public boolean isAvaliable() {
-		return avaliable;
-	}
-
-	public Payment setAvaliable(boolean avaliable) {
-		this.avaliable = avaliable;
-		return this;
-	}
-
 	@Override
 	public String toString() {
 		return "Payment [id=" + id + ", description=" + description
 				+ ", status=" + status + ", date=" + date + ", idUser="
-				+ idUser + ", avaliable=" + avaliable + "]";
+				+ idUser + ", available=" + available + "]";
 	}
 
 }

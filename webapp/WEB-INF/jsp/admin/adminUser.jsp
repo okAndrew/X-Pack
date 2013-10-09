@@ -15,11 +15,12 @@
 
 <!-- Bootstrap core CSS -->
 <script
-		src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script
-		src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
-		type="text/javascript"></script>
-	<script src="res/js/bootstrap.js"></script>
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+	type="text/javascript"></script>
+<script src="res/js/bootstrap.js"></script>
+
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
@@ -66,8 +67,7 @@
 
 					</tbody>
 				</table>
-
-				<button class="btn" type="submit" onclick="#myModal">Edit</button>
+				<a data-toggle="modal" href="#myModal" class="btn">Edit</a>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
@@ -101,6 +101,6 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	
+
 </body>
 </html>

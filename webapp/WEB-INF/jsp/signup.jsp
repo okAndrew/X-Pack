@@ -63,8 +63,8 @@
 					${message}
 				</c:if>
 			</div>
-			<input type="text" name="login" class="form-control first" placeholder="Login" />
-			<input type="text" name="email" class="form-control middle" placeholder="Email address" autofocus />
+			<input type="text" name="login" class="form-control first" placeholder="Login" autofocus />
+			<input type="text" name="email" class="form-control middle" placeholder="Email address" />
 			<input type="password" name="password" class="form-control middle" placeholder="Password" />
 			<input type="password" name="passwordVerify" class="form-control last" placeholder="Password" />
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>

@@ -1,7 +1,6 @@
 package com.epam.lab.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import com.epam.lab.controller.annotations.TableColumn;
 
@@ -9,8 +8,8 @@ public class File {
 	@TableColumn("id")
 	private long id;
 
-	@TableColumn("folder")
-	private long folder;
+	@TableColumn("id_folder")
+	private long idFolder;
 
 	@TableColumn("name_income")
 	private String nameIncome;
@@ -42,13 +41,12 @@ public class File {
 		return this;
 	}
 
-	public long getFolder() {
-		return folder;
+	public long getIdFolder() {
+		return idFolder;
 	}
 
-	public File setFolder(long folder) {
-		this.folder = folder;
-		return this;
+	public void setIdFolder(long idFolder) {
+		this.idFolder = idFolder;
 	}
 
 	public String getNameIncome() {
@@ -116,7 +114,7 @@ public class File {
 
 	@Override
 	public String toString() {
-		return "File [id=" + id + ", folder=" + folder + ", nameIncome="
+		return "File [id=" + id + ", idFolder=" + idFolder + ", nameIncome="
 				+ nameIncome + ", name=" + name + ", path=" + path + ", type="
 				+ type + ", size=" + size + ", date=" + date + ", idUser="
 				+ idUser + "]";

@@ -9,10 +9,10 @@ import com.epam.lab.model.User;
 public class UserDAOImpl implements UserDAO {
 	private DBQueryExecutor<User> queryExecutor = new DBQueryExecutor<User>();
 
-	public static final String INSERT_VALUES = "INSERT INTO users(email, password, id_tariff, capacity, token) VALUES (?,?,?,?,?) ";
-	public static final String DELETE_VALUES = "DELETE FROM users WHERE id=?";
+	public static final String INSERT_VALUES = "INSERT INTO users(login, email, password, id_tariff, capacity, token) VALUES (?, ?, ?, ?, ?, ?) ";
+	public static final String DELETE_VALUES = "DELETE FROM users WHERE id = ?";
 	public static final String SELECT_VALUES = "SELECT id, email, password, id_tariff, capacity, token FROM users";
-	public static final String SELECT_VALUES_BY_ID = "SELECT id, email, password, id_tariff, capacity, token FROM users WHERE id=?";
+	public static final String SELECT_VALUES_BY_ID = "SELECT id, email, password, id_tariff, capacity, token FROM users WHERE id = ?";
 
 	@Override
 	public User get(long id) {
@@ -34,8 +34,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int insert(User user) {
-		String sql = "INSERT INTO users(email, password, id_tariff, capacity, token) VALUES (?,?,?,?,?)";
-		int result = queryExecutor.executeUpdate(sql, user.getEmail(),
+		String sql = "INSERT INTO users(login, email, password, id_tariff, capacity, token) VALUES (?, ?, ?, ?, ?, ?)";
+		int result = queryExecutor.executeUpdate(sql, user.getLogin(), user.getEmail(),
 				user.getPassword(), user.getIdTariff(), user.getCapacity(),
 				user.getToken());
 		return result;

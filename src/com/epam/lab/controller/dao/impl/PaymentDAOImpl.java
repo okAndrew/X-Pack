@@ -10,11 +10,6 @@ import com.epam.lab.model.User;
 public class PaymentDAOImpl implements PaymentDAO {
 	private DBQueryExecutor<Payment> queryExecutor = new DBQueryExecutor<Payment>();
 
-	public static final String INSERT_VALUES = "INSERT INTO payments(description, status, date, id_user, available) VALUES (?,?,?,?,?) ";
-	public static final String DELETE_VALUES = "DELETE FROM payments WHERE id=?";
-	public static final String SELECT_VALUES = "SELECT id, description, status, date, id_user, available   FROM payments";
-	public static final String SELECT_VALUES_BY_ID = "SELECT id, description, status, date, id_user, available FROM payments WHERE id=?";
-
 	@Override
 	public Payment get(long id) {
 		// TODO Auto-generated method stub

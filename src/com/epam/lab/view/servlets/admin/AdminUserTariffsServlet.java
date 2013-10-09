@@ -32,7 +32,7 @@ public class AdminUserTariffsServlet extends HttpServlet {
 
 		PaymentService psevrive = new PaymentService();
 
-		List<Payment> list = psevrive.getAllPayByUserId(3);// userId
+		List<Payment> list = psevrive.getAllPayByUserId(5);// userId
 
 		request.setAttribute("listPayments", list);
 

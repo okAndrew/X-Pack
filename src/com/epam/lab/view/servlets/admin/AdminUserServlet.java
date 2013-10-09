@@ -31,11 +31,11 @@ public class AdminUserServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 	 int userId =
-		 Integer.parseInt(request.getParameter("userid"));//////get it!!!!
+		 Integer.parseInt(request.getParameter("userid"));
 		UserService service = new UserService();
 		PaymentService psevrive = new PaymentService();
 
-		User user = service.getUserById(userId);// userId
+		User user = service.getUserById(userId);
 		List<Payment> list = psevrive.getAllPayByUserId(3);// userId
 
 		request.setAttribute("user", user);

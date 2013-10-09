@@ -48,7 +48,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 	@Override
 	public List<Payment> getPayByUserId(long id) {
 		String sql = "SELECT * FROM payments WHERE id_user=?";
-		List<Payment> resultList = queryExecutor.executeQuery(User.class, sql,
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class, sql,
 				id);
 		return resultList;
 	}

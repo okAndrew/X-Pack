@@ -5,14 +5,11 @@ import java.util.List;
 import com.epam.lab.controller.dao.FileDAO;
 import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
 import com.epam.lab.model.File;
+import com.epam.lab.model.User;
 
 public class FileDAOImpl implements FileDAO {
 	private DBQueryExecutor<File> queryExecutor = new DBQueryExecutor<File>();
 
-	public static final String INSERT_VALUES = "INSERT INTO files(folder, name_income, name, path, type, size, date, user) VALUES (?,?,?,?,?,?,?,?) ";
-	public static final String DELETE_VALUES = "DELETE FROM files WHERE id=?";
-	public static final String SELECT_VALUES = "SELECT id, folder, name_income, name, path, type, size, date, user  FROM files";
-	public static final String SELECT_VALUES_BY_ID = "SELECT id, folder, name_income, name, path, type, size, date, user FROM files WHERE id=?";
 	
 	@Override
 	public File get(long id) {
@@ -38,5 +35,10 @@ public class FileDAOImpl implements FileDAO {
 	public int delete(long id) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public List<File> getAllbyUserId(long userId){
+		String sql = "SELECT * FROM files WHERE id_user = ?";
+		List<File> resultList = queryExecutor.executeQuery(File.class, sql, userId);
+		return  resultList;
 	}
 }

@@ -1,6 +1,7 @@
 package com.epam.lab.view.servlets.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,30 +17,27 @@ import com.epam.lab.controller.services.UserService;
 import com.epam.lab.model.Payment;
 import com.epam.lab.model.User;
 
-@WebServlet("/adminUser")
-public class AdminUserServlet extends HttpServlet {
+@WebServlet("/updateUser")
+public class UpdateAdminUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_USER_JSP = "WEB-INF/jsp/admin/adminUser.jsp";
 	private static final Logger logger = Logger
-			.getLogger(AdminUserServlet.class);
+			.getLogger(UpdateAdminUserServlet.class);
 
-	public AdminUserServlet() {
+	public UpdateAdminUserServlet() {
 		super();
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-//	 int userId =
-//		 Integer.parseInt(request.getParameter("userid"));
+		// int userId =
+		// Integer.parseInt(request.getParameter("userid"));
 		UserService service = new UserService();
-		PaymentService psevrive = new PaymentService();
-
-		User user = service.getUserById(2);
-		List<Payment> list = psevrive.getAllPayByUserId(2);// userId
-
-		request.setAttribute("user", user);
-		request.setAttribute("listPayments", list);
+//		PrintWriter out = response.getWriter();
+//		out.print("hello");
+//		User user = service.getUserById(2);
+//		request.setAttribute("user", user);
 
 		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);
 	}

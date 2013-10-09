@@ -27,15 +27,15 @@ public class AdminUserServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		// int userId =
-		// Integer.parseInt(request.getParameter("userId"));//////get it!!!!
+	 int userId =
+		 Integer.parseInt(request.getParameter("userid"));//////get it!!!!
 		UserService service = new UserService();
 		PaymentService psevrive = new PaymentService();
 
-		User user = service.getUserById(5);// userId
+		User user = service.getUserById(userId);// userId
 		List<Payment> list = psevrive.getAllPayByUserId(3);// userId
 
 		request.setAttribute("user", user);

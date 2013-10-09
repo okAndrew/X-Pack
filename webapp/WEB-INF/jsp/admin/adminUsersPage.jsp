@@ -54,18 +54,18 @@ body {
 						<c:forEach var="user" items="${users}">
 							<tr>
 								<td>${user.id}</td>
-								<td>{user.login}</td>
+								<td>${user.login}</td>
 								<td>${user.email}</td>
 								<td>${user.password}</td>
 								<td>${user.capacity}</td>
 								<td>${user.idTariff}</td>
 								<td>
-							<!-- 		<form action="adminUser" method="post">
+							 		<form action="adminUser" method="post">
 										<input type="text" name="userid" value="${user.id}"
 											hidden="yes"> <input type="submit" value="View more"
 											class="btn btn-default">
 									</form>
-							 -->
+							 
 								</td>
 
 							</tr>

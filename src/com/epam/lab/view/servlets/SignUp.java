@@ -37,6 +37,7 @@ public class SignUp extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
+		String login = request.getParameter("login");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -45,10 +46,10 @@ public class SignUp extends HttpServlet {
 		
 		if (user == null) {
 			UserService userService = new UserService();
-			userService.insertUser(email, password);
+			userService.insertUser(login, email, password);
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("user", email);
+			session.setAttribute("user", login);
 			dispatcher = request.getRequestDispatcher(HOME_JSP);
 		} else {
 			request.setAttribute("message", "User with such email is registered.");

@@ -4,18 +4,17 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.dao.impl.PaymentDAOImpl;
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
-import com.epam.lab.model.Payment;
 import com.epam.lab.model.User;
 
 public class UserService {
 
 	static Logger logger = Logger.getLogger(UserService.class);
 
-	public void insertUser(String email, String password) {
+	public void insertUser(String login, String email, String password) {
 		User user = new User();
 		user.setEmail(email);
+		user.setLogin(login);
 		user.setPassword(password);
 		user.setIdTariff(1);
 		user.setCapacity(0);
@@ -34,7 +33,7 @@ public class UserService {
 		}
 	}
 
-	public List<User> getAllUsers(){
+	public List<User> getAllUsers() {
 		List<User> users = null;
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		users = userDaoImpl.getAll();

@@ -3,9 +3,13 @@ package com.epam.lab.model;
 import com.epam.lab.controller.annotations.TableColumn;
 
 public class User {
+	
 	@TableColumn("id")
 	private long id;
 
+	@TableColumn("login")
+	private String login;
+	
 	@TableColumn("email")
 	private String email;
 
@@ -20,6 +24,27 @@ public class User {
 
 	@TableColumn("token")
 	private String token;
+	
+	public User() {
+	}
+	
+	public User(long id, String login, String email, String password, long tariff, int capacity, String token) {
+		this.id = id;
+		this.login = login;
+		this.email = email;
+		this.password = password;
+		this.idTariff = tariff;
+		this.capacity = capacity;
+		this.token = token;
+	}
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
 	public long getId() {
 		return id;

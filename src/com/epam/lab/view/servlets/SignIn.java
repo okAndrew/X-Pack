@@ -20,7 +20,7 @@ public class SignIn extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String SIGNIN_JSP = "WEB-INF/jsp/signin.jsp";
-	private static final String HOME_JSP = "adminUsersPage";
+	private static final String HOME_JSP = "homepage";
 	static Logger logger = Logger.getLogger(SignIn.class);
 
 	public SignIn() {
@@ -44,7 +44,7 @@ public class SignIn extends HttpServlet {
 		
 		if (user != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("user", user.getEmail());
+			session.setAttribute("user", user.getLogin());
 			dispatcher = request.getRequestDispatcher(HOME_JSP);
 		} else {
 			request.setAttribute("message", "Error! Check you email and password");

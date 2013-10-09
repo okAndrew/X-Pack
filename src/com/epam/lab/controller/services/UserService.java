@@ -46,4 +46,8 @@ public class UserService {
 		return user;
 	}
 
+	public User getUserByEmail(String email) {
+		return new UserDAOImpl().getByEmail(email);
+	}
+
 }

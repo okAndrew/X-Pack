@@ -1,6 +1,6 @@
 package com.epam.lab.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import com.epam.lab.controller.annotations.TableColumn;
 
@@ -15,7 +15,7 @@ public class Payment {
 	private boolean status;
 
 	@TableColumn("date")
-	private Date date;
+	private Timestamp date;
 
 	@TableColumn("id_user")
 	private long idUser;
@@ -50,11 +50,11 @@ public class Payment {
 		return this;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public Payment setDate(Date date) {
+	public Payment setDate(Timestamp date) {
 		this.date = date;
 		return this;
 	}

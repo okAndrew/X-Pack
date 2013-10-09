@@ -20,7 +20,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
+				<li><a href="">Home</a></li>
 			</ul>
 			
 			<div class="navbar-form navbar-right">
@@ -43,7 +43,7 @@
 	  					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Settings</a></li>
+						<li><a href="settings">Settings</a></li>
 						<li class="divider"></li>
 						<li><a href="signout"><fmt:message key="signout" bundle="${lang}" /></a></li>
 					</ul>

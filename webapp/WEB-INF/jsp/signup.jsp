@@ -24,7 +24,7 @@
 		var atpos = email.indexOf("@");
 		var dotpos = email.lastIndexOf(".");
 		
-		errorinfo.style.visibility = "hidden";
+		errorinfo.style.display = "none";
 		
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
 			setMessage("Not a valid e-mail address", errorinfo);
@@ -45,7 +45,7 @@
 	}
 	
 	function setMessage(message, block) {
-		block.style.visibility = "visible";
+		block.style.display = "block";
 		block.innerHTML = message;
 	}
 	</script>
@@ -55,11 +55,8 @@
 	<div class="container">
 		<form action="signup" method="post" class="form-signin" name="form-signin" onsubmit="return validateForm()">
 			<h2 class="form-signin-heading">New to DreamHost? Sign up</h2>
-			<div id="errorinfo" class="errorinfo" style="visibility: hidden;">
+			<div id="errorinfo" class="alert alert-danger" style="display: none;">
 				<c:if test="${message != null}">
-					<script>
-						document.getElementById("errorinfo").style.visibility = "visible";
-					</script>
 					${message}
 				</c:if>
 			</div>

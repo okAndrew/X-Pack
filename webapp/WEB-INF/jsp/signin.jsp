@@ -18,16 +18,21 @@
 		var dotpos = email.lastIndexOf(".");
 		
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
-			alert("Not a valid e-mail address");
+			setMessage("Not a valid e-mail address", errorinfo);
 			return false;
 		}
 		
 		if (p1 == "") {
-	  		alert("Fields cannot be empty");
+			setMessage("Fields cannot be empty", errorinfo);
 	  		return false;
 		}
 		
 		return true;
+	}
+	
+	function setMessage(message, block) {
+		block.style.display = "block";
+		block.innerHTML = message;
 	}
 	</script>
 </head>
@@ -36,6 +41,11 @@
 	<div class="container">
 		<form action="signin" method="post" class="form-signin" name="form-signup" onsubmit="return validateForm()">
 			<h2 class="form-signin-heading">Please sign in</h2>
+			<div id="errorinfo" class="alert alert-danger" style="display: none;">
+				<c:if test="${message != null}">
+					${message}
+				</c:if>
+			</div>
 			<c:if test="${message != null}">
 				<div class="errorinfo">${message}</div>
 			</c:if>

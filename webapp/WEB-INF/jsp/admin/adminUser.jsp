@@ -14,15 +14,16 @@
 <title>Dream Host</title>
 
 <!-- Bootstrap core CSS -->
-<link href="res/css/bootstrap.css" rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="res/css/navbar.css" rel="stylesheet">
-
-<script src="res/js/html5shiv.js"></script>
-<script src="res/js/respond.min.js"></script>
+<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+		type="text/javascript"></script>
+	<script src="res/js/bootstrap.js"></script>
+<link href="res/css/bootstrap.css" rel="stylesheet" />
+<link href="res/css/style.css" rel="stylesheet" />
+<link href="res/css/signui.css" rel="stylesheet" />
 </head>
-
 <body>
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
 	<div class="container">
@@ -55,7 +56,7 @@
 						<tr>
 							<td>Capacity</td>
 							<td><input type="text" placeHolder="Here will be Capacity"
-								value="${user.capacity}" disabled/></td>
+								value="${user.capacity}" disabled /></td>
 						</tr>
 						<tr>
 							<td>Token</td>
@@ -65,23 +66,41 @@
 
 					</tbody>
 				</table>
-				<button class="btn" type="submit" onclick="">Edit</button>
+
+				<button class="btn" type="submit" onclick="#myModal">Edit</button>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
 	</div>
 	<!-- /container -->
 
-	<div class="container">
-		<c:if test="${param.p != null}">
-			<jsp:include page="admin/${param.p}.jsp"></jsp:include>
-		</c:if>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
 	</div>
+	<!-- /.modal -->
+
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="res/js/jquery.js"></script>
-	<script src="res/js/bootstrap.min.js"></script>
+	
 </body>
 </html>

@@ -18,6 +18,7 @@
 	function validateForm() {
 		var p1 = document.forms["form-signin"]["password"].value;
 		var p2 = document.forms["form-signin"]["passwordVerify"].value;
+		var login = document.forms["form-signin"]["login"].value;
 		var email = document.forms["form-signin"]["email"].value;
 		var errorinfo = document.getElementById("errorinfo");
 		var atpos = email.indexOf("@");
@@ -30,7 +31,7 @@
 			return false;
 		}
 		
-		if (p1 == "" || p2 == "") {
+		if (p1 == "" || p2 == "" || login == "") {
 			setMessage("Fields cannot be empty", errorinfo);
 	  		return false;
 		}
@@ -62,10 +63,10 @@
 					${message}
 				</c:if>
 			</div>
-			<input type="text" name="email" class="form-control first" placeholder="Email address" autofocus />
+			<input type="text" name="login" class="form-control first" placeholder="Login" />
+			<input type="text" name="email" class="form-control middle" placeholder="Email address" autofocus />
 			<input type="password" name="password" class="form-control middle" placeholder="Password" />
 			<input type="password" name="passwordVerify" class="form-control last" placeholder="Password" />
-			
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
   		</form>
  </div>

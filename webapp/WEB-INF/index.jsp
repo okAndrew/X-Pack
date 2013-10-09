@@ -9,7 +9,7 @@
 	<title>DreamHost | Home</title>
 	<link href="res/css/bootstrap.css" rel="stylesheet" />
 	<link href="res/css/style.css" rel="stylesheet" />
-	
+	<script src="res/js/bootstrap.js"></script>
 </head>
 <body>
 	<jsp:include page="jsp/menu.jsp"></jsp:include>

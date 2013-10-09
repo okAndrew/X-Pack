@@ -39,7 +39,7 @@
 				<c:if test="${sessionScope.user != null}">
 				<div class="btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						Action <span class="caret"></span>
+						${sessionScope.user} <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">Action</a></li>
@@ -55,7 +55,7 @@
 					</a>
 				</div>
 				</c:if>
-				
+				<!--
 				<a href="locale?language=en_US"><img
 					src="res/img/flags/United-States-Flag-icon.png"></a> <a
 					href="locale?language=uk_UA"><img
@@ -64,6 +64,7 @@
 					src="res/img/flags/France-Flag-icon.png"></a> <a
 					href="locale?language=de_DE"><img
 					src="res/img/flags/Germany-Flag-icon.png"></a>
+				 -->
 			</div>
 		</div>
 	</div>

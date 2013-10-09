@@ -42,17 +42,10 @@
 						${sessionScope.user} <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
+						<li><a href="#">Settings</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
+						<li><a href="signout"><fmt:message key="signout" bundle="${lang}" /></a></li>
 					</ul>
-				</div>
-				<div class="form-group">
-					<a href="signout" class="btn btn-primary">
-						<fmt:message key="signout" bundle="${lang}" />
-					</a>
 				</div>
 				</c:if>
 				<!--

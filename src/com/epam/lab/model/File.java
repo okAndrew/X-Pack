@@ -1,5 +1,6 @@
 package com.epam.lab.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.epam.lab.controller.annotations.TableColumn;
@@ -27,7 +28,7 @@ public class File {
 	private double size;
 
 	@TableColumn("date")
-	private Date date;
+	private Timestamp date;
 
 	@TableColumn("id_user")
 	private long idUser;
@@ -95,11 +96,11 @@ public class File {
 		return this;
 	}
 
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public File setDate(Date date) {
+	public File setDate(Timestamp date) {
 		this.date = date;
 		return this;
 	}

@@ -29,7 +29,7 @@ public class AdminUserInfoServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		UserService service = new UserService();

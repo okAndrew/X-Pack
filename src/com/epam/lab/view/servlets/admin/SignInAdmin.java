@@ -19,7 +19,7 @@ public class SignInAdmin extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String SIGN_IN_ADMIN_JSP = "WEB-INF/jsp/admin/signInAdmin.jsp";
-	private static final String ADMIN_HOME = "adminHome";
+	private static final String ADMIN_HOME = "adminUsersPage";
 	private static final Logger logger = Logger.getLogger(SignInAdmin.class);
 
 	public SignInAdmin() {
@@ -42,7 +42,7 @@ public class SignInAdmin extends HttpServlet {
 
 		if (service.validate(login, password)) {
 			HttpSession session = request.getSession();
-			session.setAttribute(login, login);
+			session.setAttribute("login", login);
 			logger.info("Admin are entering with login...");
 			dispatcher = request.getRequestDispatcher(ADMIN_HOME);
 			dispatcher.forward(request, response);

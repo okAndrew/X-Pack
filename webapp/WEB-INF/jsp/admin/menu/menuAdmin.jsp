@@ -23,10 +23,10 @@
 
 			<c:if test="${sessionScope.login != null}">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="adminUsersPage">Users</a></li>
-					<li class="active"><a href="#">Files</a></li>
-					<li class="active"><a href="#">Tariffs</a></li>
-					<li class="active"><a href="#">Admins</a></li>
+					<li class=""><a href="adminUsersPage">Users</a></li>
+					<li class=""><a href="#">Files</a></li>
+					<li class=""><a href="#">Tariffs</a></li>
+					<li class=""><a href="#">Admins</a></li>
 				</ul>
 			</c:if>
 

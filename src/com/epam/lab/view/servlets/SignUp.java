@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -21,7 +20,7 @@ public class SignUp extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String SIGNUP_JSP = "WEB-INF/jsp/signup.jsp";
-	private static final String HOME_JSP = "WEB-INF/index.jsp";
+	private static final String SIGNIN_JSP = "WEB-INF/jsp/signin.jsp";
 	static Logger logger = Logger.getLogger(SignUp.class.getSimpleName());
 
 	public SignUp() {
@@ -48,9 +47,7 @@ public class SignUp extends HttpServlet {
 			UserService userService = new UserService();
 			userService.insertUser(login, email, password);
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("user", login);
-			dispatcher = request.getRequestDispatcher(HOME_JSP);
+			dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
 		} else {
 			request.setAttribute("message", "User with such email is registered.");
 			dispatcher = request.getRequestDispatcher(SIGNUP_JSP);

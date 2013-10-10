@@ -38,6 +38,7 @@ public class FileUploadServlet extends HttpServlet {
 				ServletFileUpload upload = new ServletFileUpload(
 						new DiskFileItemFactory());
 				List<FileItem> items = upload.parseRequest(request);
+				System.out.println(items.size());
 				FileUploader uploader = new FileUploader(items, user);
 				paths = uploader.run();
 			} catch (FileUploadException e) {

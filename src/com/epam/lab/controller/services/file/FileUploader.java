@@ -32,7 +32,9 @@ public class FileUploader {
 		Iterator<FileItem> iter = items.iterator();
 		List<String> paths = new ArrayList<String>();
 		List<File> files = new ArrayList<File>();
+		System.out.println(items.size());
 		while (iter.hasNext()) {
+			System.out.println("privet1");
 			FileItem item = iter.next();
 			if (item.isFormField()) {
 				if (item.getFieldName().equals("folderId")) {
@@ -45,7 +47,9 @@ public class FileUploader {
 					}
 				}
 			} else if (item.getSize() > 0) {
+				System.out.println("privet");
 				File file = getFile(item);
+				System.out.println(file);
 				java.io.File f = new java.io.File(file.getPath()
 						+ java.io.File.separator + file.getName());
 				try {

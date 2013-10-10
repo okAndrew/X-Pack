@@ -35,8 +35,9 @@ public class AdminUserInfoServlet extends HttpServlet {
 		UserService service = new UserService();
 		PaymentService psevrive = new PaymentService();
 
-		User user = service.getUserById(5);// userId
-		List<Payment> list = psevrive.getAllPayByUserId(3);// userId
+		User user = service.getUserById(2);// userId
+		System.out.println("User"+user);
+		List<Payment> list = psevrive.getAllPayByUserId(2);// userId
 
 		request.setAttribute("user", user);
 		request.setAttribute("listPayments", list);

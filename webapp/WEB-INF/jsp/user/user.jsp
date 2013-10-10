@@ -10,7 +10,8 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="res/js/bootstrap.js"></script> 
 <style type="text/css">
 body {
 	padding-top: 70px;
@@ -25,7 +26,7 @@ body {
 			<li class="active"><a href="#">New Folder</a></li>
 			<li><form method="post" action="upload"
 					enctype="multipart/form-data">
-					<input type="file"> <input type="submit" value="Upload">
+					<input type="file" multiple> <input type="submit" value="Upload">
 				</form>
 			<li>
 				<div class="input-group" style="max-width: 300px;">

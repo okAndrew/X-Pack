@@ -20,7 +20,7 @@ public class SignIn extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String SIGNIN_JSP = "WEB-INF/jsp/signin.jsp";
-	private static final String USER_PAGE = "homepage";
+	private static final String USER_PAGE = "Test";
 	static Logger logger = Logger.getLogger(SignIn.class);
 
 	public SignIn() {

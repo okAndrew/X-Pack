@@ -120,4 +120,12 @@ public abstract class FileService {
 		FileDAOImpl filedaoimp = new FileDAOImpl();
 		filedaoimp.delete(id);
 	}
+
+	public static List<com.epam.lab.model.File> getFiles(long userid,
+			long folderId) {
+		List<com.epam.lab.model.File> files = null;
+		FileDAOImpl filedaoimpl = new FileDAOImpl();
+		files = filedaoimpl.getAllbyUserIdAndFolderId(userid, folderId);
+		return files;
+	}
 }

@@ -3,7 +3,6 @@ package com.epam.lab.controller.services.file;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import com.epam.lab.controller.dao.impl.FileDAOImpl;

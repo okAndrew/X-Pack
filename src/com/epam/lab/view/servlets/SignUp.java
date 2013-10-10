@@ -29,33 +29,39 @@ public class SignUp extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SIGNUP_JSP);
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = request
+				.getRequestDispatcher(SIGNUP_JSP);
 		requestDispatcher.forward(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		String login = request.getParameter("login");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		
+
 		RegistrationService regService = new RegistrationService();
 		User user = regService.checkEmail(email);
-		
+
 		if (user == null) {
 			UserService userService = new UserService();
 			userService.insertUser(login, email, password);
 			user = userService.getUserByEmail(email);
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
+			if (user != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("userid", user.getId());
+			}
 			dispatcher = request.getRequestDispatcher(USER_PAGE);
 		} else {
-			request.setAttribute("message", "User with such email is registered.");
+			request.setAttribute("message",
+					"User with such email is registered.");
 			dispatcher = request.getRequestDispatcher(SIGNUP_JSP);
 		}
-		
+
 		dispatcher.forward(request, response);
 	}
 }

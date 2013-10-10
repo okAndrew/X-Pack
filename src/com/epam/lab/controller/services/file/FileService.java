@@ -5,8 +5,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
+import com.epam.lab.controller.dao.impl.FileDAOImpl;
 
 import org.apache.log4j.Logger;
+
+
 
 public abstract class FileService {
 	private static final Logger logger = Logger.getLogger(FileService.class);
@@ -105,5 +109,15 @@ public abstract class FileService {
 		}
 
 		return newFolder;
+	}
+	public static List<com.epam.lab.model.File> getAllFiles(long iduser){
+		List<com.epam.lab.model.File> files = null;
+		FileDAOImpl filedaoimpl = new FileDAOImpl();
+		files = filedaoimpl.getAllbyUserId(iduser);
+		return files;
+	}
+	public static void deleteFiles(long id){
+		FileDAOImpl filedaoimp = new FileDAOImpl();
+		filedaoimp.delete(id);
 	}
 }

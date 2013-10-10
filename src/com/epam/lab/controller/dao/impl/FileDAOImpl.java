@@ -33,8 +33,9 @@ public class FileDAOImpl implements FileDAO {
 	}
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "DELETE FROM files WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql, id);
+		return result;
 	}
 	public List<File> getAllbyUserId(long userId){
 		String sql = "SELECT * FROM files WHERE id_user = ?";

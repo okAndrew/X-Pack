@@ -22,10 +22,11 @@ body {
 	<div class="container">
 		<ul class="nav nav-pills">
 			<li class="active"><a href="#">New Folder</a></li>
-			<li><form method="post" action="upload" enctype="multipart/form-data">
-				<input type="file">
-				<input type="submit" value = "Upload" >
-			</form><li>
+			<li><form method="post" action="upload"
+					enctype="multipart/form-data">
+					<input type="file"> <input type="submit" value="Upload">
+				</form>
+			<li>
 				<div class="input-group" style="max-width: 300px;">
 					<input type="text" class="form-control"> <span
 						class="input-group-btn">
@@ -35,37 +36,41 @@ body {
 			</li>
 		</ul>
 	</div>
-	<div class="btn-group">
-		<button type="button" class="btn btn-default">Delete</button>
-		<button type="button" class="btn btn-default">Download</button>
-	</div>
-	<h2 id="tables-condensed"></h2>
-	<div class="bs-example" style="max-width: 600px;">
-		<table class="table table-condensed">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>Name</th>
-					<th>Date</th>
-					<th>Size</th>
-					<th>Type</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${files}" var="files">
-					<tr>
-						<td><label class="checkbox-inline"> <input
-								type="checkbox" id="inlineCheckbox2" value="${files.id}">
-						</label></td>
-						<td><c:out value="${files.name}" /></td>
-						<td><c:out value="${files.date}" /></td>
-						<td><c:out value="${files.size}" /></td>
-						<td><c:out value="${files.type}" /></td>
-					</tr>
-				</c:forEach>
+	<form method="post" action="DeleteFile">
+		<div class="btn-group">
 
-			</tbody>
-		</table>
-	</div>
+			<button type="submit" class="btn btn-default" name="Delete">Delete</button>
+			<button type="button" class="btn btn-default" name="Download">Download</button>
+			<div class="errorinfo">${message}</div>
+		</div>
+		<h2 id="tables-condensed"></h2>
+		<div class="bs-example" style="max-width: 600px;">
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Date</th>
+						<th>Size</th>
+						<th>Type</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${files}" var="files">
+						<tr>
+							<td><label class="checkbox-inline"> <input
+									type="checkbox" id="inlineCheckbox2" name="files"
+									value="${files.id}">
+							</label></td>
+							<td><c:out value="${files.name}" /></td>
+							<td><c:out value="${files.date}" /></td>
+							<td><c:out value="${files.size}" /></td>
+							<td><c:out value="${files.type}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+	</form>
 </body>
 </html>

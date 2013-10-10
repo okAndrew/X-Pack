@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.model.File;
-import com.epam.lab.model.User;
 import com.epam.lab.view.servlets.SignUp;
 
 /**
@@ -29,8 +28,8 @@ public class FilePage extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		User user = (User) session.getAttribute("user");
-		List<File> files = FileService.getAllFiles(user.getId());
+		long userid =  (long) session.getAttribute("userid");
+		List<File> files = FileService.getAllFiles(userid);
 		request.setAttribute("files", files);
 		request.getRequestDispatcher(USER_JSP).forward(request, response);
 	}
@@ -38,8 +37,8 @@ public class FilePage extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-		List<File> files = FileService.getAllFiles(user.getId());
+		long userid =  (long) session.getAttribute("userid");
+		List<File> files = FileService.getAllFiles(userid);
 		request.setAttribute("files", files);
 		request.getRequestDispatcher(USER_JSP).forward(request, response);
 	}

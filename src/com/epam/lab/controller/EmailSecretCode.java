@@ -8,17 +8,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epam.lab.controller.services.UserService;
+import com.epam.lab.model.User;
+
 @WebServlet("/EmailSecretCode")
 public class EmailSecretCode extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String to = (String) request.getAttribute("to"); //"savruksergiy@gmail.com";
-		String sub = "sub"; //(String) request.getAttribute("sub"); //"TEST DREAMHOST";
-		String msg = "msg"; //(String) request.getAttribute("msg"); //"This mail is from localhost/dreamhost/";
-		
-		SendMail.send(to, sub, msg);
+	@Override
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		String email = request.getParameter("email");
+
+		UserService userService = new UserService();
+		User user = userService.getUserByEmail(email);
+
+		String code = EmailSecurityCode.getCode(user);
+
+		System.out.println(user);
+
+		SendMail.send(email, "Edit email", code
+				+ "\nPaste this code into form to change your email address.");
 	}
 
 }

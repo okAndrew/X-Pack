@@ -3,14 +3,11 @@ package com.epam.lab.controller.services.file;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import com.epam.lab.controller.dao.impl.FileDAOImpl;
 
 import org.apache.log4j.Logger;
-
-
 
 public abstract class FileService {
 	private static final Logger logger = Logger.getLogger(FileService.class);
@@ -21,9 +18,11 @@ public abstract class FileService {
 	 * return hash md5(time+fileName+userName)
 	 */
 	public static String getFileName(String fileName, String userLogin) {
-		String result = Long.toString(Calendar.getInstance().getTimeInMillis()) + fileName + userLogin;
+		String result = Long.toString(Calendar.getInstance().getTimeInMillis())
+				+ fileName + userLogin;
 		try {
-			result = Arrays.toString(MessageDigest.getInstance("MD5").digest(result.getBytes()));
+			result = MessageDigest.getInstance("MD5").digest(result.getBytes())
+					.toString();
 		} catch (NoSuchAlgorithmException e) {
 			logger.error(e);
 			e.printStackTrace();
@@ -32,7 +31,8 @@ public abstract class FileService {
 	}
 
 	/*
-	 * return current month/year/day String for folder (2013/11/1, 2013/11/2, 2014/1/13 ...)
+	 * return current month/year/day String for folder (2013/11/1, 2013/11/2,
+	 * 2014/1/13 ...)
 	 */
 	private static String getCurDatePath() {
 		Calendar now = Calendar.getInstance();
@@ -110,14 +110,24 @@ public abstract class FileService {
 
 		return newFolder;
 	}
-	public static List<com.epam.lab.model.File> getAllFiles(long iduser){
+
+	public static List<com.epam.lab.model.File> getAllFiles(long iduser) {
 		List<com.epam.lab.model.File> files = null;
 		FileDAOImpl filedaoimpl = new FileDAOImpl();
 		files = filedaoimpl.getAllbyUserId(iduser);
 		return files;
 	}
-	public static void deleteFiles(long id){
+
+	public static void deleteFiles(long id) {
 		FileDAOImpl filedaoimp = new FileDAOImpl();
 		filedaoimp.delete(id);
+	}
+
+	public static List<com.epam.lab.model.File> getFiles(long userid,
+			long folderId) {
+		List<com.epam.lab.model.File> files = null;
+		FileDAOImpl filedaoimpl = new FileDAOImpl();
+		files = filedaoimpl.getAllbyUserIdAndFolderId(userid, folderId);
+		return files;
 	}
 }

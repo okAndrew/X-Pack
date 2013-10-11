@@ -1,4 +1,4 @@
-package com.epam.lab.view.servlets.admin;
+package com.epam.lab.view.servlets.admin.users.simpleuser;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,31 +13,36 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.PaymentService;
+import com.epam.lab.controller.services.UserService;
 import com.epam.lab.model.Payment;
+import com.epam.lab.model.User;
 
-@WebServlet("/adminUserTariffs")
-public class AdminUserTariffsServlet extends HttpServlet {
+@WebServlet("/adminUserInfo")
+public class AdminUserInfoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USER_TARIFFS_JSP = "WEB-INF/jsp/admin/adminUserTariffs.jsp";
+	private static final String ADMIN_USER_INFO_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserInfo.jsp";
 	private static final Logger logger = Logger
-			.getLogger(AdminUserTariffsServlet.class);
+			.getLogger(AdminUserInfoServlet.class);
 
-	public AdminUserTariffsServlet() {
+	public AdminUserInfoServlet() {
 		super();
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		UserService service = new UserService();
 		PaymentService psevrive = new PaymentService();
 
-		List<Payment> list = psevrive.getAllPayByUserId(5);// userId
+		User user = service.getUserById(2);// userId
+		System.out.println("User"+user);
+		List<Payment> list = psevrive.getAllPayByUserId(2);// userId
 
+		request.setAttribute("user", user);
 		request.setAttribute("listPayments", list);
-
 		RequestDispatcher requestDispatcher = request
-				.getRequestDispatcher(ADMIN_USER_TARIFFS_JSP);
+				.getRequestDispatcher(ADMIN_USER_INFO_JSP);
 		requestDispatcher.forward(request, response);
 	}
 

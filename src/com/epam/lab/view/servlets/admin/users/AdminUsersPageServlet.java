@@ -1,4 +1,4 @@
-package com.epam.lab.view.servlets.admin;
+package com.epam.lab.view.servlets.admin.users;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import com.epam.lab.controller.services.UserService;
 @WebServlet("/adminUsersPage")
 public class AdminUsersPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USERS_PAGE_JSP = "WEB-INF/jsp/admin/adminUsersPage.jsp";
+	private static final String ADMIN_USERS_PAGE_JSP = "WEB-INF/jsp/admin/users/adminUsersPage.jsp";
 
 	public AdminUsersPageServlet() {
 		super();

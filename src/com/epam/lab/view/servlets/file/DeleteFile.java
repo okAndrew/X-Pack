@@ -14,7 +14,7 @@ import com.epam.lab.controller.services.file.FileService;
 @WebServlet("/DeleteFile")
 public class DeleteFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String USER_PAGE = "Test";
+	private static final String USER_PAGE = "userpage";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -25,6 +25,7 @@ public class DeleteFile extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		String[] rs = request.getParameterValues("files");
+		String[] rs2 = request.getParameterValues("folders");
 		if (rs != null) {
 			for (int i = 0; i < rs.length; i++) {
 				FileService.deleteFiles(Integer.parseInt(rs[i]));

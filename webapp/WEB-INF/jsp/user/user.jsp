@@ -69,8 +69,6 @@ body {
 							</form> <c:out value="" /></td>
 					</tr>
 				</c:forEach>
-				<form method="post" action="DeleteFile">
-			
 				<c:forEach items="${files}" var="files">
 					<tr>
 						<td><label class="checkbox-inline"> <input
@@ -83,8 +81,9 @@ body {
 						<td><c:out value="${files.type}" /></td>
 					</tr>
 				</c:forEach>
-				<button type="submit" class="btn btn-default" name="Delete">Delete</button>
-		</form>
+				<button type="submit" onclick="delete()" class="btn btn-default"
+					name="Delete">Delete</button>
+
 			</tbody>
 		</table>
 	</div>
@@ -114,5 +113,13 @@ body {
 		</div>
 		<!-- /.modal -->
 	</form>
+
+
+	<script type="text/javascript">
+	function(){
+		
+		
+	}
+	</script>
 </body>
 </html>

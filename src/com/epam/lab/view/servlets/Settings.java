@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.UserService;
 import com.epam.lab.model.User;
@@ -20,7 +21,9 @@ public class Settings extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserService userService = new UserService();
-		Long id = (Long) (request.getSession().getAttribute("userid"));
+		HttpSession session = request.getSession();
+		Object userId = session.getAttribute("userid");
+		Long id = Long.valueOf(userId.toString());
 		User user = userService.getUserById(id);
 		request.setAttribute("user", user);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SETTINGS_JSP);

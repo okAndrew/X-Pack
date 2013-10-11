@@ -1,4 +1,4 @@
-package com.epam.lab.view.servlets.admin;
+package com.epam.lab.view.servlets.admin.users.simpleuser;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 public class AdminUserFilesServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USER_FILES_JSP = "WEB-INF/jsp/admin/adminUserFiles.jsp";
+	private static final String ADMIN_USER_FILES_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserFiles.jsp";
 	private static final Logger logger = Logger.getLogger(AdminUserFilesServlet.class);
 
 	public AdminUserFilesServlet() {

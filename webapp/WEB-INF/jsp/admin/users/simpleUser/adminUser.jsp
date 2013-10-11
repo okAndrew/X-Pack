@@ -40,7 +40,7 @@
 						</tr>
 						<tr>
 							<td>User login</td>
-							<td>Here will be login!!!!</td>
+							<td>${user.login}</td>
 						</tr>
 						<tr>
 							<td>Email</td>
@@ -89,43 +89,36 @@
 										<tr>
 											<td>User id</td>
 											<!-- add placeholder!!!!!! -->
-											<td><input type="text"
-												placeHolder="Here will be id of user..." value="${user.id}"
-												disabled /></td>
+											<td><input type="text" placeHolder="${user.id}" disabled /></td>
 											<td><input type="hidden" name="userId"
 												value="${user.id}"></td>
 										</tr>
 										<tr>
 											<td>Login</td>
-											<td><input type="text"
-												placeHolder="Here will be login!!!!" /></td>
+											<td><input type="text" placeHolder="${user.login}" /></td>
 											<td><input type="hidden" name="userLogin"
 												value="${user.login}"></td>
 										</tr>
 										<tr>
 											<td>Email</td>
-											<td><input type="text" placeHolder="Here will be Email"
-												value="${user.email}" /></td>
+											<td><input type="text" placeHolder="${user.email}" /></td>
 											<td><input type="hidden" name="userEmail"
 												value="${user.email}"></td>
 										</tr>
 										<tr>
 											<td>Tariff</td>
-											<td><input type="text" placeHolder="Here will be Tariff"
-												value="${user.idTariff}" /></td>
+											<td><input type="text" placeHolder="${user.idTariff}" /></td>
 											<td><input type="hidden" name="userIdTariff"
 												value="${user.idTariff}"></td>
 										</tr>
 										<tr>
 											<td>Capacity</td>
-											<td><input type="text"
-												placeHolder="Here will be Capacity" value="${user.capacity}"
+											<td><input type="text" placeHolder="${user.capacity}"
 												disabled /></td>
 										</tr>
 										<tr>
 											<td>Token</td>
-											<td><input type="text" placeHolder="Here will be Token"
-												value="${user.token}" /></td>
+											<td><input type="text" placeHolder="${user.token}" /></td>
 											<td><input type="hidden" name="userToken"
 												value="${user.token}"></td>
 										</tr>
@@ -139,8 +132,9 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<a href="updateUser" type="button" class="btn btn-primary">Save
-						changes</a>
+					<form action="updateUser" method="post">
+						<button type="submit">Save changes</button>
+					</form>
 				</div>
 			</div>
 			<!-- /.modal-content -->

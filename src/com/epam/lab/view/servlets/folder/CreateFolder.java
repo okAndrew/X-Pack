@@ -24,7 +24,7 @@ public class CreateFolder extends HttpServlet {
 		} else {
 			// error message
 		}
-		request.getRequestDispatcher("Test").forward(request, response);
+		request.getRequestDispatcher("userpage").forward(request, response);
 	}
 
 }

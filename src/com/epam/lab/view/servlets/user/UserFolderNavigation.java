@@ -14,7 +14,7 @@ public class UserFolderNavigation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long folderId = Long.valueOf(request.getParameter("folderId"));
 		request.getSession().setAttribute("folderId", folderId);
-		request.getRequestDispatcher("Test").forward(request, response);
+		request.getRequestDispatcher("userpage").forward(request, response);
 	}
 
 }

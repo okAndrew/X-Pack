@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -27,26 +28,19 @@ public class FileUploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		if (ServletFileUpload.isMultipartContent(request)) {
-			User user = null;
-			List<String> paths = null;
-			if (request.getSession(false)!=null) {
-				if (request.getSession(false).getAttribute("user")!=null) {
-					user = (User) request.getSession(false).getAttribute("user");
-				}
-			}
 			try {
+				HttpSession session = request.getSession(false);
+				long userId = (long) session.getAttribute("userid");
 				ServletFileUpload upload = new ServletFileUpload(
 						new DiskFileItemFactory());
 				List<FileItem> items = upload.parseRequest(request);
-				System.out.println(items.size());
-				FileUploader uploader = new FileUploader(items, user);
-				paths = uploader.run();
+				FileUploader uploader = new FileUploader(items, userId);
+				uploader.run();
 			} catch (FileUploadException e) {
 				logger.error(e);
 				e.printStackTrace();
 			}
-			if (user!=null) {
-			}
 		}
+		request.getRequestDispatcher("userpage").forward(request, response);
 	}
 }

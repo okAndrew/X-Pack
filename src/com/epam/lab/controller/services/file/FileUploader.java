@@ -3,7 +3,7 @@ package com.epam.lab.controller.services.file;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.impl.FileDAOImpl;
 import com.epam.lab.controller.dao.impl.FolderDAOImpl;
+import com.epam.lab.controller.dao.impl.UserDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.model.File;
 import com.epam.lab.model.Folder;
@@ -23,18 +24,15 @@ public class FileUploader {
 	private User user = null;
 	private Folder folder = null;
 
-	public FileUploader(List<FileItem> items, User user) {
+	public FileUploader(List<FileItem> items, long userId) {
 		this.items = items;
-		this.user = user;
+		this.user = new UserDAOImpl().get(userId);
 	}
 
-	public List<String> run() {
+	public void run() {
 		Iterator<FileItem> iter = items.iterator();
-		List<String> paths = new ArrayList<String>();
 		List<File> files = new ArrayList<File>();
-		System.out.println(items.size());
 		while (iter.hasNext()) {
-			System.out.println("privet1");
 			FileItem item = iter.next();
 			if (item.isFormField()) {
 				if (item.getFieldName().equals("folderId")) {
@@ -47,9 +45,7 @@ public class FileUploader {
 					}
 				}
 			} else if (item.getSize() > 0) {
-				System.out.println("privet");
 				File file = getFile(item);
-				System.out.println(file);
 				java.io.File f = new java.io.File(file.getPath()
 						+ java.io.File.separator + file.getName());
 				try {
@@ -57,7 +53,6 @@ public class FileUploader {
 				} catch (Exception e) {
 				}
 				files.add(file);
-				paths.add(f.getAbsolutePath());
 			}
 		}
 		if (folder != null) {
@@ -70,7 +65,6 @@ public class FileUploader {
 				new FileDAOImpl().insert(file);
 			}
 		}
-		return paths;
 	}
 
 	private File getFile(FileItem item) {
@@ -88,9 +82,7 @@ public class FileUploader {
 				.setName(fileName)
 				.setPath(filePath)
 				.setType(contentType)
-				.setSize(fileSize)
-				.setDate(
-						new Timestamp(Calendar.getInstance().getTimeInMillis()));
+				.setSize(fileSize);
 		if (user != null) {
 			file.setIdUser(user.getId());
 		}

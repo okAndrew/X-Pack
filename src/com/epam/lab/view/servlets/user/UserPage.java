@@ -21,7 +21,7 @@ import com.epam.lab.view.servlets.SignUp;
 /**
  * Servlet implementation class Test
  */
-@WebServlet("/Test")
+@WebServlet("/userpage")
 public class UserPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String USER_JSP = "WEB-INF/jsp/user/user.jsp";

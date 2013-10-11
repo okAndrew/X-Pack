@@ -7,21 +7,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Sign in</title>
+
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+	type="text/javascript"></script>
+<script src="res/js/bootstrap.js"></script>
+
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+
 <style type="text/css">
-body {
+.Container {
 	padding-top: 70px;
 	max-width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
+	margin: auto;
 }
 </style>
 </head>
 
 <body>
-	<jsp:include page="menu/menuAdmin.jsp"></jsp:include>
+	<jsp:include page="../menu/menuAdmin.jsp"></jsp:include>
 
 	<div class="Container">
 		<!-- Panel -->
@@ -30,17 +38,20 @@ body {
 			<div class="panel-heading">Users</div>
 			<div class="panel-body">
 				<ul class="nav nav-pills">
-					<li class="active"><a href="#">Add</a></li>
+					<li class="active"><a data-toggle="modal" href="#addUserModal">Add</a></li>
 					<li><a href="#">Delete</a></li>
 					<li><a href="#">Sort</a></li>
 				</ul>
 			</div>
+
+			<jsp:include page="addUserModalPage.jsp"></jsp:include>
 
 			<!-- Table -->
 			<c:if test="${users != null}">
 				<table class="table zebra-striped table-hover">
 					<thead>
 						<tr>
+							<th></th>
 							<th>Id</th>
 							<th>Login</th>
 							<th>Email</th>
@@ -53,6 +64,7 @@ body {
 					<tbody>
 						<c:forEach var="user" items="${users}">
 							<tr>
+								<td><input type="checkbox" name="checkUser"></td>
 								<td>${user.id}</td>
 								<td>${user.login}</td>
 								<td>${user.email}</td>
@@ -60,14 +72,13 @@ body {
 								<td>${user.capacity}</td>
 								<td>${user.idTariff}</td>
 								<td>
-							 		<form action="adminUser" method="post">
+									<form action="adminUser" method="post">
 										<input type="text" name="userid" value="${user.id}"
 											hidden="yes"> <input type="submit" value="View more"
 											class="btn btn-default">
 									</form>
-							 
-								</td>
 
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

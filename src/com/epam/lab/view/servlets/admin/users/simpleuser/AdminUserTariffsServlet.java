@@ -1,4 +1,4 @@
-package com.epam.lab.view.servlets.admin;
+package com.epam.lab.view.servlets.admin.users.simpleuser;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +19,7 @@ import com.epam.lab.model.Payment;
 public class AdminUserTariffsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USER_TARIFFS_JSP = "WEB-INF/jsp/admin/adminUserTariffs.jsp";
+	private static final String ADMIN_USER_TARIFFS_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserTariffs.jsp";
 	private static final Logger logger = Logger
 			.getLogger(AdminUserTariffsServlet.class);
 

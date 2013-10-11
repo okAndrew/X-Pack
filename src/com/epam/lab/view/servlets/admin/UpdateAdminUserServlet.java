@@ -31,16 +31,16 @@ public class UpdateAdminUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		int userId = Integer.parseInt(request.getParameter("userId"));
-		String userLogin = request.getParameter("userLogin");
-		String userEmail = request.getParameter("userEmail");
-		int userIdTariff = Integer.parseInt(request.getParameter("userIdTariff"));
-		String userToken = request.getParameter("userToken");
+		int userId = Integer.parseInt(request.getParameter("userIdHidden"));
+		String userLogin = request.getParameter("userLogin");//check
+		String userEmail = request.getParameter("userEmail");//check
+		int userIdTariff = Integer.parseInt(request
+				.getParameter("userIdTariff"));
+		String userToken = request.getParameter("userToken");//check
 
-		UserService service = new UserService();
-		service.updateUser(userId, userLogin, userEmail, userIdTariff,
+		UserService.updateUser(userId, userLogin, userEmail, userIdTariff,
 				userToken);
-		User user = service.getUserById(userId);
+		User user = UserService.getUserById(userId);
 		request.setAttribute("user", user);
 
 		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);

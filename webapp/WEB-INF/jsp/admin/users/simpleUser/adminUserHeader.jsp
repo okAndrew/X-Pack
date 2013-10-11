@@ -48,7 +48,7 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="signInAdmin">To main menu</a></li>
+					<li class="active"><a href="adminUsersPage">To main menu</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -56,12 +56,7 @@
 	</div>
 	<!-- /container -->
 
-	<div class="container">
-		<c:if test="${param.p != null}">
-			<jsp:include page="admin/${param.p}.jsp"></jsp:include>
-		</c:if>
-	</div>
-
+	
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->

@@ -29,13 +29,26 @@
 		<div class="navbar navbar-default">
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="adminUser">Info</a></li>
-					<li><a href="adminUserFiles">Files</a></li>
-					<li><a href="adminUserTariffs">Tariffs</a></li>
+					<li>
+						<form action="adminUserInfo" method="post">
+							<button type="submit">Info</button>
+						</form>
+					</li>
+					<li>
+						<form action="adminUserFiles" method="post">
+							<button type="submit">Files</button>
+						</form>
+					</li>
+					<li>
+						<form action="adminUserPayments" method="post">
+							<button type="submit">Payments</button>
+						</form>
+					</li>
+
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="">To main menu</a></li>
+					<li class="active"><a href="signInAdmin">To main menu</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

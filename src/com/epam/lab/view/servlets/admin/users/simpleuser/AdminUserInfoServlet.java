@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -21,29 +22,22 @@ import com.epam.lab.model.User;
 public class AdminUserInfoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USER_INFO_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserInfo.jsp";
+	private static final String ADMIN_USER_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUser.jsp";
 	private static final Logger logger = Logger
 			.getLogger(AdminUserInfoServlet.class);
-
-	public AdminUserInfoServlet() {
-		super();
-	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		UserService service = new UserService();
-		PaymentService psevrive = new PaymentService();
+		HttpSession session = request.getSession(false);
 
-		User user = service.getUserById(2);// userId
-		System.out.println("User"+user);
-		List<Payment> list = psevrive.getAllPayByUserId(2);// userId
+		int userId = (int) session.getAttribute("userid");
+
+		User user = UserService.getUserById(userId);
 
 		request.setAttribute("user", user);
-		request.setAttribute("listPayments", list);
-		RequestDispatcher requestDispatcher = request
-				.getRequestDispatcher(ADMIN_USER_INFO_JSP);
-		requestDispatcher.forward(request, response);
+
+		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);
 	}
 
 }

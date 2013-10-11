@@ -29,23 +29,7 @@
 		<!-- Static navbar -->
 		<div class="navbar navbar-default">
 			<div class="navbar-collapse collapse">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Tariff</th>
-							<th>Date start</th>
-							<th>Date finish</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Here will be a tariff</td>
-							<td>Here will be date start</td>
-							<td>Here will be date finish, it will be able to change(in
-								SOME cases)</td>
-						</tr>
-					</tbody>
-				</table>
+
 				<table class="table">
 					<thead>
 						<tr>
@@ -59,11 +43,11 @@
 					<tbody>
 						<c:forEach items="${listPayments}" var="payment">
 							<tr>
-								<td>Here will be a payment.id ${payment.id}</td>
-								<td>Here will be Description ${payment.description}</td>
-								<td>Here will be Status ${payment.status}</td>
-								<td>Here will be date ${payment.date}</td>
-								<td>Here will be Avaliable ${payment.available}</td>
+								<td>${payment.id}</td>
+								<td>${payment.description}</td>
+								<td>${payment.status}</td>
+								<td>${payment.date}</td>
+								<td>${payment.available}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

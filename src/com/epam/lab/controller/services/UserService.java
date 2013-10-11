@@ -11,7 +11,7 @@ public class UserService {
 
 	static Logger logger = Logger.getLogger(UserService.class);
 
-	public void insertUser(String login, String email, String password) {
+	public static void insertUser(String login, String email, String password) {
 		User user = new User();
 		user.setEmail(email);
 		user.setLogin(login);
@@ -23,7 +23,7 @@ public class UserService {
 		userDAOImpl.insert(user);
 	}
 
-	public User getUser(String email, String password) {
+	public static User getUser(String email, String password) {
 		User user = null;
 		user = new UserDAOImpl().getByEmail(email);
 		if (user != null && user.getPassword().equals(password)) {
@@ -33,24 +33,24 @@ public class UserService {
 		}
 	}
 
-	public List<User> getAllUsers() {
+	public static List<User> getAllUsers() {
 		List<User> users = null;
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		users = userDaoImpl.getAll();
 		return users;
 	}
 
-	public User getUserById(long id) {
+	public static User getUserById(long id) {
 		User user = null;
 		user = new UserDAOImpl().get(id);
 		return user;
 	}
 
-	public User getUserByEmail(String email) {
+	public static User getUserByEmail(String email) {
 		return new UserDAOImpl().getByEmail(email);
 	}
 	
-	public void updateUser(int userId, String userLogin, String userEmail, int userIdTariff,
+	public static void updateUser(int userId, String userLogin, String userEmail, int userIdTariff,
 			String userToken){
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		int result = userDaoImpl.updateUser(userId, userLogin, userEmail, userIdTariff, userToken);

@@ -24,7 +24,7 @@
 			</ul>
 			
 			<div class="navbar-form navbar-right">
-				<c:if test="${sessionScope.userid == null}">
+				<c:if test="${userid == null}">
 				<div class="form-group">
 					<a href="signup" class="btn btn-primary"><fmt:message
 							key="signup" bundle="${lang}" /></a>
@@ -36,9 +36,9 @@
 				</div>
 				</c:if>
 				
-				<c:if test="${sessionScope.userid != null}">
+				<c:if test="${userid != null}">
 				<div class="btn-group">
-					<button type="button" class="btn btn-default">${sessionScope.userid}</button>
+					<button type="button" class="btn btn-default">${userid}</button>
 	  				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 	  					<span class="caret"></span>
 					</button>

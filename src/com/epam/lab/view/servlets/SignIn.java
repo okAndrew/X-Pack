@@ -45,15 +45,12 @@ public class SignIn extends HttpServlet {
 		if (user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userid", user.getId());
-			dispatcher = request.getRequestDispatcher(USER_PAGE);
-			Object userId = session.getAttribute("userid");
-			System.out.println(userId);
+			response.sendRedirect(USER_PAGE);
 		} else {
 			request.setAttribute("message", "Error! Check you email and password");
 			dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
+			dispatcher.forward(request, response);
 		}
-		
-		dispatcher.forward(request, response);
 	}
 
 }

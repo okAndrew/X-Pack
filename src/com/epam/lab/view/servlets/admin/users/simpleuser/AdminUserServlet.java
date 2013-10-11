@@ -49,13 +49,13 @@ public class AdminUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-	 int userId =
-		 Integer.parseInt(request.getParameter("userid"));//////get it!!!!
+//	 int userId =
+//		 Integer.parseInt(request.getParameter("userid"));
 		UserService service = new UserService();
 		PaymentService psevrive = new PaymentService();
 
-		User user = service.getUserById(userId);// userId
-		List<Payment> list = psevrive.getAllPayByUserId(3);// userId
+		User user = service.getUserById(2);
+		List<Payment> list = psevrive.getAllPayByUserId(2);// userId
 
 		request.setAttribute("user", user);
 		request.setAttribute("listPayments", list);

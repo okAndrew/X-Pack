@@ -22,7 +22,7 @@ public class AdminUserFilesServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request
 				.getRequestDispatcher(ADMIN_USER_FILES_JSP);

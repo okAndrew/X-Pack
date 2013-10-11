@@ -20,11 +20,11 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
+				<li><a href="">Home</a></li>
 			</ul>
 			
 			<div class="navbar-form navbar-right">
-				<c:if test="${sessionScope.user == null}">
+				<c:if test="${userid == null}">
 				<div class="form-group">
 					<a href="signup" class="btn btn-primary"><fmt:message
 							key="signup" bundle="${lang}" /></a>
@@ -36,14 +36,14 @@
 				</div>
 				</c:if>
 				
-				<c:if test="${sessionScope.user != null}">
+				<c:if test="${userid != null}">
 				<div class="btn-group">
-					<button type="button" class="btn btn-default">${sessionScope.user.login}</button>
-	  				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" style="min-height: 34px;">
+					<button type="button" class="btn btn-default">${userid}</button>
+	  				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 	  					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Settings</a></li>
+						<li><a href="settings">Settings</a></li>
 						<li class="divider"></li>
 						<li><a href="signout"><fmt:message key="signout" bundle="${lang}" /></a></li>
 					</ul>

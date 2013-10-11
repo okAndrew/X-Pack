@@ -49,41 +49,34 @@ body {
 	<h2 id="tables-condensed"></h2>
 	<div class="bs-example" style="max-width: 600px;">
 		<table class="table table-condensed">
+
 			<tbody>
 				<c:if test="${currentFolder.idUpper!=0}">
-					<form action="userfoldernav" method="post">
-						<input type="hidden" name="folderId"
-							value="${currentFolder.idUpper}">
-						<button type="submit" class="btn btn-default" name="Up">Up</button>
-					</form>
+					<a href="userfoldernav?folderId=${currentFolder.idUpper}">Up</a>
 				</c:if>
-				<c:forEach items="${folders}" var="folder">
-					<tr>
-						<td><label class="checkbox-inline"> <input
-								type="checkbox" id="inlineCheckbox1" name="folder"
-								value="${folder.id}">
-						</label></td>
-						<td><form action="userfoldernav" method="post">
-								<input type="hidden" name="folderId" value="${folder.id}">
-								<button type="submit" class="btn btn-link" name="folder">${folder.name}</button>
-							</form> <c:out value="" /></td>
-					</tr>
-				</c:forEach>
-				<c:forEach items="${files}" var="files">
-					<tr>
-						<td><label class="checkbox-inline"> <input
-								type="checkbox" id="inlineCheckbox2" name="files"
-								value="${files.id}">
-						</label></td>
-						<td><c:out value="${files.nameIncome}" /></td>
-						<td><c:out value="${files.date}" /></td>
-						<td><c:out value="${files.size}" /></td>
-						<td><c:out value="${files.type}" /></td>
-					</tr>
-				</c:forEach>
-				<button type="submit" onclick="delete()" class="btn btn-default"
-					name="Delete">Delete</button>
+				<form action="DeleteFile" method="get">
+					<c:forEach items="${folders}" var="folder">
+						<tr>
+							<td><label class="checkbox-inline"> <input
+									type="checkbox" name="folders" value="${folder.id}">
+							</label></td>
+							<td><a href="userfoldernav?folderId=${folder.id}">${folder.name}</a>
+						</tr>
+					</c:forEach>
+					<c:forEach items="${files}" var="file">
+						<tr>
 
+							<td><label class="checkbox-inline"> <input
+									type="checkbox" name="files" value="${file.id}">
+							</label></td>
+							<td><c:out value="${file.nameIncome}" /></td>
+							<td><c:out value="${file.date}" /></td>
+							<td><c:out value="${file.size}" /></td>
+							<td><c:out value="${file.type}" /></td>
+						</tr>
+					</c:forEach>
+					<button type="submit" class="btn btn-default">Delete</button>
+				</form>
 			</tbody>
 		</table>
 	</div>
@@ -113,13 +106,5 @@ body {
 		</div>
 		<!-- /.modal -->
 	</form>
-
-
-	<script type="text/javascript">
-	function(){
-		
-		
-	}
-	</script>
 </body>
 </html>

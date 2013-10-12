@@ -13,7 +13,7 @@
 	<c:if test="${sessionScope.sessLocale == null}">
 		<fmt:setLocale value="<%=l%>" scope="session" />
 	</c:if>
-	<fmt:setBundle basename="com.epam.lab.resources.messages" var="lang"
+	<fmt:setBundle basename="locale.messages" var="lang"
 		scope="session" />
 	<div class="container">
 		<div class="navbar-header">

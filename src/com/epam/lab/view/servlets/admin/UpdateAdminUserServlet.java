@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,7 @@ import com.epam.lab.model.User;
 @WebServlet("/updateUser")
 public class UpdateAdminUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USER_JSP = "WEB-INF/jsp/admin/adminUser.jsp";
+	private static final String ADMIN_USER_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUser.jsp";
 	private static final Logger logger = Logger
 			.getLogger(UpdateAdminUserServlet.class);
 
@@ -30,17 +31,17 @@ public class UpdateAdminUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		int userId = Integer.parseInt(request.getParameter("userIdHidden"));
-		String userLogin = request.getParameter("userLogin");//check
-		String userEmail = request.getParameter("userEmail");//check
+		int userId = Integer.parseInt(request.getParameter("userIdHolder"));
+		String userLogin = request.getParameter("userLogin");// check
+		String userEmail = request.getParameter("userEmail");// check
 		int userIdTariff = Integer.parseInt(request
 				.getParameter("userIdTariff"));
-		String userToken = request.getParameter("userToken");//check
+		String userToken = request.getParameter("userToken");// check
 
 		UserService.updateUser(userId, userLogin, userEmail, userIdTariff,
 				userToken);
 		User user = UserService.getUserById(userId);
+
 		request.setAttribute("user", user);
 
 		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);

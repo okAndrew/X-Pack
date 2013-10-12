@@ -51,16 +51,13 @@ public class AdminUserServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
-		PaymentService psevrive = new PaymentService();
 
 		int userId = Integer.parseInt(request.getParameter("userid"));
 		session.setAttribute("userid", userId);
 
 		User user = UserService.getUserById(userId);
-		List<Payment> list = psevrive.getAllPayByUserId(userId);// userId
 
 		request.setAttribute("user", user);
-		request.setAttribute("listPayments", list);
 
 		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);
 	}

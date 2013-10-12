@@ -5,6 +5,8 @@
 		formToSubmit.submit();
 	}
 </script>
+
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -20,57 +22,48 @@
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-							<table class="table">
-								<tbody>
-									<tr>
-										<td>User id</td>
-										<!-- add placeholder!!!!!! -->
-										<td><input type="text" id="userIdHolder"
-											placeHolder="${user.id}" disabled /></td>
-										<td><input type="hidden" name="userIdHidden"
-											id="hiddenId" value="${user.id}" /></td>
-									</tr>
-									<tr>
-										<td>Login</td>
-										<td><input type="text" id="loginHolder"
-											placeHolder="${user.login}"
-											onchange="getPlaceHolder('loginHolder', 'hiddenLogin')" /></td>
-										<td><input type="hidden" id="hiddenLogin"
-											name="userLogin" value="${user.login}"></td>
-									</tr>
-									<tr>
-										<td>Email</td>
-										<td><input type="text" id="emailHolder"
-											placeHolder="${user.email}"
-											onchange="getPlaceHolder('emailHolder', 'hiddenEmail')" /></td>
-										<td><input type="hidden" id="hiddenEmail"
-											name="userEmail" value="${user.email}"></td>
-									</tr>
-									<tr>
-										<td>Tariff</td>
-										<td><input type="text" id="tariffHolder"
-											placeHolder="${user.idTariff}"
-											onchange="getPlaceHolder('tariffHolder', 'hiddenTariff')" /></td>
-										<td><input type="hidden" id="hiddenTariff"
-											name="userIdTariff" value="${user.idTariff}"></td>
-									</tr>
-									<tr>
-										<td>Capacity</td>
-										<td><input type="text" placeHolder="${user.capacity}"
-											disabled /></td>
-									</tr>
-									<tr>
-										<td>Token</td>
-										<td><input type="text" id="tokenHolder"
-											placeHolder="${user.token}"
-											onchange="getPlaceHolder('tokenHolder', 'hiddenToken')" /></td>
-										<td><input type="hidden" id="hiddenToken"
-											name="userToken" value="${user.token}"></td>
-									</tr>
-
-								</tbody>
-							</table>
 							<form action="updateUser" method="post">
+								<table class="table">
+									<tbody>
+										<tr>
+											<td>User id</td>
+											<!-- add placeholder!!!!!! -->
+											<td><input type="text" name="userIdHolder"
+												class="form-control first" value="${user.id}"
+												autofocus="autofocus"></td>
+										</tr>
+										<tr>
+											<td>Login</td>
+											<td><input type="text" name="userLogin"
+												class="form-control first" value="${user.login}"
+												autofocus="autofocus"></td>
+										</tr>
+										<tr>
+											<td>Email</td>
+											<td><input type="text" name="userEmail"
+												class="form-control first" value="${user.email}"
+												autofocus="autofocus"></td>
+										</tr>
+										<tr>
+											<td>Tariff</td>
+											<td><input type="text" name="userIdTariff"
+												class="form-control first" value="${user.idTariff}"
+												autofocus="autofocus"></td>
+										</tr>
+										<tr>
+											<td>Capacity</td>
+											<td><input type="text" placeHolder="${user.capacity}"
+												disabled /></td>
+										</tr>
+										<tr>
+											<td>Token</td>
+											<td><input type="text" name="userToken"
+												class="form-control first" value="${user.token}"
+												autofocus="autofocus"></td>
+										</tr>
+									</tbody>
+								</table>
+
 								<button type="submit" class="btn btn-default">Save
 									changes</button>
 							</form>

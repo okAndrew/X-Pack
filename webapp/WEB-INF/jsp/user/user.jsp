@@ -10,7 +10,8 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <style type="text/css">
 body {
@@ -23,57 +24,59 @@ body {
 	<div class="container">
 		<div class="btn-toolbar">
 			<div class="btn-group">
-				<a data-toggle="modal" role="button" class="btn btn-primary" href="#createFolderModal">Create Folder</a>
+				<a data-toggle="modal" role="button" class="btn btn-primary"
+					href="#createFolderModal">Create Folder</a>
 			</div>
 			<div class="btn-group">
-				<a data-toggle="modal" role="button" class="btn btn-primary" href="#uploadFormModal">Upload</a>
+				<a data-toggle="modal" role="button" class="btn btn-primary"
+					href="#uploadFormModal">Upload</a>
 			</div>
 			<div class="btn-group pull-right">
 				<div class="input-group" style="width: 300px;">
-					<input type="text" class="form-control">
+					<input name="searchtext" type="text" class="form-control">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">Search</button>
 					</span>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="btn-group">
-		<button type="button" class="btn btn-default" name="Download">Download</button>
-	</div>
-	<h2 id="tables-condensed"></h2>
-	<div class="bs-example" style="max-width: 600px;">
-		<table class="table table-condensed">
 
-			<tbody>
-				<c:if test="${currentFolder.idUpper!=0}">
-					<a href="userfoldernav?folderId=${currentFolder.idUpper}">Up</a>
-				</c:if>
-				<form action="DeleteFile" method="get">
-					<c:forEach items="${folders}" var="folder">
-						<tr>
-							<td><label class="checkbox-inline"> <input
-									type="checkbox" name="folders" value="${folder.id}">
-							</label></td>
-							<td><a href="userfoldernav?folderId=${folder.id}">${folder.name}</a>
-						</tr>
-					</c:forEach>
-					<c:forEach items="${files}" var="file">
-						<tr>
+		<div class="bs-example">
+			<form action="downloadfiles" method="get">
+			<button type="submit" class="btn btn-default">Download</button>
+				<table class="table table-condensed table-hover table-bordered">
+					<tbody>
+						<c:if test="${currentFolder.idUpper!=0}">
+							<a href="userfoldernav?folderId=${currentFolder.idUpper}">Up</a>
+						</c:if>
+						<!-- 				<form action="deletefile" method="get"> -->
 
-							<td><label class="checkbox-inline"> <input
-									type="checkbox" name="files" value="${file.id}">
-							</label></td>
-							<td><c:out value="${file.nameIncome}" /></td>
-							<td><c:out value="${file.date}" /></td>
-							<td><c:out value="${file.size}" /></td>
-							<td><c:out value="${file.type}" /></td>
-						</tr>
-					</c:forEach>
-					<button type="submit" class="btn btn-default">Delete</button>
-				</form>
-			</tbody>
-		</table>
+						<c:forEach items="${folders}" var="folder">
+							<tr>
+								<td><label class="checkbox-inline"> <input
+										type="checkbox" name="folders" value="${folder.id}">
+								</label></td>
+								<td><a href="userfoldernav?folderId=${folder.id}">${folder.name}</a>
+							</tr>
+						</c:forEach>
+						<c:forEach items="${files}" var="file">
+							<tr>
+
+								<td><label class="checkbox-inline"> <input
+										type="checkbox" name="files" value="${file.id}">
+								</label></td>
+								<td><a href="downloadfile?fileId=${file.id}">${file.nameIncome}</a></td>
+								<td><c:out value="${file.date}" /></td>
+								<td><c:out value="${file.size}" /></td>
+								<td><c:out value="${file.type}" /></td>
+							</tr>
+						</c:forEach>
+						<!-- 					<button type="submit" class="btn btn-default">Delete</button> -->
+					</tbody>
+				</table>
+			</form>
+		</div>
+
 	</div>
 
 	<form action="createfolder" method="post">
@@ -98,7 +101,7 @@ body {
 			</div>
 		</div>
 	</form>
-	
+
 	<form method="post" action="upload" enctype="multipart/form-data">
 		<div class="modal fade" id="uploadFormModal" tabindex="-1"
 			role="dialog" aria-labelledby="uploadFormModalLabel"

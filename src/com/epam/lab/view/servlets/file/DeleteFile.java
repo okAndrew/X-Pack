@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
 
-@WebServlet("/DeleteFile")
+@WebServlet("/deletefile")
 public class DeleteFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String USER_PAGE = "userpage";
@@ -35,13 +35,14 @@ public class DeleteFile extends HttpServlet {
 				FolderService.delete(Integer.parseInt(rs2[i]), userId);
 			}
 		}
-		if (rs == null && rs2 == null) {
-			request.setAttribute("message",
-					"Error! Please select files to delete");
-			dispatcher = request.getRequestDispatcher(USER_PAGE);
-		}
-
-		dispatcher = request.getRequestDispatcher(USER_PAGE);
-		dispatcher.forward(request, response);
+//		if (rs == null && rs2 == null) {
+//			request.setAttribute("message",
+//					"Error! Please select files to delete");
+//			dispatcher = request.getRequestDispatcher(USER_PAGE);
+//		}
+		
+		response.sendRedirect(USER_PAGE);
+//		dispatcher = request.getRequestDispatcher(USER_PAGE);
+//		dispatcher.forward(request, response);
 	}
 }

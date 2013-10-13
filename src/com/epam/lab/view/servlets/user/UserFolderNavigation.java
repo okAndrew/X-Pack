@@ -6,15 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/userfoldernav")
 public class UserFolderNavigation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String USER_PAGE = "userpage";
        
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long folderId = Long.valueOf(request.getParameter("folderId"));
-		request.getSession().setAttribute("folderId", folderId);
-		request.getRequestDispatcher("userpage").forward(request, response);
+		HttpSession session = request.getSession(false);
+		session.setAttribute("folderId", folderId);
+		response.sendRedirect(USER_PAGE);
 	}
 
 }

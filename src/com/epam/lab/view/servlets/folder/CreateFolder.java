@@ -13,6 +13,7 @@ import com.epam.lab.controller.services.folder.FolderService;
 @WebServlet("/createfolder")
 public class CreateFolder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String USER_PAGE = "userpage";
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -24,7 +25,7 @@ public class CreateFolder extends HttpServlet {
 		} else {
 			// error message
 		}
-		request.getRequestDispatcher("userpage").forward(request, response);
+		response.sendRedirect(USER_PAGE);
 	}
 
 }

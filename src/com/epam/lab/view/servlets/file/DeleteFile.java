@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.controller.services.folder.FolderService;
 
 @WebServlet("/DeleteFile")
 public class DeleteFile extends HttpServlet {
@@ -18,11 +19,6 @@ public class DeleteFile extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		String[] rs = request.getParameterValues("files");
 		String[] rs2 = request.getParameterValues("folders");
@@ -30,13 +26,19 @@ public class DeleteFile extends HttpServlet {
 			for (int i = 0; i < rs.length; i++) {
 				FileService.deleteFiles(Integer.parseInt(rs[i]));
 			}
-			dispatcher = request.getRequestDispatcher(USER_PAGE);
-		} else {
+		}
+		if (rs2 != null) {
+			for (int i = 0; i < rs2.length; i++) {
+				FolderService.delete(Integer.parseInt(rs2[i]));
+			}
+		}
+		if (rs == null && rs2 == null) {
 			request.setAttribute("message",
 					"Error! Please select files to delete");
 			dispatcher = request.getRequestDispatcher(USER_PAGE);
 		}
+
+		dispatcher = request.getRequestDispatcher(USER_PAGE);
 		dispatcher.forward(request, response);
 	}
-
 }

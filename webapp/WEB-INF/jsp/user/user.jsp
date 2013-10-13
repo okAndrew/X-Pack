@@ -10,8 +10,7 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <style type="text/css">
 body {
@@ -21,27 +20,23 @@ body {
 </head>
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>
-<body>
 	<div class="container">
-		<ul class="nav nav-pills">
-			<li class="active"><a data-toggle="modal"
-				href="#createFolderModal" class="btn btn-primary btn-lg">Create
-					Folder</a></li>
-			<li><form method="post" action="upload"
-					enctype="multipart/form-data">
-					<input type="hidden" name="folderId" value="${currentFolder.id}">
-					<input type="file" multiple name="fileName"> <input
-						type="submit" value="Upload">
-				</form>
-			<li>
-				<div class="input-group" style="max-width: 300px;">
-					<input type="text" class="form-control"> <span
-						class="input-group-btn">
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a data-toggle="modal" role="button" class="btn btn-primary" href="#createFolderModal">Create Folder</a>
+			</div>
+			<div class="btn-group">
+				<a data-toggle="modal" role="button" class="btn btn-primary" href="#uploadFormModal">Upload</a>
+			</div>
+			<div class="btn-group pull-right">
+				<div class="input-group" style="width: 300px;">
+					<input type="text" class="form-control">
+					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">Search</button>
 					</span>
 				</div>
-			</li>
-		</ul>
+			</div>
+		</div>
 	</div>
 	<div class="btn-group">
 		<button type="button" class="btn btn-default" name="Download">Download</button>
@@ -100,11 +95,32 @@ body {
 						<button type="submit" class="btn btn-primary">Create</button>
 					</div>
 				</div>
-				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal -->
+	</form>
+	
+	<form method="post" action="upload" enctype="multipart/form-data">
+		<div class="modal fade" id="uploadFormModal" tabindex="-1"
+			role="dialog" aria-labelledby="uploadFormModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Upload Files</h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="folderId" value="${currentFolder.id}">
+						<input type="file" multiple name="fileName">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Upload</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</form>
 </body>
 </html>

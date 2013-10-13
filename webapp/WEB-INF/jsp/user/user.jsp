@@ -33,17 +33,19 @@ body {
 			</div>
 			<div class="btn-group pull-right">
 				<div class="input-group" style="width: 300px;">
-					<input name="searchtext" type="text" class="form-control">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">Search</button>
-					</span>
+					<form action="search" method="post">
+						<input name="searchtext" type="text" class="form-control">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">Search</button>
+						</span>
+					</form>
 				</div>
 			</div>
 		</div>
 
 		<div class="bs-example">
 			<form action="downloadfiles" method="get">
-			<button type="submit" class="btn btn-default">Download</button>
+				<button type="submit" class="btn btn-default">Download</button>
 				<table class="table table-condensed table-hover table-bordered">
 					<tbody>
 						<c:if test="${currentFolder.idUpper!=0}">

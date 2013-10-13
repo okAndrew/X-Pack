@@ -2,7 +2,10 @@ package com.epam.lab.controller.services.folder;
 
 import java.util.List;
 
+import com.epam.lab.controller.dao.impl.FileDAOImpl;
 import com.epam.lab.controller.dao.impl.FolderDAOImpl;
+import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.model.File;
 import com.epam.lab.model.Folder;
 
 
@@ -34,8 +37,16 @@ public class FolderService {
 		folderDao.insert(folder);
 	}
 
-	public static void delete(long id) {
+	public static void delete(long id, long userId) {
 		FolderDAOImpl dao = new FolderDAOImpl();
+		List<File> files = new FileDAOImpl().getAllbyUserIdAndFolderId(userId, id);
+		for (File file: files) {
+			FileService.delete(file.getId());
+		}
+		List<Folder> folders = dao.getAllbyUserIdAndUpperId(userId, id);
+		for (Folder folder: folders) {
+			FolderService.delete(folder.getId(), userId);
+		}
 		dao.delete(id);
 	}
 

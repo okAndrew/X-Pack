@@ -118,9 +118,12 @@ public abstract class FileService {
 		return files;
 	}
 
-	public static void deleteFiles(long id) {
+	public static void delete(long id) {
 		FileDAOImpl filedaoimp = new FileDAOImpl();
+		File file = new File(filedaoimp.get(id).getPath() + File.separator + filedaoimp.get(id).getName());
+		file.delete();
 		filedaoimp.delete(id);
+		
 	}
 
 	public static List<com.epam.lab.model.File> getFiles(long userid,

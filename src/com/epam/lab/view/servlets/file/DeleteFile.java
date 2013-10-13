@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
@@ -20,16 +21,18 @@ public class DeleteFile extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
+		HttpSession session = request.getSession(false);
+		long userId = (long) session.getAttribute("userid");
 		String[] rs = request.getParameterValues("files");
 		String[] rs2 = request.getParameterValues("folders");
 		if (rs != null) {
 			for (int i = 0; i < rs.length; i++) {
-				FileService.deleteFiles(Integer.parseInt(rs[i]));
+				FileService.delete(Integer.parseInt(rs[i]));
 			}
 		}
 		if (rs2 != null) {
 			for (int i = 0; i < rs2.length; i++) {
-				FolderService.delete(Integer.parseInt(rs2[i]));
+				FolderService.delete(Integer.parseInt(rs2[i]), userId);
 			}
 		}
 		if (rs == null && rs2 == null) {

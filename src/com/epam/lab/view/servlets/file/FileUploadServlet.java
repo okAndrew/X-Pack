@@ -17,13 +17,13 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.file.FileUploader;
-import com.epam.lab.model.User;
 
 @WebServlet("/upload")
 public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger
 			.getLogger(FileUploadServlet.class);
+	private static final String USER_PAGE = "userpage";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -41,6 +41,6 @@ public class FileUploadServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("userpage").forward(request, response);
+		response.sendRedirect(USER_PAGE);
 	}
 }

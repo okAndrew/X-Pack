@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.RegistrationService;
+import com.epam.lab.controller.RegistrationService;
 
 @WebServlet("/signup")
 public class SignUp extends HttpServlet {
@@ -43,7 +43,8 @@ public class SignUp extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		validError = RegistrationService.regUser(login, email, password);
+		RegistrationService registrationService = new RegistrationService();
+		validError = registrationService.regUser(login, email, password);
 		
 		if (validError == null) {
 			dispatcher = request.getRequestDispatcher(SIGNIN_JSP);

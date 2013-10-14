@@ -1,17 +1,23 @@
 package com.epam.lab.controller.services.file;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 import com.epam.lab.controller.dao.impl.FileDAOImpl;
 
 import org.apache.log4j.Logger;
 
 public abstract class FileService {
 	private static final Logger logger = Logger.getLogger(FileService.class);
-	public static final String ROOT_PATH = "D:/files/";
+	public static final String ROOT_PATH = "E:/files/";
 	public static final int MAX_FILES = 999;
 
 	/*
@@ -118,9 +124,13 @@ public abstract class FileService {
 		return files;
 	}
 
-	public static void deleteFiles(long id) {
+	public static void delete(long id) {
 		FileDAOImpl filedaoimp = new FileDAOImpl();
+		File file = new File(filedaoimp.get(id).getPath() + File.separator
+				+ filedaoimp.get(id).getName());
+		file.delete();
 		filedaoimp.delete(id);
+
 	}
 
 	public static List<com.epam.lab.model.File> getFiles(long userid,
@@ -130,4 +140,37 @@ public abstract class FileService {
 		files = filedaoimpl.getAllbyUserIdAndFolderId(userid, folderId);
 		return files;
 	}
+
+	public static com.epam.lab.model.File getFileById(long fileId) {
+		return new FileDAOImpl().get(fileId);
+	}
+
+	public static String getArchivePath(String[] ids) {
+		String zipPath = ROOT_PATH + "tmp.zip";
+		try {
+			ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipPath));
+			for (int i = 0; i < ids.length; i++) {
+				long id = Long.parseLong(ids[i]);
+				FileDAOImpl dao = new FileDAOImpl();
+				com.epam.lab.model.File f = dao.get(id);
+				String path = f.getPath() + File.separator
+						+ f.getName();
+				FileInputStream in = new FileInputStream(path);
+				System.out.println(f.getNameIncome());
+				out.putNextEntry(new ZipEntry(f.getNameIncome()));
+				byte[] b = new byte[1024];
+				int count;
+				while ((count = in.read(b)) > 0) {
+					out.write(b, 0, count);
+				}
+				in.close();
+			}
+			out.close();
+		} catch (IOException e) {
+			logger.error(e);
+			e.printStackTrace();
+		}
+		return zipPath;
+	}
+
 }

@@ -2,14 +2,16 @@ package com.epam.lab.controller.services.folder;
 
 import java.util.List;
 
+import com.epam.lab.controller.dao.impl.FileDAOImpl;
 import com.epam.lab.controller.dao.impl.FolderDAOImpl;
+import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.model.File;
 import com.epam.lab.model.Folder;
-
 
 public class FolderService {
 	private static final String ROOT_NAME = "root";
 
-	public static List<Folder> getFolders(long iduser, long idFolder){
+	public static List<Folder> getFolders(long iduser, long idFolder) {
 		List<Folder> folders = null;
 		FolderDAOImpl foldersdaoimpl = new FolderDAOImpl();
 		folders = foldersdaoimpl.getAllbyUserIdAndUpperId(iduser, idFolder);
@@ -34,8 +36,17 @@ public class FolderService {
 		folderDao.insert(folder);
 	}
 
-	public static void delete(long id) {
+	public static void delete(long id, long userId) {
 		FolderDAOImpl dao = new FolderDAOImpl();
+		List<File> files = new FileDAOImpl().getAllbyUserIdAndFolderId(userId,
+				id);
+		for (File file : files) {
+			FileService.delete(file.getId());
+		}
+		List<Folder> folders = dao.getAllbyUserIdAndUpperId(userId, id);
+		for (Folder folder : folders) {
+			FolderService.delete(folder.getId(), userId);
+		}
 		dao.delete(id);
 	}
 
@@ -46,10 +57,15 @@ public class FolderService {
 	public static boolean isFolderExist(long upperId, String folderName) {
 		FolderDAOImpl dao = new FolderDAOImpl();
 		Folder folder = dao.getFolderByNameAndUpperId(upperId, folderName);
-		if (folder==null) {
+		if (folder == null) {
 			return false;
 		} else {
 			return true;
 		}
+	}
+
+	public static List<Folder> getAllFolders(long userId) {
+		FolderDAOImpl dao = new FolderDAOImpl();
+		return dao.getAllbyUserId(userId);
 	}
 }

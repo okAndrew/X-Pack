@@ -21,64 +21,68 @@ body {
 </head>
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>
-<body>
 	<div class="container">
-		<ul class="nav nav-pills">
-			<li class="active"><a data-toggle="modal"
-				href="#createFolderModal" class="btn btn-primary btn-lg">Create
-					Folder</a></li>
-			<li><form method="post" action="upload"
-					enctype="multipart/form-data">
-					<input type="hidden" name="folderId" value="${currentFolder.id}">
-					<input type="file" multiple name="fileName"> <input
-						type="submit" value="Upload">
-				</form>
-			<li>
-				<div class="input-group" style="max-width: 300px;">
-					<input type="text" class="form-control"> <span
-						class="input-group-btn">
-						<button class="btn btn-default" type="button">Search</button>
-					</span>
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<a data-toggle="modal" role="button" class="btn btn-primary"
+					href="#createFolderModal">Create Folder</a>
+			</div>
+			<div class="btn-group">
+				<a data-toggle="modal" role="button" class="btn btn-primary"
+					href="#uploadFormModal">Upload</a>
+			</div>
+			<div class="btn-group pull-right">
+				<div class="input-group" style="width: 300px;">
+					<form action="search" method="post">
+						<input name="searchtext" type="text" class="form-control">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">Search</button>
+						</span>
+					</form>
 				</div>
-			</li>
-		</ul>
-	</div>
-	<div class="btn-group">
-		<button type="button" class="btn btn-default" name="Download">Download</button>
-	</div>
-	<h2 id="tables-condensed"></h2>
-	<div class="bs-example" style="max-width: 600px;">
-		<table class="table table-condensed">
+			</div>
+		</div>
 
-			<tbody>
-				<c:if test="${currentFolder.idUpper!=0}">
-					<a href="userfoldernav?folderId=${currentFolder.idUpper}">Up</a>
-				</c:if>
-				<form action="DeleteFile" method="get">
-					<c:forEach items="${folders}" var="folder">
-						<tr>
-							<td><label class="checkbox-inline"> <input
-									type="checkbox" name="folders" value="${folder.id}">
-							</label></td>
-							<td><a href="userfoldernav?folderId=${folder.id}">${folder.name}</a>
-						</tr>
-					</c:forEach>
-					<c:forEach items="${files}" var="file">
-						<tr>
+		<div class="bs-example">
+			<form action="deletefile" method="post">
+				<input type="hidden" name="folders" id="folders" />
+				<input type="hidden" name="files" id="files" />
+				<button type="submit" onclick="displayResult()" name="delete" class="btn btn-default">Delete</button>
+			</form>
 
-							<td><label class="checkbox-inline"> <input
-									type="checkbox" name="files" value="${file.id}">
-							</label></td>
-							<td><c:out value="${file.nameIncome}" /></td>
-							<td><c:out value="${file.date}" /></td>
-							<td><c:out value="${file.size}" /></td>
-							<td><c:out value="${file.type}" /></td>
-						</tr>
-					</c:forEach>
-					<button type="submit" class="btn btn-default">Delete</button>
-				</form>
-			</tbody>
-		</table>
+			<form action="downloadfiles" method="post">
+				<button type="submit" class="btn btn-default">Download</button>
+				
+				<table class="table table-condensed table-hover table-bordered">
+					<tbody>
+						<c:if test="${currentFolder.idUpper!=0}">
+							<a href="userfoldernav?folderId=${currentFolder.idUpper}">Up</a>
+						</c:if>
+						<c:forEach items="${folders}" var="folder">
+							<tr>
+								<td><label class="checkbox-inline"> <input
+										type="checkbox" name="folders" value="${folder.id}">
+								</label></td>
+								<td><a href="userfoldernav?folderId=${folder.id}">${folder.name}</a>
+							</tr>
+						</c:forEach>
+						<c:forEach items="${files}" var="file">
+							<tr>
+
+								<td><label class="checkbox-inline"> <input
+										type="checkbox" name="files" value="${file.id}">
+								</label></td>
+								<td><a href="downloadfile?fileId=${file.id}">${file.nameIncome}</a></td>
+								<td><c:out value="${file.date}" /></td>
+								<td><c:out value="${file.size}" /></td>
+								<td><c:out value="${file.type}" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</form>
+		</div>
+
 	</div>
 
 	<form action="createfolder" method="post">
@@ -100,11 +104,58 @@ body {
 						<button type="submit" class="btn btn-primary">Create</button>
 					</div>
 				</div>
-				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal -->
 	</form>
+
+	<form method="post" action="upload" enctype="multipart/form-data">
+		<div class="modal fade" id="uploadFormModal" tabindex="-1"
+			role="dialog" aria-labelledby="uploadFormModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Upload Files</h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="folderId" value="${currentFolder.id}">
+						<input type="file" multiple name="fileName">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Upload</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+			<script>
+				function getCheckedBoxes(chkboxName) {
+					var checkboxes = document.getElementsByName(chkboxName);
+					var checkboxesChecked = [];
+					// loop over them all
+					for ( var i = 0; i < checkboxes.length; i++) {
+						// And stick the checked ones onto an array...
+						if (checkboxes[i].checked) {
+							checkboxesChecked.push(checkboxes[i].value);
+						}
+					}
+					// Return the array if it is non-empty, or null
+					return checkboxesChecked.length > 0 ? checkboxesChecked
+							: null;
+				}
+
+				function displayResult() {
+
+					var checkedBoxes = getCheckedBoxes("folders");
+					 document.getElementById('folders').value = checkedBoxes;
+					 var checkedBoxes = getCheckedBoxes("files");
+					 document.getElementById('files').value = checkedBoxes;
+				}
+			</script>
+
 </body>
 </html>

@@ -19,7 +19,7 @@ import com.epam.lab.controller.services.file.FileService;
 public class FilesDownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] rs = request.getParameterValues("files");
 		String zipPath = FileService.getArchivePath(rs);
 		

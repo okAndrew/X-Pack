@@ -44,15 +44,20 @@ body {
 		</div>
 
 		<div class="bs-example">
-			<form action="downloadfiles" method="get">
+			<form action="deletefile" method="post">
+				<input type="hidden" name="folders" id="folders" />
+				<input type="hidden" name="files" id="files" />
+				<button type="submit" onclick="displayResult()" name="delete" class="btn btn-default">Delete</button>
+			</form>
+
+			<form action="downloadfiles" method="post">
 				<button type="submit" class="btn btn-default">Download</button>
+				
 				<table class="table table-condensed table-hover table-bordered">
 					<tbody>
 						<c:if test="${currentFolder.idUpper!=0}">
 							<a href="userfoldernav?folderId=${currentFolder.idUpper}">Up</a>
 						</c:if>
-						<!-- 				<form action="deletefile" method="get"> -->
-
 						<c:forEach items="${folders}" var="folder">
 							<tr>
 								<td><label class="checkbox-inline"> <input
@@ -73,7 +78,6 @@ body {
 								<td><c:out value="${file.type}" /></td>
 							</tr>
 						</c:forEach>
-						<!-- 					<button type="submit" class="btn btn-default">Delete</button> -->
 					</tbody>
 				</table>
 			</form>
@@ -127,5 +131,31 @@ body {
 			</div>
 		</div>
 	</form>
+
+			<script>
+				function getCheckedBoxes(chkboxName) {
+					var checkboxes = document.getElementsByName(chkboxName);
+					var checkboxesChecked = [];
+					// loop over them all
+					for ( var i = 0; i < checkboxes.length; i++) {
+						// And stick the checked ones onto an array...
+						if (checkboxes[i].checked) {
+							checkboxesChecked.push(checkboxes[i].value);
+						}
+					}
+					// Return the array if it is non-empty, or null
+					return checkboxesChecked.length > 0 ? checkboxesChecked
+							: null;
+				}
+
+				function displayResult() {
+
+					var checkedBoxes = getCheckedBoxes("folders");
+					 document.getElementById('folders').value = checkedBoxes;
+					 var checkedBoxes = getCheckedBoxes("files");
+					 document.getElementById('files').value = checkedBoxes;
+				}
+			</script>
+
 </body>
 </html>

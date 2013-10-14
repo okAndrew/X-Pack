@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
+import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.model.User;
 
 public class UserService {
@@ -55,6 +57,18 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		int result = userDaoImpl.updateUser(userId, userLogin, userEmail, userIdTariff, userToken);
 		logger.info("User with id "+userId+" is updated. Number of updated rows: "+ result);
+	}
+	public void deleteFilesAndFolders(String [] rs, String [] rs2, long userId){
+		if (rs != null && !rs[0].equals("")) {
+			for (int i = 0; i < rs.length; i++) {
+				FileService.delete(Long.parseLong(rs[i]));
+			}
+		}
+		if (rs2 != null && !rs2[0].equals("")) {
+			for (int i = 0; i < rs2.length; i++) {
+				FolderService.delete(Long.parseLong(rs2[i]), userId);
+			}
+		}
 	}
 
 }

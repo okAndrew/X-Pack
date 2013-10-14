@@ -13,7 +13,7 @@ public class UserService {
 
 	static Logger logger = Logger.getLogger(UserService.class);
 
-	public void insertUser(String login, String email, String password) {
+	public void addUser(String login, String email, String password) {
 		User user = new User();
 		user.setEmail(email);
 		user.setLogin(login);
@@ -52,15 +52,16 @@ public class UserService {
 		return new UserDAOImpl().getByEmail(email);
 	}
 
-	public void updateUser(int userId, String userLogin, String userEmail, int userIdTariff,
-			String userToken){
+	public void updateUser(int userId, String userLogin, String userEmail,
+			int userIdTariff, String userToken) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		int result = userDaoImpl.updateUser(userId, userLogin, userEmail,
 				userIdTariff, userToken);
 		logger.info("User with id " + userId
 				+ " is updated. Number of updated rows: " + result);
 	}
-	public void deleteFilesAndFolders(String [] rs, String [] rs2, long userId){
+
+	public void deleteFilesAndFolders(String[] rs, String[] rs2, long userId) {
 		if (rs != null && !rs[0].equals("")) {
 			for (int i = 0; i < rs.length; i++) {
 				FileService.delete(Long.parseLong(rs[i]));

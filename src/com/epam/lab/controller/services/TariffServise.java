@@ -14,7 +14,7 @@ public class TariffServise {
 		return tariffDao.getAll();
 	}
 
-	public void insert(String name, Integer maxCapacity){
+	public void addTariff(String name, Integer maxCapacity){
 		Tariff tariff = new Tariff();
 		tariff.setName(name);
 		tariff.setMaxCapacity(maxCapacity);

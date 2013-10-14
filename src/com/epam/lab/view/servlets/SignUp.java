@@ -43,7 +43,8 @@ public class SignUp extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		validError = RegistrationService.regUser(login, email, password);
+		RegistrationService registrationService = new RegistrationService();
+		validError = registrationService.regUser(login, email, password);
 		
 		if (validError == null) {
 			dispatcher = request.getRequestDispatcher(SIGNIN_JSP);

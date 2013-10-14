@@ -38,9 +38,10 @@ public class UpdateAdminUserServlet extends HttpServlet {
 				.getParameter("userIdTariff"));
 		String userToken = request.getParameter("userToken");// check
 
-		UserService.updateUser(userId, userLogin, userEmail, userIdTariff,
+		UserService userService = new UserService();
+		userService.updateUser(userId, userLogin, userEmail, userIdTariff,
 				userToken);
-		User user = UserService.getUserById(userId);
+		User user = userService.getUserById(userId);
 
 		request.setAttribute("user", user);
 

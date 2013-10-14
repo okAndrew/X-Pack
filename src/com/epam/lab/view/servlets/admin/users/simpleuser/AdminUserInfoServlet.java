@@ -33,7 +33,8 @@ public class AdminUserInfoServlet extends HttpServlet {
 
 		int userId = (int) session.getAttribute("userid");
 
-		User user = UserService.getUserById(userId);
+		UserService userService = new UserService();
+		User user = userService.getUserById(userId);
 
 		request.setAttribute("user", user);
 

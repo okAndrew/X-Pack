@@ -7,4 +7,9 @@ public interface UserDAO extends GenericDAO<User> {
 
 	int updateUser(int userId, String userLogin, String userEmail,
 			int userIdTariff, String userToken);
+	
+	int activateUser(int id);
+	
+	int activateUser(User user);
+	
 }

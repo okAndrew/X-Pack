@@ -8,3 +8,19 @@ body {
 .admin-user-header{
 	padding: 20px 1px 1px 1px;
 }
+.user-info {
+	padding-top: 70px;
+	max-width: 800px;
+	margin: auto;
+}
+.files-admin-user
+{
+	padding-top: 70px;
+	max-width: 1200px;
+	margin: auto;
+}
+.payments-admin-user{
+	padding-top: 70px;
+	max-width: 1000px;
+	margin: auto;
+}

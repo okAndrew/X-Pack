@@ -22,18 +22,72 @@
 
 <script src="res/js/html5shiv.js"></script>
 <script src="res/js/respond.min.js"></script>
+<link
+	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 </head>
 
 <body>
-	<jsp:include page="../../menu/menuAdmin.jsp"></jsp:include>
-	<div class="admin-user-header"><jsp:include
-			page="adminUserHeader.jsp"></jsp:include></div>
-	<div class="container">
-		<!-- Static navbar -->
-		<div class="navbar navbar-default">
-			<div class="navbar-collapse collapse">
+	<script type="text/javascript"
+		src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+		
+	</script>
+	<script type="text/javascript"
+		src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+		
+	</script>
+	<script type="text/javascript"
+		src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+		
+	</script>
+	<script type="text/javascript"
+		src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+		
+	</script>
 
-				<table class="table">
+	<script type="text/javascript">
+		$(function() {
+			$('#datetimepicker4').datetimepicker({
+				pickTime : false
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$('#datetimepicker5').datetimepicker({
+				pickTime : false
+
+			})
+		});
+	</script>
+	<jsp:include page="adminUserHeader.jsp"></jsp:include>
+	<div class="payments-admin-user">
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading">Payments</div>
+			<h2 id="tables-condensed"></h2>
+			<form action="adminUserDeleteFile" method="post">
+				<div class="panel-body">
+					<a href="#">Show payments for period</a>
+					<div class="well">
+						<div id="datetimepicker4" class="input-append">
+							<input data-format="yyyy-MM-dd" type="text"></input> <span
+								class="add-on"> <i data-time-icon="icon-time"
+								data-date-icon="icon-calendar"> </i>
+							</span>
+						</div>
+						<div id="datetimepicker5" class="input-append">
+							<input data-format="yyyy-MM-dd" type="text"></input> <span
+								class="add-on"> <i data-time-icon="icon-time"
+								data-date-icon="icon-calendar"> </i>
+							</span>
+						</div>
+					</div>
+
+				</div>
+				<table class="table table-condensed">
 					<thead>
 						<tr>
 							<th>Payment id</th>
@@ -55,17 +109,12 @@
 						</c:forEach>
 					</tbody>
 				</table>
-			</div>
-			<!--/.nav-collapse -->
+			</form>
 		</div>
 	</div>
-	<!-- /container -->
-
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="res/js/jquery.js"></script>
-	<script src="res/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+

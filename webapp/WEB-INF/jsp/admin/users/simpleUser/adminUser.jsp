@@ -24,58 +24,58 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+
 </head>
 <body>
-	<jsp:include page="../../menu/menuAdmin.jsp"></jsp:include>
-	<div class="admin-user-header"><jsp:include
-			page="adminUserHeader.jsp"></jsp:include></div>
-	<div class="container">
-		<!-- Static navbar -->
-		<div class="navbar navbar-default">
-			<div class="navbar-collapse collapse">
-				<table class="table">
-					<tbody>
-						<tr>
-							<td>User id</td>
-							<!-- add placeholder!!!!!! -->
-							<td>${user.id}</td>
-						</tr>
-						<tr>
-							<td>User login</td>
-							<td>${user.login}</td>
-						</tr>
-						<tr>
-							<td>Email</td>
-							<td>${user.email}</td>
-						</tr>
-						<tr>
-							<td>Tariff</td>
-							<td>${user.idTariff}</td>
-						</tr>
-						<tr>
-							<td>Capacity</td>
-							<td>${user.capacity}</td>
-						</tr>
-						<tr>
-							<td>Token</td>
-							<td>${user.token}</td>
-						</tr>
+	<jsp:include page="adminUserHeader.jsp"></jsp:include>
+	<div class="user-info">
+		<!-- Panel -->
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading">User info</div>
+			<form action="deleteUsers" method="post" id="#deleteusers">
+				<div class="panel-body">
+					<!-- Table -->
 
-					</tbody>
-				</table>
+					<table class="table zebra-striped table-hover">
+						<tbody>
+							<tr>
+								<td>User id</td>
+								<!-- add placeholder!!!!!! -->
+								<td>${user.id}</td>
+							</tr>
+							<tr>
+								<td>User login</td>
+								<td>${user.login}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>${user.email}</td>
+							</tr>
+							<tr>
+								<td>Tariff</td>
+								<td>${user.idTariff}</td>
+							</tr>
+							<tr>
+								<td>Capacity</td>
+								<td>${user.capacity}</td>
+							</tr>
+							<tr>
+								<td>Token</td>
+								<td>${user.token}</td>
+							</tr>
+						</tbody>
+					</table>
 
-				<a data-toggle="modal" href="#myModal">Edit</a>
-			</div>
+					<ul class="nav nav-pills">
+						<li><a data-toggle="modal" href="#myModal">Edit</a></li>
+					</ul>
 
-			<!--/.nav-collapse -->
+				</div>
+			</form>
 		</div>
 		<jsp:include page="modalAdminUser.jsp"></jsp:include>
 	</div>
-	<!-- /container -->
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
 
 </body>
 </html>

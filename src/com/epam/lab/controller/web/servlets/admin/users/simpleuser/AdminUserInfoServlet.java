@@ -26,7 +26,7 @@ public class AdminUserInfoServlet extends HttpServlet {
 	private static final Logger logger = Logger
 			.getLogger(AdminUserInfoServlet.class);
 
-	protected void doPost(HttpServletRequest request,
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		UserService us = new UserService();
 		HttpSession session = request.getSession(false);

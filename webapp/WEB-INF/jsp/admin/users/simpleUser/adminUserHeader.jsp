@@ -1,66 +1,63 @@
-<%@page import="com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="shortcut icon" href="images/favicon.png">
+<%@ page import="java.util.Locale "%>
 
-<title>Dream Host</title>
+<div class="navbar navbar-fixed-top navbar-inverse">
+	<%
+		Locale l = request.getLocale();
+		Object s = session.getAttribute("sessLocale");
+	%>
 
-<!-- Bootstrap core CSS -->
-<link href="res/css/bootstrap.css" rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="res/css/navbar.css" rel="stylesheet">
-
-<script src="res/js/html5shiv.js"></script>
-<script src="res/js/respond.min.js"></script>
-</head>
-
-<body>
+	<fmt:setLocale value="<%=s%>" scope="session" />
+	<c:if test="${sessionScope.sessLocale == null}">
+		<fmt:setLocale value="<%=l%>" scope="session" />
+	</c:if>
+	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
-		<!-- Static navbar -->
-		<div class="navbar navbar-default">
-			<div class="navbar-collapse collapse">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="homepage">DreamHost</a>
+		</div>
+		<div class="collapse navbar-collapse">
+
+			<c:if test="${sessionScope.login != null}">
 				<ul class="nav navbar-nav">
-					<li>
-						<form action="adminUserInfo" method="post">
-							<button type="submit">Info</button>
-						</form>
-					</li>
-					<li>
-						<form action="adminUserFiles" method="post">
-							<button type="submit">Files</button>
-						</form>
-					</li>
-					<li>
-						<form action="adminUserPayments" method="post">
-							<button type="submit">Payments</button>
-						</form>
-					</li>
-
+					<li class=""><a href="adminUserInfo">Info</a></li>
+					<li class=""><a href="adminUserFiles">Files</a></li>
+					<li class=""><a href="adminUserPayments">Payments</a></li>
 				</ul>
-
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="adminUsersPage">To main menu</a></li>
 				</ul>
+			</c:if>
+
+			<div class="navbar-form navbar-right">
+				<c:if test="${sessionScope.login == null}">
+					<div class="form-group">
+						<a href="signInAdmin" class="btn btn-success"><fmt:message
+								key="signin" bundle="${lang}" /></a>
+					</div>
+				</c:if>
+
+				<c:if test="${sessionScope.login != null}">
+					<div class="form-group">
+						<a href="signInAdmin" class="btn btn-success"> <fmt:message
+								key="signout" bundle="${lang}" />
+						</a>
+					</div>
+				</c:if>
+
+				<a href="locale?language=en_US"><img
+					src="res/img/flags/United-States-Flag-icon.png"></a> <a
+					href="locale?language=uk_UA"><img
+					src="res/img/flags/Ukraine-Flag-icon.png"></a> <a
+					href="locale?language=fr_FR"><img
+					src="res/img/flags/France-Flag-icon.png"></a> <a
+					href="locale?language=de_DE"><img
+					src="res/img/flags/Germany-Flag-icon.png"></a>
 			</div>
-			<!--/.nav-collapse -->
 		</div>
 	</div>
-	<!-- /container -->
+</div>
 
-	
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="res/js/jquery.js"></script>
-	<script src="res/js/bootstrap.min.js"></script>
-</body>
-</html>
+

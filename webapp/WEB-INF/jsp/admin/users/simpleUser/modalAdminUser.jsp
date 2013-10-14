@@ -40,7 +40,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Modal title</h4>
+				<h4 class="modal-title">Update user</h4>
 			</div>
 
 			<div class="modal-body">
@@ -75,12 +75,12 @@
 											<td>Tariff</td>
 											<td><input type="text" name="userIdTariff"
 												class="form-control first" value="${user.idTariff}"
-												autofocus="autofocus"></td>
+												autofocus="autofocus" readonly></td>
 										</tr>
 										<tr>
 											<td>Capacity</td>
 											<td><input type="text" class="form-control first"
-												placeHolder="${user.capacity}" autofocus="autofocus"
+												value="${user.capacity}" autofocus="autofocus"
 												disabled></td>
 										</tr>
 										<tr>
@@ -92,7 +92,7 @@
 									</tbody>
 								</table>
 
-								<button type="submit" class="btn btn-default">Save
+								<button type="submit" class="btn btn-primary">Save
 									changes</button>
 							</form>
 						</div>

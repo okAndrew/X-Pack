@@ -28,7 +28,7 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doPost(HttpServletRequest request,
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 

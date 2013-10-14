@@ -26,10 +26,9 @@
 
 </head>
 <body>
-	<jsp:include page="../../menu/menuAdmin.jsp"></jsp:include>
-	<div class="admin-user-header"><jsp:include page="adminUserHeader.jsp"></jsp:include></div>
+	<jsp:include page="adminUserHeader.jsp"></jsp:include>
 
-	<div class="container">
+	<div class="files-admin-user">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">Files</div>
@@ -71,6 +70,7 @@
 								<td><c:out value="${file.date}" /></td>
 								<td><c:out value="${file.size}" /></td>
 								<td><c:out value="${file.type}" /></td>
+								<td><c:out value="${file.path}" /></td>
 							</tr>
 						</c:forEach>
 
@@ -82,7 +82,7 @@
 		</div>
 	</div>
 
-
+<!-- Don't need this -->
 	<div class="bs-example" style="max-width: 600px;"></div>
 	<!-- Don't need this? -->
 	<form action="createfolder" method="post">

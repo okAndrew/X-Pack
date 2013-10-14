@@ -70,12 +70,14 @@ public class UserDAOImpl implements UserDAO {
 	public int activateUser(int id) {
 		UserService userService = new UserService();
 		User user = userService.getUserById(id);
-		return 0;
+		return activateUser(user);
 	}
 
 	@Override
 	public int activateUser(User user) {
-		return 0;
+		String sql = "UPDATE users SET is_activated = 1 WHERE id = ?";
+		int result = queryExecutor.executeUpdate(sql, user.getId());
+		return result;
 	}
 	
 }

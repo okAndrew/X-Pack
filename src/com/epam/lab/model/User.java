@@ -25,6 +25,9 @@ public class User {
 	@TableColumn("token")
 	private String token;
 	
+	@TableColumn("is_activated")
+	private boolean isActivated;
+	
 	public User() {
 	}
 	
@@ -98,6 +101,14 @@ public class User {
 	public User setToken(String token) {
 		this.token = token;
 		return this;
+	}
+	
+	public boolean isActivated() {
+		return isActivated;
+	}
+
+	public void setActivated(boolean isActivated) {
+		this.isActivated = isActivated;
 	}
 
 	@Override

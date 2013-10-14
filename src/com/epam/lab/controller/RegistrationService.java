@@ -1,8 +1,9 @@
-package com.epam.lab.controller.services;
+package com.epam.lab.controller;
 
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
+import com.epam.lab.controller.services.UserService;
 import com.epam.lab.model.User;
 
 public class RegistrationService {

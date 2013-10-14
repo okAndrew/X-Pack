@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.RegistrationService;
+import com.epam.lab.controller.RegistrationService;
 
 @WebServlet("/signup")
 public class SignUp extends HttpServlet {

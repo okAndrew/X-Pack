@@ -34,7 +34,7 @@ public class AdminUserServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 
-		int userId = Integer.parseInt(request.getParameter("userid"));
+		long userId = Long.parseLong(request.getParameter("userid"));
 		session.setAttribute("userid", userId);
 
 		UserService userService = new UserService();

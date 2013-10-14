@@ -1,4 +1,4 @@
-package com.epam.lab.controller.services;
+package com.epam.lab.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -13,6 +13,8 @@ public class ActivationService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userEmail = request.getParameter("email");
+		String code = request.getParameter("code");
 	}
 
 }

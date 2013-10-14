@@ -18,13 +18,16 @@
 
 <!-- Custom styles for this template -->
 <link href="res/css/navbar.css" rel="stylesheet">
+<link href="res/css/style.css" rel="stylesheet" />
 
 <script src="res/js/html5shiv.js"></script>
 <script src="res/js/respond.min.js"></script>
 </head>
 
 <body>
-	<jsp:include page="adminUserHeader.jsp"></jsp:include>
+	<jsp:include page="../../menu/menuAdmin.jsp"></jsp:include>
+	<div class="admin-user-header"><jsp:include
+			page="adminUserHeader.jsp"></jsp:include></div>
 	<div class="container">
 		<!-- Static navbar -->
 		<div class="navbar navbar-default">
@@ -58,11 +61,6 @@
 	</div>
 	<!-- /container -->
 
-	<div class="container">
-		<c:if test="${param.p != null}">
-			<jsp:include page="admin/${param.p}.jsp"></jsp:include>
-		</c:if>
-	</div>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->

@@ -28,13 +28,12 @@ public class AdminUserInfoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		UserService us = new UserService();
 		HttpSession session = request.getSession(false);
 
-		int userId = (int) session.getAttribute("userid");
+		long userId = (long) session.getAttribute("userid");
 
-		UserService userService = new UserService();
-		User user = userService.getUserById(userId);
+		User user = us.getUserById(userId);
 
 		request.setAttribute("user", user);
 

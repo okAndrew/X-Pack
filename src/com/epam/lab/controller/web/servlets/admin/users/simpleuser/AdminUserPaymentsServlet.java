@@ -14,9 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.PaymentService;
-import com.epam.lab.controller.services.UserService;
 import com.epam.lab.model.Payment;
-import com.epam.lab.model.User;
 
 @WebServlet("/adminUserPayments")
 public class AdminUserPaymentsServlet extends HttpServlet {
@@ -36,7 +34,7 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 
 		PaymentService psevrive = new PaymentService();
 
-		List<Payment> list = psevrive.getAllPayByUserId((int) session
+		List<Payment> list = psevrive.getAllPayByUserId((long) session
 				.getAttribute("userid"));
 
 		request.setAttribute("listPayments", list);

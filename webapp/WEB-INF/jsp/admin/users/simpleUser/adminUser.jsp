@@ -26,7 +26,9 @@
 <link href="res/css/signui.css" rel="stylesheet" />
 </head>
 <body>
-	<jsp:include page="adminUserHeader.jsp"></jsp:include>
+	<jsp:include page="../../menu/menuAdmin.jsp"></jsp:include>
+	<div class="admin-user-header"><jsp:include
+			page="adminUserHeader.jsp"></jsp:include></div>
 	<div class="container">
 		<!-- Static navbar -->
 		<div class="navbar navbar-default">
@@ -64,7 +66,7 @@
 
 				<a data-toggle="modal" href="#myModal">Edit</a>
 			</div>
-			
+
 			<!--/.nav-collapse -->
 		</div>
 		<jsp:include page="modalAdminUser.jsp"></jsp:include>

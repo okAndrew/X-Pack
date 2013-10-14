@@ -9,23 +9,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
+import com.epam.lab.controller.services.RegistrationService;
 import com.epam.lab.controller.services.UserService;
 
 @WebServlet("/addUser")
 public class AddUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADD_USER_MODAL_JSP = "WEB-INF/jsp/admin/users/addUserModalPage.jsp";
-	private static final String HOME_USERS_PAGE = "WEB-INF/jsp/admin/users/addUserModalPage.jsp";
-
+	private static final String HOME_USERS_PAGE = "adminUsersPage";
+	private static Logger logger = Logger.getLogger(AddUser.class);
+	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher(HOME_USERS_PAGE);
-		UserService service = new UserService();
-		String login = request.getParameter("loginUser");
+		RequestDispatcher dispatcher = null;
+		String errorMessage = null;
+		RegistrationService service = new RegistrationService();
+		String login = request.getParameter("login");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		service.insertUser(login, email, password);
+		errorMessage = service.regUser(login, email, password);
+		if (errorMessage == null) {
+			dispatcher = request.getRequestDispatcher(HOME_USERS_PAGE);
+			logger.info("user by email" + email + "add to databases");
+		} else {
+			request.setAttribute("message", errorMessage);
+			dispatcher = request.getRequestDispatcher(ADD_USER_MODAL_JSP);
+			logger.error("user by email" + email + "had error to create acount");
+		}
 		dispatcher.forward(request, response);
 	}
 }

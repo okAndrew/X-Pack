@@ -24,27 +24,9 @@ public class AdminUserServlet extends HttpServlet {
 	private static final Logger logger = Logger
 			.getLogger(AdminUserServlet.class);
 
-	public AdminUserServlet() {
-		super();
-	}
-
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// HttpSession session = request.getSession(false);
-		//
-		// int userId = Integer.parseInt(request.getParameter("userid"));
-		// session.setAttribute("userid", userId);
-		// UserService service = new UserService();
-		// PaymentService psevrive = new PaymentService();
-		//
-		// User user = service.getUserById(userId);// userId
-		// List<Payment> list = psevrive.getAllPayByUserId(userId);// userId
-		//
-		// request.setAttribute("user", user);
-		// request.setAttribute("listPayments", list);
-		//
-		// request.getRequestDispatcher(ADMIN_USER_JSP).forward(request,
-		// response);
+			doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,

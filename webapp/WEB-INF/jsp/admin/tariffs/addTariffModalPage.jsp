@@ -1,20 +1,20 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="addTariffModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Add new user</h4>
+				<h4 class="modal-title">Add new tariff</h4>
 			</div>
 			<div class="modal-body">
 				<div class="container">
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-							<form action="addUser" method="post">
+							<form action="addTariff" method="post">
 								<div id="errorinfo" class="alert alert-danger"
 									style="display: none;">
 									<c:if test="${message != null}">
@@ -24,33 +24,21 @@
 								<table class="table">
 									<tbody>
 										<tr>
-											<td>Login</td>
-											<td><input type="text" name="login"
-												class="form-control first" placeholder="Login"
+											<td>Name</td>
+											<td><input type="text" name="name"
+												class="form-control first" placeholder="name"
 												autofocus="autofocus" /></td>
 										</tr>
 
 										<tr>
-											<td>Email</td>
-											<td><input type="email" name="email"
-												class="form-control midle" placeholder="Email" /></td>
-										</tr>
-
-										<tr>
-											<td>Password</td>
-											<td><input type="text" name="password"
-												class="form-control midle" placeholder="Password" /></td>
-										</tr>
-
-										<tr>
-											<td>Repeat password</td>
-											<td><input type="text" name="passwordVerify"
-												class="form-control last" placeholder="Password" /></td>
+											<td>Max Capacity</td>
+											<td><input type="text" name="maxCapacity"
+												class="form-control last" placeholder="Max Capacity" /></td>
 										</tr>
 									</tbody>
 								</table>
-								<button type="submit" class="btn btn-primary">Add new
-									user</button>
+								<button type="submit" class="btn btn-primary" name="action" value="addTariff">Add new
+									tariff</button>
 							</form>
 						</div>
 						<!--/.nav-collapse -->

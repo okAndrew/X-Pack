@@ -1,10 +1,7 @@
 package com.epam.lab.view.servlets.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.PaymentService;
 import com.epam.lab.controller.services.UserService;
-import com.epam.lab.model.Payment;
 import com.epam.lab.model.User;
 
 @WebServlet("/updateUser")

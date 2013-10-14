@@ -7,41 +7,40 @@ import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
 import com.epam.lab.model.Tariff;
 
 public class TariffDAOImpl implements TariffDAO {
+
 	private DBQueryExecutor<Tariff> queryExecutor = new DBQueryExecutor<Tariff>();
-	
-	public static final String INSERT_VALUES = "INSERT INTO tariffs(name, max_capacity) VALUES (?,?) ";
-	public static final String DELETE_VALUES = "DELETE FROM tariffs WHERE id=?";
-	public static final String SELECT_VALUES = "SELECT id, name, max_capacity FROM tariffs";
-	public static final String SELECT_VALUES_BY_ID = "SELECT id, name, max_capacity FROM tariffs WHERE id=?";
 
 	@Override
 	public Tariff get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM tariffs WHERE id=?";
+		Tariff tariff = queryExecutor.executeQuerySingle(Tariff.class, sql, id);
+		return tariff;
 	}
 
 	@Override
 	public List<Tariff> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM tariffs";
+		List<Tariff> tariffs = queryExecutor.executeQuery(Tariff.class, sql);
+		return tariffs;
 	}
 
 	@Override
 	public int insert(Tariff object) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "INSERT INTO tariffs(name, max_capacity) VALUES(?,?)";
+		return queryExecutor.executeUpdate(sql, object.getName(),
+				object.getMaxCapacity());
 	}
 
 	@Override
 	public int update(Tariff object) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "UPDATE tariffs SET name=? max_capacity=? WHERE id=?";
+		return queryExecutor.executeUpdate(sql, object.getName(),
+				object.getMaxCapacity(), object.getId());
 	}
 
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "DELETE FROM tariffs WHERE id=?";
+		return queryExecutor.executeUpdate(sql, id);
 	}
-
 }

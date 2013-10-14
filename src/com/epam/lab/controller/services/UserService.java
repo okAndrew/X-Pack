@@ -49,12 +49,30 @@ public class UserService {
 	public static User getUserByEmail(String email) {
 		return new UserDAOImpl().getByEmail(email);
 	}
-	
-	public static void updateUser(int userId, String userLogin, String userEmail, int userIdTariff,
-			String userToken){
+
+	public static void updateUser(int userId, String userLogin,
+			String userEmail, int userIdTariff, String userToken) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(userId, userLogin, userEmail, userIdTariff, userToken);
-		logger.info("User with id "+userId+" is updated. Number of updated rows: "+ result);
+		int result = userDaoImpl.updateUser(userId, userLogin, userEmail,
+				userIdTariff, userToken);
+		logger.info("User with id " + userId
+				+ " is updated. Number of updated rows: " + result);
 	}
 
+	public String deleteUsers(String[] usersId) {
+		String errorMessage = null;
+		if (usersId == null) {
+			errorMessage = "Please check the users you want to delete!!!";
+		} else {
+			for (int i = 0; i < usersId.length; i++) {
+				deleteUser(Long.parseLong(usersId[i]));
+			}
+		}
+		return errorMessage;
+	}
+
+	public void deleteUser(Long id) {
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		userDaoImpl.delete(id);
+	}
 }

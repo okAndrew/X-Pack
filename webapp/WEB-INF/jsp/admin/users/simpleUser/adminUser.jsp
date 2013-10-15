@@ -64,13 +64,16 @@
 								<td>Token</td>
 								<td>${user.token}</td>
 							</tr>
+							<tr>
+								<td>Activation</td>
+								<td>${user.isActivated}</td>
+							</tr>
 						</tbody>
 					</table>
 
 					<ul class="nav nav-pills">
 						<li><a data-toggle="modal" href="#myModal">Edit</a></li>
 					</ul>
-
 				</div>
 			</form>
 		</div>

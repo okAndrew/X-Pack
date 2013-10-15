@@ -45,7 +45,7 @@ public class SignInServlet extends HttpServlet {
 		User user = service.getUser(email, md5.encrypt(password));
 		
 		if (user != null) {
-			if (user.isActivated()) {
+			if (user.getIsActivated()) {
 				HttpSession session = request.getSession();
 				session.setAttribute("userid", user.getId());
 				response.sendRedirect(USER_PAGE);

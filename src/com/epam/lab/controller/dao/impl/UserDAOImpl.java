@@ -65,4 +65,16 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	@Override
+	public int deaktivatedUserById(long id) {
+		String sql = "UPDATE users SET is_activated=? WHERE id=?";
+		return queryExecutor.executeUpdate(sql, false, id);
+	}
+
+	@Override
+	public int activatedUserById(long id) {
+		String sql = "UPDATE users SET is_activated=? WHERE id=?";
+		return queryExecutor.executeUpdate(sql, true, id);
+	}
+	
 }

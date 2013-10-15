@@ -109,4 +109,29 @@ public class UserService {
 		return result;
 	}
 	
+	public String deactivateUsers(String[] usersId){
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		String errorMessage = null;
+		if (usersId == null) {
+			errorMessage = "Please check the users you want to delete!!!";
+		} else {
+			for (int i = 0; i < usersId.length; i++) {
+				userDaoImpl.deaktivatedUserById(Long.parseLong(usersId[i]));
+			}
+		}
+		return errorMessage;
+	}
+	
+	public String activateUsers(String[] usersId){
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		String errorMessage = null;
+		if (usersId == null) {
+			errorMessage = "Please check the users you want to delete!!!";
+		} else {
+			for (int i = 0; i < usersId.length; i++) {
+				userDaoImpl.activatedUserById(Long.parseLong(usersId[i]));
+			}
+		}
+		return errorMessage;
+	}
 }

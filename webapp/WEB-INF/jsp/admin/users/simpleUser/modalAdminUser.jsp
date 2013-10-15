@@ -89,6 +89,13 @@
 												class="form-control first" value="${user.token}"
 												autofocus="autofocus"></td>
 										</tr>
+										<tr>
+											<td>Activation</td>
+											<td><input type="text" name="userActivation"
+												class="form-control last" value="${user.isActivated}"
+												autofocus="autofocus"></td>
+										</tr>
+										
 									</tbody>
 								</table>
 

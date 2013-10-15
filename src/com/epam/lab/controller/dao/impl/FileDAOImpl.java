@@ -18,7 +18,6 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public List<File> getAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

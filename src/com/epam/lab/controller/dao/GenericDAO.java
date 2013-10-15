@@ -4,6 +4,7 @@ package com.epam.lab.controller.dao;
 import java.util.List;
 
 public interface GenericDAO<T> {
+	
 	public T get(long id);
 
 	public List<T> getAll();

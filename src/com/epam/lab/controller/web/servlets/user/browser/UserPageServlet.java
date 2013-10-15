@@ -22,24 +22,33 @@ public class UserPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		FileService service2 = new FileService();
-		FolderService service = new FolderService();
+		processRequest(request, response);
+	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		processRequest(req, resp);
+	}
+
+	protected void processRequest(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		FileService fileService = new FileService();
+		FolderService folderService = new FolderService();
 		HttpSession session = request.getSession(false);
-		long userid =  (long) session.getAttribute("userid");
+		long userId = (long) session.getAttribute("userid");
 		long folderId;
-		if (session.getAttribute("folderId")==null) {
-			folderId = service.getRootId(userid);
-			session.setAttribute("folderId", folderId);
+		if (session.getAttribute("folderid") == null) {
+			folderId = folderService.getRootId(userId);
+			session.setAttribute("folderid", folderId);
 		} else {
-			folderId = (long) session.getAttribute("folderId");
+			folderId = (long) session.getAttribute("folderid");
 		}
-		Folder currentFolder = service.getFolderById(folderId);
-		List<Folder> folders = service.getFolders(userid, folderId);
-		List<File> files = service2.getFiles(userid, folderId);
+		Folder currentFolder = folderService.getFolder(folderId);
+		List<Folder> folders = folderService.getFolders(userId, folderId);
+		List<File> files = fileService.getFiles(userId, folderId);
 		request.setAttribute("folders", folders);
 		request.setAttribute("files", files);
 		request.setAttribute("currentFolder", currentFolder);
 		request.getRequestDispatcher(USER_JSP).forward(request, response);
 	}
-
 }

@@ -1,5 +1,6 @@
 package com.epam.lab.controller.services.folder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.epam.lab.controller.dao.impl.FileDAOImpl;
@@ -11,22 +12,25 @@ import com.epam.lab.model.Folder;
 public class FolderService {
 	private static final String ROOT_NAME = "root";
 
-	public List<Folder> getFolders(long iduser, long idFolder) {
-		List<Folder> folders = null;
-		FolderDAOImpl foldersdaoimpl = new FolderDAOImpl();
-		folders = foldersdaoimpl.getAllbyUserIdAndUpperId(iduser, idFolder);
-		return folders;
-	}
-
 	public void createRootFolder(long userId) {
-		Folder folder = new Folder();
-		folder.setIdUser(userId).setName(ROOT_NAME).setIdUpper(0);
 		FolderDAOImpl folderDao = new FolderDAOImpl();
-		folderDao.insert(folder);
+		Folder folder = folderDao.getRootFolderByUserId(userId);
+		if (folder == null) {
+			folder = new Folder();
+			folder.setIdUser(userId).setName(ROOT_NAME).setIdUpper(0);
+			folderDao.insert(folder);
+		}
 	}
 
 	public long getRootId(long userId) {
 		return new FolderDAOImpl().getRootFolderByUserId(userId).getId();
+	}
+
+	public List<Folder> getFolders(long userId, long folderId) {
+		List<Folder> folders = null;
+		FolderDAOImpl foldersdaoimpl = new FolderDAOImpl();
+		folders = foldersdaoimpl.getAllbyUserIdAndUpperId(userId, folderId);
+		return folders;
 	}
 
 	public void createFolder(String name, long userId, long upperId) {
@@ -38,21 +42,21 @@ public class FolderService {
 
 	public void delete(long id, long userId) {
 		FolderDAOImpl dao = new FolderDAOImpl();
-		FileService service2 = new FileService();
-		FolderService service = new FolderService();
+		FileService fileService = new FileService();
+		FolderService folderService = new FolderService();
 		List<File> files = new FileDAOImpl().getAllbyUserIdAndFolderId(userId,
 				id);
 		for (File file : files) {
-			service2.delete(file.getId());
+			fileService.delete(file.getId());
 		}
 		List<Folder> folders = dao.getAllbyUserIdAndUpperId(userId, id);
 		for (Folder folder : folders) {
-			service.delete(folder.getId(), userId);
+			folderService.delete(folder.getId(), userId);
 		}
 		dao.delete(id);
 	}
 
-	public Folder getFolderById(long id) {
+	public Folder getFolder(long id) {
 		return new FolderDAOImpl().get(id);
 	}
 
@@ -66,8 +70,20 @@ public class FolderService {
 		}
 	}
 
-	public List<Folder> getAllFolders(long userId) {
+	public List<Folder> getFolders(long userId) {
 		FolderDAOImpl dao = new FolderDAOImpl();
 		return dao.getAllbyUserId(userId);
+	}
+
+	public List<Folder> getSearchedFolders(long userId, String text) {
+		FolderService service = new FolderService();
+		List<Folder> folders = service.getFolders(userId);
+		List<Folder> result = new ArrayList<Folder>();
+		for (Folder folder : folders) {
+			if (folder.getName().contains(text)) {
+				result.add(folder);
+			}
+		}
+		return result;
 	}
 }

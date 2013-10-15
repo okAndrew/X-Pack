@@ -45,15 +45,16 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">Users</div>
-			<form action="deleteUsers" method="post" id="#deleteusers">
+			
+			<form action="employeeController" method="post">
 				<div class="panel-body">
 					<ul class="nav nav-pills">
-						<li><a data-toggle="modal" href="#addUserModal">Add</a></li>
-						<li><a href="#">Sort</a></li>
+						<li><button type="submit" class="btn btn-default" name="action" value="add">Add</button></li>
 						<li><button type="submit" class="btn btn-default" name="action" value="delete">Delete</button></li>
+						<li><button type="submit" class="btn btn-default" name="action" value="activated">Activate</button></li>
+						<li><button type="submit" class="btn btn-default" name="action" value="baned">Baned</button></li>
+						<li><button type="submit" class="btn btn-default" name="action" value="sendEmail">Send Email</button></li>
 					</ul>
-
-					<jsp:include page="addUserModalPage.jsp"></jsp:include>
 
 					<!-- Table -->
 					<c:if test="${users != null}">
@@ -67,12 +68,13 @@
 									<th>Password</th>
 									<th>Capacity</th>
 									<th>Tariffs</th>
+									<th>Token</th>
+									<th>Activated</th>
 									<th>Details</th>
 								</tr>
 							</thead>
 
 							<tbody>
-
 								<c:forEach var="user" items="${users}">
 									<tr>
 										<td><input type="checkbox" name="checkUser"
@@ -83,6 +85,8 @@
 										<td>${user.password}</td>
 										<td>${user.capacity}</td>
 										<td>${user.idTariff}</td>
+										<td>${user.token}</td>
+										<td>${user.isActivated}</td>
 										<td><a href="adminUser?userid=${user.id}">View
 												more...</a></td>
 									</tr>
@@ -101,6 +105,6 @@
 			</form>
 		</div>
 	</div>
-
+	<jsp:include page="addUserModalPage.jsp"></jsp:include>
 </body>
 </html>

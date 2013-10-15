@@ -32,10 +32,11 @@ public class UpdateAdminUserServlet extends HttpServlet {
 		int userIdTariff = Integer.parseInt(request
 				.getParameter("userIdTariff"));
 		String userToken = request.getParameter("userToken");// check
-
+		boolean activated = Boolean.parseBoolean(request.getParameter("userActivation"));
+		
 		UserService userService = new UserService();
 		userService.updateUser(userId, userLogin, userEmail, userIdTariff,
-				userToken);
+				userToken, activated);
 		User user = userService.getUserById(userId);
 
 		request.setAttribute("user", user);

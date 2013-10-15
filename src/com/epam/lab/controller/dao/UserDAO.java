@@ -8,4 +8,8 @@ public interface UserDAO extends GenericDAO<User> {
 	int updateUser(long userId, String userLogin, String userEmail,
 			long userIdTariff, String userToken, boolean activated);
 	
+	int deaktivatedUserById(long id);
+	
+	int activatedUserById(long id);
+	
 }

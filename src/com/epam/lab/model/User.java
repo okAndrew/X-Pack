@@ -103,11 +103,11 @@ public class User {
 		return this;
 	}
 	
-	public boolean isActivated() {
+	public boolean getIsActivated() {
 		return isActivated;
 	}
 
-	public void setActivated(boolean isActivated) {
+	public void setIsActivated(boolean isActivated) {
 		this.isActivated = isActivated;
 	}
 

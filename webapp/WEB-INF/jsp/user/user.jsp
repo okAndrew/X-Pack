@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DreamHost | User Menu</title>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
-<!--<link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/signui.css" rel="stylesheet" />-->
+<link href="res/css/style.css" rel="stylesheet" />
+<link href="res/css/signui.css" rel="stylesheet" />
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
@@ -41,53 +41,55 @@ body {
 				</form>
 			</div>
 		</div>
-
-		<form action="usercontroller" method="post">
-			<table class="table table-bordered">
-				<thead>
-					<h3>Your files:</h3>
-				</thead>
-				<tbody>
-					<tr>
-						<td colspan="5">
-							<div class="btn-group">
-								<button type="submit" name="download" class="btn btn-default">Download</button>
-								<button type="submit" name="delete" class="btn btn-default">Delete</button>
-							</div> <c:if test="${message!=null}">
-								<div class="alert alert-danger">${message}</div>
+		<br>
+		<div class="panel panel-default">
+			<form action="usercontroller" method="post">
+				<div class="panel-heading">File Storage</div>
+				<div class="panel-body">
+					<table class="table zebra-striped table-hover">
+						<thead></thead>
+						<tbody>
+							<tr>
+								<td colspan="5">
+									<div class="btn-group">
+										<button type="submit" name="download" class="btn btn-default">Download</button>
+										<button type="submit" name="delete" class="btn btn-default">Delete</button>
+									</div> <c:if test="${message!=null}">
+										<div class="alert alert-danger">${message}</div>
+									</c:if>
+								</td>
+							</tr>
+							<c:if test="${currentFolder.idUpper!=0}">
+								<tr>
+									<td colspan="5"><a
+										href="userfoldernav?folderid=${currentFolder.idUpper}">Up</a></td>
+								</tr>
 							</c:if>
-						</td>
-					</tr>
-					<c:if test="${currentFolder.idUpper!=0}">
-						<tr>
-							<td colspan="5"><a
-								href="userfoldernav?folderid=${currentFolder.idUpper}">Up</a></td>
-						</tr>
-					</c:if>
-					<c:forEach items="${folders}" var="folder">
-						<tr>
-							<td><label class="checkbox-inline"> <input
-									type="checkbox" name="folders" value="${folder.id}">
-							</label></td>
-							<td colspan="4"><a
-								href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
-						</tr>
-					</c:forEach>
-					<c:forEach items="${files}" var="file">
-						<tr>
-							<td><label class="checkbox-inline"> <input
-									type="checkbox" name="files" value="${file.id}">
-							</label></td>
-							<td><a href="download?fileid=${file.id}">${file.nameIncome}</a></td>
-							<td><c:out value="${file.date}" /></td>
-							<td><c:out value="${file.size}" /></td>
-							<td><c:out value="${file.type}" /></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</form>
-
+							<c:forEach items="${folders}" var="folder">
+								<tr>
+									<td><label class="checkbox-inline"> <input
+											type="checkbox" name="folders" value="${folder.id}">
+									</label></td>
+									<td colspan="4"><a
+										href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
+								</tr>
+							</c:forEach>
+							<c:forEach items="${files}" var="file">
+								<tr>
+									<td><label class="checkbox-inline"> <input
+											type="checkbox" name="files" value="${file.id}">
+									</label></td>
+									<td><a href="download?fileid=${file.id}">${file.nameIncome}</a></td>
+									<td><c:out value="${file.date}" /></td>
+									<td><c:out value="${file.size}" /></td>
+									<td><c:out value="${file.type}" /></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
 	</div>
 
 	<form action="createfolder" method="post">
@@ -135,6 +137,5 @@ body {
 			</div>
 		</div>
 	</form>
-
 </body>
 </html>

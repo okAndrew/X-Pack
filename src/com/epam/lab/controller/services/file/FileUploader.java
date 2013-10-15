@@ -66,14 +66,15 @@ public class FileUploader {
 	}
 
 	private File getFile(FileItem item) {
+		FileService service = new FileService();
 		File file = new File();
 		String fileNameIncome = item.getName();
 		String userLogin = null;
 		if (user != null) {
 			userLogin = user.getLogin();
 		}
-		String fileName = FileService.getFileName(fileNameIncome, userLogin);
-		String filePath = FileService.getFolder().getAbsolutePath();
+		String fileName = service.getFileName(fileNameIncome, userLogin);
+		String filePath = service.getFolder().getAbsolutePath();
 		String contentType = item.getContentType();
 		long fileSize = item.getSize();
 		file.setNameIncome(fileNameIncome)

@@ -18,7 +18,8 @@ public class SearchService {
 	}
 
 	public List<File> getFiles() {
-		List<File> files = FileService.getAllFiles(userId);
+		FileService service = new FileService();
+		List<File> files = service.getAllFiles(userId);
 		List<File> result = new ArrayList<File>();
 		for (File file: files) {
 			if (file.getNameIncome().contains(text)) {
@@ -29,7 +30,8 @@ public class SearchService {
 	}
 
 	public List<Folder> getFolders(){
-		List<Folder> folders = FolderService.getAllFolders(userId);
+		FolderService service = new FolderService();
+		List<Folder> folders = service.getAllFolders(userId);
 		List<Folder> result = new ArrayList<Folder>();
 		for (Folder folder: folders) {
 			if (folder.getName().contains(text)) {

@@ -16,12 +16,13 @@ public class CreateFolderServlet extends HttpServlet {
 	private static final String USER_PAGE = "userpage";
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		FolderService service = new FolderService();
 		HttpSession session = request.getSession(false);
 		long folderId = (long) session.getAttribute("folderId");
 		String folderName = request.getParameter("folderName");
 		long userId = (long) session.getAttribute("userid");
-		if (!FolderService.isFolderExist(folderId, folderName)) {
-			FolderService.createFolder(folderName, userId, folderId);
+		if (!service.isFolderExist(folderId, folderName)) {
+			service.createFolder(folderName, userId, folderId);
 		} else {
 			// error message
 		}

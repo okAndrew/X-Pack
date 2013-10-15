@@ -22,9 +22,10 @@ public class FileDownloadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		FileService service = new FileService();
 		long fileId = Long.valueOf(request.getParameter("fileId"));
-		String filePath = FileService.getFileById(fileId).getPath()
-				+ File.separator + FileService.getFileById(fileId).getName();
+		String filePath = service.getFileById(fileId).getPath()
+				+ File.separator + service.getFileById(fileId).getName();
 		File file = new File(filePath);
 		
 		if (!file.exists()) {
@@ -39,7 +40,7 @@ public class FileDownloadServlet extends HttpServlet {
 				: "application/octet-stream");
 		response.setContentLength((int) file.length());
 		response.setHeader("Content-Disposition", "attachment; filename=\""
-				+ FileService.getFileById(fileId).getNameIncome() + "\"");
+				+ service.getFileById(fileId).getNameIncome() + "\"");
 		ServletOutputStream os = response.getOutputStream();
 		byte[] bufferData = new byte[1024];
 		int read = 0;

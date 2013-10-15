@@ -20,8 +20,9 @@ public class FilesDownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		FileService service = new FileService();
 		String[] rs = request.getParameterValues("files");
-		String zipPath = FileService.getArchivePath(rs);
+		String zipPath = service.getArchivePath(rs);
 		
 		File file = new File(zipPath);
 		

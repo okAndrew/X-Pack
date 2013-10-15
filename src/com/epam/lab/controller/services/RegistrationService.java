@@ -1,12 +1,10 @@
 package com.epam.lab.controller.services;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
+import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.User;
 
 public class RegistrationService {
@@ -39,8 +37,10 @@ public class RegistrationService {
 		
 		if (result == null) {
 			if (checkEmail(email) == null) {
+				MD5Encrypter md5 = new MD5Encrypter();
 				UserService userService = new UserService();
-				userService.addUser(login, email, getChecksum(password));
+				userService.addUser(login, email, md5.encrypt(password));
+				createRootFolder(email);
 			} else {
 				result = "User with this email is alredy registered";
 			}
@@ -51,6 +51,12 @@ public class RegistrationService {
 		return result;
 	}
 	
+	private void createRootFolder(String email) {
+		UserService userService = new UserService();
+		User user = userService.getUserByEmail(email);
+		FolderService.createRootFolder((int)(user.getId()));
+	}
+	
 	public int activateUser(String email, String code) {
 		int result = 0;
 		
@@ -58,28 +64,6 @@ public class RegistrationService {
 		User user = userService.getUserByEmail(email);
 		
 		return result;
-	}
-	
-	private String getChecksum(String text) {
-		String hashPass = null;
-		
-		try {
-			MessageDigest m = MessageDigest.getInstance("MD5");
-			m.reset();
-			m.update(text.getBytes());
-			byte[] digest = m.digest();
-			BigInteger bigInt = new BigInteger(1,digest);
-			hashPass = bigInt.toString(16);
-			
-			while(hashPass.length() < 32 ){
-				hashPass = "0" + hashPass;
-			}
-		} catch (NoSuchAlgorithmException e) {
-			logger.error(e);
-			return null;
-		}
-		
-		return hashPass;
 	}
 
 }

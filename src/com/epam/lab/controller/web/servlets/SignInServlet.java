@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.UserService;
+import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.User;
 
 @WebServlet("/signin")
@@ -35,17 +36,24 @@ public class SignInServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher;
+		RequestDispatcher dispatcher = null;
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
+		MD5Encrypter md5 = new MD5Encrypter();
 		UserService service = new UserService();
-		User user = service.getUser(email, password);
+		User user = service.getUser(email, md5.encrypt(password));
 		
 		if (user != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("userid", user.getId());
-			response.sendRedirect(USER_PAGE);
+			if (user.isActivated()) {
+				HttpSession session = request.getSession();
+				session.setAttribute("userid", user.getId());
+				response.sendRedirect(USER_PAGE);
+			} else {
+				request.setAttribute("message", "You is not activated. Please check you email");
+				dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
+				dispatcher.forward(request, response);
+			}
 		} else {
 			request.setAttribute("message", "Error! Check you email and password");
 			dispatcher = request.getRequestDispatcher(SIGNIN_JSP);

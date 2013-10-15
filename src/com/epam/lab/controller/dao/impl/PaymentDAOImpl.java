@@ -5,7 +5,6 @@ import java.util.List;
 import com.epam.lab.controller.dao.PaymentDAO;
 import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
 import com.epam.lab.model.Payment;
-import com.epam.lab.model.User;
 
 public class PaymentDAOImpl implements PaymentDAO {
 	private DBQueryExecutor<Payment> queryExecutor = new DBQueryExecutor<Payment>();

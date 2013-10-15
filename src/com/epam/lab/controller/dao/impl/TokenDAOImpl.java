@@ -34,6 +34,7 @@ public class TokenDAOImpl implements TokenDAO {
 		String sql = "INSERT INTO tokens (tokens.user, tokens.date, tokens.token) VALUES (?, ?, ?)";
 		int result = queryExecutor.executeUpdate(sql, object.getUser(),
 				object.getDate(), object.getToken());
+		
 		return result;
 	}
 

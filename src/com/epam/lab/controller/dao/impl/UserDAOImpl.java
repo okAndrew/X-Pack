@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.epam.lab.controller.dao.UserDAO;
 import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
-import com.epam.lab.controller.services.UserService;
 import com.epam.lab.model.User;
 
 public class UserDAOImpl implements UserDAO {
@@ -43,11 +42,11 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int updateUser(int userId, String userLogin, String userEmail,
-			int userIdTariff, String userToken) {
-		String sql = "UPDATE users SET login=?, email=?, id_tariff=?, token=? WHERE id=?";
+	public int updateUser(long userId, String userLogin, String userEmail,
+			long userIdTariff, String userToken, boolean activated) {
+		String sql = "UPDATE users SET login=?, email=?, id_tariff=?, token=?, available=? WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, userLogin, userEmail, userIdTariff,
-				userToken, userId);
+				userToken, activated, userId);
 		return result;
 
 	}
@@ -66,18 +65,4 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
-	@Override
-	public int activateUser(int id) {
-		UserService userService = new UserService();
-		User user = userService.getUserById(id);
-		return activateUser(user);
-	}
-
-	@Override
-	public int activateUser(User user) {
-		String sql = "UPDATE users SET is_activated = 1 WHERE id = ?";
-		int result = queryExecutor.executeUpdate(sql, user.getId());
-		return result;
-	}
-	
 }

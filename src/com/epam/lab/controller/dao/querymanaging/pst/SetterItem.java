@@ -2,6 +2,7 @@ package com.epam.lab.controller.dao.querymanaging.pst;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public enum SetterItem {
 	INT(Integer.class) {
@@ -37,6 +38,13 @@ public enum SetterItem {
 		void executeSet(PreparedStatement pst, int n, Object o)
 				throws SQLException {
 			pst.setBoolean(n, (Boolean) o);
+		}
+	},
+	TIMESTAMP(Timestamp.class) {
+		@Override
+		void executeSet(PreparedStatement pst, int n, Object o)
+				throws SQLException {
+			pst.setTimestamp(n, (Timestamp) o);
 		}
 	};
 

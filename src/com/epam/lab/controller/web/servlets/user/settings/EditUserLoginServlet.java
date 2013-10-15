@@ -38,7 +38,7 @@ public class EditUserLoginServlet extends HttpServlet {
 		
 		if (user!= null) {
 			try {
-				userService.updateUser((int)user.getId(), login, user.getEmail(), (int)user.getIdTariff(), user.getToken());
+				userService.updateUser((int)user.getId(), login, user.getEmail(), (int)user.getIdTariff(), user.getToken(), user.isActivated());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

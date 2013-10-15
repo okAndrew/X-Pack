@@ -1,15 +1,17 @@
 package com.epam.lab.controller.services;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 
+import sun.rmi.runtime.NewThreadAction;
+
+import com.epam.lab.controller.dao.impl.TokenDAOImpl;
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
 import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.model.Token;
 import com.epam.lab.model.User;
 
@@ -45,7 +47,8 @@ public class RegistrationService {
 			if (checkEmail(email) == null) {
 				MD5Encrypter md5 = new MD5Encrypter();
 				UserService userService = new UserService();
-				User user = userService.addUser(login, email, md5.encrypt(password));
+				userService.addUser(login, email, md5.encrypt(password));
+				User user = userService.getUserByEmail(email);
 				createRootFolder(user);
 				sendActivations(user);
 			} else {
@@ -64,26 +67,40 @@ public class RegistrationService {
 	}
 	
 	public void sendActivations(User user) {
-		
+		String token = createToken(user);
+		MailSender.send(user.getEmail(), "Activation", token);
 	}
 	
-	private String createToken(String email) {
+	private String createToken(User user) {
 		Token token = new Token();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		Calendar cal = Calendar.getInstance();
-		String dateTime = dateFormat.format(cal.getTime());
-		Timestamp timestamp = Timestamp.valueOf(dateTime);
-		
 		MD5Encrypter md5 = new MD5Encrypter();
+		String sToken = null;
+		Timestamp timestamp = CurrentTimeStamp.getCurrentTimeStamp();
+		
+		sToken = md5.encrypt(user.getEmail() + timestamp);
+		
+		token.setUser(user.getId());
+		token.setDate(timestamp);
+		token.setToken(sToken);
+		
+		new TokenDAOImpl().insert(token);
 
-		return null;
+		return sToken;
 	}
 	
-	public int activateUser(String email, String code) {
+	public int activateUser(String email, String token) {
 		int result = 0;
 		
 		UserService userService = new UserService();
+		TokenDAOImpl tokenDAOImpl = new TokenDAOImpl();
+		
 		User user = userService.getUserByEmail(email);
+		Token tokenObj = tokenDAOImpl.get(token);
+
+		if (tokenObj.getUser() == user.getId() && tokenObj.getAvailable()) {
+			tokenDAOImpl.deactivateToken(token);
+			userService.activateUser(user);
+		}
 		
 		return result;
 	}

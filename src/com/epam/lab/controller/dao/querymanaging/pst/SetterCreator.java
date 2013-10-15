@@ -12,7 +12,7 @@ public class SetterCreator {
 		setters.add(SetterItem.DOUBLE);
 		setters.add(SetterItem.STRING);
 		setters.add(SetterItem.BOOLEAN);
-
+		setters.add(SetterItem.TIMESTAMP);
 	}
 
 	public SetterItem findByType(Class<?> type) {

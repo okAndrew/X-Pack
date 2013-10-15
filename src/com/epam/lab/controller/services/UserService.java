@@ -13,7 +13,7 @@ public class UserService {
 
 	static Logger logger = Logger.getLogger(UserService.class);
 
-	public User addUser(String login, String email, String password) {
+	public void addUser(String login, String email, String password) {
 		User user = new User();
 		user.setEmail(email);
 		user.setLogin(login);
@@ -23,8 +23,6 @@ public class UserService {
 		user.setToken(null);
 		UserDAOImpl userDAOImpl = new UserDAOImpl();
 		userDAOImpl.insert(user);
-		
-		return user;
 	}
 
 	public User getUser(String email, String password) {
@@ -54,13 +52,13 @@ public class UserService {
 		return new UserDAOImpl().getByEmail(email);
 	}
 
-	public void updateUser(int userId, String userLogin, String userEmail,
-			int userIdTariff, String userToken) {
+	public int updateUser(int userId, String userLogin, String userEmail,
+		int userIdTariff, String userToken, boolean activated) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		int result = userDaoImpl.updateUser(userId, userLogin, userEmail,
-				userIdTariff, userToken);
-		logger.info("User with id " + userId
-				+ " is updated. Number of updated rows: " + result);
+				userIdTariff, userToken, activated);
+		
+		return result;
 	}
 
 	public void deleteFilesAndFolders(String[] rs, String[] rs2, long userId) {
@@ -94,4 +92,21 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		userDaoImpl.delete(id);
 	}
+	
+	public int activateUser(User user) {
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
+				user.getIdTariff(), user.getToken(), true);
+		
+		return result;
+	}
+	
+	public int deactivateUser(User user) {
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
+				user.getIdTariff(), user.getToken(), false);
+		
+		return result;
+	}
+	
 }

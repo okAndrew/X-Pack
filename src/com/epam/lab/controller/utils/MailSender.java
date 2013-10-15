@@ -1,4 +1,4 @@
-package com.epam.lab.controller.services.security;
+package com.epam.lab.controller.utils;
 
 import java.util.Properties;
 
@@ -10,7 +10,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendMail {
+public class MailSender {
 
 	public static void send(String to, String sub, String msg) {
 		Properties properties = new Properties();
@@ -35,7 +35,7 @@ public class SendMail {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("dreamh.mail@gmail.com"));
+			message.setFrom(new InternetAddress(username));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(to));
 			message.setSubject(sub);
@@ -47,5 +47,5 @@ public class SendMail {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 }

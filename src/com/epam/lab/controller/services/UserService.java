@@ -13,7 +13,7 @@ public class UserService {
 
 	static Logger logger = Logger.getLogger(UserService.class);
 
-	public void addUser(String login, String email, String password) {
+	public User addUser(String login, String email, String password) {
 		User user = new User();
 		user.setEmail(email);
 		user.setLogin(login);
@@ -23,6 +23,8 @@ public class UserService {
 		user.setToken(null);
 		UserDAOImpl userDAOImpl = new UserDAOImpl();
 		userDAOImpl.insert(user);
+		
+		return user;
 	}
 
 	public User getUser(String email, String password) {

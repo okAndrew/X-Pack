@@ -18,7 +18,7 @@ public class FolderService {
 		return folders;
 	}
 
-	public void createRootFolder(int userId) {
+	public void createRootFolder(long userId) {
 		Folder folder = new Folder();
 		folder.setIdUser(userId).setName(ROOT_NAME).setIdUpper(0);
 		FolderDAOImpl folderDao = new FolderDAOImpl();

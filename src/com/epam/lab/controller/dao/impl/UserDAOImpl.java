@@ -44,7 +44,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int updateUser(long userId, String userLogin, String userEmail,
 			long userIdTariff, String userToken, boolean activated) {
-		String sql = "UPDATE users SET login=?, email=?, id_tariff=?, token=?, available=? WHERE id=?";
+		String sql = "UPDATE users SET login=?, email=?, id_tariff=?, token=?, is_activated=? WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, userLogin, userEmail, userIdTariff,
 				userToken, activated, userId);
 		return result;

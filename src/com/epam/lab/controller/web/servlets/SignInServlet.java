@@ -29,13 +29,16 @@ public class SignInServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SIGNIN_JSP);
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = request
+				.getRequestDispatcher(SIGNIN_JSP);
 		requestDispatcher.forward(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null;
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
@@ -43,21 +46,25 @@ public class SignInServlet extends HttpServlet {
 		MD5Encrypter md5 = new MD5Encrypter();
 		UserService service = new UserService();
 		User user = service.getUser(email, md5.encrypt(password));
-		
-		if (user != null) {
-			if (user.getIsActivated()) {
-				HttpSession session = request.getSession();
-				session.setAttribute("userid", user.getId());
-				response.sendRedirect(USER_PAGE);
+
+		if (email != null && password != null) {
+			if (user != null) {
+				if (user.getIsActivated()) {
+					HttpSession session = request.getSession();
+					session.setAttribute("userid", user.getId());
+					response.sendRedirect(USER_PAGE);
+				} else {
+					request.setAttribute("message",
+							"You is not activated. Please check you email");
+					dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
+					dispatcher.forward(request, response);
+				}
 			} else {
-				request.setAttribute("message", "You is not activated. Please check you email");
+				request.setAttribute("message",
+						"Error! Check you email and password");
 				dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
 				dispatcher.forward(request, response);
 			}
-		} else {
-			request.setAttribute("message", "Error! Check you email and password");
-			dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
-			dispatcher.forward(request, response);
 		}
 	}
 

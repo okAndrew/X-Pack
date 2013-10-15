@@ -24,10 +24,6 @@ public class ActivationServlet extends HttpServlet {
 		
 		int res = new RegistrationService().activateUser(email, token);
 		
-		if (res == 0) {
-			request.setAttribute("message", "Wow");
-		}
-		
 		requestDispatcher.forward(request, response);
 	}
 

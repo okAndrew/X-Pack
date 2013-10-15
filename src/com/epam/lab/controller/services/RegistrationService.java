@@ -100,7 +100,8 @@ public class RegistrationService {
 		User user = userService.getUserByEmail(email);
 		Token tokenObj = tokenDAOImpl.get(token);
 
-		if (tokenObj.getUser() == user.getId() && tokenObj.getAvailable()) {
+		if (tokenObj.getUser() == user.getId() && tokenObj.getAvailable()
+				&& tokenObj.getUser() == user.getId()) {
 			tokenDAOImpl.deactivateToken(token);
 			userService.activateUser(user);
 		}

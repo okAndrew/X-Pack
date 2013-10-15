@@ -33,6 +33,7 @@ public class AdminUserDeleteFileServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		FileService service2 = new FileService();
 		RequestDispatcher dispatcher;
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("userid");
@@ -40,12 +41,13 @@ public class AdminUserDeleteFileServlet extends HttpServlet {
 		String[] rs2 = request.getParameterValues("folders");
 		if (rs != null) {
 			for (int i = 0; i < rs.length; i++) {
-				FileService.delete(Integer.parseInt(rs[i]));
+				service2.delete(Integer.parseInt(rs[i]));
 			}
 		}
 		if (rs2 != null) {
+			FolderService service = new FolderService();
 			for (int i = 0; i < rs2.length; i++) {
-				FolderService.delete(Integer.parseInt(rs2[i]), userId);
+				service.delete(Integer.parseInt(rs2[i]), userId);
 			}
 		}
 		if (rs == null && rs2 == null) {

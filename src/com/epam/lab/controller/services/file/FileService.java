@@ -15,7 +15,7 @@ import com.epam.lab.controller.dao.impl.FileDAOImpl;
 
 import org.apache.log4j.Logger;
 
-public abstract class FileService {
+public class FileService {
 	private static final Logger logger = Logger.getLogger(FileService.class);
 	public static final String ROOT_PATH = "E:/files/";
 	public static final int MAX_FILES = 999;
@@ -23,7 +23,7 @@ public abstract class FileService {
 	/*
 	 * return hash md5(time+fileName+userName)
 	 */
-	public static String getFileName(String fileName, String userLogin) {
+	public String getFileName(String fileName, String userLogin) {
 		String result = Long.toString(Calendar.getInstance().getTimeInMillis())
 				+ fileName + userLogin;
 		try {
@@ -40,7 +40,7 @@ public abstract class FileService {
 	 * return current month/year/day String for folder (2013/11/1, 2013/11/2,
 	 * 2014/1/13 ...)
 	 */
-	private static String getCurDatePath() {
+	private String getCurDatePath() {
 		Calendar now = Calendar.getInstance();
 
 		int year = now.get(Calendar.YEAR);
@@ -57,7 +57,8 @@ public abstract class FileService {
 	/*
 	 * return current folder to save files
 	 */
-	public static File getFolder() {
+	public File getFolder() {
+		FileService service = new FileService();
 		File curFolder = null;
 		File path = new File(ROOT_PATH + getCurDatePath());
 
@@ -79,7 +80,7 @@ public abstract class FileService {
 
 				// if last folder is full else get current last valid folder
 				if (folders[i - 1].listFiles().length >= MAX_FILES) {
-					curFolder = newIncfolder(curFolderName);
+					curFolder = service.newIncfolder(curFolderName);
 				} else {
 					curFolder = folders[i - 1];
 				}
@@ -98,7 +99,7 @@ public abstract class FileService {
 	}
 
 	// create new increment valid folder
-	private static File newIncfolder(int cur) {
+	private File newIncfolder(int cur) {
 		File newFolder = null;
 		StringBuilder path = new StringBuilder().append(ROOT_PATH)
 				.append(getCurDatePath()).append(File.separator);
@@ -117,14 +118,14 @@ public abstract class FileService {
 		return newFolder;
 	}
 
-	public static List<com.epam.lab.model.File> getAllFiles(long iduser) {
+	public List<com.epam.lab.model.File> getAllFiles(long iduser) {
 		List<com.epam.lab.model.File> files = null;
 		FileDAOImpl filedaoimpl = new FileDAOImpl();
 		files = filedaoimpl.getAllbyUserId(iduser);
 		return files;
 	}
 
-	public static void delete(long id) {
+	public void delete(long id) {
 		FileDAOImpl filedaoimp = new FileDAOImpl();
 		File file = new File(filedaoimp.get(id).getPath() + File.separator
 				+ filedaoimp.get(id).getName());
@@ -133,7 +134,7 @@ public abstract class FileService {
 
 	}
 
-	public static List<com.epam.lab.model.File> getFiles(long userid,
+	public List<com.epam.lab.model.File> getFiles(long userid,
 			long folderId) {
 		List<com.epam.lab.model.File> files = null;
 		FileDAOImpl filedaoimpl = new FileDAOImpl();
@@ -141,11 +142,11 @@ public abstract class FileService {
 		return files;
 	}
 
-	public static com.epam.lab.model.File getFileById(long fileId) {
+	public com.epam.lab.model.File getFileById(long fileId) {
 		return new FileDAOImpl().get(fileId);
 	}
 
-	public static String getArchivePath(String[] ids) {
+	public String getArchivePath(String[] ids) {
 		String zipPath = ROOT_PATH + "tmp.zip";
 		try {
 			ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipPath));

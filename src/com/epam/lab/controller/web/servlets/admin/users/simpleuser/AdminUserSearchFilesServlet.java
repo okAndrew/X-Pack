@@ -17,49 +17,42 @@ import com.epam.lab.controller.services.PaymentService;
 import com.epam.lab.controller.services.UserService;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.model.File;
+import com.epam.lab.model.Folder;
 import com.epam.lab.model.Payment;
 import com.epam.lab.model.User;
 
-@WebServlet("/adminUserDeleteFile")
-public class AdminUserDeleteFileServlet extends HttpServlet {
+@WebServlet("/adminUserSearchFiles")
+public class AdminUserSearchFilesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USER_FILES_JSP = "adminUserFiles";
+	private static final String ADMIN_USER_FILES_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserFiles.jsp";
 	private static final Logger logger = Logger
-			.getLogger(AdminUserDeleteFileServlet.class);
+			.getLogger(AdminUserSearchFilesServlet.class);
 
-	public AdminUserDeleteFileServlet() {
+	public AdminUserSearchFilesServlet() {
 		super();
 	}
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		FileService service2 = new FileService();
-		RequestDispatcher dispatcher;
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("userid");
-		String[] rs = request.getParameterValues("files");
-		String[] rs2 = request.getParameterValues("folders");
-		if (rs != null) {
-			for (int i = 0; i < rs.length; i++) {
-				service2.delete(Integer.parseInt(rs[i]));
-			}
+		if (request.getParameter("searchtext") != null) {
+			String text = request.getParameter("searchtext");
+			List<File> files = new FileService().getSearchedFiles(userId, text);
+			List<Folder> folders = new FolderService().getSearchedFolders(
+					userId, text);
+			request.setAttribute("files", files);
+			request.setAttribute("folders", folders);
+			request.getRequestDispatcher(ADMIN_USER_FILES_JSP).forward(request,
+					response);
+		} else {
+			response.sendRedirect(ADMIN_USER_FILES_JSP);
 		}
-		if (rs2 != null) {
-			FolderService service = new FolderService();
-			for (int i = 0; i < rs2.length; i++) {
-				service.delete(Integer.parseInt(rs2[i]), userId);
-			}
-		}
-		if (rs == null && rs2 == null) {
-			request.setAttribute("message",
-					"Error! Please select files to delete");
-			dispatcher = request.getRequestDispatcher(ADMIN_USER_FILES_JSP);
-		}
-
-		dispatcher = request.getRequestDispatcher(ADMIN_USER_FILES_JSP);
-		dispatcher.forward(request, response);
 	}
 }

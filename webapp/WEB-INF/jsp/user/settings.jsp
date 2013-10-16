@@ -79,7 +79,7 @@
 								</div>
 							</div>
 							<div class="tab-pane" id="tabs1-pane2">
-								<p>Tariffs</p>
+								<jsp:include page="settings/tariffs.jsp"></jsp:include>
 							</div>
 							<div class="tab-pane" id="tabs1-pane3">
 								<p>Other</p>

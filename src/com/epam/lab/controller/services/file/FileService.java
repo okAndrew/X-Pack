@@ -11,6 +11,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import com.epam.lab.controller.dao.impl.FileDAOImpl;
+import com.epam.lab.controller.services.folder.FolderService;
 
 import org.apache.log4j.Logger;
 
@@ -128,6 +129,8 @@ public class FileService {
 		if (f != null) {
 			File file = new File(f.getPath() + File.separator + f.getName());
 			file.delete();
+			FolderService service = new FolderService();
+			service.updateFoldersSize(f.getIdFolder(), -f.getSize());
 			dao.delete(id);
 		}
 	}

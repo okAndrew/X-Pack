@@ -16,6 +16,7 @@ public class AdminUsersEmployeeControllerServlet extends HttpServlet {
 	private static String DELETE_USERS = "deleteUsers";
 	private static String BANED_USERS = "banedUsers";
 	private static String ACTIVATED_USERS = "activatedUsers";
+	private static String SEND_EMAIL_USERS = "sendEmailUsers";
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -35,6 +36,9 @@ public class AdminUsersEmployeeControllerServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		} else if (action.equals("activated")){
 			RequestDispatcher dispatcher = request.getRequestDispatcher(ACTIVATED_USERS);
+			dispatcher.forward(request, response);
+		} else if (action.equals("sendEmailUsers")){
+			RequestDispatcher dispatcher = request.getRequestDispatcher(SEND_EMAIL_USERS);
 			dispatcher.forward(request, response);
 		}
 		

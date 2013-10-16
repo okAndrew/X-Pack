@@ -53,7 +53,7 @@
 						<li><button type="submit" class="btn btn-default" name="action" value="delete">Delete</button></li>
 						<li><button type="submit" class="btn btn-default" name="action" value="activated">Activate</button></li>
 						<li><button type="submit" class="btn btn-default" name="action" value="baned">Baned</button></li>
-						<li><button type="submit" class="btn btn-default" name="action" value="sendEmail">Send Email</button></li>
+						<li><button type="submit" class="btn btn-default" name="action" value="sendEmailUsers">Send Email</button></li>
 					</ul>
 
 					<!-- Table -->

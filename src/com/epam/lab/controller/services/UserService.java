@@ -113,7 +113,7 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
-			errorMessage = "Please check the users you want to delete!!!";
+			errorMessage = "Please check the users you want to deactivate!!!";
 		} else {
 			for (int i = 0; i < usersId.length; i++) {
 				userDaoImpl.deaktivatedUserById(Long.parseLong(usersId[i]));
@@ -126,7 +126,7 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
-			errorMessage = "Please check the users you want to delete!!!";
+			errorMessage = "Please check the users you want to activate!!!";
 		} else {
 			for (int i = 0; i < usersId.length; i++) {
 				userDaoImpl.activatedUserById(Long.parseLong(usersId[i]));

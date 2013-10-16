@@ -53,11 +53,11 @@ public class UserService {
 	}
 
 	public int updateUser(int userId, String userLogin, String userEmail,
-		int userIdTariff, String userToken, boolean activated) {
+			int userIdTariff, String userToken, boolean activated) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		int result = userDaoImpl.updateUser(userId, userLogin, userEmail,
 				userIdTariff, userToken, activated);
-		
+
 		return result;
 	}
 
@@ -92,24 +92,25 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		userDaoImpl.delete(id);
 	}
-	
+
 	public int activateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
-				user.getIdTariff(), user.getToken(), true);
-		
+		int result = userDaoImpl.update(user.getId(), user.getLogin(),
+				user.getEmail(), user.getPassword(), user.getIdTariff(),
+				user.getCapacity(), user.getToken(), true);
+
 		return result;
 	}
-	
+
 	public int deactivateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
-				user.getIdTariff(), user.getToken(), false);
-		
+		int result = userDaoImpl.update(user.getId(), user.getLogin(),
+				user.getEmail(), user.getIdTariff(), user.getToken(), false);
+
 		return result;
 	}
-	
-	public String deactivateUsers(String[] usersId){
+
+	public String deactivateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
@@ -121,8 +122,8 @@ public class UserService {
 		}
 		return errorMessage;
 	}
-	
-	public String activateUsers(String[] usersId){
+
+	public String activateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
@@ -134,5 +135,5 @@ public class UserService {
 		}
 		return errorMessage;
 	}
-	
+
 }

@@ -28,6 +28,9 @@
 					<li class=""><a href="adminTarrifsPage">Tariffs</a></li>
 					<li class=""><a href="#">Admins</a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="adminPage">To main menu</a></li>
+				</ul>
 			</c:if>
 
 			<div class="navbar-form navbar-right">

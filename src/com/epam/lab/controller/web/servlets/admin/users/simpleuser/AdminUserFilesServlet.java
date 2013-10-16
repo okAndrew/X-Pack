@@ -38,7 +38,7 @@ public class AdminUserFilesServlet extends HttpServlet {
 		long userid = (long) session.getAttribute("userid");
 		long folderId;
 		if (session.getAttribute("folderId") == null) {
-			folderId = 1;//FolderService.getRootId(userid);
+			folderId = service.getRootId(userid);
 			session.setAttribute("folderId", folderId);
 		} else {
 			folderId = (long) session.getAttribute("folderId");

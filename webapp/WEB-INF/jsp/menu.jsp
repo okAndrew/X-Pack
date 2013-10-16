@@ -20,7 +20,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="">Home</a></li>
+				<li><a href="userpage">Home</a></li>
 			</ul>
 			
 			<div class="navbar-form navbar-right">
@@ -36,9 +36,9 @@
 				</div>
 				</c:if>
 				
-				<c:if test="${userid != null}">
+				<c:if test="${user != null}">
 				<div class="btn-group">
-					<button type="button" class="btn btn-default">${userid}</button>
+					<button type="button" class="btn btn-default">${user.login}</button>
 	  				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 	  					<span class="caret"></span>
 					</button>

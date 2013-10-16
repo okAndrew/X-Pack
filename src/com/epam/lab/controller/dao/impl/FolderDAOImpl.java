@@ -9,11 +9,6 @@ import com.epam.lab.model.Folder;
 public class FolderDAOImpl implements FolderDAO {
 	private DBQueryExecutor<Folder> queryExecutor = new DBQueryExecutor<Folder>();
 
-	public static final String INSERT_VALUES = "INSERT INTO folders(user_id, name, upper) VALUES (?,?,?) ";
-	public static final String DELETE_VALUES = "DELETE FROM folders WHERE id=?";
-	public static final String SELECT_VALUES = "SELECT id, user_id, name, upper  FROM folders";
-	public static final String SELECT_VALUES_BY_ID = "SELECT id, user_id, name, upper FROM folders WHERE id=?";
-
 	@Override
 	public Folder get(long id) {
 		String sql = "SELECT * FROM folders WHERE id = ?";
@@ -29,16 +24,20 @@ public class FolderDAOImpl implements FolderDAO {
 
 	@Override
 	public int insert(Folder object) {
-		String sql = "INSERT INTO folders(id_user, name, id_upper) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO folders(id_user, name, id_upper, size, date) VALUES (?, ?, ?, ?, ?)";
 		int result = queryExecutor.executeUpdate(sql, object.getIdUser(),
-				object.getName(), object.getIdUpper());
+				object.getName(), object.getIdUpper(), object.getSize(),
+				object.getDate());
 		return result;
 	}
 
 	@Override
 	public int update(Folder object) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "UPDATE folders SET id_user=?, name=?, id_upper=?, size=?, date=? WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql, object.getIdUser(),
+				object.getName(), object.getIdUpper(), object.getSize(),
+				object.getDate(), object.getId());
+		return result;
 	}
 
 	@Override

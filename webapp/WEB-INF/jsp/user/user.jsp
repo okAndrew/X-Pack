@@ -67,19 +67,21 @@ body {
 					<table class="table zebra-striped table-hover">
 						<thead>
 							<tr>
-								<th><input type="checkbox" onClick="toggle(this)" /> All</th>
-								<th>Name</th>
-								<th>Date</th>
-								<th>Size</th>
-								<th>Type</th>
+								<th width="5%"><input type="checkbox"
+									onClick="toggle(this)" /> All</th>
+								<th width="35%">Name</th>
+								<th width="15%">Date</th>
+								<th width="10%">Size</th>
+								<th width="35%">Type</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:if test="${currentFolder.idUpper!=0}">
-								<tr>
-									<td colspan="5"><span
-										class="glyphicon glyphicon-chevron-up"></span><a
-										href="userfoldernav?folderid=${currentFolder.idUpper}">Up</a></td>
+								<tr><td></td>
+									<td colspan="4"><span
+										class="glyphicon glyphicon-chevron-up"></span>&nbsp;&nbsp;<strong><a
+											href="userfoldernav?folderid=${currentFolder.idUpper}"
+											style="font-size: 30px; line-height: 9px">...</a></td>
 								</tr>
 							</c:if>
 							<c:forEach items="${folders}" var="folder">
@@ -87,9 +89,12 @@ body {
 									<td><label class="checkbox-inline"> <input
 											type="checkbox" name="folders" value="${folder.id}">
 									</label></td>
-									<td colspan="4"><span
-										class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;<a
-										href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
+									<td><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;
+										<a href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
+									</td>
+									<td><c:out value="${folder.date}" /></td>
+									<td><c:out value="${folder.size}" /></td>
+									<td><c:out value="Folder" /></td>
 								</tr>
 							</c:forEach>
 							<c:forEach items="${files}" var="file">

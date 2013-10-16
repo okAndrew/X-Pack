@@ -1,5 +1,7 @@
 package com.epam.lab.model;
 
+import java.sql.Timestamp;
+
 import com.epam.lab.controller.annotations.TableColumn;
 
 public class Folder {
@@ -14,6 +16,30 @@ public class Folder {
 
 	@TableColumn("id_upper")
 	private long idUpper;
+	
+	@TableColumn("size")
+	private double size;
+	
+	@TableColumn("date")
+	private Timestamp date;
+
+	public double getSize() {
+		return size;
+	}
+
+	public Folder setSize(double size) {
+		this.size = size;
+		return this;
+	}
+
+	public Timestamp getDate() {
+		return date;
+	}
+
+	public Folder setDate(Timestamp date) {
+		this.date = date;
+		return this;
+	}
 
 	public long getId() {
 		return id;
@@ -54,7 +80,10 @@ public class Folder {
 	@Override
 	public String toString() {
 		return "Folder [id=" + id + ", idUser=" + idUser + ", name=" + name
-				+ ", idUpper=" + idUpper + "]";
+				+ ", idUpper=" + idUpper + ", size=" + size + ", date=" + date
+				+ "]";
 	}
+
+
 
 }

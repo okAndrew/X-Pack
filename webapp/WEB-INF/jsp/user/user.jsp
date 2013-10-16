@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DreamHost | User Menu</title>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
-<link href="res/css/bootstrap.min.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
 <script

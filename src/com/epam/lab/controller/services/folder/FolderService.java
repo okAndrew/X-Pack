@@ -6,6 +6,7 @@ import java.util.List;
 import com.epam.lab.controller.dao.impl.FileDAOImpl;
 import com.epam.lab.controller.dao.impl.FolderDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.model.File;
 import com.epam.lab.model.Folder;
 
@@ -35,7 +36,7 @@ public class FolderService {
 
 	public void createFolder(String name, long userId, long upperId) {
 		Folder folder = new Folder();
-		folder.setIdUser(userId).setName(name).setIdUpper(upperId);
+		folder.setIdUser(userId).setName(name).setIdUpper(upperId).setDate(CurrentTimeStamp.getCurrentTimeStamp()).setSize(0);
 		FolderDAOImpl folderDao = new FolderDAOImpl();
 		folderDao.insert(folder);
 	}
@@ -85,5 +86,15 @@ public class FolderService {
 			}
 		}
 		return result;
+	}
+
+	public void updateFoldersSize(long idFolder, double size) {
+		FolderDAOImpl dao = new FolderDAOImpl();
+		Folder folder = dao.get(idFolder);
+		folder.setSize(folder.getSize() + size);
+		dao.update(folder);
+		if (folder.getIdUpper()!=0) {
+			updateFoldersSize(folder.getIdUpper(), size);
+		}
 	}
 }

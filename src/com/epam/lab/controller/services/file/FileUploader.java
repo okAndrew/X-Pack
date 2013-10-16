@@ -10,6 +10,7 @@ import com.epam.lab.controller.dao.impl.FileDAOImpl;
 import com.epam.lab.controller.dao.impl.FolderDAOImpl;
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.File;
@@ -42,9 +43,15 @@ public class FileUploader {
 					item.write(f);
 				} catch (Exception e) {
 				}
+				updateFolders(file);
 				dao.insert(file);
 			}
 		}
+	}
+
+	private void updateFolders(File file) {
+		FolderService service = new FolderService();
+		service.updateFoldersSize(file.getIdFolder(), file.getSize());
 	}
 
 	private File getFile(FileItem item) {

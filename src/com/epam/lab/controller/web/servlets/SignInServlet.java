@@ -52,7 +52,7 @@ public class SignInServlet extends HttpServlet {
 				if (user.getIsActivated()) {
 					HttpSession session = request.getSession();
 					session.setAttribute("userid", user.getId());
-					session.setAttribute("userLogin", user.getLogin());
+					session.setAttribute("user", user);
 					response.sendRedirect(USER_PAGE);
 				} else {
 					request.setAttribute("message",

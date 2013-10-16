@@ -12,6 +12,18 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
+<script>
+	function toggle(source) {
+		checkboxes = document.getElementsByName('folders');
+		for ( var i = 0, n = checkboxes.length; i < n; i++) {
+			checkboxes[i].checked = source.checked;
+		}
+		checkboxes = document.getElementsByName('files');
+		for ( var i = 0, n = checkboxes.length; i < n; i++) {
+			checkboxes[i].checked = source.checked;
+		}
+	}
+</script>
 <style type="text/css">
 body {
 	padding-top: 70px;
@@ -21,48 +33,55 @@ body {
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>
 	<div class="container">
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<a data-toggle="modal" role="button" class="btn btn-primary"
-					href="#createFolderModal">Create Folder</a>
-			</div>
-			<div class="btn-group">
-				<a data-toggle="modal" role="button" class="btn btn-primary"
-					href="#uploadFormModal">Upload</a>
-			</div>
-			<div class="btn-group pull-right">
-				<form action="search" method="post">
-					<div class="input-group" style="width: 300px;">
-						<input name="searchtext" type="text" class="form-control">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">Search</button>
-						</span>
-					</div>
-				</form>
-			</div>
-		</div>
-		<br>
 		<div class="panel panel-default">
 			<form action="usercontroller" method="post">
 				<div class="panel-heading">File Storage</div>
+				<div class="btn-toolbar" style="padding: 20px">
+					<div class="btn-group">
+						<a data-toggle="modal" role="button" class="btn btn-primary"
+							href="#createFolderModal">Create Folder</a>
+					</div>
+					<div class="btn-group">
+						<a data-toggle="modal" role="button" class="btn btn-primary"
+							href="#uploadFormModal">Upload</a>
+					</div>
+					<div class="btn-group">
+						<button type="submit" name="download" class="btn btn-primary">Download</button>
+					</div>
+					<div class="btn-group">
+						<button type="submit" name="delete" class="btn btn-primary">Delete</button>
+					</div>
+					<div class="btn-group pull-right">
+						<div class="input-group" style="width: 300px;">
+							<input name="searchtext" type="text" class="form-control"
+								placeholder="search"> <span class="input-group-btn">
+								<button class="btn btn-primary" name="search" type="submit">Search</button>
+							</span>
+						</div>
+					</div>
+				</div>
+				<c:if test="${message!=null}">
+					<div class="alert alert-danger">${message}</div>
+				</c:if>
 				<div class="panel-body">
 					<table class="table zebra-striped table-hover">
-						<thead></thead>
-						<tbody>
+						<thead>
 							<tr>
-								<td colspan="5">
-									<div class="btn-group">
-										<button type="submit" name="download" class="btn btn-default">Download</button>
-										<button type="submit" name="delete" class="btn btn-default">Delete</button>
-									</div> <c:if test="${message!=null}">
-										<div class="alert alert-danger">${message}</div>
-									</c:if>
-								</td>
+								<th width="5%"><input type="checkbox"
+									onClick="toggle(this)" /> All</th>
+								<th width="35%">Name</th>
+								<th width="15%">Date</th>
+								<th width="10%">Size</th>
+								<th width="35%">Type</th>
 							</tr>
+						</thead>
+						<tbody>
 							<c:if test="${currentFolder.idUpper!=0}">
-								<tr>
-									<td colspan="5"><a
-										href="userfoldernav?folderid=${currentFolder.idUpper}">Up</a></td>
+								<tr><td></td>
+									<td colspan="4"><span
+										class="glyphicon glyphicon-chevron-up"></span>&nbsp;&nbsp;<strong><a
+											href="userfoldernav?folderid=${currentFolder.idUpper}"
+											style="font-size: 30px; line-height: 9px">...</a></td>
 								</tr>
 							</c:if>
 							<c:forEach items="${folders}" var="folder">
@@ -70,8 +89,12 @@ body {
 									<td><label class="checkbox-inline"> <input
 											type="checkbox" name="folders" value="${folder.id}">
 									</label></td>
-									<td colspan="4"><a
-										href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
+									<td><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;
+										<a href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
+									</td>
+									<td><c:out value="${folder.date}" /></td>
+									<td><c:out value="${folder.size}" /></td>
+									<td><c:out value="Folder" /></td>
 								</tr>
 							</c:forEach>
 							<c:forEach items="${files}" var="file">
@@ -79,7 +102,8 @@ body {
 									<td><label class="checkbox-inline"> <input
 											type="checkbox" name="files" value="${file.id}">
 									</label></td>
-									<td><a href="download?fileid=${file.id}">${file.nameIncome}</a></td>
+									<td><span class="glyphicon glyphicon-file"></span>&nbsp;&nbsp;<a
+										href="download?fileid=${file.id}">${file.nameIncome}</a></td>
 									<td><c:out value="${file.date}" /></td>
 									<td><c:out value="${file.size}" /></td>
 									<td><c:out value="${file.type}" /></td>

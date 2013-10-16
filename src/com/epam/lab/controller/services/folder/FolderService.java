@@ -12,19 +12,23 @@ import com.epam.lab.model.Folder;
 
 public class FolderService {
 	private static final String ROOT_NAME = "root";
+	private static final String SEPARATOR = java.io.File.separator;
 
-	public void createRootFolder(long userId) {
+	public long createRootFolder(long userId) {
 		FolderDAOImpl folderDao = new FolderDAOImpl();
-		Folder folder = folderDao.getRootFolderByUserId(userId);
+		Folder folder = folderDao.getRootFolder(userId);
 		if (folder == null) {
 			folder = new Folder();
 			folder.setIdUser(userId).setName(ROOT_NAME).setIdUpper(0);
 			folderDao.insert(folder);
+			return getRootId(userId);
+		} else {
+			return folder.getId();
 		}
 	}
 
 	public long getRootId(long userId) {
-		return new FolderDAOImpl().getRootFolderByUserId(userId).getId();
+		return new FolderDAOImpl().getRootFolder(userId).getId();
 	}
 
 	public List<Folder> getFolders(long userId, long folderId) {
@@ -36,7 +40,8 @@ public class FolderService {
 
 	public void createFolder(String name, long userId, long upperId) {
 		Folder folder = new Folder();
-		folder.setIdUser(userId).setName(name).setIdUpper(upperId).setDate(CurrentTimeStamp.getCurrentTimeStamp()).setSize(0);
+		folder.setIdUser(userId).setName(name).setIdUpper(upperId)
+				.setDate(CurrentTimeStamp.getCurrentTimeStamp()).setSize(0);
 		FolderDAOImpl folderDao = new FolderDAOImpl();
 		folderDao.insert(folder);
 	}
@@ -61,19 +66,48 @@ public class FolderService {
 		return new FolderDAOImpl().get(id);
 	}
 
-	public boolean isFolderExist(long upperId, String folderName) {
+	public boolean checkFolder(String path, long userId, long upperId) {
+		List<String> pathList = getPathList(path);
+		return isFolderExist(pathList, userId, upperId);
+	}
+
+	public boolean checkFolder(String path, long userId) {
+		return checkFolder(path, userId, 0);
+	}
+
+	private boolean isFolderExist(List<String> pathList, long userId,
+			long upperId) {
 		FolderDAOImpl dao = new FolderDAOImpl();
-		Folder folder = dao.getFolderByNameAndUpperId(upperId, folderName);
-		if (folder == null) {
-			return false;
+		List<Folder> folders = dao.getFoldersByUpperId(upperId);
+		if (pathList.size() <= 1) {
+			for (Folder folder : folders) {
+				if (pathList.get(0).equals(folder.getName())) {
+					return true;
+				}
+			}
 		} else {
-			return true;
+			for (String p : pathList) {
+				boolean isCurFolder = false;
+				Folder f = null;
+				for (Folder folder : folders) {
+					if (p.equals(folder.getName())) {
+						isCurFolder = true;
+						f = folder;
+						break;
+					}
+				}
+				if (isCurFolder && f != null) {
+					pathList.remove(p);
+					return isFolderExist(pathList, userId, f.getId());
+				}
+			}
 		}
+		return false;
 	}
 
 	public List<Folder> getFolders(long userId) {
 		FolderDAOImpl dao = new FolderDAOImpl();
-		return dao.getAllbyUserId(userId);
+		return dao.getAll(userId);
 	}
 
 	public List<Folder> getSearchedFolders(long userId, String text) {
@@ -93,8 +127,17 @@ public class FolderService {
 		Folder folder = dao.get(idFolder);
 		folder.setSize(folder.getSize() + size);
 		dao.update(folder);
-		if (folder.getIdUpper()!=0) {
+		if (folder.getIdUpper() != 0) {
 			updateFoldersSize(folder.getIdUpper(), size);
 		}
+	}
+
+	private List<String> getPathList(String path) {
+		String[] resultArray = path.split(SEPARATOR + SEPARATOR);
+		List<String> result = new ArrayList<String>();
+		for (String s : resultArray) {
+			result.add(s);
+		}
+		return result;
 	}
 }

@@ -27,6 +27,22 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript">
+	function validateForm() {
+		var p1 = document.forms["paybyDate"]["startDate"].value;
+		if (p1 == "") {
+			setMessage("Fields cannot be empty", errorinfo);
+			return false;
+		}
+
+		return true;
+	}
+
+	function setMessage(message, block) {
+		block.style.display = "block";
+		block.innerHTML = message;
+	}
+</script>
 </head>
 
 <body>
@@ -46,44 +62,19 @@
 		src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
 		
 	</script>
-
-	<script type="text/javascript">
-		$(function() {
-			$('#datetimepicker4').datetimepicker({
-				pickTime : false
-			});
-		});
-	</script>
-	<script type="text/javascript">
-		$(function() {
-			$('#datetimepicker5').datetimepicker({
-				pickTime : false
-
-			})
-		});
-	</script>
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
 	<div class="payments-admin-user">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">Payments</div>
 			<h2 id="tables-condensed"></h2>
-			<form action="adminUserDeleteFile" method="post">
+			<form action="paymentsByDate" method="post" name="paybyDate" onsubmit="return validateForm()">
 				<div class="panel-body">
-					<a href="#">Show payments for period</a>
+					<button type="submit" class="btn btn-default" name="action"
+						value="delete">Show payments for period</button>
 					<div class="well">
-						<div id="datetimepicker4" class="input-append">
-							<input data-format="yyyy-MM-dd" type="text"></input> <span
-								class="add-on"> <i data-time-icon="icon-time"
-								data-date-icon="icon-calendar"> </i>
-							</span>
-						</div>
-						<div id="datetimepicker5" class="input-append">
-							<input data-format="yyyy-MM-dd" type="text"></input> <span
-								class="add-on"> <i data-time-icon="icon-time"
-								data-date-icon="icon-calendar"> </i>
-							</span>
-						</div>
+						<input type="date" name="startDate"> <input type="date"
+							name="endDate">
 					</div>
 
 				</div>
@@ -98,6 +89,9 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:if test="${listPayments==null}">
+							<a href="adminUserPayments">Back to all payments</a>
+						</c:if>
 						<c:forEach items="${listPayments}" var="payment">
 							<tr>
 								<td>${payment.id}</td>
@@ -114,7 +108,5 @@
 	</div>
 </body>
 </html>
-
-
 
 

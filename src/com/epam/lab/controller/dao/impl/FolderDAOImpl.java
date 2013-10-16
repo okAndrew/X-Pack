@@ -47,14 +47,21 @@ public class FolderDAOImpl implements FolderDAO {
 		return result;
 	}
 
-	public List<Folder> getAllbyUserId(long userId) {
+	public List<Folder> getAll(long userId) {
 		String sql = "SELECT * FROM folders WHERE id_user = ?";
 		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,
 				userId);
 		return resultList;
 	}
+	
+	public List<Folder> getFoldersByUpperId(long upperId) {
+		String sql = "SELECT * FROM folders WHERE id_upper = ?";
+		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,
+				upperId);
+		return resultList;
+	}
 
-	public Folder getRootFolderByUserId(long idUser) {
+	public Folder getRootFolder(long idUser) {
 		String sql = "SELECT * FROM folders WHERE id_user = ? AND id_upper = 0";
 		Folder folder = queryExecutor.executeQuerySingle(Folder.class, sql,
 				idUser);

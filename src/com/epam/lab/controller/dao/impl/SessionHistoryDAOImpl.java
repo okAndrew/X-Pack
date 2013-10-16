@@ -1,14 +1,10 @@
 package com.epam.lab.controller.dao.impl;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-import com.epam.lab.controller.dao.PaymentDAO;
 import com.epam.lab.controller.dao.SessionHistoryDAO;
 import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
-import com.epam.lab.model.Payment;
 import com.epam.lab.model.SessionHistory;
-import com.epam.lab.model.User;
 
 public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 	private DBQueryExecutor<SessionHistory> queryExecutor = new DBQueryExecutor<SessionHistory>();
@@ -22,22 +18,24 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 	@Override
 	public List<SessionHistory> getAll() {
 		String sql = "SELECT * FROM session_history";
-		List<SessionHistory> resultList = queryExecutor.executeQuery(SessionHistory.class, sql);
+		List<SessionHistory> resultList = queryExecutor.executeQuery(
+				SessionHistory.class, sql);
 		return resultList;
 	}
 
 	@Override
 	public int insert(SessionHistory sessionObject) {
 		String sql = "INSERT INTO session_history(user_id, startdate) VALUES (?, ?)";
-		int result = queryExecutor.executeUpdate(sql, sessionObject.getUserid(),
-				sessionObject.getStartdate());
+		int result = queryExecutor.executeUpdate(sql,
+				sessionObject.getUserid(), sessionObject.getStartdate());
 		return result;
 	}
 
 	@Override
 	public int update(SessionHistory sessionObject) {
 		String sql = "UPDATE session_history SET enddate=? WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, sessionObject.getEnddate(), sessionObject.getId());
+		int result = queryExecutor.executeUpdate(sql,
+				sessionObject.getEnddate(), sessionObject.getId());
 		return result;
 	}
 
@@ -46,7 +44,5 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	
 
 }

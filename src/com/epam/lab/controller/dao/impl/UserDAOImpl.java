@@ -39,6 +39,7 @@ public class UserDAOImpl implements UserDAO {
 				user.getEmail(), user.getPassword(), user.getIdTariff(),
 				user.getCapacity(), user.getToken(), user.getIsActivated(),
 				user.getId());
+
 		return result;
 	}
 

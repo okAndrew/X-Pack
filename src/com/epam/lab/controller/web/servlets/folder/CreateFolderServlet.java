@@ -14,19 +14,28 @@ import com.epam.lab.controller.services.folder.FolderService;
 public class CreateFolderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String USER_PAGE = "userpage";
-       
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		FolderService service = new FolderService();
 		HttpSession session = request.getSession(false);
-		long folderId = (long) session.getAttribute("folderId");
-		String folderName = request.getParameter("folderName");
+		long folderId = (long) session.getAttribute("folderid");
 		long userId = (long) session.getAttribute("userid");
-		if (!service.isFolderExist(folderId, folderName)) {
-			service.createFolder(folderName, userId, folderId);
+		if (request.getParameter("foldername") == null
+				|| request.getParameter("foldername").equals("")) {
+			request.setAttribute("message",
+					"Please, enter folder's name, before create it");
+			request.getRequestDispatcher(USER_PAGE).forward(request, response);
 		} else {
-			// error message
+			String folderName = request.getParameter("foldername");
+			if (service.isFolderExist(folderId, folderName)) {
+				request.setAttribute("message", "Folder exist");
+				request.getRequestDispatcher(USER_PAGE).forward(request,
+						response);
+			} else {
+				service.createFolder(folderName, userId, folderId);
+				response.sendRedirect(USER_PAGE);
+			}
 		}
-		response.sendRedirect(USER_PAGE);
 	}
-
 }

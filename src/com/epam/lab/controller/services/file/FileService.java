@@ -4,37 +4,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import com.epam.lab.controller.dao.impl.FileDAOImpl;
+import com.epam.lab.controller.services.folder.FolderService;
 
 import org.apache.log4j.Logger;
 
 public class FileService {
 	private static final Logger logger = Logger.getLogger(FileService.class);
+	private static long count;
 	public static final String ROOT_PATH = "E:/files/";
 	public static final int MAX_FILES = 999;
-
-	/*
-	 * return hash md5(time+fileName+userName)
-	 */
-	public String getFileName(String fileName, String userLogin) {
-		String result = Long.toString(Calendar.getInstance().getTimeInMillis())
-				+ fileName + userLogin;
-		try {
-			result = MessageDigest.getInstance("MD5").digest(result.getBytes())
-					.toString();
-		} catch (NoSuchAlgorithmException e) {
-			logger.error(e);
-			e.printStackTrace();
-		}
-		return result;
-	}
 
 	/*
 	 * return current month/year/day String for folder (2013/11/1, 2013/11/2,
@@ -118,46 +103,55 @@ public class FileService {
 		return newFolder;
 	}
 
-	public List<com.epam.lab.model.File> getAllFiles(long iduser) {
+	public com.epam.lab.model.File getFile(long fileId) {
+		FileDAOImpl dao = new FileDAOImpl();
+		com.epam.lab.model.File file = dao.get(fileId);
+		return file;
+	}
+
+	public List<com.epam.lab.model.File> getFiles(long userId) {
 		List<com.epam.lab.model.File> files = null;
 		FileDAOImpl filedaoimpl = new FileDAOImpl();
-		files = filedaoimpl.getAllbyUserId(iduser);
+		files = filedaoimpl.getAllbyUserId(userId);
+		return files;
+	}
+
+	public List<com.epam.lab.model.File> getFiles(long userId, long folderId) {
+		List<com.epam.lab.model.File> files = null;
+		FileDAOImpl filedaoimpl = new FileDAOImpl();
+		files = filedaoimpl.getAllbyUserIdAndFolderId(userId, folderId);
 		return files;
 	}
 
 	public void delete(long id) {
-		FileDAOImpl filedaoimp = new FileDAOImpl();
-		File file = new File(filedaoimp.get(id).getPath() + File.separator
-				+ filedaoimp.get(id).getName());
-		file.delete();
-		filedaoimp.delete(id);
-
-	}
-
-	public List<com.epam.lab.model.File> getFiles(long userid,
-			long folderId) {
-		List<com.epam.lab.model.File> files = null;
-		FileDAOImpl filedaoimpl = new FileDAOImpl();
-		files = filedaoimpl.getAllbyUserIdAndFolderId(userid, folderId);
-		return files;
-	}
-
-	public com.epam.lab.model.File getFileById(long fileId) {
-		return new FileDAOImpl().get(fileId);
+		FileDAOImpl dao = new FileDAOImpl();
+		com.epam.lab.model.File f = dao.get(id);
+		if (f != null) {
+			File file = new File(f.getPath() + File.separator + f.getName());
+			file.delete();
+			FolderService service = new FolderService();
+			service.updateFoldersSize(f.getIdFolder(), -f.getSize());
+			dao.delete(id);
+		}
 	}
 
 	public String getArchivePath(String[] ids) {
-		String zipPath = ROOT_PATH + "tmp.zip";
+		StringBuilder zipPath = new StringBuilder();
+		zipPath.append(ROOT_PATH).append("tmp").append(File.separator);
+		File folder = new File(zipPath.toString());
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+		zipPath.append(++count).append(".zip");
 		try {
-			ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipPath));
+			ZipOutputStream out = new ZipOutputStream(new FileOutputStream(
+					zipPath.toString()));
 			for (int i = 0; i < ids.length; i++) {
 				long id = Long.parseLong(ids[i]);
 				FileDAOImpl dao = new FileDAOImpl();
 				com.epam.lab.model.File f = dao.get(id);
-				String path = f.getPath() + File.separator
-						+ f.getName();
+				String path = f.getPath() + File.separator + f.getName();
 				FileInputStream in = new FileInputStream(path);
-				System.out.println(f.getNameIncome());
 				out.putNextEntry(new ZipEntry(f.getNameIncome()));
 				byte[] b = new byte[1024];
 				int count;
@@ -171,7 +165,19 @@ public class FileService {
 			logger.error(e);
 			e.printStackTrace();
 		}
-		return zipPath;
+		return zipPath.toString();
 	}
 
+	public List<com.epam.lab.model.File> getSearchedFiles(long userId,
+			String text) {
+		FileService service = new FileService();
+		List<com.epam.lab.model.File> files = service.getFiles(userId);
+		List<com.epam.lab.model.File> result = new ArrayList<com.epam.lab.model.File>();
+		for (com.epam.lab.model.File file : files) {
+			if (file.getNameIncome().contains(text)) {
+				result.add(file);
+			}
+		}
+		return result;
+	}
 }

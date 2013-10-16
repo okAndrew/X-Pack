@@ -19,10 +19,10 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.services.file.FileUploader;
 
 @WebServlet("/upload")
-public class FileUploadServlet extends HttpServlet {
+public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger
-			.getLogger(FileUploadServlet.class);
+			.getLogger(UploadServlet.class);
 	private static final String USER_PAGE = "userpage";
 
 	protected void doPost(HttpServletRequest request,
@@ -31,10 +31,11 @@ public class FileUploadServlet extends HttpServlet {
 			try {
 				HttpSession session = request.getSession(false);
 				long userId = (long) session.getAttribute("userid");
+				long folderId = (long) session.getAttribute("folderid");
 				ServletFileUpload upload = new ServletFileUpload(
 						new DiskFileItemFactory());
 				List<FileItem> items = upload.parseRequest(request);
-				FileUploader uploader = new FileUploader(items, userId);
+				FileUploader uploader = new FileUploader(items, userId, folderId);
 				uploader.run();
 			} catch (FileUploadException e) {
 				logger.error(e);

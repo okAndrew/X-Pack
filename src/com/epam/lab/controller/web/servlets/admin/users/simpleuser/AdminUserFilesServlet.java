@@ -43,7 +43,7 @@ public class AdminUserFilesServlet extends HttpServlet {
 		} else {
 			folderId = (long) session.getAttribute("folderId");
 		}
-		Folder currentFolder = service.getFolderById(folderId);
+		Folder currentFolder = service.getFolder(folderId);
 		List<Folder> folders = service.getFolders(userid, folderId);
 		List<File> files = service2.getFiles(userid, folderId);
 		request.setAttribute("folders", folders);

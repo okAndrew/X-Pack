@@ -15,24 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.file.FileService;
 
-@WebServlet("/downloadfile")
-public class FileDownloadServlet extends HttpServlet {
+@WebServlet("/downloadfiles")
+public class DownloadFilesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String USER_PAGE = "userpage";
 
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		FileService service = new FileService();
-		long fileId = Long.valueOf(request.getParameter("fileId"));
-		String filePath = service.getFileById(fileId).getPath()
-				+ File.separator + service.getFileById(fileId).getName();
-		File file = new File(filePath);
-		
+		String[] filesIds = request.getParameterValues("files");
+		String zipPath = service.getArchivePath(filesIds);
+		File file = new File(zipPath);
 		if (!file.exists()) {
 			throw new ServletException("File doesn't exists on server.");
 		}
-		System.out
-				.println("File location on server::" + file.getAbsolutePath());
 		ServletContext ctx = getServletContext();
 		InputStream fis = new FileInputStream(file);
 		String mimeType = ctx.getMimeType(file.getAbsolutePath());
@@ -40,7 +35,7 @@ public class FileDownloadServlet extends HttpServlet {
 				: "application/octet-stream");
 		response.setContentLength((int) file.length());
 		response.setHeader("Content-Disposition", "attachment; filename=\""
-				+ service.getFileById(fileId).getNameIncome() + "\"");
+				+ file.getName() + "\"");
 		ServletOutputStream os = response.getOutputStream();
 		byte[] bufferData = new byte[1024];
 		int read = 0;
@@ -50,8 +45,5 @@ public class FileDownloadServlet extends HttpServlet {
 		os.flush();
 		os.close();
 		fis.close();
-		System.out.println("File downloaded at client successfully");
-
 	}
-
 }

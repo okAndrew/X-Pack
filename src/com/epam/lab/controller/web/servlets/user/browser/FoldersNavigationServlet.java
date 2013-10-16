@@ -14,9 +14,9 @@ public class FoldersNavigationServlet extends HttpServlet {
 	private static final String USER_PAGE = "userpage";
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		long folderId = Long.valueOf(request.getParameter("folderId"));
+		long folderId = Long.valueOf(request.getParameter("folderid"));
 		HttpSession session = request.getSession(false);
-		session.setAttribute("folderId", folderId);
+		session.setAttribute("folderid", folderId);
 		response.sendRedirect(USER_PAGE);
 	}
 

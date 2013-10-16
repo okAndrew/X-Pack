@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 
 import org.apache.log4j.Logger;
 
-import sun.rmi.runtime.NewThreadAction;
-
 import com.epam.lab.controller.dao.impl.TokenDAOImpl;
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
 import com.epam.lab.controller.services.folder.FolderService;
@@ -67,8 +65,13 @@ public class RegistrationService {
 	}
 	
 	public void sendActivations(User user) {
+		StringBuilder msg = new StringBuilder();
 		String token = createToken(user);
-		MailSender.send(user.getEmail(), "Activation", token);
+		
+		msg.append("http://localhost:8080/dreamhost/activation?email=");
+		msg.append(user.getEmail()).append("&token=").append(token);
+		
+		MailSender.send(user.getEmail(), "Activation", msg.toString());
 	}
 	
 	private String createToken(User user) {
@@ -97,7 +100,8 @@ public class RegistrationService {
 		User user = userService.getUserByEmail(email);
 		Token tokenObj = tokenDAOImpl.get(token);
 
-		if (tokenObj.getUser() == user.getId() && tokenObj.getAvailable()) {
+		if (tokenObj.getUser() == user.getId() && tokenObj.getAvailable()
+				&& tokenObj.getUser() == user.getId()) {
 			tokenDAOImpl.deactivateToken(token);
 			userService.activateUser(user);
 		}

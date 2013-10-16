@@ -9,13 +9,13 @@ public class SessionHistoryService {
 
 	static Logger logger = Logger.getLogger(SessionHistoryService.class);
 
-	public void addSession(long userid, Timestamp startDate) {
-		SessionHistory session = new SessionHistory().setUserid(userid)
+	public SessionHistory addSession(long userid, Timestamp startDate) {
+		SessionHistory sessionhistory = new SessionHistory().setUserid(userid)
 				.setStartdate(startDate);
 
 		SessionHistoryDAOImpl sessionDAOImpl = new SessionHistoryDAOImpl();
-		sessionDAOImpl.insert(session);
-
+		sessionDAOImpl.insert(sessionhistory);
+		return sessionhistory;
 	}
 
 	public int update(SessionHistory sessionObject) {

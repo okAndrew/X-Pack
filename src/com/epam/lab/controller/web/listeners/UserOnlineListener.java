@@ -11,8 +11,6 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.SessionHistoryService;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
 
 @WebListener
 public class UserOnlineListener implements HttpSessionListener,
@@ -27,16 +25,13 @@ public class UserOnlineListener implements HttpSessionListener,
 	public void sessionCreated(HttpSessionEvent event) {
 		HttpSession session = event.getSession();
 		sessions.add(session.getId());
-		SessionHistoryService historyService = new SessionHistoryService();
-		historyService.addSession((long) session.getAttribute("userid"),
-				CurrentTimeStamp.getCurrentTimeStamp());
+
 		session.setAttribute("counter", this);
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {
 		HttpSession session = event.getSession();
 		sessions.remove(session.getId());
-
 		session.setAttribute("counter", this);
 	}
 

@@ -34,19 +34,19 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int update(User user) {
-		String sql = "UPDATE users SET login=? email=?, password=?, id_tariff=?, capacity=?, token=? WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, user.getLogin(), user.getEmail(),
-				user.getPassword(), user.getIdTariff(), user.getCapacity(),
-				user.getToken(), user.getId());
+		String sql = "UPDATE users SET login=?, email=?, passowrd=?, id_tariff=?, capacity=?, token=?, is_activated=? WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql, user.getLogin(),
+				user.getEmail(), user.getPassword(), user.getIdTariff(),
+				user.getCapacity(), user.getToken(), user.getId());
 		return result;
 	}
 
 	@Override
-	public int updateUser(long userId, String userLogin, String userEmail,
-			long userIdTariff, String userToken, boolean activated) {
-		String sql = "UPDATE users SET login=?, email=?, id_tariff=?, token=?, is_activated=? WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, userLogin, userEmail, userIdTariff,
-				userToken, activated, userId);
+	public int updateUser(long id, String login, String email, String password,
+		long tariff, int capacity, String token, boolean activated) {
+		String sql = "UPDATE users SET login=?, email=?, passowrd=?, id_tariff=?, capacity=?, token=?, is_activated=? WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql, login, email, tariff,
+				capacity, token, activated, id);
 		return result;
 
 	}
@@ -76,5 +76,5 @@ public class UserDAOImpl implements UserDAO {
 		String sql = "UPDATE users SET is_activated=? WHERE id=?";
 		return queryExecutor.executeUpdate(sql, true, id);
 	}
-	
+
 }

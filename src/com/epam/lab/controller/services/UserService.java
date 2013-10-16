@@ -53,12 +53,9 @@ public class UserService {
 		return new UserDAOImpl().getByEmail(email);
 	}
 
-	public int updateUser(long id, String login, String email,
-		long tariff, String token, boolean activated) {
+	public int updateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(id, login, email,
-				tariff, token, activated);
-		
+		int result = userDaoImpl.update(user);
 		return result;
 	}
 
@@ -93,24 +90,20 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		userDaoImpl.delete(id);
 	}
-	
+
 	public int activateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
-				user.getIdTariff(), user.getToken(), true);
-		
+		int result = userDaoImpl.activatedUserById(user.getId());
 		return result;
 	}
-	
+
 	public int deactivateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
-				user.getIdTariff(), user.getToken(), false);
-		
+		int result = userDaoImpl.deaktivatedUserById(user.getId());
 		return result;
 	}
-	
-	public String deactivateUsers(String[] usersId){
+
+	public String deactivateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
@@ -122,8 +115,8 @@ public class UserService {
 		}
 		return errorMessage;
 	}
-	
-	public String activateUsers(String[] usersId){
+
+	public String activateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
@@ -135,14 +128,14 @@ public class UserService {
 		}
 		return errorMessage;
 	}
-	
+
 	public void changeUserPassword(User user, String password) {
 		MD5Encrypter md5 = new MD5Encrypter();
 		String md5Pass = md5.encrypt(password);
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		
+
 		user.setPassword(md5Pass);
 		userDaoImpl.update(user);
 	}
-	
+
 }

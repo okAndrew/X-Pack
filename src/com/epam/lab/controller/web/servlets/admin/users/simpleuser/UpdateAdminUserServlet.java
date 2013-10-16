@@ -29,17 +29,19 @@ public class UpdateAdminUserServlet extends HttpServlet {
 		int userId = Integer.parseInt(request.getParameter("userIdHolder"));
 		String userLogin = request.getParameter("userLogin");// check
 		String userEmail = request.getParameter("userEmail");// check
-		int userIdTariff = Integer.parseInt(request
-				.getParameter("userIdTariff"));
 		String userToken = request.getParameter("userToken");// check
-		boolean activated = Boolean.parseBoolean(request.getParameter("userActivation"));
-		
-		UserService userService = new UserService();
-		userService.updateUser(userId, userLogin, userEmail, userIdTariff,
-				userToken, activated);
-		User user = userService.getUserById(userId);
+		boolean activated = Boolean.parseBoolean(request
+				.getParameter("userActivation"));
 
-		request.setAttribute("user", user);
+		UserService userService = new UserService();
+		User user = userService.getUserById(userId).setLogin(userLogin)
+				.setEmail(userEmail).setToken(userToken)
+				.setIsActivated(activated);
+
+		userService.updateUser(user);
+		User user1 = userService.getUserById(userId);
+
+		request.setAttribute("user", user1);
 
 		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);
 	}

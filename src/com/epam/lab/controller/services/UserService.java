@@ -1,5 +1,6 @@
 package com.epam.lab.controller.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -7,6 +8,7 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.model.User;
 
 public class UserService {
@@ -135,4 +137,20 @@ public class UserService {
 		return errorMessage;
 	}
 	
+	public String sendUsersEmail(String[] usersId){
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		String errorMessage = null;
+		List<User> users = new ArrayList<User>();
+		if (usersId == null) {
+			errorMessage = "Please check the users you want to activate!!!";
+		} else {
+			for (int i = 0; i < usersId.length; i++) {
+				users.add(userDaoImpl.get(Long.parseLong(usersId[i])));
+			}			
+			for (User iter: users){
+				MailSender.send(iter.getEmail(), "dreamhost", "test message");
+			}
+		}
+		return errorMessage;
+	}
 }

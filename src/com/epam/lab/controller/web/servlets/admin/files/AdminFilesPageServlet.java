@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users;
+package com.epam.lab.controller.web.servlets.admin.files;
 
 import java.io.IOException;
 
@@ -9,26 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.UserService;
+@WebServlet("/adminFilesPage")
+public class AdminFilesPageServlet extends HttpServlet {
 
-@WebServlet("/sendEmailUsers")
-public class SendEmailUsers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String ADMIN_USERS_PAGE = "adminUsersPage";
+	private static String ADMIN_FILES_PAGE_JSP = "WEB-INF/jsp/admin/files/adminFilesPage.jsp";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher(ADMIN_FILES_PAGE_JSP);
+		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = null;
-		String[] chekedUsers = request.getParameterValues("checkUser");
-		String message = null;
-		UserService service = new UserService();
-		message = service.sendUsersEmail(chekedUsers);
-		request.setAttribute("message", message);
-		dispatcher = request.getRequestDispatcher(ADMIN_USERS_PAGE);
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher(ADMIN_FILES_PAGE_JSP);
 		dispatcher.forward(request, response);
 	}
+
 }

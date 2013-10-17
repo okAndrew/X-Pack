@@ -24,7 +24,7 @@
 			<c:if test="${sessionScope.login != null}">
 				<ul class="nav navbar-nav">
 					<li class=""><a href="adminUsersPage">Users</a></li>
-					<li class=""><a href="#">Files</a></li>
+					<li class=""><a href="adminFilesPage">Files</a></li>
 					<li class=""><a href="adminTarrifsPage">Tariffs</a></li>
 					<li class=""><a href="#">Admins</a></li>
 				</ul>

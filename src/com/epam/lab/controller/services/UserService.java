@@ -60,17 +60,17 @@ public class UserService {
 		return result;
 	}
 
-	public void deleteFilesAndFolders(String[] rs, String[] rs2, long userId) {
-		FolderService service = new FolderService();
-		FileService service2 = new FileService();
-		if (rs != null && !rs[0].equals("")) {
-			for (int i = 0; i < rs.length; i++) {
-				service2.delete(Long.parseLong(rs[i]));
+	public void deleteFilesAndFolders(String[] filesId, String[] foldersId, long userId) {
+		FolderService folderService = new FolderService();
+		FileService fileService = new FileService();
+		if (filesId != null && filesId[0]!=null && !filesId[0].equals("")) {
+			for (int i = 0; i < filesId.length; i++) {
+				fileService.delete(Long.parseLong(filesId[i]));
 			}
 		}
-		if (rs2 != null && !rs2[0].equals("")) {
-			for (int i = 0; i < rs2.length; i++) {
-				service.delete(Long.parseLong(rs2[i]));
+		if (foldersId != null && foldersId[0]!=null && !foldersId[0].equals("")) {
+			for (int i = 0; i < foldersId.length; i++) {
+				folderService.delete(Long.parseLong(foldersId[i]));
 			}
 		}
 	}

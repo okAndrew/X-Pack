@@ -46,8 +46,12 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public int update(File object) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "UPDATE files SET id_folder=?, name_income=?, name=?, path=?, type=?, size=?, id_user=? WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql, object.getIdFolder(),
+				object.getNameIncome(), object.getName(), object.getPath(),
+				object.getType(), object.getSize(), object.getIdUser(),
+				object.getId());
+		return result;
 	}
 
 	@Override

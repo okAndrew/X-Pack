@@ -80,6 +80,12 @@ public class FolderService {
 		return isFolderExist(pathList, userId, upperId);
 	}
 
+	public long update(Folder folder) {
+		FolderDAOImpl dao = new FolderDAOImpl();
+		dao.update(folder);
+		return folder.getId();
+	}
+
 	public void updateSize(long folderId, double size) {
 		FolderDAOImpl dao = new FolderDAOImpl();
 		Folder folder = dao.get(folderId);

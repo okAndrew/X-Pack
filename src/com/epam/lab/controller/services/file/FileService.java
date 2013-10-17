@@ -143,6 +143,23 @@ public class FileService {
 		return result;
 	}
 
+	public boolean check(long folderId, String name) {
+		FileDAOImpl dao = new FileDAOImpl();
+		List<com.epam.lab.model.File> files = dao.getAllByFolderId(folderId);
+		for (com.epam.lab.model.File file : files) {
+			if (file.getNameIncome().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public long update(com.epam.lab.model.File file) {
+		FileDAOImpl dao = new FileDAOImpl();
+		dao.update(file);
+		return dao.get(file.getId()).getId();
+	}
+
 	/*
 	 * return current month/year/day String for folder (2013/11/1, 2013/11/2,
 	 * 2014/1/13 ...)
@@ -157,7 +174,6 @@ public class FileService {
 		StringBuilder temp = new StringBuilder().append(year)
 				.append(File.separator).append(month).append(File.separator)
 				.append(day);
-
 		return temp.toString();
 	}
 

@@ -28,7 +28,7 @@ public class BrowserSearchServlet extends HttpServlet {
 		if (request.getParameter("searchtext") != null) {
 			String text = request.getParameter("searchtext");
 			List<File> files = new FileService().getSearchedFiles(userId, text);
-			List<Folder> folders = new FolderService().getSearchedFolders(
+			List<Folder> folders = new FolderService().getSearched(
 					userId, text);
 			request.setAttribute("files", files);
 			request.setAttribute("folders", folders);

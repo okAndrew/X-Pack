@@ -69,7 +69,7 @@ public class UserService {
 		}
 		if (rs2 != null && !rs2[0].equals("")) {
 			for (int i = 0; i < rs2.length; i++) {
-				service.delete(Long.parseLong(rs2[i]), userId);
+				service.delete(Long.parseLong(rs2[i]));
 			}
 		}
 	}

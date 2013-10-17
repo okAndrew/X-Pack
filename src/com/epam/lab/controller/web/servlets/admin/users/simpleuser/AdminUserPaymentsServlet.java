@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.log4j.Logger;
-
 import com.epam.lab.controller.services.PaymentService;
 import com.epam.lab.model.Payment;
 
@@ -21,8 +18,6 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_USER_PAYMENTS_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserPayments.jsp";
-	private static final Logger logger = Logger
-			.getLogger(AdminUserPaymentsServlet.class);
 
 	public AdminUserPaymentsServlet() {
 		super();

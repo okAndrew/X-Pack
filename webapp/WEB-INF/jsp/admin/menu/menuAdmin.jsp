@@ -43,7 +43,7 @@
 
 				<c:if test="${sessionScope.login != null}">
 					<div class="form-group">
-						<a href="signInAdmin" class="btn btn-success"> <fmt:message
+						<a href="signOutAdmin" class="btn btn-success"> <fmt:message
 								key="signout" bundle="${lang}" />
 						</a>
 					</div>

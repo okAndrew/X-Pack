@@ -9,7 +9,7 @@ public class SessionHistory {
 	private long id;
 
 	@TableColumn("userid")
-	private String userid;
+	private long userid;
 
 	@TableColumn("startdate")
 	private Timestamp startdate;
@@ -26,11 +26,11 @@ public class SessionHistory {
 		return this;
 	}
 
-	public String getUserid() {
+	public long getUserid() {
 		return userid;
 	}
 
-	public SessionHistory setUserid(String userid) {
+	public SessionHistory setUserid(long userid) {
 		this.userid = userid;
 		return this;
 	}

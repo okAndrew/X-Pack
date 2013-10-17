@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="com.epam.lab.controller.web.listeners.UserOnlineListener"%>
 
 <!DOCTYPE html>
 <html>
@@ -32,10 +31,6 @@
 
 <body>
 	<jsp:include page="menu/menuAdmin.jsp"></jsp:include>
-<%
-    UserOnlineListener counter = (UserOnlineListener) session
-            .getAttribute("counter");
-%>
 
 	<div class="Container">
 		<!-- Panel -->
@@ -53,11 +48,11 @@
 								<tbody>
 									<tr>
 										<td>All users</td>
-										<td>value</td>
+										<td>${countAllUsers}</td>
 									</tr>
 									<tr>
 										<td>Online users</td>
-										<td><%= counter.getActiveSessionNumber() %></td>
+										<td>${countUsers}</td>
 									</tr>
 								</tbody>
 							</table>

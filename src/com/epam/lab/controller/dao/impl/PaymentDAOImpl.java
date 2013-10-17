@@ -6,37 +6,39 @@ import java.util.List;
 import com.epam.lab.controller.dao.PaymentDAO;
 import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
 import com.epam.lab.model.Payment;
+import com.epam.lab.model.User;
 
 public class PaymentDAOImpl implements PaymentDAO {
 	private DBQueryExecutor<Payment> queryExecutor = new DBQueryExecutor<Payment>();
 
 	@Override
 	public Payment get(long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Payment> getAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int insert(Payment object) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "INSERT INTO payments(user, tariff, price, date_created) VALUES(?, ?, ?, ?)";
+		return queryExecutor.executeUpdate(sql, object.getUser(),
+				object.getTariff(), object.getPrice(), object.getDateCreated());
 	}
 
 	@Override
 	public int update(Payment object) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "UPDATE payments SET user = ?, tariff = ?, date_created = ?, date_end = ?, price = ?, status = ?, available = ?  WHERE id=?";
+		return queryExecutor.executeUpdate(sql, object.getUser(),
+				object.getTariff(), object.getDateCreated(),
+				object.getDateEnd(), object.getPrice(), object.getStatus(),
+				object.getAvailable(), object.getId());
 	}
 
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -53,8 +55,15 @@ public class PaymentDAOImpl implements PaymentDAO {
 			Timestamp endDate) {
 		String sql = "SELECT * FROM payments WHERE id_user=? AND date BETWEEN ? AND ?;";
 		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
-				sql, userId, startDate, endDate );
+				sql, userId, startDate, endDate);
 		return resultList;
+	}
+
+	@Override
+	public Payment getByUserTime(long user, Timestamp time) {
+		String sql = "SELECT * FROM payments WHERE user = ? AND date_created = ?";
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql, user, time);
+		return result;
 	}
 
 }

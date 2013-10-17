@@ -45,8 +45,9 @@ public class User {
 		return login;
 	}
 
-	public void setLogin(String login) {
+	public User setLogin(String login) {
 		this.login = login;
+		return this;
 	}
 
 	public long getId() {
@@ -107,8 +108,9 @@ public class User {
 		return isActivated;
 	}
 
-	public void setIsActivated(boolean isActivated) {
+	public User setIsActivated(boolean isActivated) {
 		this.isActivated = isActivated;
+		return this;
 	}
 
 	@Override

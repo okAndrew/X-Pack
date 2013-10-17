@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.User;
 
 public class UserService {
@@ -52,12 +53,9 @@ public class UserService {
 		return new UserDAOImpl().getByEmail(email);
 	}
 
-	public int updateUser(int userId, String userLogin, String userEmail,
-		int userIdTariff, String userToken, boolean activated) {
+	public int updateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(userId, userLogin, userEmail,
-				userIdTariff, userToken, activated);
-		
+		int result = userDaoImpl.update(user);
 		return result;
 	}
 
@@ -92,24 +90,20 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		userDaoImpl.delete(id);
 	}
-	
+
 	public int activateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
-				user.getIdTariff(), user.getToken(), true);
-		
+		int result = userDaoImpl.activatedUserById(user.getId());
 		return result;
 	}
-	
+
 	public int deactivateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
-				user.getIdTariff(), user.getToken(), false);
-		
+		int result = userDaoImpl.deaktivatedUserById(user.getId());
 		return result;
 	}
-	
-	public String deactivateUsers(String[] usersId){
+
+	public String deactivateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
@@ -121,8 +115,8 @@ public class UserService {
 		}
 		return errorMessage;
 	}
-	
-	public String activateUsers(String[] usersId){
+
+	public String activateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
@@ -134,5 +128,14 @@ public class UserService {
 		}
 		return errorMessage;
 	}
-	
+
+	public void changeUserPassword(User user, String password) {
+		MD5Encrypter md5 = new MD5Encrypter();
+		String md5Pass = md5.encrypt(password);
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+
+		user.setPassword(md5Pass);
+		userDaoImpl.update(user);
+	}
+
 }

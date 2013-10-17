@@ -34,21 +34,13 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int update(User user) {
-		String sql = "UPDATE users SET login=? email=?, password=?, id_tariff=?, capacity=?, token=? WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, user.getLogin(), user.getEmail(),
-				user.getPassword(), user.getIdTariff(), user.getCapacity(),
-				user.getToken(), user.getId());
-		return result;
-	}
+		String sql = "UPDATE users SET login=?, email=?, password=?, id_tariff=?, capacity=?, token=?, is_activated=? WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql, user.getLogin(),
+				user.getEmail(), user.getPassword(), user.getIdTariff(),
+				user.getCapacity(), user.getToken(), user.getIsActivated(),
+				user.getId());
 
-	@Override
-	public int updateUser(long userId, String userLogin, String userEmail,
-			long userIdTariff, String userToken, boolean activated) {
-		String sql = "UPDATE users SET login=?, email=?, id_tariff=?, token=?, is_activated=? WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, userLogin, userEmail, userIdTariff,
-				userToken, activated, userId);
 		return result;
-
 	}
 
 	@Override
@@ -76,5 +68,5 @@ public class UserDAOImpl implements UserDAO {
 		String sql = "UPDATE users SET is_activated=? WHERE id=?";
 		return queryExecutor.executeUpdate(sql, true, id);
 	}
-	
+
 }

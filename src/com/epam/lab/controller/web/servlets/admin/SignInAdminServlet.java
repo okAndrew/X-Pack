@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets;
+package com.epam.lab.controller.web.servlets.admin;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ public class SignInAdminServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String SIGN_IN_ADMIN_JSP = "WEB-INF/jsp/admin/signInAdmin.jsp";
-	private static final String ADMIN_HOME = "adminUsersPage";
+	private static final String ADMIN_HOME = "adminPage";
 	private static final Logger logger = Logger.getLogger(SignInAdminServlet.class);
 
 	public SignInAdminServlet() {

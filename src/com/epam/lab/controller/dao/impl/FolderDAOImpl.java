@@ -16,10 +16,38 @@ public class FolderDAOImpl implements FolderDAO {
 		return result;
 	}
 
+	public Folder getRoot(long userId) {
+		String sql = "SELECT * FROM folders WHERE id_user = ? AND id_upper = 0";
+		Folder folder = queryExecutor.executeQuerySingle(Folder.class, sql,
+				userId);
+		return folder;
+	}
+
+	public Folder getByUpperIdAndName(long upperId, String name) {
+		String sql = "SELECT * FROM folders WHERE name = ? AND id_upper = ?";
+		Folder folder = queryExecutor.executeQuerySingle(Folder.class, sql,
+				name, upperId);
+		return folder;
+	}
+
+	public List<Folder> getByUpperId(long upperId) {
+		String sql = "SELECT * FROM folders WHERE id_upper = ?";
+		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,
+				upperId);
+		return resultList;
+	}
+
 	@Override
 	public List<Folder> getAll() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<Folder> getAll(long userId) {
+		String sql = "SELECT * FROM folders WHERE id_user = ?";
+		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,
+				userId);
+		return resultList;
 	}
 
 	@Override
@@ -47,38 +75,4 @@ public class FolderDAOImpl implements FolderDAO {
 		return result;
 	}
 
-	public List<Folder> getAll(long userId) {
-		String sql = "SELECT * FROM folders WHERE id_user = ?";
-		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,
-				userId);
-		return resultList;
-	}
-	
-	public List<Folder> getFoldersByUpperId(long upperId) {
-		String sql = "SELECT * FROM folders WHERE id_upper = ?";
-		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,
-				upperId);
-		return resultList;
-	}
-
-	public Folder getRootFolder(long idUser) {
-		String sql = "SELECT * FROM folders WHERE id_user = ? AND id_upper = 0";
-		Folder folder = queryExecutor.executeQuerySingle(Folder.class, sql,
-				idUser);
-		return folder;
-	}
-
-	public List<Folder> getAllbyUserIdAndUpperId(long idUser, long idUpper) {
-		String sql = "SELECT * FROM folders WHERE id_user = ? AND id_upper = ?";
-		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,
-				idUser, idUpper);
-		return resultList;
-	}
-
-	public Folder getFolderByNameAndUpperId(long upperId, String folderName) {
-		String sql = "SELECT * FROM folders WHERE name = ? AND id_upper = ?";
-		Folder folder = queryExecutor.executeQuerySingle(Folder.class, sql,
-				folderName, upperId);
-		return folder;
-	}
 }

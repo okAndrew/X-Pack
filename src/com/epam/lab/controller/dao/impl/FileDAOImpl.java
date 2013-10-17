@@ -21,6 +21,20 @@ public class FileDAOImpl implements FileDAO {
 		return null;
 	}
 
+	public List<File> getAllByUserId(long userId) {
+		String sql = "SELECT * FROM files WHERE id_user = ?";
+		List<File> resultList = queryExecutor.executeQuery(File.class, sql,
+				userId);
+		return resultList;
+	}
+
+	public List<File> getAllByFolderId(long folderId) {
+		String sql = "SELECT * FROM files WHERE id_folder = ?";
+		List<File> resultList = queryExecutor.executeQuery(File.class, sql,
+				folderId);
+		return resultList;
+	}
+
 	@Override
 	public int insert(File object) {
 		String sql = "INSERT INTO files (id_folder, name_income, name, path, type, size, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -47,19 +61,5 @@ public class FileDAOImpl implements FileDAO {
 		String sql = "DELETE FROM files WHERE id_folder=?";
 		int result = queryExecutor.executeUpdate(sql, id);
 		return result;
-	}
-	
-	public List<File> getAllbyUserId(long userId) {
-		String sql = "SELECT * FROM files WHERE id_user = ?";
-		List<File> resultList = queryExecutor.executeQuery(File.class, sql,
-				userId);
-		return resultList;
-	}
-
-	public List<File> getAllbyUserIdAndFolderId(long userid, long folderId) {
-		String sql = "SELECT * FROM files WHERE id_user = ? AND id_folder = ?";
-		List<File> resultList = queryExecutor.executeQuery(File.class, sql,
-				userid, folderId);
-		return resultList;
 	}
 }

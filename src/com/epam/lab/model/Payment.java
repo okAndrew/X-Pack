@@ -8,58 +8,36 @@ public class Payment {
 	@TableColumn("id")
 	private long id;
 
-	@TableColumn("description")
-	private String description;
+	@TableColumn("user")
+	private long user;
 
+	@TableColumn("tariff")
+	private long tariff;
+
+	@TableColumn("date_created")
+	private Timestamp dateCreated;
+
+	@TableColumn("date_end")
+	private Timestamp dateEnd;
+	
+	@TableColumn("price")
+	private double price;;
+	
 	@TableColumn("status")
 	private boolean status;
-
-	@TableColumn("date")
-	private Timestamp date;
-
-	@TableColumn("id_user")
-	private long idUser;
-
+	
 	@TableColumn("available")
 	private boolean available;
 
-	public long getId() {
-		return id;
+	public double getPrice() {
+		return price;
 	}
 
-	public Payment setId(long id) {
-		this.id = id;
-		return this;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public Payment setDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public Payment setStatus(boolean status) {
-		this.status = status;
-		return this;
-	}
-
-	public Timestamp getDate() {
-		return date;
-	}
-
-	public Payment setDate(Timestamp date) {
-		this.date = date;
-		return this;
-	}
-
-	public boolean isAvailable() {
+	public boolean getAvailable() {
 		return available;
 	}
 
@@ -67,20 +45,52 @@ public class Payment {
 		this.available = available;
 	}
 
-	public long getIdUser() {
-		return idUser;
+	public long getId() {
+		return id;
 	}
 
-	public Payment setIdUser(long idUser) {
-		this.idUser = idUser;
-		return this;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "Payment [id=" + id + ", description=" + description
-				+ ", status=" + status + ", date=" + date + ", idUser="
-				+ idUser + ", available=" + available + "]";
+	public long getUser() {
+		return user;
 	}
 
+	public void setUser(long user) {
+		this.user = user;
+	}
+
+	public long getTariff() {
+		return tariff;
+	}
+
+	public void setTariff(long tariff) {
+		this.tariff = tariff;
+	}
+
+	public Timestamp getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Timestamp dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Timestamp getDateEnd() {
+		return dateEnd;
+	}
+
+	public void setDateEnd(Timestamp dateEnd) {
+		this.dateEnd = dateEnd;
+	}
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
 }

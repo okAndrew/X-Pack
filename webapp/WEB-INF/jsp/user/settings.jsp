@@ -30,53 +30,10 @@
 							<li><a href="#tabs1-pane3" data-toggle="tab">...</a></li>
 						</ul>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-9">
 						<div class="tab-content">
 							<div class="tab-pane active" id="tabs1-pane1">
-								<h3>Basic info</h3>
-								<p>
-									Tariff: <strong>Looser tariff</strong>
-								</p>
-								<p>
-									Free space: <strong>194.45Mb</strong>
-								</p>
-								<h3>Edit profile</h3>
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<div id="settingsErrorDiv" class="alert alert-danger"
-											style="display: none;">
-											<c:if test="${message != null}">
-												${message}
-											</c:if>
-										</div>
-
-										<!-- EDIT LOGIN FORM -->
-										<form action="EditUserLoginServlet" method="post">
-											<div class="form-group">
-												<input type="email" name="email" value="${sessionScope.user.email}"
-													hidden />
-												<label>Login</label>
-												<div class="input-group">
-													<input id="inputLogin" type="text" class="form-control"
-														placeholder="Login" value="${sessionScope.user.login}"
-														name="login"> <span class="input-group-btn">
-														<button class="btn btn-primary" type="submit"
-															onclick="return checkChangeLoginForm()">Edit</button>
-													</span>
-												</div>
-											</div>
-										</form>
-
-
-										<div class="form-group">
-											<a data-toggle="modal" href="#editEmail">Change email</a>
-										</div>
-										<div class="form-group">
-											<a data-toggle="modal" href="#editPassword"
-												onclick="formPassReset()">Change password</a>
-										</div>
-									</div>
-								</div>
+								<jsp:include page="settings/basic.jsp"></jsp:include>
 							</div>
 							<div class="tab-pane" id="tabs1-pane2">
 								<jsp:include page="settings/tariffs.jsp"></jsp:include>
@@ -86,7 +43,6 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3"></div>
 				</div>
 			</div>
 			<div class="panel-footer">Footer</div>

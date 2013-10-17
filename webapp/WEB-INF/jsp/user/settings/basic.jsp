@@ -2,9 +2,14 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3>Basic info</h3>
-		<p>
-			Tariff: <strong>Looser tariff</strong>
-		</p>
+		<c:forEach var="tariff" items="${tariffs}">
+			<c:if test="${sessionScope.user.idTariff == tariff.id}">
+				<p>
+					Tariff: <strong>${tariff.name} (${tariff.maxCapacity}Mb)</strong>
+				</p>
+			</c:if>
+		</c:forEach>
+
 		<p>
 			Free space: <strong>194.45Mb</strong>
 		</p>
@@ -20,7 +25,7 @@
 				<form action="EditUserLoginServlet" method="post">
 					<div class="form-group">
 						<input type="email" name="email"
-							value="${sessionScope.user.email}" hidden /> <label>Login</label>
+							value="${sessionScope.user.email}" hidden="yes" /> <label>Login</label>
 						<div class="input-group">
 							<input id="inputLogin" type="text" class="form-control"
 								placeholder="Login" value="${sessionScope.user.login}"
@@ -31,8 +36,11 @@
 						</div>
 					</div>
 				</form>
-
-
+				<c:if test="${editLoginError != null}">
+					<div class="alert alert-danger">
+						<p>${editLoginError}</p>
+					</div>
+				</c:if>
 				<div class="form-group">
 					<a data-toggle="modal" href="#editEmail">Change email</a>
 				</div>

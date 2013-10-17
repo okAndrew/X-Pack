@@ -1,13 +1,19 @@
 package com.epam.lab.controller.web.servlets.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.epam.lab.controller.services.UserService;
+import com.epam.lab.controller.web.listeners.UserOnlineListener;
+import com.epam.lab.model.User;
 
 @WebServlet("/adminPage")
 public class AdminPageServlet extends HttpServlet {
@@ -20,16 +26,23 @@ public class AdminPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher(ADMIN_PAGE_JSP);
-		dispatcher.forward(request, response);
+		doPost(request, response);
 	}
-// delete some of methods
+
+	// delete some of methods
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher(ADMIN_PAGE_JSP);
-		dispatcher.forward(request, response);
+		HttpSession session = request.getSession(false);
+		UserService service = new UserService();
+		List<User> list = new ArrayList<User>();
+		list = service.getAllUsers();
+		long countAllUsers = list.size();
+		UserOnlineListener counter = (UserOnlineListener) session
+				.getAttribute("counter");
+		int countUsers = counter.getActiveSessionNumber();
+		request.setAttribute("countUsers", countUsers);
+		request.setAttribute("countAllUsers", countAllUsers);
+		request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request, response);
 	}
 
 }

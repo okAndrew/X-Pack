@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 public class FileService {
 	private static final Logger logger = Logger.getLogger(FileService.class);
 	private static long count;
-	public static final String ROOT_PATH = "D:/files/";
+	public static final String ROOT_PATH = "E:/files/";
 	public static final int MAX_FILES = 999;
 
 	/*

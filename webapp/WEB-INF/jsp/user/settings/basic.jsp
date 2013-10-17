@@ -14,11 +14,9 @@
 				<div id="settingsErrorDiv" class="alert alert-danger"
 					style="display: none;">
 					<c:if test="${message != null}">
-				${message}
-			</c:if>
+						${message}
+					</c:if>
 				</div>
-
-				<!-- EDIT LOGIN FORM -->
 				<form action="EditUserLoginServlet" method="post">
 					<div class="form-group">
 						<input type="email" name="email"

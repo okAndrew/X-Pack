@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.security.Validator;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.User;
 
@@ -136,6 +137,18 @@ public class UserService {
 
 		user.setPassword(md5Pass);
 		userDaoImpl.update(user);
+	}
+	
+	public User changeUserLogin(String email, String login) {
+		User user = getUserByEmail(email);
+		
+		if (user != null) {
+			Validator.USER_LOGIN.validate("asd");
+			user.setLogin(login);
+			updateUser(user);
+		}
+		
+		return user;
 	}
 
 }

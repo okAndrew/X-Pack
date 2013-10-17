@@ -61,8 +61,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	@Override
 	public Payment getByUserTime(long user, Timestamp time) {
-		String sql = "SELECT * FROM payments WHERE user=? AND date_created = ?";
-		Payment result = queryExecutor.executeQuerySingle(User.class, sql, user, time);
+		String sql = "SELECT * FROM payments WHERE user = ? AND date_created = ?";
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql, user, time);
 		return result;
 	}
 

@@ -22,5 +22,11 @@ public class SettingsServlet extends HttpServlet {
 		request.setAttribute("tariffs", new TariffServise().getAvailableTariffs());
 		requestDispatcher.forward(request, response);
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SETTINGS_JSP);
+		request.setAttribute("tariffs", new TariffServise().getAvailableTariffs());
+		requestDispatcher.forward(request, response);
+	}
 
 }

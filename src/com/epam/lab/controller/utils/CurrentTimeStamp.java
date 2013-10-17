@@ -18,9 +18,9 @@ public class CurrentTimeStamp {
 
 	public static Timestamp addMonth(Timestamp timestamp) {
 		Calendar calendar = Calendar.getInstance();
-		long time = timestamp.getTime() + 1000 * 60 * 60 * 24
-				* calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		timestamp.setTime(time);
+		calendar.setTimeInMillis(timestamp.getTime());
+		calendar.add(Calendar.MONTH, 1);
+		timestamp.setTime(calendar.getTimeInMillis());
 		return timestamp;
 	}
 

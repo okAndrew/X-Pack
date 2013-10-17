@@ -41,6 +41,9 @@ public class PaymentService {
 		payment = paymentDAOImpl.getByUserTime(user.getId(), time);
 		
 		activatePayment(payment);
+		
+		user.setIdTariff(tariff.getId());
+		new UserService().updateUser(user);
 	}
 	
 	public int activatePayment(Payment payment) {

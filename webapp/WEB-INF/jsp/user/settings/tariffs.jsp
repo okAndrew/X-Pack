@@ -9,14 +9,20 @@
 				<div class="panel-body">
 					<p>${tariff.description}</p>
 					<h4>${tariff.price}$</h4>
-					<c:choose>
-						<c:when test="${sessionScope.user.idTariff == tariff.id}">
-							<button type="button" class="btn btn-success" disabled="disabled">Buy it now</button>
-						</c:when>
-						<c:otherwise>
-							<button type="button" class="btn btn-success">Buy it now</button>
-						</c:otherwise>
-					</c:choose>
+					<form action="CreatePaymentServlet" method="post">
+						<input type="text" name="id" value="${sessionScope.user.id}" hidden /> 
+						<input type="text" name="tariff" value="${tariff.id}" hidden />
+						<c:choose>
+							<c:when test="${sessionScope.user.idTariff == tariff.id}">
+								<button type="submit" class="btn btn-success"
+									disabled="disabled">Buy it now</button>
+							</c:when>
+							<c:otherwise>
+								<button type="submit" class="btn btn-success">Buy it
+									now</button>
+							</c:otherwise>
+						</c:choose>
+					</form>
 				</div>
 			</div>
 		</c:forEach>

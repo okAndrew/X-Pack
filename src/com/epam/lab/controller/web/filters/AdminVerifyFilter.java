@@ -24,7 +24,7 @@ public class AdminVerifyFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpSession session = httpRequest.getSession(false);
 		if (session != null) {
-			Object userid = session.getAttribute("adminid");
+			Object userid = session.getAttribute("userid");
 			if (userid != null) {
 				chain.doFilter(request, response);
 				return;

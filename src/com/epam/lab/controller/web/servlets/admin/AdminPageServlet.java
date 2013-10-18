@@ -20,17 +20,17 @@ public class AdminPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_PAGE_JSP = "WEB-INF/jsp/admin/adminPage.jsp";
 
-	public AdminPageServlet() {
-		super();
-	}
-
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		processRequest(request, response);
 	}
 
-	// delete some of methods
-	protected void doPost(HttpServletRequest request,
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		processRequest(req, resp);
+	}
+
+	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		UserService service = new UserService();
@@ -41,14 +41,30 @@ public class AdminPageServlet extends HttpServlet {
 			request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request,
 					response);
 		} else {
-			UserOnlineListener counter = (UserOnlineListener) session
-					.getAttribute("counter");
-			int countUsers = counter.getActiveSessionNumber();
-			request.setAttribute("countUsers", countUsers);
-			request.setAttribute("countAllUsers", countAllUsers);
+//			UserOnlineListener counter = (UserOnlineListener) session
+//					.getAttribute("counter");
+//			int countUsers = counter.getActiveSessionNumber();
+//			request.setAttribute("countUsers", countUsers);
+//			request.setAttribute("countAllUsers", countAllUsers);
 			request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request,
 					response);
 		}
 	}
-
 }
+/*
+ * protected void doGet(HttpServletRequest request, HttpServletResponse
+ * response) throws ServletException, IOException { doPost(request, response); }
+ * 
+ * // delete some of methods protected void doPost(HttpServletRequest request,
+ * HttpServletResponse response) throws ServletException, IOException {
+ * HttpSession session = request.getSession(false); UserService service = new
+ * UserService(); List<User> list = new ArrayList<User>(); list =
+ * service.getAllUsers(); long countAllUsers = list.size(); if (session == null)
+ * { request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request, response); }
+ * else { UserOnlineListener counter = (UserOnlineListener) session
+ * .getAttribute("counter"); int countUsers = counter.getActiveSessionNumber();
+ * request.setAttribute("countUsers", countUsers);
+ * request.setAttribute("countAllUsers", countAllUsers);
+ * request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request, response); } }
+ */
+

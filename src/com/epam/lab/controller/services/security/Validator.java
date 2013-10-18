@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 public enum Validator {
 	
-	USER_LOGIN("^[A-Z][a-z]+{2,15}$"),
-	USER_EMAIL("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"),
-	USER_PASSWORD("^[\\w_-]{6,15}$");
+	USER_LOGIN("^[A-Za-z]{2,45}$"),
+	USER_EMAIL("^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$"),
+	USER_PASSWORD("/^.{6,32}$");
 	
 	private String regex;
 	

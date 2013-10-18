@@ -77,16 +77,17 @@ body {
 								<th width="15%">Date</th>
 								<th width="10%">Size</th>
 								<th width="35%">Type</th>
+								<th></th><th></th><th></th><th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:if test="${currentFolder.idUpper!=0}">
 								<tr>
 									<td></td>
-									<td colspan="4"><span
-										class="glyphicon glyphicon-chevron-up"></span>&nbsp;&nbsp;<strong><a
+									<td colspan="8"><a
 											href="userfoldernav?folderid=${currentFolder.idUpper}"
-											style="font-size: 30px; line-height: 9px">...</a></td>
+											style="font-size: 20px;"><span
+										class="glyphicon glyphicon-chevron-up"></span></a></td>
 								</tr>
 							</c:if>
 							<c:forEach items="${folders}" var="folder">
@@ -107,7 +108,15 @@ body {
 									<td>
 										<div class="btn-group">
 											<a data-toggle="modal" role="button" class="btn btn-primary"
-												href="#DeleteFolderModal" onclick="set('folderiddelete', ${folder.id})">Delete</a>
+												href="#DeleteFolderModal"
+												onclick="set('folderiddelete', ${folder.id})">Delete</a>
+										</div>
+									</td>
+									<td>
+										<div class="btn-group">
+											<a data-toggle="modal" role="button" class="btn btn-primary"
+												href="#MoveFolderModal"
+												onclick="set('folderidmove', ${folder.id})">Move</a>
 										</div>
 									</td>
 								</tr>
@@ -124,13 +133,22 @@ body {
 									<td><c:out value="${file.type}" /></td>
 									<td><div class="btn-group">
 											<a data-toggle="modal" role="button" class="btn btn-primary"
-												href="#EditFileModal" onclick="set('fileidedit', ${file.id})">Edit</a>
+												href="#EditFileModal"
+												onclick="set('fileidedit', ${file.id})">Edit</a>
 										</div>
 									<td>
 									<td>
 										<div class="btn-group">
 											<a data-toggle="modal" role="button" class="btn btn-primary"
-												href="#DeleteFileModal" onclick="set('fileiddelete', ${file.id})">Delete</a>
+												href="#DeleteFileModal"
+												onclick="set('fileiddelete', ${file.id})">Delete</a>
+										</div>
+									</td>
+									<td>
+										<div class="btn-group">
+											<a data-toggle="modal" role="button" class="btn btn-primary"
+												href="#MoveFileModal"
+												onclick="set('fileidmove', ${file.id})">Move</a>
 										</div>
 									</td>
 								</tr>
@@ -141,7 +159,61 @@ body {
 			</form>
 		</div>
 	</div>
-	
+
+	<form action="move" method="post">
+		<div class="modal fade" id="MoveFolderModal" tabindex="-1"
+			role="dialog" aria-labelledby="MoveFolderModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h3 id="MoveFolderModalLabel">Moving Confirmation</h3>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" id="folderidmove" name="folderidmove">
+						<p>Please select folder to move</p>
+						<c:forEach items="${folders}" var="folder">
+								<input type="radio" name="folder" value="${folder.id}"> ${folder.name}<br>
+						</c:forEach>
+					</div>
+
+
+
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-success">Move</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form action="move" method="post">
+		<div class="modal fade" id="MoveFileModal" tabindex="-1" role="dialog"
+			aria-labelledby="MoveFileModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h3 id="MoveFileModalLabel">Moving Confirmation</h3>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" id="fileidmove" name="fileid">
+						<p>Please select folder to move</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" class="btn btn-success">Move</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
 	<form action="delete" method="post">
 		<div class="modal fade" id="DeleteFolderModal" tabindex="-1"
 			role="dialog" aria-labelledby="DeleteFolderModalLabel"
@@ -151,7 +223,7 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h3 id="DeleteFileModalLabel">Delete Confirmation</h3>
+						<h3 id="DeleteFolderModalLabel">Delete Confirmation</h3>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" id="folderiddelete" name="folderid">
@@ -166,7 +238,7 @@ body {
 			</div>
 		</div>
 	</form>
-	
+
 	<form action="delete" method="post">
 		<div class="modal fade" id="DeleteFileModal" tabindex="-1"
 			role="dialog" aria-labelledby="DeleteFileModalLabel"

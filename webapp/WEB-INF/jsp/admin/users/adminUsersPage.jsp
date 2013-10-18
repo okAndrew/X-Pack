@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DreamHost(Administrator) | Sign in</title>
+<title>DreamHost(Administrator) | Users</title>
 
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -45,15 +45,20 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">Users</div>
-			
+
 			<form action="employeeController" method="post">
 				<div class="panel-body">
 					<ul class="nav nav-pills">
-						<li><button type="submit" class="btn btn-default" name="action" value="add">Add</button></li>
-						<li><button type="submit" class="btn btn-default" name="action" value="delete">Delete</button></li>
-						<li><button type="submit" class="btn btn-default" name="action" value="activated">Activate</button></li>
-						<li><button type="submit" class="btn btn-default" name="action" value="baned">Baned</button></li>
-						<li><button type="submit" class="btn btn-default" name="action" value="sendEmail">Send Email</button></li>
+						<li><button type="submit" class="btn btn-default"
+								name="action" value="add">Add</button></li>
+						<li><button type="submit" class="btn btn-default"
+								name="action" value="delete">Delete</button></li>
+						<li><button type="submit" class="btn btn-default"
+								name="action" value="activated">Activate</button></li>
+						<li><button type="submit" class="btn btn-default"
+								name="action" value="baned">Baned</button></li>
+						<li><button type="submit" class="btn btn-default"
+								name="action" value="sendEmailUsers">Send Email</button></li>
 					</ul>
 
 					<!-- Table -->
@@ -105,6 +110,5 @@
 			</form>
 		</div>
 	</div>
-	<jsp:include page="addUserModalPage.jsp"></jsp:include>
 </body>
 </html>

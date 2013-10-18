@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
 
@@ -31,7 +32,6 @@ public class AdminUserDeleteFileServlet extends HttpServlet {
 		FileService service2 = new FileService();
 		RequestDispatcher dispatcher;
 		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("userid");
 		String[] rs = request.getParameterValues("files");
 		String[] rs2 = request.getParameterValues("folders");
 		if (rs != null) {

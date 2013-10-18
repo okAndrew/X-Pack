@@ -1,5 +1,6 @@
 package com.epam.lab.controller.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,6 +10,7 @@ import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.security.Validator;
 import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.model.User;
 
 public class UserService {
@@ -108,7 +110,7 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
-			errorMessage = "Please check the users you want to delete!!!";
+			errorMessage = "Please check the users you want to deactivate!!!";
 		} else {
 			for (int i = 0; i < usersId.length; i++) {
 				userDaoImpl.deaktivatedUserById(Long.parseLong(usersId[i]));
@@ -121,7 +123,7 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
-			errorMessage = "Please check the users you want to delete!!!";
+			errorMessage = "Please check the users you want to activate!!!";
 		} else {
 			for (int i = 0; i < usersId.length; i++) {
 				userDaoImpl.activatedUserById(Long.parseLong(usersId[i]));
@@ -139,6 +141,24 @@ public class UserService {
 		userDaoImpl.update(user);
 	}
 	
+
+	public String sendUsersEmail(String[] usersId){
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		String errorMessage = null;
+		List<User> users = new ArrayList<User>();
+		if (usersId == null) {
+			errorMessage = "Please check the users you want to send email!!!";
+		} else {
+			for (int i = 0; i < usersId.length; i++) {
+				users.add(userDaoImpl.get(Long.parseLong(usersId[i])));
+			}			
+			for (User iter: users){
+				MailSender.send(iter.getEmail(), "dreamhost", "test message");
+			}
+		}
+		return errorMessage;
+	}
+
 	public User changeUserLogin(String email, String login) {
 		User user = getUserByEmail(email);
 		

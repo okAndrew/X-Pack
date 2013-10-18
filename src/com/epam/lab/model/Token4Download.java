@@ -4,19 +4,22 @@ import java.sql.Timestamp;
 
 import com.epam.lab.controller.annotations.TableColumn;
 
-public class Token {
+public class Token4Download {
 
 	@TableColumn("id")
 	private long id;
 
 	@TableColumn("id_user")
-	private long idUser;
+	private long user;
 
-	@TableColumn("date")
+	@TableColumn("date_destroy")
 	private Timestamp date;
 
 	@TableColumn("token")
 	private String token;
+
+	@TableColumn("max_num_use")
+	private int maxNumUse;
 
 	public long getId() {
 		return id;
@@ -26,12 +29,12 @@ public class Token {
 		this.id = id;
 	}
 
-	public long getIdUser() {
-		return idUser;
+	public long getUser() {
+		return user;
 	}
 
-	public void setIdUser(long idUser) {
-		this.idUser = idUser;
+	public void setUser(long user) {
+		this.user = user;
 	}
 
 	public Timestamp getDate() {
@@ -50,16 +53,11 @@ public class Token {
 		this.token = token;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder tokenString = new StringBuilder();
-		tokenString.append("Token [id=").append(id);
-		tokenString.append(", idUser=").append(idUser);
-		tokenString.append(", date=").append(date);
-		tokenString.append(", token=").append(token);
-		tokenString.append("];");
-
-		return tokenString.toString();
+	public int getMaxNumUse() {
+		return maxNumUse;
 	}
 
+	public void setMaxNumUse(int maxNumUse) {
+		this.maxNumUse = maxNumUse;
+	}
 }

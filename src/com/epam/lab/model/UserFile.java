@@ -45,8 +45,9 @@ public class UserFile {
 		return idFolder;
 	}
 
-	public void setIdFolder(long idFolder) {
+	public UserFile setIdFolder(long idFolder) {
 		this.idFolder = idFolder;
+		return this;
 	}
 
 	public String getNameIncome() {

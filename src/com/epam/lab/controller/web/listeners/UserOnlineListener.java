@@ -29,7 +29,6 @@ public class UserOnlineListener implements HttpSessionListener,
 		HttpSession session = event.getSession();
 		sessions.add(session.getId());
 		session.setAttribute("counter", this);
-
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {
@@ -58,22 +57,25 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
-		HttpSession session = event.getSession();
-		SessionHistoryService historyService = new SessionHistoryService();
-		historyService.addSession(session.getId(),
-				(long) session.getAttribute("userid"),
-				//(long) session.getAttribute("adminid"),
-				CurrentTimeStamp.getCurrentTimeStamp());
+//		HttpSession session = event.getSession();
+//		SessionHistoryService historyService = new SessionHistoryService();
+//		if (session.getAttribute("userid") != null) {
+//
+//			historyService.addSession(session.getId(),
+//					(long) session.getAttribute("userid"),
+//					// (long) session.getAttribute("adminid"),
+//					CurrentTimeStamp.getCurrentTimeStamp());
+//		}
 	}
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
-		HttpSession session = event.getSession();
-		SessionHistory sessionhistory = new SessionHistory();
-		SessionHistoryService historyService = new SessionHistoryService();
-		sessionhistory.setId(session.getId()).setEnddate(
-				CurrentTimeStamp.getCurrentTimeStamp());
-		historyService.update(sessionhistory);
+//		HttpSession session = event.getSession();
+//		SessionHistory sessionhistory = new SessionHistory();
+//		SessionHistoryService historyService = new SessionHistoryService();
+//		sessionhistory.setSessid(session.getId()).setEnddate(
+//				CurrentTimeStamp.getCurrentTimeStamp());
+//		historyService.update(sessionhistory);
 	}
 
 	@Override

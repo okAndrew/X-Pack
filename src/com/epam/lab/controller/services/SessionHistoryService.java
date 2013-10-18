@@ -9,8 +9,8 @@ public class SessionHistoryService {
 
 	static Logger logger = Logger.getLogger(SessionHistoryService.class);
 
-	public SessionHistory addSession(long userid, Timestamp startDate) {
-		SessionHistory sessionhistory = new SessionHistory().setUserid(userid)
+	public SessionHistory addSession(String sessId, long userid, Timestamp startDate) {
+		SessionHistory sessionhistory = new SessionHistory().setId(sessId).setUserid(userid)
 				.setStartdate(startDate);
 
 		SessionHistoryDAOImpl sessionDAOImpl = new SessionHistoryDAOImpl();

@@ -6,7 +6,7 @@ import com.epam.lab.controller.annotations.TableColumn;
 
 public class SessionHistory {
 	@TableColumn("id")
-	private long id;
+	private String id;
 
 	@TableColumn("userid")
 	private long userid;
@@ -17,11 +17,11 @@ public class SessionHistory {
 	@TableColumn("enddate")
 	private Timestamp enddate;
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public SessionHistory setId(long id) {
+	public SessionHistory setId(String id) {
 		this.id = id;
 		return this;
 	}

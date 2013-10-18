@@ -42,7 +42,7 @@ public class AdminUserDeleteFileServlet extends HttpServlet {
 		if (rs2 != null) {
 			FolderService service = new FolderService();
 			for (int i = 0; i < rs2.length; i++) {
-				service.delete(Integer.parseInt(rs2[i]), userId);
+				service.delete(Integer.parseInt(rs2[i]));
 			}
 		}
 		if (rs == null && rs2 == null) {

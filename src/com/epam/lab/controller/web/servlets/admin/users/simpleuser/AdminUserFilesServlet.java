@@ -26,20 +26,20 @@ public class AdminUserFilesServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		FolderService service = new FolderService();
-		FileService service2 = new FileService();
+		FileService fileService = new FileService();
+		FolderService folderService = new FolderService();
 		HttpSession session = request.getSession(false);
-		long userid = (long) session.getAttribute("userid");
+		long userId = (long) session.getAttribute("userid");
 		long folderId;
-		if (session.getAttribute("folderId") == null) {
-			folderId = service.getRootId(userid);
-			session.setAttribute("folderId", folderId);
+		if (session.getAttribute("folderid") == null) {
+			folderId = folderService.getRoot(userId).getId();
+			session.setAttribute("folderid", folderId);
 		} else {
-			folderId = (long) session.getAttribute("folderId");
+			folderId = (long) session.getAttribute("folderid");
 		}
-		Folder currentFolder = service.getFolder(folderId);
-		List<Folder> folders = service.getFolders(userid, folderId);
-		List<File> files = service2.getFiles(userid, folderId);
+		Folder currentFolder = folderService.get(folderId);
+		List<Folder> folders = folderService.get(userId, folderId);
+		List<File> files = fileService.getByFolderId(folderId);
 		request.setAttribute("folders", folders);
 		request.setAttribute("files", files);
 		request.setAttribute("currentFolder", currentFolder);

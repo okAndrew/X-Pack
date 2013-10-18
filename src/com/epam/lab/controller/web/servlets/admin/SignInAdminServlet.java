@@ -13,14 +13,16 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.AdminService;
+import com.epam.lab.model.Admin;
 
 @WebServlet("/signInAdmin")
 public class SignInAdminServlet extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
 	private static final String SIGN_IN_ADMIN_JSP = "WEB-INF/jsp/admin/signInAdmin.jsp";
 	private static final String ADMIN_HOME = "adminPage";
-	private static final Logger logger = Logger.getLogger(SignInAdminServlet.class);
+	private static final Logger logger = Logger
+			.getLogger(SignInAdminServlet.class);
 
 	public SignInAdminServlet() {
 		super();
@@ -35,14 +37,17 @@ public class SignInAdminServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
 		RequestDispatcher dispatcher;
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 		AdminService service = new AdminService();
+		Admin admin = service.getAdminByLogin(login);
 
 		if (service.validate(login, password)) {
-			HttpSession session = request.getSession();
 			session.setAttribute("login", login);
+			session.setAttribute("adminid", admin.getId());
+
 			logger.info("Admin are entering with login...");
 			dispatcher = request.getRequestDispatcher(ADMIN_HOME);
 			dispatcher.forward(request, response);

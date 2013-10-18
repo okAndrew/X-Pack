@@ -27,12 +27,20 @@
 	margin: auto;
 }
 </style>
+<script type="text/javascript">  
+  
+            var auto_refresh = setInterval(  
+            function ()  
+            {  
+                $('#load_me').load('adminPage').fadeIn("slow");  
+            }, 100);   
+        </script> 
 </head>
 
 <body>
 	<jsp:include page="menu/menuAdmin.jsp"></jsp:include>
 
-	<div class="Container">
+	<div class="Container" id="load_me">
 		<!-- Panel -->
 		<div class="panel panel-default">
 			<!-- Default panel contents -->

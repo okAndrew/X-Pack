@@ -58,6 +58,9 @@ body {
 					<div class="btn-group">
 						<button type="submit" name="delete" class="btn btn-primary">Delete</button>
 					</div>
+					<div class="btn-group">
+						<button type="submit" name="move" class="btn btn-primary">Move</button>
+					</div>
 					<div class="btn-group pull-right">
 						<div class="input-group" style="width: 300px;">
 							<input name="searchtext" type="text" class="form-control"

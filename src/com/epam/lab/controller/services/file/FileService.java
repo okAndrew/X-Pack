@@ -136,7 +136,10 @@ public class FileService {
 	public void movefile(long fileidmove, long folderidtarget) {
 		FileDAOImpl dao = new FileDAOImpl();
 		UserFile file = dao.get(fileidmove);
+		FolderService service = new FolderService();
+		service.updateSize(file.getIdFolder(), -file.getSize());
 		file.setIdFolder(folderidtarget);
+		service.updateSize(folderidtarget, file.getSize());
 		dao.update(file);
 	}
 

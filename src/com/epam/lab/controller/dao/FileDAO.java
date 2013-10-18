@@ -1,8 +1,8 @@
 
 package com.epam.lab.controller.dao;
 
-import com.epam.lab.model.File;
+import com.epam.lab.model.UserFile;
 
-public interface FileDAO extends GenericDAO<File> {
+public interface FileDAO extends GenericDAO<UserFile> {
 
 }

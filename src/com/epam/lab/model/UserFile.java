@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import com.epam.lab.controller.annotations.TableColumn;
 
-public class File {
+public class UserFile {
 	@TableColumn("id")
 	private long id;
 
@@ -36,7 +36,7 @@ public class File {
 		return id;
 	}
 
-	public File setId(long id) {
+	public UserFile setId(long id) {
 		this.id = id;
 		return this;
 	}
@@ -53,7 +53,7 @@ public class File {
 		return nameIncome;
 	}
 
-	public File setNameIncome(String nameIncome) {
+	public UserFile setNameIncome(String nameIncome) {
 		this.nameIncome = nameIncome;
 		return this;
 	}
@@ -62,7 +62,7 @@ public class File {
 		return name;
 	}
 
-	public File setName(String name) {
+	public UserFile setName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -71,7 +71,7 @@ public class File {
 		return path;
 	}
 
-	public File setPath(String path) {
+	public UserFile setPath(String path) {
 		this.path = path;
 		return this;
 	}
@@ -80,7 +80,7 @@ public class File {
 		return type;
 	}
 
-	public File setType(String type) {
+	public UserFile setType(String type) {
 		this.type = type;
 		return this;
 	}
@@ -89,7 +89,7 @@ public class File {
 		return size;
 	}
 
-	public File setSize(double size) {
+	public UserFile setSize(double size) {
 		this.size = size;
 		return this;
 	}
@@ -98,7 +98,7 @@ public class File {
 		return date;
 	}
 
-	public File setDate(Timestamp date) {
+	public UserFile setDate(Timestamp date) {
 		this.date = date;
 		return this;
 	}
@@ -107,7 +107,7 @@ public class File {
 		return idUser;
 	}
 
-	public File setIdUser(long idUser) {
+	public UserFile setIdUser(long idUser) {
 		this.idUser = idUser;
 		return this;
 	}

@@ -23,7 +23,7 @@ public class DownloadServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		FileService fileService = new FileService();
 		long fileId = Long.valueOf(request.getParameter("fileid"));
-		com.epam.lab.model.File f = fileService.get(fileId);
+		com.epam.lab.model.UserFile f = fileService.get(fileId);
 		String filePath = f.getPath() + File.separator + f.getName();
 		File file = new File(filePath);
 		if (!file.exists()) {

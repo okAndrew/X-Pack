@@ -13,7 +13,7 @@ import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
-import com.epam.lab.model.File;
+import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.User;
 
@@ -35,7 +35,7 @@ public class FileUploader {
 			FileItem item = iter.next();
 			FileDAOImpl dao = new FileDAOImpl();
 			if (!item.isFormField() && item.getSize() > 0) {
-				File file = getFile(item);
+				UserFile file = getFile(item);
 				java.io.File f = new java.io.File(file.getPath()
 						+ java.io.File.separator + file.getName());
 				try {
@@ -48,14 +48,14 @@ public class FileUploader {
 		}
 	}
 
-	private void updateFolders(File file) {
+	private void updateFolders(UserFile file) {
 		FolderService service = new FolderService();
 		service.updateSize(file.getIdFolder(), file.getSize());
 	}
 
-	private File getFile(FileItem item) {
+	private UserFile getFile(FileItem item) {
 		FileService service = new FileService();
-		File file = new File();
+		UserFile file = new UserFile();
 		String fileNameIncome = item.getName();
 		String userLogin = null;
 		if (user != null) {

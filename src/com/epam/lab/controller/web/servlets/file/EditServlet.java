@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
-import com.epam.lab.model.File;
+import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 
 @WebServlet("/useredit")
@@ -34,7 +34,7 @@ public class EditServlet extends HttpServlet {
 				request.getRequestDispatcher(USER_PAGE).forward(request,
 						response);
 			} else {
-				File file = service.get(fileId);
+				UserFile file = service.get(fileId);
 				file.setNameIncome(fileName);
 				service.update(file);
 				response.sendRedirect(USER_PAGE);

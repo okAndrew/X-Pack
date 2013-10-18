@@ -22,9 +22,6 @@ public class User {
 	@TableColumn("capacity")
 	private int capacity;
 
-	@TableColumn("token")
-	private String token;
-
 	@TableColumn("is_activated")
 	private boolean isActivated;
 
@@ -35,15 +32,13 @@ public class User {
 	}
 
 	public User(long id, String login, String email, String password,
-			long tariff, int capacity, String token, boolean isActivated,
-			long role) {
+			long tariff, int capacity, boolean isActivated, long role) {
 		this.id = id;
 		this.login = login;
 		this.email = email;
 		this.password = password;
 		this.idTariff = tariff;
 		this.capacity = capacity;
-		this.token = token;
 		this.isActivated = isActivated;
 		this.idRole = role;
 	}
@@ -102,15 +97,6 @@ public class User {
 		return this;
 	}
 
-	public String getToken() {
-		return token;
-	}
-
-	public User setToken(String token) {
-		this.token = token;
-		return this;
-	}
-
 	public boolean getIsActivated() {
 		return isActivated;
 	}
@@ -133,8 +119,8 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", login=" + login + ", email=" + email
 				+ ", password=" + password + ", idTariff=" + idTariff
-				+ ", capacity=" + capacity + ", token=" + token
-				+ ", isActivated=" + isActivated + ", idRole=" + idRole + "]";
+				+ ", capacity=" + capacity + ", isActivated=" + isActivated
+				+ ", idRole=" + idRole + "]";
 	}
 
 }

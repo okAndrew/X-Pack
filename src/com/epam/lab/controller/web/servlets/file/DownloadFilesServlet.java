@@ -23,8 +23,8 @@ public class DownloadFilesServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		FileService service = new FileService();
 		String[] filesIds = request.getParameterValues("files");
-		String zipPath = service.getArchivePath(filesIds);
-		File file = new File(zipPath);
+		String[] foldersIds = request.getParameterValues("folders");
+		File file = service.getArchive(filesIds, foldersIds);
 		if (!file.exists()) {
 			throw new ServletException("File doesn't exists on server.");
 		}

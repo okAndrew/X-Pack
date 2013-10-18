@@ -189,13 +189,14 @@ public class FileService {
 			ZipOutputStream out = new ZipOutputStream(new FileOutputStream(
 					zipPath.toString()));
 			for (int i = 0; i < foldersIds.length; i++) {
-//				FolderDAOImpl 
-				addToArchive(Long.parseLong(foldersIds[i]), out);
+				FolderDAOImpl dao = new FolderDAOImpl();
+				Folder fold = dao.get(Long.parseLong(foldersIds[i]));
+				addToArchive(fold, out);
 			}
 			for (int i = 0; i < filesIds.length; i++) {
 				FileDAOImpl dao = new FileDAOImpl();
 				UserFile file = dao.get(Long.parseLong(filesIds[i]));
-				addToArchive(file.getIdFolder(), out);
+				addToArchive(file, out);
 			}
 			out.close();
 		} catch (IOException e) {
@@ -205,12 +206,15 @@ public class FileService {
 		return zipPath.toString();
 	}
 
-	private void addToArchive(long folderId, ZipOutputStream out)
+	private void addToArchive(UserFile file, ZipOutputStream out)
 			throws IOException {
-		FolderDAOImpl folderDao = new FolderDAOImpl();
-		Folder folder = folderDao.get(folderId);
+		addFileToArchive("", file, out);
+	}
+
+	private void addToArchive(Folder folder, ZipOutputStream out)
+			throws IOException {
 		FileDAOImpl fileDao = new FileDAOImpl();
-		List<UserFile> files = fileDao.getAllByFolderId(folderId);
+		List<UserFile> files = fileDao.getAllByFolderId(folder.getId());
 		for (UserFile file : files) {
 			addFileToArchive(folder.getName() + File.separator, file, out);
 		}
@@ -220,7 +224,6 @@ public class FileService {
 			ZipOutputStream out) throws IOException {
 		String filePath = file.getPath() + File.separator + file.getName();
 		FileInputStream in = new FileInputStream(filePath);
-		System.out.println(path + file.getNameIncome());
 		out.putNextEntry(new ZipEntry(path + file.getNameIncome()));
 		byte[] b = new byte[1024];
 		int count;

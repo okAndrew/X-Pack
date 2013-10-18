@@ -56,7 +56,7 @@ public class SignInServlet extends HttpServlet {
 					session.setAttribute("user", user);
 					if (user.getIdRole() == 1) {
 						response.sendRedirect(USER_PAGE);
-					} else {
+					} else if (user.getIdRole() == 2){
 						response.sendRedirect(ADMIN_HOME);
 					}
 				} else {

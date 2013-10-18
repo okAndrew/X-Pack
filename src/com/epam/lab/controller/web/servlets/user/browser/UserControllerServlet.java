@@ -14,6 +14,7 @@ public class UserControllerServlet extends HttpServlet {
 	private static final String DELETE_SERVLET = "delete";
 	private static final String SEARCH_SERVLET = "search";
 	private static final String USER_PAGE_SERVLET = "userpage";
+	private static final String MOVE_SERVLET = "move";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -30,6 +31,9 @@ public class UserControllerServlet extends HttpServlet {
 					response);
 		} else if (request.getParameter("delete") != null) {
 			request.getRequestDispatcher(DELETE_SERVLET).forward(request,
+					response);
+		} else if (request.getParameter("move") != null) {
+			request.getRequestDispatcher(MOVE_SERVLET).forward(request,
 					response);
 		}
 	}

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
-import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 
 @WebServlet("/useredit")
@@ -23,8 +22,6 @@ public class EditServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		String folderName = request.getParameter("foldername");
 		String fileName = request.getParameter("filename");
-		System.out.println(request.getParameter("folderid"));
-		System.out.println(request.getParameter("foldername"));
 		if (fileName != null && !fileName.equals("")) {
 			long fileId = Long.parseLong(request.getParameter("fileid"));
 			long folderId = (long) session.getAttribute("folderid");
@@ -34,9 +31,7 @@ public class EditServlet extends HttpServlet {
 				request.getRequestDispatcher(USER_PAGE).forward(request,
 						response);
 			} else {
-				UserFile file = service.get(fileId);
-				file.setNameIncome(fileName);
-				service.update(file);
+				service.rename(fileId, fileName);
 				response.sendRedirect(USER_PAGE);
 			}
 		} else if (folderName != null && !folderName.equals("")) {

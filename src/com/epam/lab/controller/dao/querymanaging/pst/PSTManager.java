@@ -3,21 +3,24 @@ package com.epam.lab.controller.dao.querymanaging.pst;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import com.epam.lab.controller.exceptions.NoSuchDAOTypeException;
 
 public class PSTManager {
+	private static Logger logger = Logger.getLogger(PSTManager.class);
 
 	// NoSuchDAOTypeException: throws or try/catch
 	public void putArgs(PreparedStatement pst, Object args[])
 			throws SQLException {
-		int k = 1;
+		int paramNumber = 1;
 		for (Object o : args) {
 			try {
-				setObject(pst, k, o);
+				setObject(pst, paramNumber, o);
 			} catch (NoSuchDAOTypeException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
-			k++;
+			paramNumber++;
 		}
 	}
 

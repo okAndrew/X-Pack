@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.dao.connect.ConnectionManager;
 import com.epam.lab.controller.dao.querymanaging.pst.PSTManager;
 import com.epam.lab.controller.dao.querymanaging.rs.ResultSetTransformer;
+import com.epam.lab.controller.exceptions.NoSuchDAOObjectException;
 
 /*
  * T - type of the returned list (need only for executeQuery)
@@ -62,9 +63,9 @@ public class DBQueryExecutor<T> {
 			ResultSetTransformer<T> resultSetManager = new ResultSetTransformer<T>(
 					type);
 			while (rs.next()) {
-				resultList.add(resultSetManager.getObject(rs));
+				resultList.add(resultSetManager.createObject(rs));
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | NoSuchDAOObjectException e) {
 			logger.error(e);
 		} finally {
 			connManager.closeQuality(connection);
@@ -87,9 +88,9 @@ public class DBQueryExecutor<T> {
 			ResultSetTransformer<T> resultSetManager = new ResultSetTransformer<T>(
 					type);
 			while (rs.next()) {
-				resultList.add(resultSetManager.getObject(rs));
+				resultList.add(resultSetManager.createObject(rs));
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | NoSuchDAOObjectException e) {
 			logger.error(e);
 		} finally {
 			connManager.closeQuality(connection);
@@ -115,9 +116,9 @@ public class DBQueryExecutor<T> {
 			ResultSetTransformer<T> resultSetManager = new ResultSetTransformer<T>(
 					type);
 			if (rs.next()) {
-				result = resultSetManager.getObject(rs);
+				result = resultSetManager.createObject(rs);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | NoSuchDAOObjectException e) {
 			logger.error(e);
 		} finally {
 			connManager.closeQuality(connection);

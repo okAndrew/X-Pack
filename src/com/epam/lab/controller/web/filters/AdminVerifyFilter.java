@@ -16,15 +16,15 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class UserVertifyFilter
  */
-@WebFilter(urlPatterns = {"/search", "/userpage"}) // etc 
-public class UserVertifyFilter implements Filter {
+@WebFilter(urlPatterns = {"/adminUserPage", "/adminPage"}) // etc 
+public class AdminVerifyFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpSession session = httpRequest.getSession(false);
 		if (session != null) {
-			Object userid = session.getAttribute("userid");
+			Object userid = session.getAttribute("adminid");
 			if (userid != null) {
 				chain.doFilter(request, response);
 				return;

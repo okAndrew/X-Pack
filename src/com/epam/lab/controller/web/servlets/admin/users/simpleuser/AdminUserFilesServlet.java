@@ -29,7 +29,7 @@ public class AdminUserFilesServlet extends HttpServlet {
 		FileService fileService = new FileService();
 		FolderService folderService = new FolderService();
 		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("userid");
+		long userId = (long) session.getAttribute("adminUserid");
 		long folderId;
 		if (session.getAttribute("folderid") == null) {
 			folderId = folderService.getRoot(userId).getId();

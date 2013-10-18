@@ -21,7 +21,7 @@ public class AdminUserInfoServlet extends HttpServlet {
 		UserService us = new UserService();
 		HttpSession session = request.getSession(false);
 
-		long userId = (long) session.getAttribute("userid");
+		long userId = (long) session.getAttribute("adminUserid");
 
 		User user = us.getUserById(userId);
 

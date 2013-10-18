@@ -37,7 +37,7 @@ public class SignInAdminServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+
 		RequestDispatcher dispatcher;
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
@@ -45,6 +45,7 @@ public class SignInAdminServlet extends HttpServlet {
 		Admin admin = service.getAdminByLogin(login);
 
 		if (service.validate(login, password)) {
+			HttpSession session = request.getSession();
 			session.setAttribute("login", login);
 			session.setAttribute("adminid", admin.getId());
 
@@ -60,3 +61,26 @@ public class SignInAdminServlet extends HttpServlet {
 		}
 	}
 }
+
+/*
+ * protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  logger.debug("LoginPage.doPost()");
+  User user = null;
+  RequestDispatcher dispatcher = request.getRequestDispatcher(LOGIN_JSP);
+  String login = request.getParameter("login");
+  String password = request.getParameter("password");
+  UserDaoImpl userDao = new UserDaoImpl();
+  user = userDao.findByLogginPassword(login, password);
+  if (user != null){
+   HttpSession session = request.getSession();
+   session.setAttribute("type", user.getType().getName());
+   session.setAttribute("readerId", user.getIdUser());
+   logger.debug("authenticated");
+   response.sendRedirect(user.getType() + "Page");
+  } else {
+   request.setAttribute("message", "Your login or password failed!!!! Please try again!!!");
+   dispatcher.forward(request, response);
+   return;
+ }
+}*/
+ 

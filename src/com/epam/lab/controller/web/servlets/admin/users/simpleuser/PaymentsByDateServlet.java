@@ -35,7 +35,7 @@ public class PaymentsByDateServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		PaymentService psevrive = new PaymentService();
 		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("userid");
+		long userId = (long) session.getAttribute("adminUserid");
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
 		Timestamp endDate = null;

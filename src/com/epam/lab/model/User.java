@@ -3,13 +3,13 @@ package com.epam.lab.model;
 import com.epam.lab.controller.annotations.TableColumn;
 
 public class User {
-	
+
 	@TableColumn("id")
 	private long id;
 
 	@TableColumn("login")
 	private String login;
-	
+
 	@TableColumn("email")
 	private String email;
 
@@ -24,14 +24,19 @@ public class User {
 
 	@TableColumn("token")
 	private String token;
-	
+
 	@TableColumn("is_activated")
 	private boolean isActivated;
-	
+
+	@TableColumn("id_role")
+	private long idRole;
+
 	public User() {
 	}
-	
-	public User(long id, String login, String email, String password, long tariff, int capacity, String token) {
+
+	public User(long id, String login, String email, String password,
+			long tariff, int capacity, String token, boolean isActivated,
+			long role) {
 		this.id = id;
 		this.login = login;
 		this.email = email;
@@ -39,8 +44,10 @@ public class User {
 		this.idTariff = tariff;
 		this.capacity = capacity;
 		this.token = token;
+		this.isActivated = isActivated;
+		this.idRole = role;
 	}
-	
+
 	public String getLogin() {
 		return login;
 	}
@@ -103,7 +110,7 @@ public class User {
 		this.token = token;
 		return this;
 	}
-	
+
 	public boolean getIsActivated() {
 		return isActivated;
 	}
@@ -113,11 +120,21 @@ public class User {
 		return this;
 	}
 
+	public long getIdRole() {
+		return idRole;
+	}
+
+	public User setIdRole(long idRole) {
+		this.idRole = idRole;
+		return this;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", email=" + email + ", password=" + password
-				+ ", idTariff=" + idTariff + ", capacity=" + capacity
-				+ ", token=" + token + "]";
+		return "User [id=" + id + ", login=" + login + ", email=" + email
+				+ ", password=" + password + ", idTariff=" + idTariff
+				+ ", capacity=" + capacity + ", token=" + token
+				+ ", isActivated=" + isActivated + ", idRole=" + idRole + "]";
 	}
 
 }

@@ -30,7 +30,7 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 		PaymentService psevrive = new PaymentService();
 
 		List<Payment> list = psevrive.getAllPayByUserId((long) session
-				.getAttribute("userid"));
+				.getAttribute("adminUserid"));
 
 		request.setAttribute("listPayments", list);
 

@@ -22,6 +22,7 @@ public class SignInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SIGNIN_JSP = "WEB-INF/jsp/signin.jsp";
 	private static final String USER_PAGE = "userpage";
+	private static final String ADMIN_HOME = "adminPage";
 	static Logger logger = Logger.getLogger(SignInServlet.class);
 
 	public SignInServlet() {
@@ -53,7 +54,11 @@ public class SignInServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					session.setAttribute("userid", user.getId());
 					session.setAttribute("user", user);
-					response.sendRedirect(USER_PAGE);
+					if (user.getIdRole() == 1) {
+						response.sendRedirect(USER_PAGE);
+					} else {
+						response.sendRedirect(ADMIN_HOME);
+					}
 				} else {
 					request.setAttribute("message",
 							"You is not activated. Please check you email");

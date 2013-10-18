@@ -71,10 +71,9 @@ public class UserOnlineListener implements HttpSessionListener,
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
 //		HttpSession session = event.getSession();
-//		SessionHistory sessionhistory = new SessionHistory();
 //		SessionHistoryService historyService = new SessionHistoryService();
-//		sessionhistory.setSessid(session.getId()).setEnddate(
-//				CurrentTimeStamp.getCurrentTimeStamp());
+//		SessionHistory sessionhistory = new SessionHistory();
+//		sessionhistory.setEnddate(CurrentTimeStamp.getCurrentTimeStamp());
 //		historyService.update(sessionhistory);
 	}
 

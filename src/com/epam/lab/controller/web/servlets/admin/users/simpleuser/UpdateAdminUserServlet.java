@@ -28,11 +28,12 @@ public class UpdateAdminUserServlet extends HttpServlet {
 		String userToken = request.getParameter("userToken");// check
 		boolean activated = Boolean.parseBoolean(request
 				.getParameter("userActivation"));
+		long role = Long.parseLong(request.getParameter("userRole"));
 
 		UserService userService = new UserService();
 		User user = userService.getUserById(userId).setLogin(userLogin)
 				.setEmail(userEmail).setToken(userToken)
-				.setIsActivated(activated);
+				.setIsActivated(activated).setIdRole(role);
 
 		userService.updateUser(user);
 		User user1 = userService.getUserById(userId);

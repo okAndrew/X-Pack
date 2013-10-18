@@ -68,6 +68,10 @@
 								<td>Activation</td>
 								<td>${user.isActivated}</td>
 							</tr>
+							<tr>
+								<td>Role</td>
+								<td>${user.idRole}</td>
+							</tr>
 						</tbody>
 					</table>
 

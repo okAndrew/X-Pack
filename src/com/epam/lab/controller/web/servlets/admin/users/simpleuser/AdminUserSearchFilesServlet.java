@@ -30,7 +30,7 @@ public class AdminUserSearchFilesServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("userid");
+		long userId = (long) session.getAttribute("adminUserid");
 		if (request.getParameter("searchtext") != null) {
 			String text = request.getParameter("searchtext");
 			List<UserFile> files = new FileService().getSearchedFiles(userId, text);

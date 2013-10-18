@@ -95,6 +95,12 @@
 												class="form-control last" value="${user.isActivated}"
 												autofocus="autofocus"></td>
 										</tr>
+										<tr>
+											<td>Role</td>
+											<td><input type="text" name="userRole"
+												class="form-control last" value="${user.idRole}"
+												autofocus="autofocus"></td>
+										</tr>
 										
 									</tbody>
 								</table>

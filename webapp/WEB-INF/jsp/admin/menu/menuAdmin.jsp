@@ -21,7 +21,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 
-			<c:if test="${sessionScope.login != null}">
+			<c:if test="${sessionScope.userid != null}">
 				<ul class="nav navbar-nav">
 					<li class=""><a href="adminUsersPage">Users</a></li>
 					<li class=""><a href="adminFilesPage">Files</a></li>
@@ -34,7 +34,7 @@
 			</c:if>
 
 			<div class="navbar-form navbar-right">
-				<c:if test="${sessionScope.login == null}">
+				<c:if test="${sessionScope.userid == null}">
 					<div class="form-group">
 						<a href="signInAdmin" class="btn btn-success"><fmt:message
 								key="signin" bundle="${lang}" /></a>

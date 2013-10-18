@@ -143,6 +143,16 @@ public class FileService {
 		dao.update(file);
 	}
 
+	public UserFile rename(long fileId, String newNameIncome) {
+		FileDAOImpl dao = new FileDAOImpl();
+		UserFile file = dao.get(fileId);
+		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
+		String extention = file.getNameIncome().substring(lastPointIndex);
+		file.setNameIncome(newNameIncome + extention);
+		dao.update(file);
+		return dao.get(file.getId());
+	}
+
 	/*
 	 * return current month/year/day String for folder (2013/11/1, 2013/11/2,
 	 * 2014/1/13 ...)

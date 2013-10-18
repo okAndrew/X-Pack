@@ -28,6 +28,9 @@
 					<li class=""><a href="adminTarrifsPage">Tariffs</a></li>
 					<li class=""><a href="#">Admins</a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="adminPage">To main menu</a></li>
+				</ul>
 			</c:if>
 
 			<div class="navbar-form navbar-right">
@@ -40,7 +43,7 @@
 
 				<c:if test="${sessionScope.login != null}">
 					<div class="form-group">
-						<a href="signInAdmin" class="btn btn-success"> <fmt:message
+						<a href="signOutAdmin" class="btn btn-success"> <fmt:message
 								key="signout" bundle="${lang}" />
 						</a>
 					</div>

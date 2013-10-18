@@ -23,6 +23,10 @@
 			checkboxes[i].checked = source.checked;
 		}
 	}
+
+	function set(targetElementId, id) {
+		document.getElementById(targetElementId).setAttribute('value',id);
+	}
 </script>
 <style type="text/css">
 body {
@@ -77,7 +81,8 @@ body {
 						</thead>
 						<tbody>
 							<c:if test="${currentFolder.idUpper!=0}">
-								<tr><td></td>
+								<tr>
+									<td></td>
 									<td colspan="4"><span
 										class="glyphicon glyphicon-chevron-up"></span>&nbsp;&nbsp;<strong><a
 											href="userfoldernav?folderid=${currentFolder.idUpper}"
@@ -95,6 +100,16 @@ body {
 									<td><c:out value="${folder.date}" /></td>
 									<td><c:out value="${folder.size}" /></td>
 									<td><c:out value="Folder" /></td>
+									<td><a data-toggle="modal" role="button"
+										class="btn btn-primary" href="#EditFolderModal"
+										onclick="set('folderidedit', ${folder.id})">Edit</a>
+									<td>
+									<td>
+										<div class="btn-group">
+											<a data-toggle="modal" role="button" class="btn btn-primary"
+												href="#DeleteFolderModal" onclick="set('folderiddelete', ${folder.id})">Delete</a>
+										</div>
+									</td>
 								</tr>
 							</c:forEach>
 							<c:forEach items="${files}" var="file">
@@ -107,6 +122,17 @@ body {
 									<td><c:out value="${file.date}" /></td>
 									<td><c:out value="${file.size}" /></td>
 									<td><c:out value="${file.type}" /></td>
+									<td><div class="btn-group">
+											<a data-toggle="modal" role="button" class="btn btn-primary"
+												href="#EditFileModal" onclick="set('fileidedit', ${file.id})">Edit</a>
+										</div>
+									<td>
+									<td>
+										<div class="btn-group">
+											<a data-toggle="modal" role="button" class="btn btn-primary"
+												href="#DeleteFileModal" onclick="set('fileiddelete', ${file.id})">Delete</a>
+										</div>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -115,6 +141,104 @@ body {
 			</form>
 		</div>
 	</div>
+	
+	<form action="delete" method="post">
+		<div class="modal fade" id="DeleteFolderModal" tabindex="-1"
+			role="dialog" aria-labelledby="DeleteFolderModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h3 id="DeleteFileModalLabel">Delete Confirmation</h3>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" id="folderiddelete" name="folderid">
+						<p class="error-text">Are you sure you want to delete this
+							folder?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" name="deletesingle" class="btn btn-danger">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<form action="delete" method="post">
+		<div class="modal fade" id="DeleteFileModal" tabindex="-1"
+			role="dialog" aria-labelledby="DeleteFileModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h3 id="DeleteFileModalLabel">Delete Confirmation</h3>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" id="fileiddelete" name="fileid">
+						<p class="error-text">Are you sure you want to delete this
+							file?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="submit" name="deletesingle" class="btn btn-danger">Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form action="useredit" method="post">
+		<div class="modal fade" id="EditFolderModal" tabindex="-1"
+			role="dialog" aria-labelledby="EditFolderModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Edit</h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" id="folderidedit" name="folderid"> <input
+							type="text" name="foldername" placeholder="folder name">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Edit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form action="useredit" method="post">
+		<div class="modal fade" id="EditFileModal" tabindex="-1" role="dialog"
+			aria-labelledby="EditFileModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Edit</h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" id="fileidedit" name="fileid"> <input
+							type="text" name="filename" placeholder="filename">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Edit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
 
 	<form action="createfolder" method="post">
 		<div class="modal fade" id="createFolderModal" tabindex="-1"

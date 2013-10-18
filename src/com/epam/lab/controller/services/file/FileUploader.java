@@ -21,13 +21,12 @@ public class FileUploader {
 	private List<FileItem> items = null;
 	private User user = null;
 	private Folder folder = null;
-	private Timestamp currentTS = null;
+	private Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
 
 	public FileUploader(List<FileItem> items, long userId, long folderId) {
 		this.items = items;
 		this.user = new UserDAOImpl().get(userId);
 		this.folder = new FolderDAOImpl().get(folderId);
-		this.currentTS = CurrentTimeStamp.getCurrentTimeStamp();
 	}
 
 	public void run() {
@@ -51,7 +50,7 @@ public class FileUploader {
 
 	private void updateFolders(File file) {
 		FolderService service = new FolderService();
-		service.updateFoldersSize(file.getIdFolder(), file.getSize());
+		service.updateSize(file.getIdFolder(), file.getSize());
 	}
 
 	private File getFile(FileItem item) {

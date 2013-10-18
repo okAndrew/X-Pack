@@ -12,36 +12,25 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/employeeController")
 public class AdminUsersEmployeeControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String ADD_USER_MODAL = "addUser";
-	private static String DELETE_USERS = "deleteUsers";
-	private static String BANED_USERS = "banedUsers";
-	private static String ACTIVATED_USERS = "activatedUsers";
-	private static String SEND_EMAIL_USERS = "sendEmailUsers";
-	
+	private AdminUsersRequestHelper requestHelper = AdminUsersRequestHelper
+			.getInstance();
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		processRequest(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
-		if (action.equals("add")){
-			RequestDispatcher dispatcher = request.getRequestDispatcher(ADD_USER_MODAL);
-			dispatcher.forward(request, response);
-		} else if (action.equals("delete")){
-			RequestDispatcher dispatcher = request.getRequestDispatcher(DELETE_USERS);
-			dispatcher.forward(request, response);
-		} else if (action.equals("baned")){
-			RequestDispatcher dispatcher = request.getRequestDispatcher(BANED_USERS);
-			dispatcher.forward(request, response);
-		} else if (action.equals("activated")){
-			RequestDispatcher dispatcher = request.getRequestDispatcher(ACTIVATED_USERS);
-			dispatcher.forward(request, response);
-		} else if (action.equals("sendEmailUsers")){
-			RequestDispatcher dispatcher = request.getRequestDispatcher(SEND_EMAIL_USERS);
-			dispatcher.forward(request, response);
-		}
-		
-		
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		processRequest(request, response);
+	}
+
+	protected void processRequest(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String page = null;
+		AdminUsersPageCommand command = requestHelper.getCommand(request);
+		page = command.execute(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+		dispatcher.forward(request, response);
 	}
 }

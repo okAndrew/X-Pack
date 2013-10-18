@@ -4,7 +4,7 @@
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form action="" method="post" onsubmit="return validatePasswords()"
+			<form action="ChangePasswordServlet" method="post" onsubmit="return validatePasswords()"
 				name="form-change-password" id="form-change-password">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -24,12 +24,12 @@
 					</div>
 					<div class="form-group">
 						<label>Choose a new password</label> <input type="password"
-							class="form-control" placeholder="New password" name="new_pass">
+							class="form-control" placeholder="New password" name="password">
 					</div>
 					<div class="form-group">
 						<label>Confirm your new password</label> <input type="password"
 							class="form-control" placeholder="Confirm new password"
-							name="new_pass_r">
+							name="password_retype">
 					</div>
 				</div>
 

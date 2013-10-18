@@ -12,6 +12,26 @@ public class Tariff {
 	@TableColumn("max_capacity")
 	private int maxCapacity;
 
+	@TableColumn("price")
+	private double price;
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	@TableColumn("description")
+	private String description;
+
+	@TableColumn("available")
+	private boolean available;
+
+	@TableColumn("position")
+	private int position;
+
 	public long getId() {
 		return id;
 	}
@@ -37,6 +57,30 @@ public class Tariff {
 	public Tariff setMaxCapacity(int maxCapacity) {
 		this.maxCapacity = maxCapacity;
 		return this;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 	@Override

@@ -38,14 +38,14 @@ public class UserPageServlet extends HttpServlet {
 		long userId = (long) session.getAttribute("userid");
 		long folderId;
 		if (session.getAttribute("folderid") == null) {
-			folderId = folderService.getRootId(userId);
+			folderId = folderService.getRoot(userId).getId();
 			session.setAttribute("folderid", folderId);
 		} else {
 			folderId = (long) session.getAttribute("folderid");
 		}
-		Folder currentFolder = folderService.getFolder(folderId);
-		List<Folder> folders = folderService.getFolders(userId, folderId);
-		List<File> files = fileService.getFiles(userId, folderId);
+		Folder currentFolder = folderService.get(folderId);
+		List<Folder> folders = folderService.get(userId, folderId);
+		List<File> files = fileService.getByFolderId(folderId);
 		request.setAttribute("folders", folders);
 		request.setAttribute("files", files);
 		request.setAttribute("currentFolder", currentFolder);

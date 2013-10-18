@@ -61,7 +61,7 @@ public class RegistrationService {
 	
 	private void createRootFolder(User user) {
 		FolderService folderService = new FolderService();
-		folderService.createRootFolder(user.getId());
+		folderService.createRoot(user.getId());
 	}
 	
 	public void sendActivations(User user) {

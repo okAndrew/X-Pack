@@ -22,24 +22,6 @@ public class FileService {
 	public static final int MAX_FILES = 999;
 
 	/*
-	 * return current month/year/day String for folder (2013/11/1, 2013/11/2,
-	 * 2014/1/13 ...)
-	 */
-	private String getCurDatePath() {
-		Calendar now = Calendar.getInstance();
-
-		int year = now.get(Calendar.YEAR);
-		int month = now.get(Calendar.MONTH);
-		int day = now.get(Calendar.DATE);
-
-		StringBuilder temp = new StringBuilder().append(year)
-				.append(File.separator).append(month).append(File.separator)
-				.append(day);
-
-		return temp.toString();
-	}
-
-	/*
 	 * return current folder to save files
 	 */
 	public File getFolder() {
@@ -83,43 +65,23 @@ public class FileService {
 		return curFolder;
 	}
 
-	// create new increment valid folder
-	private File newIncfolder(int cur) {
-		File newFolder = null;
-		StringBuilder path = new StringBuilder().append(ROOT_PATH)
-				.append(getCurDatePath()).append(File.separator);
-
-		while (newFolder == null) {
-			File folder = new File(path.toString() + cur);
-
-			// if folder !exist
-			if (folder.mkdir()) {
-				newFolder = folder;
-			} else {
-				cur++;
-			}
-		}
-
-		return newFolder;
-	}
-
-	public com.epam.lab.model.File getFile(long fileId) {
+	public com.epam.lab.model.File get(long id) {
 		FileDAOImpl dao = new FileDAOImpl();
-		com.epam.lab.model.File file = dao.get(fileId);
+		com.epam.lab.model.File file = dao.get(id);
 		return file;
 	}
 
-	public List<com.epam.lab.model.File> getFiles(long userId) {
+	public List<com.epam.lab.model.File> getByUserId(long userId) {
 		List<com.epam.lab.model.File> files = null;
-		FileDAOImpl filedaoimpl = new FileDAOImpl();
-		files = filedaoimpl.getAllbyUserId(userId);
+		FileDAOImpl dao = new FileDAOImpl();
+		files = dao.getAllByUserId(userId);
 		return files;
 	}
 
-	public List<com.epam.lab.model.File> getFiles(long userId, long folderId) {
+	public List<com.epam.lab.model.File> getByFolderId(long folderId) {
 		List<com.epam.lab.model.File> files = null;
-		FileDAOImpl filedaoimpl = new FileDAOImpl();
-		files = filedaoimpl.getAllbyUserIdAndFolderId(userId, folderId);
+		FileDAOImpl dao = new FileDAOImpl();
+		files = dao.getAllByFolderId(folderId);
 		return files;
 	}
 
@@ -130,7 +92,7 @@ public class FileService {
 			File file = new File(f.getPath() + File.separator + f.getName());
 			file.delete();
 			FolderService service = new FolderService();
-			service.updateFoldersSize(f.getIdFolder(), -f.getSize());
+			service.updateSize(f.getIdFolder(), -f.getSize());
 			dao.delete(id);
 		}
 	}
@@ -171,7 +133,7 @@ public class FileService {
 	public List<com.epam.lab.model.File> getSearchedFiles(long userId,
 			String text) {
 		FileService service = new FileService();
-		List<com.epam.lab.model.File> files = service.getFiles(userId);
+		List<com.epam.lab.model.File> files = service.getByUserId(userId);
 		List<com.epam.lab.model.File> result = new ArrayList<com.epam.lab.model.File>();
 		for (com.epam.lab.model.File file : files) {
 			if (file.getNameIncome().contains(text)) {
@@ -179,5 +141,59 @@ public class FileService {
 			}
 		}
 		return result;
+	}
+
+	public boolean check(long folderId, String name) {
+		FileDAOImpl dao = new FileDAOImpl();
+		List<com.epam.lab.model.File> files = dao.getAllByFolderId(folderId);
+		for (com.epam.lab.model.File file : files) {
+			if (file.getNameIncome().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public long update(com.epam.lab.model.File file) {
+		FileDAOImpl dao = new FileDAOImpl();
+		dao.update(file);
+		return dao.get(file.getId()).getId();
+	}
+
+	/*
+	 * return current month/year/day String for folder (2013/11/1, 2013/11/2,
+	 * 2014/1/13 ...)
+	 */
+	private String getCurDatePath() {
+		Calendar now = Calendar.getInstance();
+
+		int year = now.get(Calendar.YEAR);
+		int month = now.get(Calendar.MONTH);
+		int day = now.get(Calendar.DATE);
+
+		StringBuilder temp = new StringBuilder().append(year)
+				.append(File.separator).append(month).append(File.separator)
+				.append(day);
+		return temp.toString();
+	}
+
+	// create new increment valid folder
+	private File newIncfolder(int cur) {
+		File newFolder = null;
+		StringBuilder path = new StringBuilder().append(ROOT_PATH)
+				.append(getCurDatePath()).append(File.separator);
+
+		while (newFolder == null) {
+			File folder = new File(path.toString() + cur);
+
+			// if folder !exist
+			if (folder.mkdir()) {
+				newFolder = folder;
+			} else {
+				cur++;
+			}
+		}
+
+		return newFolder;
 	}
 }

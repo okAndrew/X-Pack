@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.dao.impl.UserDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.security.Validator;
+import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.model.User;
 
@@ -54,26 +56,23 @@ public class UserService {
 		return new UserDAOImpl().getByEmail(email);
 	}
 
-	public int updateUser(int userId, String userLogin, String userEmail,
-		int userIdTariff, String userToken, boolean activated) {
+	public int updateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(userId, userLogin, userEmail,
-				userIdTariff, userToken, activated);
-		
+		int result = userDaoImpl.update(user);
 		return result;
 	}
 
-	public void deleteFilesAndFolders(String[] rs, String[] rs2, long userId) {
-		FolderService service = new FolderService();
-		FileService service2 = new FileService();
-		if (rs != null && !rs[0].equals("")) {
-			for (int i = 0; i < rs.length; i++) {
-				service2.delete(Long.parseLong(rs[i]));
+	public void deleteFilesAndFolders(String[] filesId, String[] foldersId, long userId) {
+		FolderService folderService = new FolderService();
+		FileService fileService = new FileService();
+		if (filesId != null && filesId[0]!=null && !filesId[0].equals("")) {
+			for (int i = 0; i < filesId.length; i++) {
+				fileService.delete(Long.parseLong(filesId[i]));
 			}
 		}
-		if (rs2 != null && !rs2[0].equals("")) {
-			for (int i = 0; i < rs2.length; i++) {
-				service.delete(Long.parseLong(rs2[i]), userId);
+		if (foldersId != null && foldersId[0]!=null && !foldersId[0].equals("")) {
+			for (int i = 0; i < foldersId.length; i++) {
+				folderService.delete(Long.parseLong(foldersId[i]));
 			}
 		}
 	}
@@ -94,24 +93,20 @@ public class UserService {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		userDaoImpl.delete(id);
 	}
-	
+
 	public int activateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
-				user.getIdTariff(), user.getToken(), true);
-		
+		int result = userDaoImpl.activatedUserById(user.getId());
 		return result;
 	}
-	
+
 	public int deactivateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.updateUser(user.getId(), user.getLogin(), user.getEmail(),
-				user.getIdTariff(), user.getToken(), false);
-		
+		int result = userDaoImpl.deaktivatedUserById(user.getId());
 		return result;
 	}
-	
-	public String deactivateUsers(String[] usersId){
+
+	public String deactivateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
@@ -123,8 +118,8 @@ public class UserService {
 		}
 		return errorMessage;
 	}
-	
-	public String activateUsers(String[] usersId){
+
+	public String activateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		if (usersId == null) {
@@ -136,13 +131,23 @@ public class UserService {
 		}
 		return errorMessage;
 	}
+
+	public void changeUserPassword(User user, String password) {
+		MD5Encrypter md5 = new MD5Encrypter();
+		String md5Pass = md5.encrypt(password);
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+
+		user.setPassword(md5Pass);
+		userDaoImpl.update(user);
+	}
 	
+
 	public String sendUsersEmail(String[] usersId){
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		List<User> users = new ArrayList<User>();
 		if (usersId == null) {
-			errorMessage = "Please check the users you want to activate!!!";
+			errorMessage = "Please check the users you want to send email!!!";
 		} else {
 			for (int i = 0; i < usersId.length; i++) {
 				users.add(userDaoImpl.get(Long.parseLong(usersId[i])));
@@ -153,4 +158,17 @@ public class UserService {
 		}
 		return errorMessage;
 	}
+
+	public User changeUserLogin(String email, String login) {
+		User user = getUserByEmail(email);
+		
+		if (user != null) {
+			Validator.USER_LOGIN.validate("asd");
+			user.setLogin(login);
+			updateUser(user);
+		}
+		
+		return user;
+	}
+
 }

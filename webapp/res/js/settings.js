@@ -1,20 +1,18 @@
 function checkChangeLoginForm() {
-	alert("1");
 	var login = document.forms["editLogin"]["inputLogin"].value;
-	alert("2");
 	var errorinfo = document.getElementById("settingsErrorDiv");
-	alert("3");
+	
 	if (login == "") {
 		setMessage("Field cannot be empty", errorinfo);
 		return false;
 	}
-	alert("4");
+
 	return true;
 } 
 function validatePasswords() {
 	var p1 = document.forms["form-change-password"]["old_pass"].value;
-	var p2 = document.forms["form-change-password"]["new_pass"].value;
-	var p3 = document.forms["form-change-password"]["new_pass_r"].value;
+	var p2 = document.forms["form-change-password"]["password"].value;
+	var p3 = document.forms["form-change-password"]["password_retype"].value;
 	var errorinfo = document.getElementById("errorinfo");
 
 	if (p1 == "" || p2 == "" || p3 == "") {

@@ -12,8 +12,16 @@ public class CurrentTimeStamp {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String dateTime = dateFormat.format(cal.getTime());
 		Timestamp timestamp = Timestamp.valueOf(dateTime);
-		
+
 		return timestamp;
 	}
-	
+
+	public static Timestamp addMonth(Timestamp timestamp) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(timestamp.getTime());
+		calendar.add(Calendar.MONTH, 1);
+		timestamp.setTime(calendar.getTimeInMillis());
+		return timestamp;
+	}
+
 }

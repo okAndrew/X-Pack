@@ -1,7 +1,6 @@
 package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,35 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
-
-import com.epam.lab.controller.services.PaymentService;
-import com.epam.lab.controller.services.UserService;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
-import com.epam.lab.model.Payment;
-import com.epam.lab.model.User;
 
 @WebServlet("/adminUserDeleteFile")
 public class AdminUserDeleteFileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_USER_FILES_JSP = "adminUserFiles";
-	private static final Logger logger = Logger
-			.getLogger(AdminUserDeleteFileServlet.class);
 
 	public AdminUserDeleteFileServlet() {
 		super();
 	}
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		FileService service2 = new FileService();
 		RequestDispatcher dispatcher;
 		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("userid");
 		String[] rs = request.getParameterValues("files");
 		String[] rs2 = request.getParameterValues("folders");
 		if (rs != null) {
@@ -50,7 +42,7 @@ public class AdminUserDeleteFileServlet extends HttpServlet {
 		if (rs2 != null) {
 			FolderService service = new FolderService();
 			for (int i = 0; i < rs2.length; i++) {
-				service.delete(Integer.parseInt(rs2[i]), userId);
+				service.delete(Integer.parseInt(rs2[i]));
 			}
 		}
 		if (rs == null && rs2 == null) {

@@ -28,12 +28,12 @@ public class CreateFolderServlet extends HttpServlet {
 			request.getRequestDispatcher(USER_PAGE).forward(request, response);
 		} else {
 			String folderName = request.getParameter("foldername");
-			if (service.isFolderExist(folderId, folderName)) {
+			if (service.check(folderName, userId, folderId)) {
 				request.setAttribute("message", "Folder exist");
 				request.getRequestDispatcher(USER_PAGE).forward(request,
 						response);
 			} else {
-				service.createFolder(folderName, userId, folderId);
+				service.create(folderName, userId, folderId);
 				response.sendRedirect(USER_PAGE);
 			}
 		}

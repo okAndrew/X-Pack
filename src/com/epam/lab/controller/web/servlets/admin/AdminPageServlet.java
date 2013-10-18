@@ -37,12 +37,18 @@ public class AdminPageServlet extends HttpServlet {
 		List<User> list = new ArrayList<User>();
 		list = service.getAllUsers();
 		long countAllUsers = list.size();
-		UserOnlineListener counter = (UserOnlineListener) session
-				.getAttribute("counter");
-		int countUsers = counter.getActiveSessionNumber();
-		request.setAttribute("countUsers", countUsers);
-		request.setAttribute("countAllUsers", countAllUsers);
-		request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request, response);
+		if (session == null) {
+			request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request,
+					response);
+		} else {
+			UserOnlineListener counter = (UserOnlineListener) session
+					.getAttribute("counter");
+			int countUsers = counter.getActiveSessionNumber();
+			request.setAttribute("countUsers", countUsers);
+			request.setAttribute("countAllUsers", countAllUsers);
+			request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request,
+					response);
+		}
 	}
 
 }

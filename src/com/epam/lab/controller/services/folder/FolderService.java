@@ -174,4 +174,15 @@ public class FolderService {
 		}
 		return false;
 	}
+
+	public void movefolder(long folderidmove, long folderidtarget) {
+		FolderService service = new FolderService();
+		FolderDAOImpl dao = new FolderDAOImpl();
+		Folder folder = dao.get(folderidmove);
+		service.updateSize(folder.getIdUpper(), -folder.getSize());
+		folder.setIdUpper(folderidtarget);
+		service.updateSize(folderidtarget, folder.getSize());
+		dao.update(folder);
+
+	}
 }

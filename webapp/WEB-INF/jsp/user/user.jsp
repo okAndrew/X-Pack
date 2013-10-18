@@ -27,6 +27,9 @@
 	function set(targetElementId, id) {
 		document.getElementById(targetElementId).setAttribute('value',id);
 	}
+	function getCurFolderId(){
+		document.getElementById("folderidmove").getAttribute("value");
+	}
 </script>
 <style type="text/css">
 body {
@@ -175,13 +178,11 @@ body {
 						<input type="hidden" id="folderidmove" name="folderidmove">
 						<p>Please select folder to move</p>
 						<c:forEach items="${folders}" var="folder">
-								<input type="radio" name="folder" value="${folder.id}"> ${folder.name}<br>
+						<c:if test="${folder.id!=getCurFolderId.call()}">
+								<input type="radio" name="folderidtarget" value="${folder.id}"> ${folder.name}<br>
+								</c:if>
 						</c:forEach>
 					</div>
-
-
-
-
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 						<button type="submit" class="btn btn-success">Move</button>
@@ -202,8 +203,13 @@ body {
 						<h3 id="MoveFileModalLabel">Moving Confirmation</h3>
 					</div>
 					<div class="modal-body">
-						<input type="hidden" id="fileidmove" name="fileid">
+						<input type="hidden" id="fileidmove" name="fileidmove">
 						<p>Please select folder to move</p>
+						<c:forEach items="${folders}" var="folder">
+						<c:if test="${folder.id!=getCurFolderId.call()}">
+								<input type="radio" name="folderidtarget" value="${folder.id}"> ${folder.name}<br>
+								</c:if>
+						</c:forEach>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

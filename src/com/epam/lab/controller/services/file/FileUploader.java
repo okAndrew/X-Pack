@@ -1,79 +1,152 @@
 package com.epam.lab.controller.services.file;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Timestamp;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.impl.FileDAOImpl;
 import com.epam.lab.controller.dao.impl.FolderDAOImpl;
-import com.epam.lab.controller.dao.impl.UserDAOImpl;
-import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.controller.services.UserService;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
-import com.epam.lab.model.File;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.User;
+import com.epam.lab.model.UserFile;
+import com.sun.jersey.core.header.FormDataContentDisposition;
 
 public class FileUploader {
-	private List<FileItem> items = null;
-	private User user = null;
+	private static Logger logger = Logger.getLogger(FileUploader.class);
 	private Folder folder = null;
-	private Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
 
-	public FileUploader(List<FileItem> items, long userId, long folderId) {
-		this.items = items;
-		this.user = new UserDAOImpl().get(userId);
-		this.folder = new FolderDAOImpl().get(folderId);
+	public FileUploader(long idFolder) {
+		this.folder = new FolderDAOImpl().get(idFolder);
 	}
 
-	public void run() {
-		Iterator<FileItem> iter = items.iterator();
-		while (iter.hasNext()) {
-			FileItem item = iter.next();
-			FileDAOImpl dao = new FileDAOImpl();
-			if (!item.isFormField() && item.getSize() > 0) {
-				File file = getFile(item);
-				java.io.File f = new java.io.File(file.getPath()
-						+ java.io.File.separator + file.getName());
-				try {
-					item.write(f);
-				} catch (Exception e) {
-				}
-				updateFolders(file);
-				dao.insert(file);
+	public UserFile uploadFile(FileItem fileItem) {
+		FileDAOImpl dao = new FileDAOImpl();
+		UserFile userFile = null;
+		if (fileItem.getSize() > 0) {
+			userFile = createUserFile(fileItem);
+			File newFile = new File(getUploadedFileLocation(userFile));
+			try {
+				fileItem.write(newFile);
+			} catch (Exception e) {
+				logger.error(e);
+				return null;
 			}
+			updateFolders(userFile);
+			dao.insert(userFile);
 		}
+		return userFile;
 	}
 
-	private void updateFolders(File file) {
+	public UserFile uploadFile(InputStream inputStream,
+			FormDataContentDisposition cd) {
+		FileDAOImpl dao = new FileDAOImpl();
+		UserFile userFile = null;
+		try {
+			userFile = createUserFile(cd);
+			String uploadedFileLocation = getUploadedFileLocation(userFile);
+			File uploadedFile = writeFile(inputStream, uploadedFileLocation);
+			double size = (double) uploadedFile.length();
+			userFile.setSize(size);
+		} catch (IOException e) {
+			logger.error(e);
+		}
+		updateFolders(userFile);
+		dao.insert(userFile);
+		return userFile;
+	}
+
+	public List<UserFile> uploadFiles(List<FileItem> items) {
+		List<UserFile> files = new ArrayList<UserFile>();
+		for (FileItem item : items) {
+			UserFile file = uploadFile(item);
+			files.add(file);
+		}
+		return files;
+
+	}
+
+	private String getUploadedFileLocation(UserFile userFile) {
+		return userFile.getPath() + File.separator + userFile.getName();
+	}
+
+	private File writeFile(InputStream inputStream, String uploadedFileLocation)
+			throws FileNotFoundException, IOException {
+		File newFile = new File(uploadedFileLocation);
+		OutputStream out = new FileOutputStream(newFile);
+		int read = 0;
+		byte[] bytes = new byte[1024];
+		while ((read = inputStream.read(bytes)) != -1) {
+			out.write(bytes, 0, read);
+		}
+		out.flush();
+		out.close();
+		return newFile;
+	}
+
+	private void updateFolders(UserFile file) {
 		FolderService service = new FolderService();
 		service.updateSize(file.getIdFolder(), file.getSize());
 	}
 
-	private File getFile(FileItem item) {
-		FileService service = new FileService();
-		File file = new File();
-		String fileNameIncome = item.getName();
-		String userLogin = null;
-		if (user != null) {
-			userLogin = user.getLogin();
-		}
+	private UserFile createUserFile(FormDataContentDisposition cd) {
+		FileService fileService = new FileService();
+		UserService userService = new UserService();
+		User user = userService.getUserById(folder.getIdUser());
+		UserFile resultUserFile = new UserFile();
+		Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
+		String incomeFileName = cd.getFileName();
 		String fileName = new MD5Encrypter().encrypt(currentTS.toString()
-				+ fileNameIncome + userLogin);
-		String filePath = service.getFolder().getAbsolutePath();
+				+ incomeFileName + user.getEmail());
+		String filePath = fileService.getFolder().getAbsolutePath();
+		String type = cd.getType();
+
+		resultUserFile.setNameIncome(incomeFileName).setName(fileName)
+				.setPath(filePath).setType(type).setSize(cd.getSize())
+				.setDate(currentTS).setIdFolder(folder.getId())
+				.setIdUser(user.getId());
+		return resultUserFile;
+	}
+
+	private UserFile createUserFile(FileItem item) {
+		UserService userService = new UserService();
+		User user = userService.getUserById(folder.getIdUser());
+		UserFile resultUserFile = new UserFile();
+
+		String fileNameIncome = item.getName();
+		Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
+		String fileName = new MD5Encrypter().encrypt(currentTS.toString()
+				+ fileNameIncome + user.getEmail());
+		FileService fileService = new FileService();
+		String filePath = fileService.getFolder().getAbsolutePath();
 		String contentType = item.getContentType();
 		long fileSize = item.getSize();
-		file.setNameIncome(fileNameIncome).setName(fileName).setPath(filePath)
-				.setType(contentType).setSize(fileSize).setDate(currentTS);
-		if (user != null) {
-			file.setIdUser(user.getId());
-		}
-		if (folder != null) {
-			file.setIdFolder(folder.getId());
-		}
-		return file;
+
+		resultUserFile.setNameIncome(fileNameIncome).setName(fileName)
+				.setPath(filePath).setType(contentType).setSize(fileSize)
+				.setDate(currentTS).setIdFolder(folder.getId())
+				.setIdUser(user.getId());
+		return resultUserFile;
 	}
+
+	public Folder getFolder() {
+		return folder;
+	}
+
+	public void setFolder(Folder folder) {
+		this.folder = folder;
+	}
+
 }

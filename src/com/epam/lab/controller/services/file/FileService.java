@@ -65,21 +65,21 @@ public class FileService {
 		return curFolder;
 	}
 
-	public com.epam.lab.model.File get(long id) {
+	public com.epam.lab.model.UserFile get(long id) {
 		FileDAOImpl dao = new FileDAOImpl();
-		com.epam.lab.model.File file = dao.get(id);
+		com.epam.lab.model.UserFile file = dao.get(id);
 		return file;
 	}
 
-	public List<com.epam.lab.model.File> getByUserId(long userId) {
-		List<com.epam.lab.model.File> files = null;
+	public List<com.epam.lab.model.UserFile> getByUserId(long userId) {
+		List<com.epam.lab.model.UserFile> files = null;
 		FileDAOImpl dao = new FileDAOImpl();
 		files = dao.getAllByUserId(userId);
 		return files;
 	}
 
-	public List<com.epam.lab.model.File> getByFolderId(long folderId) {
-		List<com.epam.lab.model.File> files = null;
+	public List<com.epam.lab.model.UserFile> getByFolderId(long folderId) {
+		List<com.epam.lab.model.UserFile> files = null;
 		FileDAOImpl dao = new FileDAOImpl();
 		files = dao.getAllByFolderId(folderId);
 		return files;
@@ -87,7 +87,7 @@ public class FileService {
 
 	public void delete(long id) {
 		FileDAOImpl dao = new FileDAOImpl();
-		com.epam.lab.model.File f = dao.get(id);
+		com.epam.lab.model.UserFile f = dao.get(id);
 		if (f != null) {
 			File file = new File(f.getPath() + File.separator + f.getName());
 			file.delete();
@@ -111,7 +111,7 @@ public class FileService {
 			for (int i = 0; i < ids.length; i++) {
 				long id = Long.parseLong(ids[i]);
 				FileDAOImpl dao = new FileDAOImpl();
-				com.epam.lab.model.File f = dao.get(id);
+				com.epam.lab.model.UserFile f = dao.get(id);
 				String path = f.getPath() + File.separator + f.getName();
 				FileInputStream in = new FileInputStream(path);
 				out.putNextEntry(new ZipEntry(f.getNameIncome()));
@@ -130,12 +130,12 @@ public class FileService {
 		return zipPath.toString();
 	}
 
-	public List<com.epam.lab.model.File> getSearchedFiles(long userId,
+	public List<com.epam.lab.model.UserFile> getSearchedFiles(long userId,
 			String text) {
 		FileService service = new FileService();
-		List<com.epam.lab.model.File> files = service.getByUserId(userId);
-		List<com.epam.lab.model.File> result = new ArrayList<com.epam.lab.model.File>();
-		for (com.epam.lab.model.File file : files) {
+		List<com.epam.lab.model.UserFile> files = service.getByUserId(userId);
+		List<com.epam.lab.model.UserFile> result = new ArrayList<com.epam.lab.model.UserFile>();
+		for (com.epam.lab.model.UserFile file : files) {
 			if (file.getNameIncome().contains(text)) {
 				result.add(file);
 			}
@@ -145,8 +145,8 @@ public class FileService {
 
 	public boolean check(long folderId, String name) {
 		FileDAOImpl dao = new FileDAOImpl();
-		List<com.epam.lab.model.File> files = dao.getAllByFolderId(folderId);
-		for (com.epam.lab.model.File file : files) {
+		List<com.epam.lab.model.UserFile> files = dao.getAllByFolderId(folderId);
+		for (com.epam.lab.model.UserFile file : files) {
 			if (file.getNameIncome().equals(name)) {
 				return true;
 			}
@@ -154,7 +154,7 @@ public class FileService {
 		return false;
 	}
 
-	public long update(com.epam.lab.model.File file) {
+	public long update(com.epam.lab.model.UserFile file) {
 		FileDAOImpl dao = new FileDAOImpl();
 		dao.update(file);
 		return dao.get(file.getId()).getId();

@@ -30,13 +30,12 @@ public class UploadServlet extends HttpServlet {
 		if (ServletFileUpload.isMultipartContent(request)) {
 			try {
 				HttpSession session = request.getSession(false);
-				long userId = (long) session.getAttribute("userid");
 				long folderId = (long) session.getAttribute("folderid");
 				ServletFileUpload upload = new ServletFileUpload(
 						new DiskFileItemFactory());
 				List<FileItem> items = upload.parseRequest(request);
-				FileUploader uploader = new FileUploader(items, userId, folderId);
-				uploader.run();
+				FileUploader uploader = new FileUploader(folderId);
+				uploader.uploadFiles(items);
 			} catch (FileUploadException e) {
 				logger.error(e);
 				e.printStackTrace();

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
-import com.epam.lab.model.File;
+import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 
 @WebServlet("/adminUserFiles")
@@ -39,7 +39,7 @@ public class AdminUserFilesServlet extends HttpServlet {
 		}
 		Folder currentFolder = folderService.get(folderId);
 		List<Folder> folders = folderService.get(userId, folderId);
-		List<File> files = fileService.getByFolderId(folderId);
+		List<UserFile> files = fileService.getByFolderId(folderId);
 		request.setAttribute("folders", folders);
 		request.setAttribute("files", files);
 		request.setAttribute("currentFolder", currentFolder);

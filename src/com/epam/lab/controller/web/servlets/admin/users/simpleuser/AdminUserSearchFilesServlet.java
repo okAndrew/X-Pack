@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
-import com.epam.lab.model.File;
+import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 
 @WebServlet("/adminUserSearchFiles")
@@ -33,7 +33,7 @@ public class AdminUserSearchFilesServlet extends HttpServlet {
 		long userId = (long) session.getAttribute("userid");
 		if (request.getParameter("searchtext") != null) {
 			String text = request.getParameter("searchtext");
-			List<File> files = new FileService().getSearchedFiles(userId, text);
+			List<UserFile> files = new FileService().getSearchedFiles(userId, text);
 			List<Folder> folders = new FolderService().getSearched(
 					userId, text);
 			request.setAttribute("files", files);

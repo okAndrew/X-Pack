@@ -9,7 +9,7 @@ import com.epam.lab.controller.dao.impl.FileDAOImpl;
 import com.epam.lab.controller.dao.impl.FolderDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
-import com.epam.lab.model.File;
+import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 
 public class FolderService {
@@ -100,8 +100,8 @@ public class FolderService {
 		FolderDAOImpl dao = new FolderDAOImpl();
 		FileService fileService = new FileService();
 		FolderService folderService = new FolderService();
-		List<File> files = new FileDAOImpl().getAllByFolderId(id);
-		for (File file : files) {
+		List<UserFile> files = new FileDAOImpl().getAllByFolderId(id);
+		for (UserFile file : files) {
 			fileService.delete(file.getId());
 		}
 		List<Folder> folders = dao.getByUpperId(id);
@@ -173,5 +173,14 @@ public class FolderService {
 			}
 		}
 		return false;
+	}
+
+	public void movefolder(long folderidmove, long folderidtarget) {
+
+		FolderDAOImpl dao = new FolderDAOImpl();
+		Folder folder = dao.get(folderidmove);
+		folder.setIdUpper(folderidtarget);
+		dao.update(folder);
+
 	}
 }

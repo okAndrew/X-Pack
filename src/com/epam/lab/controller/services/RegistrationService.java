@@ -40,7 +40,7 @@ public class RegistrationService {
 
 	public String regUser(String login, String email, String password) {
 		String result = chechParams(login, email, password);
-		
+
 		if (result == null) {
 			if (checkEmail(email) == null) {
 				MD5Encrypter md5 = new MD5Encrypter();
@@ -55,57 +55,57 @@ public class RegistrationService {
 		} else {
 			result = "Fields cannot be null";
 		}
-		
+
 		return result;
 	}
-	
+
 	private void createRootFolder(User user) {
 		FolderService folderService = new FolderService();
 		folderService.createRoot(user.getId());
 	}
-	
+
 	public void sendActivations(User user) {
 		StringBuilder msg = new StringBuilder();
 		String token = createToken(user);
-		
+
 		msg.append("http://localhost:8080/dreamhost/activation?email=");
 		msg.append(user.getEmail()).append("&token=").append(token);
-		
+
 		MailSender.send(user.getEmail(), "Activation", msg.toString());
 	}
-	
+
 	private String createToken(User user) {
 		Token token = new Token();
 		MD5Encrypter md5 = new MD5Encrypter();
 		String sToken = null;
 		Timestamp timestamp = CurrentTimeStamp.getCurrentTimeStamp();
-		
+
 		sToken = md5.encrypt(user.getEmail() + timestamp);
-		
-		token.setUser(user.getId());
+
+		token.setIdUser(user.getId());
 		token.setDate(timestamp);
 		token.setToken(sToken);
-		
+
 		new TokenDAOImpl().insert(token);
 
 		return sToken;
 	}
-	
+
 	public int activateUser(String email, String token) {
 		int result = 0;
-		
+
 		UserService userService = new UserService();
 		TokenDAOImpl tokenDAOImpl = new TokenDAOImpl();
-		
+
 		User user = userService.getUserByEmail(email);
 		Token tokenObj = tokenDAOImpl.get(token);
 
-		if (tokenObj.getUser() == user.getId() && tokenObj.getAvailable()
-				&& tokenObj.getUser() == user.getId()) {
+		if (tokenObj.getIdUser() == user.getId()
+				&& tokenObj.getIdUser() == user.getId()) {
 			tokenDAOImpl.deactivateToken(token);
 			userService.activateUser(user);
 		}
-		
+
 		return result;
 	}
 

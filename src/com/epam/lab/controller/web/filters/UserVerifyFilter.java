@@ -13,10 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.epam.lab.model.Role;
+
 /**
  * Servlet Filter implementation class UserVertifyFilter
  */
-@WebFilter(urlPatterns = {"/search", "/userpage"}) // etc 
+@WebFilter(urlPatterns = { "/delete", "/downloadfiles", "/download",
+		"/useredit", "/upload", "/createfolder", "/activation",
+		"/ChangePasswordServlet", "/search", "/userfoldernav",
+		"/usercontroller", "/userpage", "/EditEmailServlet",
+		"/EditUserLoginServlet", "/settings", "/move", "/CreatePaymentServlet",
+		"/locale" })
 public class UserVerifyFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -26,13 +33,15 @@ public class UserVerifyFilter implements Filter {
 		if (session != null) {
 			Object userid = session.getAttribute("userid");
 			if (userid != null) {
-				chain.doFilter(request, response);
-				return;
+				Object role = session.getAttribute("userRole");
+				if (role != null && role.equals(Role.ADMIN)) {
+					chain.doFilter(request, response);
+					return;
+				}
 			}
-		} else {
-			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendRedirect("/signin");
 		}
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		httpResponse.sendRedirect("/signin");
 	}
 
 	@Override

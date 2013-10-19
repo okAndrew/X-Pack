@@ -54,6 +54,7 @@ public class SignInServlet extends HttpServlet {
 				if (user.getIsActivated()) {
 					HttpSession session = request.getSession();
 					session.setAttribute("userid", user.getId());
+					session.setAttribute("userRole", user.getRole());
 					session.setAttribute("user", user);
 					if (user.getRole().equals(Role.USER)) {
 						response.sendRedirect(USER_PAGE);

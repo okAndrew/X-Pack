@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.UserService;
+import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
 
 @WebServlet("/updateUser")
@@ -27,11 +28,11 @@ public class UpdateAdminUserServlet extends HttpServlet {
 		String userEmail = request.getParameter("userEmail");// check
 		boolean activated = Boolean.parseBoolean(request
 				.getParameter("userActivation"));
-		long role = Long.parseLong(request.getParameter("userRole"));
+		Role role = Role.findByName(request.getParameter("userRole"));
 
 		UserService userService = new UserService();
 		User user = userService.getUserById(userId).setLogin(userLogin)
-				.setEmail(userEmail).setIsActivated(activated).setIdRole(role);
+				.setEmail(userEmail).setIsActivated(activated).setRole(role);
 
 		userService.updateUser(user);
 		User user1 = userService.getUserById(userId);

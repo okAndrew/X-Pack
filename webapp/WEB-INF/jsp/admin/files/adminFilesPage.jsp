@@ -57,8 +57,8 @@
 
 			legend : {
 				show : true,
-				location:'e',
-	            marginTop: '15px'
+				location : 'e',
+				marginTop : '15px'
 			}
 		});
 	});
@@ -84,7 +84,28 @@
 			<div class="panel-body">
 				<div id="example"></div>
 				<div>
-					<div>audio...rar</div>
+					<c:if test="${types != null}">
+						<table class="table zebra-striped table-hover">
+							<thead>
+								<tr>
+									<td>#</td>
+									<td>Type</td>
+									<td>Size(MB)</td>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="type" items="${types}">
+									<tr>
+										<td></td>
+										<td>${type.type}</td>
+										<td>${type.size/1024/1024}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
+
+
 				</div>
 			</div>
 		</div>

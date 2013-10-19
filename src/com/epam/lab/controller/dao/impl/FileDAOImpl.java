@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.epam.lab.controller.dao.FileDAO;
 import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
+import com.epam.lab.model.FilesTypesSize;
 import com.epam.lab.model.UserFile;
 
 public class FileDAOImpl implements FileDAO {
@@ -65,5 +66,12 @@ public class FileDAOImpl implements FileDAO {
 		String sql = "DELETE FROM files WHERE id_folder=?";
 		int result = queryExecutor.executeUpdate(sql, id);
 		return result;
+	}
+
+	@Override
+	public List<FilesTypesSize> getFilesGroupType() {
+		String sql = "SELECT type, SUM(size) AS size FROM files GROUP BY(type)";
+		List<FilesTypesSize> resultList = new DBQueryExecutor<FilesTypesSize>().executeQuery(FilesTypesSize.class, sql);
+		return resultList;
 	}
 }

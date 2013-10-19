@@ -1,11 +1,11 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
 	type="text/javascript"></script>
-<script type="text/javascript" src="res/js/modal.js"></script>	
+<script type="text/javascript" src="res/js/modal.js"></script>
 <script src="res/js/bootstrap.js"></script>
 
 <link href="res/css/style.css" rel="stylesheet" />
@@ -24,7 +24,7 @@
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-							<form action="addUser" method="post">
+							<form action="employeeControllerUsers" method="post">
 								<div id="errorinfo" class="alert alert-danger"
 									style="display: none;">
 									<c:if test="${message != null}">
@@ -59,8 +59,8 @@
 										</tr>
 									</tbody>
 								</table>
-								<button type="submit" class="btn btn-primary">Add new
-									user</button>
+								<button type="submit" class="btn btn-primary" name="action"
+									value="add">Add new user</button>
 							</form>
 						</div>
 						<!--/.nav-collapse -->

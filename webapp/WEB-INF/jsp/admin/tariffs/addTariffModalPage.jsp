@@ -14,7 +14,7 @@
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-							<form action="addTariff" method="post">
+							<form action="employeeControllerTariffs" method="post">
 								<div id="errorinfo" class="alert alert-danger"
 									style="display: none;">
 									<c:if test="${message != null}">
@@ -33,12 +33,31 @@
 										<tr>
 											<td>Max Capacity</td>
 											<td><input type="text" name="maxCapacity"
-												class="form-control last" placeholder="Max Capacity" /></td>
+												class="form-control midle" placeholder="Max Capacity" /></td>
 										</tr>
+
+										<tr>
+											<td>Price</td>
+											<td><input type="text" name="price"
+												class="form-control midle" placeholder="Price" /></td>
+										</tr>
+
+										<tr>
+											<td>Position</td>
+											<td><input type="text" name="position"
+												class="form-control midle" placeholder="Position" /></td>
+										</tr>
+
+										<tr>
+											<td>Description</td>
+											<td><input type="text" name="description"
+												class="form-control midle" placeholder="Description" /></td>
+										</tr>
+
 									</tbody>
 								</table>
-								<button type="submit" class="btn btn-primary" name="action" value="addTariff">Add new
-									tariff</button>
+								<button type="submit" class="btn btn-primary" name="action"
+									value="addTariff">Add new tariff</button>
 							</form>
 						</div>
 						<!--/.nav-collapse -->

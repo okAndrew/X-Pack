@@ -48,7 +48,6 @@ public class SignInServlet extends HttpServlet {
 		UserService service = new UserService();
 		User user = service.getUser(email, md5.encrypt(password));
 
-		if (email != null && password != null) {
 			if (user != null) {
 				if (user.getIsActivated()) {
 					HttpSession session = request.getSession();
@@ -71,7 +70,6 @@ public class SignInServlet extends HttpServlet {
 				dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
 				dispatcher.forward(request, response);
 			}
-		}
 	}
 
 }

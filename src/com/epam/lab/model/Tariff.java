@@ -15,22 +15,32 @@ public class Tariff {
 	@TableColumn("price")
 	private double price;
 
-	public int getPosition() {
-		return position;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
-	}
-
 	@TableColumn("description")
 	private String description;
 
-	@TableColumn("available")
-	private boolean available;
-
 	@TableColumn("position")
 	private int position;
+
+	@TableColumn("is_delete")
+	private boolean isDelete;
+
+	public Tariff setPosition(int position) {
+		this.position = position;
+		return this;
+	}
+
+	public boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public Tariff setIsDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+		return this;
+	}
+
+	public int getPosition() {
+		return position;
+	}
 
 	public long getId() {
 		return id;
@@ -63,30 +73,28 @@ public class Tariff {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public Tariff setPrice(double price) {
 		this.price = price;
+		return this;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public Tariff setDescription(String description) {
 		this.description = description;
-	}
-
-	public boolean isAvailable() {
-		return available;
-	}
-
-	public void setAvailable(boolean available) {
-		this.available = available;
+		return this;
 	}
 
 	@Override
 	public String toString() {
-		return "Tariff [id=" + id + ", name=" + name + ", maxCapacity="
-				+ maxCapacity + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Tariff [id=").append(id).append(", name=").append(name)
+				.append(", maxCapacity=").append(maxCapacity)
+				.append(", price=").append(price).append(", description")
+				.append(description).append(", position=").append(position)
+				.append(", isDelete=").append(isDelete);
+		return builder.toString();
 	}
-
 }

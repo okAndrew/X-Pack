@@ -15,10 +15,13 @@ public class TariffServise {
 		return tariffDao.getAll();
 	}
 
-	public void addTariff(String name, Integer maxCapacity) {
+	public void addTariff(String name, String maxCapacity, String price,
+			String position, String description) {
 		Tariff tariff = new Tariff();
-		tariff.setName(name);
-		tariff.setMaxCapacity(maxCapacity);
+		tariff.setName(name).setMaxCapacity(Integer.parseInt(maxCapacity))
+				.setPrice(Double.parseDouble(price))
+				.setPosition(Integer.parseInt(position))
+				.setDescription(description);
 		tariffDao.insert(tariff);
 	}
 
@@ -41,7 +44,7 @@ public class TariffServise {
 			new PaymentService().createPayment(user, tariff);
 			result = 1;
 		}
-		
+
 		return result;
 	}
 

@@ -26,9 +26,9 @@ public class TariffDAOImpl implements TariffDAO {
 
 	@Override
 	public int insert(Tariff object) {
-		String sql = "INSERT INTO tariffs(name, max_capacity) VALUES(?,?)";
+		String sql = "INSERT INTO tariffs(name, max_capacity, price, description, position) VALUES(?, ?, ?, ?, ?)";
 		return queryExecutor.executeUpdate(sql, object.getName(),
-				object.getMaxCapacity());
+				object.getMaxCapacity(), object.getPrice(), object.getDescription(), object.getPosition());
 	}
 
 	@Override

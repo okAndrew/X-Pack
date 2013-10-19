@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.UserService;
 import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
 
 @WebServlet("/signin")
@@ -48,14 +49,16 @@ public class SignInServlet extends HttpServlet {
 		UserService service = new UserService();
 		User user = service.getUser(email, md5.encrypt(password));
 
+		if (email != null && password != null) {
 			if (user != null) {
 				if (user.getIsActivated()) {
 					HttpSession session = request.getSession();
 					session.setAttribute("userid", user.getId());
+					session.setAttribute("userRole", user.getRole());
 					session.setAttribute("user", user);
-					if (user.getIdRole() == 1) {
+					if (user.getRole().equals(Role.USER)) {
 						response.sendRedirect(USER_PAGE);
-					} else if (user.getIdRole() == 2){
+					} else if (user.getRole().equals(Role.ADMIN)) {
 						response.sendRedirect(ADMIN_HOME);
 					}
 				} else {
@@ -70,6 +73,7 @@ public class SignInServlet extends HttpServlet {
 				dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
 				dispatcher.forward(request, response);
 			}
+		}
 	}
 
 }

@@ -13,10 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.epam.lab.model.Role;
+
 /**
  * Servlet Filter implementation class UserVertifyFilter
  */
-@WebFilter(urlPatterns = {"/adminUserPage", "/adminPage"}) // etc 
+@WebFilter(urlPatterns = { "/adminUsersPage", "/adminPage", "/signOutAdmin",
+		"/employeeController", "/adminUserDeleteFile",
+		"/userEmployeeController", "/adminUserFiles", "/adminUserInfo",
+		"/adminUserPayments", "/adminUserSearchFiles", "/adminUser",
+		"/paymentsByDate", "/updateUser", "/addTariff", "/adminTarrifsPage",
+		"/tariffsController", "/adminFilesPage" })
 public class AdminVerifyFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -26,13 +33,15 @@ public class AdminVerifyFilter implements Filter {
 		if (session != null) {
 			Object userid = session.getAttribute("userid");
 			if (userid != null) {
-				chain.doFilter(request, response);
-				return;
+				Object role = session.getAttribute("userRole");
+				if (role != null && role.equals(Role.ADMIN)) {
+					chain.doFilter(request, response);
+					return;
+				}
 			}
-		} else {
-			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendRedirect("/signin");
 		}
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		httpResponse.sendRedirect("/signin");
 	}
 
 	@Override

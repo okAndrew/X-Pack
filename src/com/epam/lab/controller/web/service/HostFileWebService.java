@@ -15,7 +15,7 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.epam.lab.controller.services.file.FileUploader;
+import com.epam.lab.controller.services.file.UserFileUploader;
 import com.epam.lab.model.UserFile;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
@@ -35,14 +35,14 @@ public class HostFileWebService {
 		JSONArray resultArray = new JSONArray();
 		List<FormDataBodyPart> fields = multiPart.getFields("file");
 		for (FormDataBodyPart field : fields) {
-			UserFile uploadedFile = new FileUploader(13).uploadFile(
+			UserFile uploadedFile = new UserFileUploader(13).uploadFile(
 					field.getValueAs(InputStream.class),
 					field.getFormDataContentDisposition());
 			putObjToArray(resultArray, uploadedFile);
 		}
 		return Response.status(200).entity(resultArray).build();
 	}
-	
+
 	private void putObjToArray(JSONArray resultArray, UserFile uploadedFile) {
 		JSONObject jsonObject = null;
 		try {

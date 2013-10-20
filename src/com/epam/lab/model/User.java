@@ -26,6 +26,7 @@ public class User {
 	private boolean isActivated;
 
 	@TableColumn("id_role")
+<<<<<<< HEAD
 	private int roleNumber; 
 
 	private Role role;
@@ -37,6 +38,9 @@ public class User {
 	public void setRoleNumber(int roleNumber) {
 		this.roleNumber = roleNumber;
 	}
+=======
+	private int role;
+>>>>>>> f3b0c209bccba48e6c858cf287fdd4ab0381f953
 
 	public User() {
 	}
@@ -139,5 +143,4 @@ public class User {
 				+ ", capacity=" + capacity + ", isActivated=" + isActivated
 				+ ", role=" + role + "]";
 	}
-
 }

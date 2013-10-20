@@ -34,14 +34,14 @@ public class UserVerifyFilter implements Filter {
 			Object userid = session.getAttribute("userid");
 			if (userid != null) {
 				Object role = session.getAttribute("userRole");
-				if (role != null && role.equals(Role.ADMIN)) {
+				if (role != null && role.equals(Role.USER)) {
 					chain.doFilter(request, response);
 					return;
 				}
 			}
 		}
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		httpResponse.sendRedirect("/signin");
+		httpResponse.sendRedirect("signin");
 	}
 
 	@Override

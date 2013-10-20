@@ -25,25 +25,8 @@ public class User {
 	@TableColumn("is_activated")
 	private boolean isActivated;
 
-<<<<<<< HEAD
-	// hidden field (without getters and setters)
-	// need for reflection DAO
 	@TableColumn("id_role")
-	private int roleNumber; 
-
-	public int getRoleNumber() {
-		return roleNumber;
-	}
-
-	public void setRoleNumber(int roleNumber) {
-		this.roleNumber = roleNumber;
-	}
-
-	private Role role;
-=======
-	@TableColumn("role")
 	private int role;
->>>>>>> 79ff67e14b435028f950674edb40f9e4a7e2b96a
 
 	public User() {
 	}
@@ -146,5 +129,4 @@ public class User {
 				+ ", capacity=" + capacity + ", isActivated=" + isActivated
 				+ ", role=" + role + "]";
 	}
-
 }

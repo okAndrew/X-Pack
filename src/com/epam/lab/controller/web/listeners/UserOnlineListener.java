@@ -53,6 +53,7 @@ public class UserOnlineListener implements HttpSessionListener,
 		session1 = event.getSession();
 		sessions.remove(session1.getId());
 		session1.setAttribute("counter", this);
+		logger.info("sessiondestroyed");
 //		ConcurrentMap<ServletContext, Set<HttpSession>> instance = (ConcurrentMap<ServletContext, Set<HttpSession>>) SessionMap
 //				.getInstance();
 //		synchronized (instance) {

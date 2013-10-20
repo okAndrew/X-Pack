@@ -27,7 +27,7 @@ public class UserDAOImpl implements UserDAO {
 		String sql = "INSERT INTO users(login, email, password, id_tariff, capacity, id_role) VALUES (?, ?, ?, ?, ?, ?)";
 		int result = queryExecutor.executeUpdate(sql, user.getLogin(),
 				user.getEmail(), user.getPassword(), user.getIdTariff(),
-				user.getCapacity(), user.getRoleNumber());
+				user.getCapacity(), user.getRole().getNumber());
 		return result;
 	}
 

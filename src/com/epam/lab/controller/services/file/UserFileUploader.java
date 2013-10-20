@@ -104,7 +104,7 @@ public class UserFileUploader {
 	private UserFile createUserFile(FormDataContentDisposition cd) {
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		UserServiceImpl userService = new UserServiceImpl();
-		User user = userService.getUserById(folder.getIdUser());
+		User user = userService.get(folder.getIdUser());
 		UserFile resultUserFile = new UserFile();
 		Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
 		String incomeFileName = cd.getFileName();
@@ -122,7 +122,7 @@ public class UserFileUploader {
 
 	private UserFile createUserFile(FileItem item) {
 		UserServiceImpl userService = new UserServiceImpl();
-		User user = userService.getUserById(folder.getIdUser());
+		User user = userService.get(folder.getIdUser());
 		UserFile resultUserFile = new UserFile();
 
 		String fileNameIncome = item.getName();

@@ -30,7 +30,7 @@ public class AdminUserServlet extends HttpServlet {
 		session.setAttribute("adminUserid", userId);
 
 		UserServiceImpl userService = new UserServiceImpl();
-		User user = userService.getUserById(userId);
+		User user = userService.get(userId);
 
 		request.setAttribute("user", user);
 

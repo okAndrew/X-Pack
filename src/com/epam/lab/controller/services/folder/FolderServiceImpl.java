@@ -7,19 +7,17 @@ import java.util.List;
 
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
+import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
-import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.UserFile;
 
-public class FolderServiceImpl {
+public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
+		FolderService {
 	private static final String ROOT_NAME = "root";
 	private static final String SEPARATOR = "/";
 	private Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
-
-	public Folder get(long id) {
-		return new FolderDAOImpl().get(id);
-	}
 
 	public Folder getRoot(long userId) {
 		return new FolderDAOImpl().getRoot(userId);
@@ -38,8 +36,7 @@ public class FolderServiceImpl {
 	}
 
 	public List<Folder> getSearched(long userId, String text) {
-		FolderServiceImpl service = new FolderServiceImpl();
-		List<Folder> folders = service.getAll(userId);
+		List<Folder> folders = getAll(userId);
 		List<Folder> result = new ArrayList<Folder>();
 		for (Folder folder : folders) {
 			if (folder.getName().contains(text)) {
@@ -80,12 +77,6 @@ public class FolderServiceImpl {
 		return isFolderExist(pathList, userId, upperId);
 	}
 
-	public long update(Folder folder) {
-		FolderDAOImpl dao = new FolderDAOImpl();
-		dao.update(folder);
-		return folder.getId();
-	}
-
 	public void updateSize(long folderId, double size) {
 		FolderDAOImpl dao = new FolderDAOImpl();
 		Folder folder = dao.get(folderId);
@@ -96,7 +87,7 @@ public class FolderServiceImpl {
 		}
 	}
 
-	public void delete(long id) {
+	public int delete(long id) {
 		FolderDAOImpl dao = new FolderDAOImpl();
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		FolderServiceImpl folderService = new FolderServiceImpl();
@@ -108,7 +99,7 @@ public class FolderServiceImpl {
 		for (Folder folder : folders) {
 			folderService.delete(folder.getId());
 		}
-		dao.delete(id);
+		return dao.delete(id);
 	}
 
 	private List<String> getPathList(String path) {

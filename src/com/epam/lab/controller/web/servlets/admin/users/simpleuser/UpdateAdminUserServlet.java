@@ -31,11 +31,11 @@ public class UpdateAdminUserServlet extends HttpServlet {
 		Role role = Role.findByName(request.getParameter("userRole"));
 
 		UserServiceImpl userService = new UserServiceImpl();
-		User user = userService.getUserById(userId).setLogin(userLogin)
+		User user = userService.get(userId).setLogin(userLogin)
 				.setEmail(userEmail).setIsActivated(activated).setRole(role);
 
-		userService.updateUser(user);
-		User user1 = userService.getUserById(userId);
+		userService.update(user);
+		User user1 = userService.get(userId);
 
 		request.setAttribute("user", user1);
 

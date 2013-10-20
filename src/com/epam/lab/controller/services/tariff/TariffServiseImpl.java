@@ -4,19 +4,18 @@ import java.util.List;
 
 import com.epam.lab.controller.dao.tariff.TariffDAO;
 import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
+import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.Tariff;
 import com.epam.lab.model.User;
 
-public class TariffServiseImpl {
+public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
+		TariffServise {
 
 	private TariffDAO tariffDao = new TariffDAOImpl();
-
-	public List<Tariff> getAllTariffs() {
-		return tariffDao.getAll();
-	}
-
+	
+	// rename to insert(Tariff tariff)
 	public void addTariff(String name, String maxCapacity, String price,
 			String position, String description) {
 		Tariff tariff = new Tariff();
@@ -31,16 +30,12 @@ public class TariffServiseImpl {
 		return tariffDao.getAvailableTariffs();
 	}
 
-	public Tariff getTariff(long id) {
-		return new TariffDAOImpl().get(id);
-	}
-
 	public int changeTariff(long userId, long tariffId) {
 		int result = 0;
-		User user = new UserServiceImpl().getUserById(userId);
+		User user = new UserServiceImpl().get(userId);
 		TariffServiseImpl tariffServise = new TariffServiseImpl();
-		Tariff tariff = tariffServise.getTariff(tariffId);
-		Tariff userTariff = tariffServise.getTariff(user.getIdTariff());
+		Tariff tariff = tariffServise.get(tariffId);
+		Tariff userTariff = tariffServise.get(user.getIdTariff());
 
 		if (userTariff.getPosition() < tariff.getPosition()) {
 			new PaymentServiceImpl().createPayment(user, tariff);

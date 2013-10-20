@@ -12,14 +12,17 @@ import java.util.zip.ZipOutputStream;
 
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
+import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.UserFile;
 
 import org.apache.log4j.Logger;
 
-public class UserFileServiceImpl {
-	private static final Logger logger = Logger.getLogger(UserFileServiceImpl.class);
+public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
+		implements UserFileService {
+	private static final Logger logger = Logger
+			.getLogger(UserFileServiceImpl.class);
 	private static long count;
 	public static final String ROOT_PATH = "E:/files/";
 	public static final int MAX_FILES = 999;
@@ -68,12 +71,6 @@ public class UserFileServiceImpl {
 		return curFolder;
 	}
 
-	public UserFile get(long id) {
-		FileDAOImpl dao = new FileDAOImpl();
-		UserFile file = dao.get(id);
-		return file;
-	}
-
 	public List<UserFile> getByUserId(long userId) {
 		List<UserFile> files = null;
 		FileDAOImpl dao = new FileDAOImpl();
@@ -88,7 +85,7 @@ public class UserFileServiceImpl {
 		return files;
 	}
 
-	public void delete(long id) {
+	public int delete(long id) {
 		FileDAOImpl dao = new FileDAOImpl();
 		UserFile f = dao.get(id);
 		if (f != null) {
@@ -96,8 +93,9 @@ public class UserFileServiceImpl {
 			file.delete();
 			FolderServiceImpl service = new FolderServiceImpl();
 			service.updateSize(f.getIdFolder(), -f.getSize());
-			dao.delete(id);
+			return dao.delete(id);
 		}
+		return 0;
 	}
 
 	public File getArchive(String[] filesIds, String[] foldersIds) {
@@ -127,11 +125,12 @@ public class UserFileServiceImpl {
 		return false;
 	}
 
-	public long update(UserFile file) {
-		FileDAOImpl dao = new FileDAOImpl();
-		dao.update(file);
-		return dao.get(file.getId()).getId();
-	}
+	// IT'S AWFUL!! 
+//	public long update(UserFile file) {
+//		FileDAOImpl dao = new FileDAOImpl();
+//		dao.update(file);
+//		return dao.get(file.getId()).getId();
+//	}
 
 	public void movefile(long fileidmove, long folderidtarget) {
 		FileDAOImpl dao = new FileDAOImpl();

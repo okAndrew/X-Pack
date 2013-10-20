@@ -5,6 +5,7 @@ import java.util.List;
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.model.FilesTypesSize;
 
+// what is it???
 public class TypesService {
 
 	private FileDAOImpl fileDaoImpl = new FileDAOImpl();

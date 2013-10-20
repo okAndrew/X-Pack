@@ -25,12 +25,8 @@ public class User {
 	@TableColumn("is_activated")
 	private boolean isActivated;
 
-	// hidden field (without getters and setters)
-	// need for reflection DAO
 	@TableColumn("role")
-	private int roleNumber; 
-
-	private Role role;
+	private int role;
 
 	public User() {
 	}
@@ -45,7 +41,7 @@ public class User {
 		this.idTariff = idTariff;
 		this.capacity = capacity;
 		this.isActivated = isActivated;
-		this.role = role;
+		this.role = role.getNumber();
 	}
 
 	public String getLogin() {
@@ -111,13 +107,18 @@ public class User {
 		return this;
 	}
 
+	// one crafty getter...
 	public Role getRole() {
-		return Role.findByNumber(roleNumber);
+		return Role.findByNumber(role);
 	}
 
 	public User setRole(Role role) {
+		this.role = role.getNumber();
+		return this;
+	}
+
+	public User setRole(int role) {
 		this.role = role;
-		this.roleNumber = role.getNumber();
 		return this;
 	}
 

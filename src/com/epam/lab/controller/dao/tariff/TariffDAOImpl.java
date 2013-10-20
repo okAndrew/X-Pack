@@ -32,20 +32,26 @@ public class TariffDAOImpl implements TariffDAO {
 
 	@Override
 	public int update(Tariff object) {
-		String sql = "UPDATE tariffs SET name=? max_capacity=? WHERE id=?";
+		String sql = "UPDATE tariffs SET name=?, max_capacity=?, price=?, position=?, description=?, WHERE id=?";
 		return queryExecutor.executeUpdate(sql, object.getName(),
-				object.getMaxCapacity(), object.getId());
+				object.getMaxCapacity(), object.getPrice(), object.getPosition(), object.getDescription(), object.getId());
 	}
 
 	@Override
 	public int delete(long id) {
-		String sql = "DELETE FROM tariffs WHERE id=?";
+		String sql = "UPDATE tariffs SET is_delete=true WHERE id=?";
 		return queryExecutor.executeUpdate(sql, id);
 	}
 
 	@Override
-	public List<Tariff> getAvailableTariffs() {
-		String sql = "SELECT * FROM tariffs WHERE available = 1 ORDER BY position ASC";
-		return queryExecutor.executeQuery(Tariff.class, sql);
+	public int isActivate(long id) {
+		String sql = "UPDATE tariffs SET is_delete=false WHERE id=?";
+		return queryExecutor.executeUpdate(sql, id);
 	}
+
+	 @Override
+	 public List<Tariff> getAvailableTariffs() {
+	  String sql = "SELECT * FROM tariffs WHERE available = 1 ORDER BY position ASC";
+	  return queryExecutor.executeQuery(Tariff.class, sql);
+	 }
 }

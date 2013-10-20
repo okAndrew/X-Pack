@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.Payment;
-import com.epam.lab.model.User;
 
 public class PaymentDAOImpl implements PaymentDAO {
+
 	private DBQueryExecutor<Payment> queryExecutor = new DBQueryExecutor<Payment>();
 
 	@Override
@@ -61,7 +61,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 	@Override
 	public Payment getByUserTime(long user, Timestamp time) {
 		String sql = "SELECT * FROM payments WHERE user = ? AND date_created = ?";
-		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql, user, time);
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql,
+				user, time);
 		return result;
 	}
 

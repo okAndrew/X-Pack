@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.TariffServise;
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 
 @WebServlet("/adminTariffsPage")
 public class AdminTariffsPageServlet extends HttpServlet {
@@ -34,7 +34,7 @@ public class AdminTariffsPageServlet extends HttpServlet {
 
 	private void getAllTariffs(HttpServletRequest request,
 			HttpServletResponse response) {
-		TariffServise servise = new TariffServise();
+		TariffServiseImpl servise = new TariffServiseImpl();
 		request.setAttribute("tariffs", servise.getAllTariffs());
 	}
 }

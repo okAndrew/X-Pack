@@ -1,8 +1,8 @@
-package com.epam.lab.controller.services.adminfunc;
+package com.epam.lab.controller.utils;
 
 import java.io.File;
 
-public class DiskSpaceService {
+public class DiskSpaceUtil {
 	private File disk = new File("d:");
 	
 	public float getFreeSpace(){

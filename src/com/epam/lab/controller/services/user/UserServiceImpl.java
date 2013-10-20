@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.controller.services.security.Validator;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
+import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.User;
 
 public class UserServiceImpl {

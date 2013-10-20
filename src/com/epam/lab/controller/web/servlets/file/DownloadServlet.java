@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
 
 @WebServlet("/download")
 public class DownloadServlet extends HttpServlet {
@@ -21,7 +21,7 @@ public class DownloadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		FileService fileService = new FileService();
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		long fileId = Long.valueOf(request.getParameter("fileid"));
 		com.epam.lab.model.UserFile f = fileService.get(fileId);
 		String filePath = f.getPath() + File.separator + f.getName();

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.UserService;
-import com.epam.lab.controller.services.security.Validator;
+import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.User;
 
 @WebServlet("/EditUserLoginServlet")
@@ -30,7 +30,7 @@ public class EditUserLoginServlet extends HttpServlet {
 		User user = null;
 
 		if (login != null && email != null && Validator.USER_LOGIN.validate(login)) {
-			user = new UserService().changeUserLogin(email, login);
+			user = new UserServiceImpl().changeUserLogin(email, login);
 			
 			if (user != null) {
 				HttpSession session = request.getSession(false);

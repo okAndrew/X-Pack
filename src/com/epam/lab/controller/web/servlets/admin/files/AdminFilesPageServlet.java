@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.adminfunc.DiskSpaceService;
 import com.epam.lab.controller.services.file.TypesService;
+import com.epam.lab.controller.utils.DiskSpaceUtil;
 
 @WebServlet("/adminFilesPage")
 public class AdminFilesPageServlet extends HttpServlet {
@@ -41,14 +41,14 @@ public class AdminFilesPageServlet extends HttpServlet {
 
 	private void getFreeSpace(HttpServletRequest request,
 			HttpServletResponse response) {
-		DiskSpaceService service = new DiskSpaceService();
+		DiskSpaceUtil service = new DiskSpaceUtil();
 		request.setAttribute("freeSpace", service.getFreeSpace());
 
 	}
 
 	private void getTotalSpace(HttpServletRequest request,
 			HttpServletResponse response) {
-		DiskSpaceService service = new DiskSpaceService();
+		DiskSpaceUtil service = new DiskSpaceUtil();
 		request.setAttribute("totalSpace", service.getTotalSpace());
 	}
 

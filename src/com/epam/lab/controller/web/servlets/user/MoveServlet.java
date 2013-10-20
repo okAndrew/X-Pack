@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.file.FileService;
-import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
 
 /**
  * Servlet implementation class MoveFolderServlet
@@ -23,7 +23,7 @@ public class MoveServlet extends HttpServlet {
 		
 		if (request.getParameter("fileidmove") == null
 				|| request.getParameter("fileidmove").equals("")) {
-			FolderService folderservice = new FolderService();
+			FolderServiceImpl folderservice = new FolderServiceImpl();
 			if (request.getParameter("folderidtarget") == null
 					|| request.getParameter("folderidtarget").equals("")) {
 				request.setAttribute("message",
@@ -40,7 +40,7 @@ public class MoveServlet extends HttpServlet {
 			}
 		}else if(request.getParameter("folderidmove") == null
 				|| request.getParameter("folderidmove").equals("")){
-			FileService fileservice = new FileService();
+			UserFileServiceImpl fileservice = new UserFileServiceImpl();
 			if (request.getParameter("folderidtarget") == null
 					|| request.getParameter("folderidtarget").equals("")) {
 				request.setAttribute("message",

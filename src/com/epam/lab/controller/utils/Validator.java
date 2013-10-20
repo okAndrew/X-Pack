@@ -1,4 +1,4 @@
-package com.epam.lab.controller.services.security;
+package com.epam.lab.controller.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

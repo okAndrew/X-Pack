@@ -16,7 +16,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.file.FileUploader;
+import com.epam.lab.controller.services.file.UserFileUploader;
 
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
@@ -34,7 +34,7 @@ public class UploadServlet extends HttpServlet {
 				ServletFileUpload upload = new ServletFileUpload(
 						new DiskFileItemFactory());
 				List<FileItem> items = upload.parseRequest(request);
-				FileUploader uploader = new FileUploader(folderId);
+				UserFileUploader uploader = new UserFileUploader(folderId);
 				uploader.uploadFiles(items);
 			} catch (FileUploadException e) {
 				logger.error(e);

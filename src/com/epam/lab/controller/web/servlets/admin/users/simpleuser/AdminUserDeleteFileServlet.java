@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.file.FileService;
-import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
 
 @WebServlet("/adminUserDeleteFile")
 public class AdminUserDeleteFileServlet extends HttpServlet {
@@ -29,7 +29,7 @@ public class AdminUserDeleteFileServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		FileService service2 = new FileService();
+		UserFileServiceImpl service2 = new UserFileServiceImpl();
 		RequestDispatcher dispatcher;
 		HttpSession session = request.getSession(false);
 		String[] rs = request.getParameterValues("files");
@@ -40,7 +40,7 @@ public class AdminUserDeleteFileServlet extends HttpServlet {
 			}
 		}
 		if (rs2 != null) {
-			FolderService service = new FolderService();
+			FolderServiceImpl service = new FolderServiceImpl();
 			for (int i = 0; i < rs2.length; i++) {
 				service.delete(Integer.parseInt(rs2[i]));
 			}

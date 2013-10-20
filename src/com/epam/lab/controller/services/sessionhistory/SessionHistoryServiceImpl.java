@@ -1,6 +1,7 @@
 package com.epam.lab.controller.services.sessionhistory;
 
 import java.sql.Timestamp;
+
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.sessionhistory.SessionHistoryDAOImpl;
@@ -9,6 +10,10 @@ import com.epam.lab.model.SessionHistory;
 
 public class SessionHistoryServiceImpl extends
 		AbstractServiceImpl<SessionHistory> implements SessionHistoryService {
+
+	public SessionHistoryServiceImpl() {
+		super(new SessionHistoryDAOImpl());
+	}
 
 	static Logger logger = Logger.getLogger(SessionHistoryServiceImpl.class);
 

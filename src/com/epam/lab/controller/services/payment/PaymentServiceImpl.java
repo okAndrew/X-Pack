@@ -15,8 +15,11 @@ import com.epam.lab.model.User;
 
 public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 		PaymentService {
-
 	static Logger logger = Logger.getLogger(PaymentServiceImpl.class);
+
+	public PaymentServiceImpl() {
+		super(new PaymentDAOImpl());
+	}
 
 	public List<Payment> getAllPayByUserId(long id) {
 		List<Payment> list = new PaymentDAOImpl().getPayByUserId(id);

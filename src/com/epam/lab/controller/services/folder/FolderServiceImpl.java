@@ -19,6 +19,10 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 	private static final String SEPARATOR = "/";
 	private Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
 
+	public FolderServiceImpl() {
+		super(new FolderDAOImpl());
+	}
+
 	public Folder getRoot(long userId) {
 		return new FolderDAOImpl().getRoot(userId);
 	}

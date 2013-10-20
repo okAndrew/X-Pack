@@ -1,4 +1,4 @@
-package com.epam.lab.controller.services;
+package com.epam.lab.controller.services.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,16 +6,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.user.UserDAOImpl;
-import com.epam.lab.controller.services.file.FileService;
-import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.services.security.Validator;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.model.User;
 
-public class UserService {
+public class UserServiceImpl {
 
-	static Logger logger = Logger.getLogger(UserService.class);
+	static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	public void addUser(String login, String email, String password) {
 		User user = new User();
@@ -62,8 +62,8 @@ public class UserService {
 	}
 
 	public void deleteFilesAndFolders(String[] filesId, String[] foldersId, long userId) {
-		FolderService folderService = new FolderService();
-		FileService fileService = new FileService();
+		FolderServiceImpl folderService = new FolderServiceImpl();
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		if (filesId != null && filesId[0]!=null && !filesId[0].equals("")) {
 			for (int i = 0; i < filesId.length; i++) {
 				fileService.delete(Long.parseLong(filesId[i]));

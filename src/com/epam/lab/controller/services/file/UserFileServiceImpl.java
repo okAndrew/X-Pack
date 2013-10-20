@@ -12,14 +12,14 @@ import java.util.zip.ZipOutputStream;
 
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
-import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.UserFile;
 
 import org.apache.log4j.Logger;
 
-public class FileService {
-	private static final Logger logger = Logger.getLogger(FileService.class);
+public class UserFileServiceImpl {
+	private static final Logger logger = Logger.getLogger(UserFileServiceImpl.class);
 	private static long count;
 	public static final String ROOT_PATH = "E:/files/";
 	public static final int MAX_FILES = 999;
@@ -28,7 +28,7 @@ public class FileService {
 	 * return current folder to save files
 	 */
 	public File getFolder() {
-		FileService service = new FileService();
+		UserFileServiceImpl service = new UserFileServiceImpl();
 		File curFolder = null;
 		File path = new File(ROOT_PATH + getCurDatePath());
 
@@ -94,7 +94,7 @@ public class FileService {
 		if (f != null) {
 			File file = new File(f.getPath() + File.separator + f.getName());
 			file.delete();
-			FolderService service = new FolderService();
+			FolderServiceImpl service = new FolderServiceImpl();
 			service.updateSize(f.getIdFolder(), -f.getSize());
 			dao.delete(id);
 		}
@@ -105,7 +105,7 @@ public class FileService {
 	}
 
 	public List<UserFile> getSearchedFiles(long userId, String text) {
-		FileService service = new FileService();
+		UserFileServiceImpl service = new UserFileServiceImpl();
 		List<UserFile> files = service.getByUserId(userId);
 		List<UserFile> result = new ArrayList<UserFile>();
 		for (UserFile file : files) {
@@ -136,7 +136,7 @@ public class FileService {
 	public void movefile(long fileidmove, long folderidtarget) {
 		FileDAOImpl dao = new FileDAOImpl();
 		UserFile file = dao.get(fileidmove);
-		FolderService service = new FolderService();
+		FolderServiceImpl service = new FolderServiceImpl();
 		service.updateSize(file.getIdFolder(), -file.getSize());
 		file.setIdFolder(folderidtarget);
 		service.updateSize(folderidtarget, file.getSize());

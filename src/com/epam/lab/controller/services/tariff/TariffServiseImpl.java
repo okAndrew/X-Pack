@@ -1,13 +1,15 @@
-package com.epam.lab.controller.services;
+package com.epam.lab.controller.services.tariff;
 
 import java.util.List;
 
 import com.epam.lab.controller.dao.tariff.TariffDAO;
 import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
+import com.epam.lab.controller.services.payment.PaymentServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.Tariff;
 import com.epam.lab.model.User;
 
-public class TariffServise {
+public class TariffServiseImpl {
 
 	private TariffDAO tariffDao = new TariffDAOImpl();
 
@@ -35,13 +37,13 @@ public class TariffServise {
 
 	public int changeTariff(long userId, long tariffId) {
 		int result = 0;
-		User user = new UserService().getUserById(userId);
-		TariffServise tariffServise = new TariffServise();
+		User user = new UserServiceImpl().getUserById(userId);
+		TariffServiseImpl tariffServise = new TariffServiseImpl();
 		Tariff tariff = tariffServise.getTariff(tariffId);
 		Tariff userTariff = tariffServise.getTariff(user.getIdTariff());
 
 		if (userTariff.getPosition() < tariff.getPosition()) {
-			new PaymentService().createPayment(user, tariff);
+			new PaymentServiceImpl().createPayment(user, tariff);
 			result = 1;
 		}
 

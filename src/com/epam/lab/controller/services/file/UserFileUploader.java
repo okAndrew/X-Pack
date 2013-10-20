@@ -15,8 +15,8 @@ import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
-import com.epam.lab.controller.services.UserService;
-import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.Folder;
@@ -24,11 +24,11 @@ import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 
-public class FileUploader {
-	private static Logger logger = Logger.getLogger(FileUploader.class);
+public class UserFileUploader {
+	private static Logger logger = Logger.getLogger(UserFileUploader.class);
 	private Folder folder = null;
 
-	public FileUploader(long idFolder) {
+	public UserFileUploader(long idFolder) {
 		this.folder = new FolderDAOImpl().get(idFolder);
 	}
 
@@ -97,13 +97,13 @@ public class FileUploader {
 	}
 
 	private void updateFolders(UserFile file) {
-		FolderService service = new FolderService();
+		FolderServiceImpl service = new FolderServiceImpl();
 		service.updateSize(file.getIdFolder(), file.getSize());
 	}
 
 	private UserFile createUserFile(FormDataContentDisposition cd) {
-		FileService fileService = new FileService();
-		UserService userService = new UserService();
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
+		UserServiceImpl userService = new UserServiceImpl();
 		User user = userService.getUserById(folder.getIdUser());
 		UserFile resultUserFile = new UserFile();
 		Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
@@ -121,7 +121,7 @@ public class FileUploader {
 	}
 
 	private UserFile createUserFile(FileItem item) {
-		UserService userService = new UserService();
+		UserServiceImpl userService = new UserServiceImpl();
 		User user = userService.getUserById(folder.getIdUser());
 		UserFile resultUserFile = new UserFile();
 
@@ -129,7 +129,7 @@ public class FileUploader {
 		Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
 		String fileName = new MD5Encrypter().encrypt(currentTS.toString()
 				+ fileNameIncome + user.getEmail());
-		FileService fileService = new FileService();
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		String filePath = fileService.getFolder().getAbsolutePath();
 		String contentType = item.getContentType();
 		long fileSize = item.getSize();

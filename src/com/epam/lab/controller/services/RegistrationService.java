@@ -6,7 +6,8 @@ import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.token.TokenDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
-import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
@@ -44,7 +45,7 @@ public class RegistrationService {
 		if (result == null) {
 			if (checkEmail(email) == null) {
 				MD5Encrypter md5 = new MD5Encrypter();
-				UserService userService = new UserService();
+				UserServiceImpl userService = new UserServiceImpl();
 				userService.addUser(login, email, md5.encrypt(password));
 				User user = userService.getUserByEmail(email);
 				createRootFolder(user);
@@ -60,7 +61,7 @@ public class RegistrationService {
 	}
 
 	private void createRootFolder(User user) {
-		FolderService folderService = new FolderService();
+		FolderServiceImpl folderService = new FolderServiceImpl();
 		folderService.createRoot(user.getId());
 	}
 
@@ -94,7 +95,7 @@ public class RegistrationService {
 	public int activateUser(String email, String token) {
 		int result = 0;
 
-		UserService userService = new UserService();
+		UserServiceImpl userService = new UserServiceImpl();
 		TokenDAOImpl tokenDAOImpl = new TokenDAOImpl();
 
 		User user = userService.getUserByEmail(email);

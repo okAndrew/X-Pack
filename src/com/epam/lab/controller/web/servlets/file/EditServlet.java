@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.file.FileService;
-import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.model.Folder;
 
 @WebServlet("/useredit")
@@ -25,7 +25,7 @@ public class EditServlet extends HttpServlet {
 		if (fileName != null && !fileName.equals("")) {
 			long fileId = Long.parseLong(request.getParameter("fileid"));
 			long folderId = (long) session.getAttribute("folderid");
-			FileService service = new FileService();
+			UserFileServiceImpl service = new UserFileServiceImpl();
 			if (service.check(folderId, fileName)) {
 				request.setAttribute("message", "File exists");
 				request.getRequestDispatcher(USER_PAGE).forward(request,
@@ -38,7 +38,7 @@ public class EditServlet extends HttpServlet {
 			long userId = (long) session.getAttribute("userid");
 			long upperId = (long) session.getAttribute("folderid");
 			long folderId = Long.parseLong(request.getParameter("folderid"));
-			FolderService service = new FolderService();
+			FolderServiceImpl service = new FolderServiceImpl();
 			
 			if (service.check(folderName, userId, upperId)) {
 				request.setAttribute("message", "Folder exists");

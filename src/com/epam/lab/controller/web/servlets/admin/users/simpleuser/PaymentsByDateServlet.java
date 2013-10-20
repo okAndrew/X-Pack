@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.epam.lab.controller.services.PaymentService;
+
+import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.model.Payment;
 
@@ -33,7 +34,7 @@ public class PaymentsByDateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		PaymentService psevrive = new PaymentService();
+		PaymentServiceImpl psevrive = new PaymentServiceImpl();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");

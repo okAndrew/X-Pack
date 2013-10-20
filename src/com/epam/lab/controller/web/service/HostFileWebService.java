@@ -21,7 +21,7 @@ import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.jersey.multipart.FormDataParam;
 
-@Path("host")
+@Path("file")
 public class HostFileWebService {
 
 	private static Logger logger = Logger.getLogger(HostFileWebService.class);
@@ -42,7 +42,7 @@ public class HostFileWebService {
 		}
 		return Response.status(200).entity(resultArray).build();
 	}
-
+	
 	private void putObjToArray(JSONArray resultArray, UserFile uploadedFile) {
 		JSONObject jsonObject = null;
 		try {

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.UserService;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
 
@@ -30,7 +30,7 @@ public class UpdateAdminUserServlet extends HttpServlet {
 				.getParameter("userActivation"));
 		Role role = Role.findByName(request.getParameter("userRole"));
 
-		UserService userService = new UserService();
+		UserServiceImpl userService = new UserServiceImpl();
 		User user = userService.getUserById(userId).setLogin(userLogin)
 				.setEmail(userEmail).setIsActivated(activated).setRole(role);
 

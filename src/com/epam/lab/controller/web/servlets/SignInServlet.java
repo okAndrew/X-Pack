@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.UserService;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
@@ -46,7 +46,7 @@ public class SignInServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		MD5Encrypter md5 = new MD5Encrypter();
-		UserService service = new UserService();
+		UserServiceImpl service = new UserServiceImpl();
 		User user = service.getUser(email, md5.encrypt(password));
 
 		if (email != null && password != null) {

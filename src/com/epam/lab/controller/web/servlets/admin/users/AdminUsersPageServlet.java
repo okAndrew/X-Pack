@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.UserService;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 
 @WebServlet("/adminUsersPage")
 public class AdminUsersPageServlet extends HttpServlet {
@@ -38,7 +38,7 @@ public class AdminUsersPageServlet extends HttpServlet {
 
 	private void getUsers(HttpServletRequest request,
 			HttpServletResponse response) {
-		UserService service = new UserService();
+		UserServiceImpl service = new UserServiceImpl();
 		request.setAttribute("users", service.getAllUsers());
 	}
 }

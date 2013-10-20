@@ -19,6 +19,7 @@ import com.epam.lab.model.User;
 public class AdminPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_PAGE_JSP = "WEB-INF/jsp/admin/adminPage.jsp";
+	private static final String ADMIN_SIGN_IN = "signin";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -38,14 +39,14 @@ public class AdminPageServlet extends HttpServlet {
 		list = service.getAll();
 		long countAllUsers = list.size();
 		if (session == null) {
-			request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request,
+			request.getRequestDispatcher(ADMIN_SIGN_IN).forward(request,
 					response);
 		} else {
-//			UserOnlineListener counter = (UserOnlineListener) session
-//					.getAttribute("counter");
-//			int countUsers = counter.getActiveSessionNumber();
-//			request.setAttribute("countUsers", countUsers);
-//			request.setAttribute("countAllUsers", countAllUsers);
+			UserOnlineListener counter = (UserOnlineListener) session
+					.getAttribute("counter");
+			int countUsers = counter.getActiveSessionNumber();
+			request.setAttribute("countUsers", countUsers);
+			request.setAttribute("countAllUsers", countAllUsers);
 			request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request,
 					response);
 		}

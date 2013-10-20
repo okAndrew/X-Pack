@@ -15,7 +15,7 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.epam.lab.controller.services.file.FileUploader;
+//import com.epam.lab.controller.services.file.FileUploader;
 import com.epam.lab.model.UserFile;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
@@ -42,12 +42,12 @@ public class HostFileWebService {
 		}
 		return Response.status(200).entity(resultArray).build();
 	}
-	
+
 	private void putObjToArray(JSONArray resultArray, UserFile uploadedFile) {
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = toJson(uploadedFile);
-			// if some exc. will catched, object will not placed
+			 if some exc. will catched, object will not placed
 			resultArray.put(jsonObject);
 		} catch (JSONException e) {
 			logger.error(e);

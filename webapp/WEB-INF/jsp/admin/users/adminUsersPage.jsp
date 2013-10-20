@@ -90,7 +90,7 @@
 										<td>${user.password}</td>
 										<td>${user.capacity}</td>
 										<td>${user.idTariff}</td>
-										<td>${user.roleNumber}</td>
+										<td>${user.role}</td>
 										<td>${user.isActivated}</td>
 										<td><a href="adminUser?userid=${user.id}">View
 												more...</a></td>

@@ -16,7 +16,9 @@ public class AdminTariffsRequestHelper {
 
 	private AdminTariffsRequestHelper() {
 		commands.put("addTariff", new AdminAddTariffCommand());
-		commands.put("isDelete", new AdminDeleteTariffCommand());
+		commands.put("isDelete", new AdminDeleteTariffsCommand());
+		commands.put("isActivate", new AdminActivateTariffsCommand());
+		commands.put("editTariff", new AdminEditTariffCommand());
 	}
 
 	public AdminTariffsPageCommand parseCommand(HttpServletRequest request) {
@@ -37,5 +39,4 @@ public class AdminTariffsRequestHelper {
 		}
 		return instance;
 	}
-
 }

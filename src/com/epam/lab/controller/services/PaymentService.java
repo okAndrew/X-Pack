@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.dao.impl.PaymentDAOImpl;
+import com.epam.lab.controller.dao.payment.PaymentDAOImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.model.Payment;
 import com.epam.lab.model.Tariff;

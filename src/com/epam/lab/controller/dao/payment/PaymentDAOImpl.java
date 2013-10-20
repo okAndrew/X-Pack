@@ -1,10 +1,9 @@
-package com.epam.lab.controller.dao.impl;
+package com.epam.lab.controller.dao.payment;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.epam.lab.controller.dao.PaymentDAO;
-import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
+import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.Payment;
 import com.epam.lab.model.User;
 

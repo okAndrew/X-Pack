@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.dao.impl.TokenDAOImpl;
-import com.epam.lab.controller.dao.impl.UserDAOImpl;
+import com.epam.lab.controller.dao.token.TokenDAOImpl;
+import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;

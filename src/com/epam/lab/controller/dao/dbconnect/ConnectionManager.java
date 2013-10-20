@@ -1,4 +1,4 @@
-package com.epam.lab.controller.dao.connect;
+package com.epam.lab.controller.dao.dbconnect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

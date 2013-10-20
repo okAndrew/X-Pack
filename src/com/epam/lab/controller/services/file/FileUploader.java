@@ -13,8 +13,8 @@ import java.util.List;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.dao.impl.FileDAOImpl;
-import com.epam.lab.controller.dao.impl.FolderDAOImpl;
+import com.epam.lab.controller.dao.file.FileDAOImpl;
+import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.services.UserService;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.utils.CurrentTimeStamp;

@@ -1,9 +1,8 @@
-package com.epam.lab.controller.dao.impl;
+package com.epam.lab.controller.dao.sessionhistory;
 
 import java.util.List;
 
-import com.epam.lab.controller.dao.SessionHistoryDAO;
-import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
+import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.SessionHistory;
 import com.epam.lab.model.User;
 

@@ -2,7 +2,7 @@ package com.epam.lab.controller.services.file;
 
 import java.util.List;
 
-import com.epam.lab.controller.dao.impl.FileDAOImpl;
+import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.model.FilesTypesSize;
 
 public class TypesService {

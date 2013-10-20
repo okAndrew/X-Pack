@@ -1,4 +1,4 @@
-package com.epam.lab.controller.dao.querymanaging;
+package com.epam.lab.controller.dao.dbquerymanaging;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.dao.connect.ConnectionManager;
-import com.epam.lab.controller.dao.querymanaging.pst.PSTManager;
-import com.epam.lab.controller.dao.querymanaging.rs.ResultSetTransformer;
+import com.epam.lab.controller.dao.dbconnect.ConnectionManager;
+import com.epam.lab.controller.dao.dbquerymanaging.pst.PSTManager;
+import com.epam.lab.controller.dao.dbquerymanaging.rs.ResultSetTransformer;
 import com.epam.lab.controller.exceptions.NoSuchDAOObjectException;
 
 /*

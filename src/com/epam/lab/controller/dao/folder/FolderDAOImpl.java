@@ -1,9 +1,8 @@
-package com.epam.lab.controller.dao.impl;
+package com.epam.lab.controller.dao.folder;
 
 import java.util.List;
 
-import com.epam.lab.controller.dao.FolderDAO;
-import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
+import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.Folder;
 
 public class FolderDAOImpl implements FolderDAO {

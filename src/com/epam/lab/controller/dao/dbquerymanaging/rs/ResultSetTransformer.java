@@ -1,4 +1,4 @@
-package com.epam.lab.controller.dao.querymanaging.rs;
+package com.epam.lab.controller.dao.dbquerymanaging.rs;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

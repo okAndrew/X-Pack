@@ -1,9 +1,8 @@
-package com.epam.lab.controller.dao.impl;
+package com.epam.lab.controller.dao.token;
 
 import java.util.List;
 
-import com.epam.lab.controller.dao.TokenDAO;
-import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
+import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.Token;
 
 public class TokenDAOImpl implements TokenDAO {

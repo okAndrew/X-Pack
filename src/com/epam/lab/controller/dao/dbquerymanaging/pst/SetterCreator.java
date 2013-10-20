@@ -1,4 +1,4 @@
-package com.epam.lab.controller.dao.querymanaging.pst;
+package com.epam.lab.controller.dao.dbquerymanaging.pst;
 
 import java.util.ArrayList;
 import java.util.List;

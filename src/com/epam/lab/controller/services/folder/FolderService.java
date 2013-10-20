@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.epam.lab.controller.dao.impl.FileDAOImpl;
-import com.epam.lab.controller.dao.impl.FolderDAOImpl;
+import com.epam.lab.controller.dao.file.FileDAOImpl;
+import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.model.UserFile;

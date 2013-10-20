@@ -2,7 +2,8 @@ package com.epam.lab.controller.services;
 
 import java.sql.Timestamp;
 import org.apache.log4j.Logger;
-import com.epam.lab.controller.dao.impl.SessionHistoryDAOImpl;
+
+import com.epam.lab.controller.dao.sessionhistory.SessionHistoryDAOImpl;
 import com.epam.lab.model.SessionHistory;
 
 public class SessionHistoryService {

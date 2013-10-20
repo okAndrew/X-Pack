@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.dao.impl.UserDAOImpl;
+import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.file.FileService;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.security.Validator;

@@ -11,6 +11,7 @@ import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.controller.utils.Validator;
+import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
 
 public class UserServiceImpl {
@@ -24,7 +25,7 @@ public class UserServiceImpl {
 		user.setPassword(password);
 		user.setIdTariff(1);
 		user.setCapacity(0);
-		user.setRoleNumber(1);
+		user.setRole(Role.USER);
 		UserDAOImpl userDAOImpl = new UserDAOImpl();
 		userDAOImpl.insert(user);
 	}

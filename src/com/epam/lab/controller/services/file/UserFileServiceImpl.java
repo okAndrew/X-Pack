@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.log4j.Logger;
+
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -17,10 +19,13 @@ import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.UserFile;
 
-import org.apache.log4j.Logger;
-
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
+	
+	public UserFileServiceImpl() {
+		super(new FileDAOImpl());
+	}
+
 	private static final Logger logger = Logger
 			.getLogger(UserFileServiceImpl.class);
 	private static long count;

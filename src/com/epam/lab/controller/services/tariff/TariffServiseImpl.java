@@ -12,9 +12,12 @@ import com.epam.lab.model.User;
 
 public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		TariffServise {
-
 	private TariffDAO tariffDao = new TariffDAOImpl();
-	
+
+	public TariffServiseImpl() {
+		super(new TariffDAOImpl());
+	}
+
 	// rename to insert(Tariff tariff)
 	public void addTariff(String name, String maxCapacity, String price,
 			String position, String description) {

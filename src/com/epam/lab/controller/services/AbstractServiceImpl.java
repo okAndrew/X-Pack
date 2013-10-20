@@ -5,8 +5,12 @@ import java.util.List;
 import com.epam.lab.controller.dao.GenericDAO;
 
 public class AbstractServiceImpl<T> implements AbstractService<T> {
-	private GenericDAO<T> dao;
-
+	protected GenericDAO<T> dao;
+	
+	public AbstractServiceImpl(GenericDAO<T> dao){
+		this.dao = dao;
+	}
+	
 	@Override
 	public List<T> getAll() {
 		return dao.getAll();

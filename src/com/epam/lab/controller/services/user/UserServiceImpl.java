@@ -17,8 +17,11 @@ import com.epam.lab.model.User;
 
 public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		UserService {
-
 	static Logger logger = Logger.getLogger(UserServiceImpl.class);
+
+	public UserServiceImpl() {
+		super(new UserDAOImpl());
+	}
 
 	public void addUser(String login, String email, String password) {
 		User user = new User();

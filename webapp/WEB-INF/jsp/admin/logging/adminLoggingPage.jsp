@@ -36,9 +36,8 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">Logging</div>
-			<div class="panel-body">
 
-				<!-- buttons group -->
+			<div class="panel-body">
 				<ul class="nav nav-pills">
 					<li><button type="submit" class="btn btn-default"
 							name="action" value="error">Error</button></li>
@@ -63,9 +62,10 @@
 								<th>Message</th>
 							</tr>
 						</thead>
+
 						<tbody>
 							<c:forEach var="log" items="${logs}">
-	- 							<c:choose>
+								<c:choose>
 									<c:when test="${log.level == 'ERROR'}">
 										<tr class="danger">
 									</c:when>
@@ -86,7 +86,6 @@
 								<td>${log.logger}</td>
 								<td>${log.level}</td>
 								<td>${log.message}</td>
-								
 							</c:forEach>
 						</tbody>
 					</table>

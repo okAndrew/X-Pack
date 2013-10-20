@@ -35,7 +35,7 @@ public class AdminPageServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		UserServiceImpl service = new UserServiceImpl();
 		List<User> list = new ArrayList<User>();
-		list = service.getAllUsers();
+		list = service.getAll();
 		long countAllUsers = list.size();
 		if (session == null) {
 			request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request,

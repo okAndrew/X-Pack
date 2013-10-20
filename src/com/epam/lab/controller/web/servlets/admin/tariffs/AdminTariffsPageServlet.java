@@ -35,6 +35,6 @@ public class AdminTariffsPageServlet extends HttpServlet {
 	private void getAllTariffs(HttpServletRequest request,
 			HttpServletResponse response) {
 		TariffServiseImpl servise = new TariffServiseImpl();
-		request.setAttribute("tariffs", servise.getAllTariffs());
+		request.setAttribute("tariffs", servise.getAll());
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.user.UserDAOImpl;
+import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
@@ -14,7 +15,8 @@ import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
 
-public class UserServiceImpl {
+public class UserServiceImpl extends AbstractServiceImpl<User> implements
+		UserService {
 
 	static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
@@ -26,8 +28,7 @@ public class UserServiceImpl {
 		user.setIdTariff(1);
 		user.setCapacity(0);
 		user.setRole(Role.USER);
-		UserDAOImpl userDAOImpl = new UserDAOImpl();
-		userDAOImpl.insert(user);
+		insert(user);
 	}
 
 	public User getUser(String email, String password) {
@@ -40,38 +41,21 @@ public class UserServiceImpl {
 		}
 	}
 
-	public List<User> getAllUsers() {
-		List<User> users = null;
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		users = userDaoImpl.getAll();
-		return users;
-	}
-
-	public User getUserById(long id) {
-		User user = null;
-		user = new UserDAOImpl().get(id);
-		return user;
-	}
-
 	public User getUserByEmail(String email) {
 		return new UserDAOImpl().getByEmail(email);
 	}
 
-	public int updateUser(User user) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.update(user);
-		return result;
-	}
-
-	public void deleteFilesAndFolders(String[] filesId, String[] foldersId, long userId) {
+	public void deleteFilesAndFolders(String[] filesId, String[] foldersId,
+			long userId) {
 		FolderServiceImpl folderService = new FolderServiceImpl();
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
-		if (filesId != null && filesId[0]!=null && !filesId[0].equals("")) {
+		if (filesId != null && filesId[0] != null && !filesId[0].equals("")) {
 			for (int i = 0; i < filesId.length; i++) {
 				fileService.delete(Long.parseLong(filesId[i]));
 			}
 		}
-		if (foldersId != null && foldersId[0]!=null && !foldersId[0].equals("")) {
+		if (foldersId != null && foldersId[0] != null
+				&& !foldersId[0].equals("")) {
 			for (int i = 0; i < foldersId.length; i++) {
 				folderService.delete(Long.parseLong(foldersId[i]));
 			}
@@ -84,15 +68,10 @@ public class UserServiceImpl {
 			errorMessage = "Please check the users you want to delete!!!";
 		} else {
 			for (int i = 0; i < usersId.length; i++) {
-				deleteUser(Long.parseLong(usersId[i]));
+				delete(Long.parseLong(usersId[i]));
 			}
 		}
 		return errorMessage;
-	}
-
-	public void deleteUser(Long id) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		userDaoImpl.delete(id);
 	}
 
 	public int activateUser(User user) {
@@ -141,9 +120,8 @@ public class UserServiceImpl {
 		user.setPassword(md5Pass);
 		userDaoImpl.update(user);
 	}
-	
 
-	public String sendUsersEmail(String[] usersId){
+	public String sendUsersEmail(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		String errorMessage = null;
 		List<User> users = new ArrayList<User>();
@@ -152,8 +130,8 @@ public class UserServiceImpl {
 		} else {
 			for (int i = 0; i < usersId.length; i++) {
 				users.add(userDaoImpl.get(Long.parseLong(usersId[i])));
-			}			
-			for (User iter: users){
+			}
+			for (User iter : users) {
 				MailSender.send(iter.getEmail(), "dreamhost", "test message");
 			}
 		}
@@ -162,13 +140,13 @@ public class UserServiceImpl {
 
 	public User changeUserLogin(String email, String login) {
 		User user = getUserByEmail(email);
-		
+
 		if (user != null) {
 			Validator.USER_LOGIN.validate("asd");
 			user.setLogin(login);
-			updateUser(user);
+			update(user);
 		}
-		
+
 		return user;
 	}
 

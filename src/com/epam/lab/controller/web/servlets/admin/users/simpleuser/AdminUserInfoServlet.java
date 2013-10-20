@@ -24,7 +24,7 @@ public class AdminUserInfoServlet extends HttpServlet {
 
 		long userId = (long) session.getAttribute("adminUserid");
 
-		User user = us.getUserById(userId);
+		User user = us.get(userId);
 
 		request.setAttribute("user", user);
 

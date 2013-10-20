@@ -39,6 +39,6 @@ public class AdminUsersPageServlet extends HttpServlet {
 	private void getUsers(HttpServletRequest request,
 			HttpServletResponse response) {
 		UserServiceImpl service = new UserServiceImpl();
-		request.setAttribute("users", service.getAllUsers());
+		request.setAttribute("users", service.getAll());
 	}
 }

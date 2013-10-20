@@ -34,7 +34,7 @@ public class CreatePaymentServlet extends HttpServlet {
 		
 		if (result == 1) {
 			HttpSession session = request.getSession(false);
-			User user = new UserServiceImpl().getUserById(id);
+			User user = new UserServiceImpl().get(id);
 			session.setAttribute("user", user);
 		}
 		

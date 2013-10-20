@@ -49,4 +49,9 @@ public class TariffDAOImpl implements TariffDAO {
 		return queryExecutor.executeUpdate(sql, id);
 	}
 
+	 @Override
+	 public List<Tariff> getAvailableTariffs() {
+	  String sql = "SELECT * FROM tariffs WHERE available = 1 ORDER BY position ASC";
+	  return queryExecutor.executeQuery(Tariff.class, sql);
+	 }
 }

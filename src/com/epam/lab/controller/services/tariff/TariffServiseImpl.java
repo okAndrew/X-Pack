@@ -1,5 +1,7 @@
 package com.epam.lab.controller.services.tariff;
 
+import java.util.List;
+
 import com.epam.lab.controller.dao.tariff.TariffDAO;
 import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -79,5 +81,10 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		}
 		return errorMesage;
 	}
+	
+	 @Override
+	 public List<Tariff> getAvailableTariffs() {
+	  return tariffDao.getAvailableTariffs();
+	 }
 
 }

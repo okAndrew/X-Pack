@@ -1,5 +1,7 @@
 package com.epam.lab.controller.services.tariff;
 
+import java.util.List;
+
 import com.epam.lab.controller.services.AbstractService;
 import com.epam.lab.model.Tariff;
 
@@ -10,4 +12,6 @@ public interface TariffServise extends AbstractService<Tariff> {
 	String deteteTariffs(String[] checkTariffs);
 	
 	String activateTariffs(String[] checkTariffs);
+
+	List<Tariff> getAvailableTariffs();
 }

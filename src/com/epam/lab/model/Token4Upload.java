@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.epam.lab.controller.annotations.TableColumn;
 
 @XmlRootElement
-public class Token4Download {
+public class Token4Upload {
 
 	@TableColumn("id")
 	private long id;

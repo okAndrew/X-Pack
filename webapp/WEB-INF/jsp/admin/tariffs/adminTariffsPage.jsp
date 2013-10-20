@@ -52,7 +52,7 @@
 						<li><button data-toggle="modal" data-target="#addTariffModal" class="btn btn-default"
 								>Add</button></li>
 						<li><button type="submit" class="btn btn-default"
-								name="action" value="deleteTariffs">Delete</button></li>
+								name="action" value="isDelete">Delete</button></li>
 											
 					</ul>
 					<!-- Table -->

@@ -27,8 +27,16 @@ public class User {
 
 	// hidden field (without getters and setters)
 	// need for reflection DAO
-	@TableColumn("role")
+	@TableColumn("id_role")
 	private int roleNumber; 
+
+	public int getRoleNumber() {
+		return roleNumber;
+	}
+
+	public void setRoleNumber(int roleNumber) {
+		this.roleNumber = roleNumber;
+	}
 
 	private Role role;
 

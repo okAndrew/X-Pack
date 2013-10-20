@@ -23,9 +23,11 @@
 
 			<c:if test="${sessionScope.userid != null}">
 				<ul class="nav navbar-nav">
+					<li class=""><a href="userpage">My Space</a></li>
 					<li class=""><a href="adminUsersPage">Users</a></li>
 					<li class=""><a href="adminFilesPage">Files</a></li>
 					<li class=""><a href="adminTariffsPage">Tariffs</a></li>
+					<li class=""><a href="adminStatisticsPage">Statistics</a></li>					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="adminPage">To main menu</a></li>
@@ -35,7 +37,7 @@
 			<div class="navbar-form navbar-right">
 				<c:if test="${sessionScope.userid == null}">
 					<div class="form-group">
-						<a href="signInAdmin" class="btn btn-success"><fmt:message
+						<a href="signin" class="btn btn-success"><fmt:message
 								key="signin" bundle="${lang}" /></a>
 					</div>
 				</c:if>

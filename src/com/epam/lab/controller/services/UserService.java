@@ -24,6 +24,7 @@ public class UserService {
 		user.setPassword(password);
 		user.setIdTariff(1);
 		user.setCapacity(0);
+		user.setRoleNumber(1);
 		UserDAOImpl userDAOImpl = new UserDAOImpl();
 		userDAOImpl.insert(user);
 	}

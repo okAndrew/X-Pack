@@ -27,14 +27,7 @@
 	margin: auto;
 }
 </style>
-<script type="text/javascript">  
-  
-            var auto_refresh = setInterval(  
-            function ()  
-            {  
-                $('#load_me').load('adminPage').fadeIn("slow");  
-            }, 10000);   
-        </script> 
+
 </head>
 
 <body>
@@ -109,5 +102,10 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var auto_refresh = setInterval(function() {
+			$('#load_me').load('adminPage').fadeIn("slow");
+		}, 10000);
+	</script>
 </body>
 </html>

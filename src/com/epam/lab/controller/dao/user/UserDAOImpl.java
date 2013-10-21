@@ -68,4 +68,24 @@ public class UserDAOImpl implements UserDAO {
 		return queryExecutor.executeUpdate(sql, true, id);
 	}
 
+	public boolean checkEmailById(String email, long userId) {
+		String sql = "SELECT * FROM users WHERE email=? AND id!=?";
+		User result = queryExecutor.executeQuerySingle(User.class, sql, email,
+				userId);
+		if (result == null) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean ckeckLoginById(String login, long userId) {
+		String sql = "SELECT * FROM users WHERE login=? AND id!=?";
+		User result = queryExecutor.executeQuerySingle(User.class, sql, login,
+				userId);
+		if (result == null) {
+			return true;
+		}
+		return false;
+	}
+
 }

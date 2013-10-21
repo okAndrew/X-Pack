@@ -20,6 +20,7 @@ public class EditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		request.setCharacterEncoding("UTF-8");
 		String folderName = request.getParameter("foldername");
 		String fileName = request.getParameter("filename");
 		if (fileName != null && !fileName.equals("")) {

@@ -44,7 +44,7 @@ public class AdminPageServlet extends HttpServlet {
 		} else {
 			UserOnlineListener counter = (UserOnlineListener) session
 					.getAttribute("counter");
-			int countUsers = counter.getActiveSessionNumber();
+			int countUsers = UserOnlineListener.getActiveSessionNumber();
 			request.setAttribute("countUsers", countUsers);
 			request.setAttribute("countAllUsers", countAllUsers);
 			request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request,

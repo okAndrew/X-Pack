@@ -18,7 +18,7 @@ public class TokenDAOImpl implements TokenDAO {
 
 	@Override
 	public Token get(String token) {
-		String sql = "SELECT * FROM tokens WHERE tokens.token=?";
+		String sql = "SELECT * FROM tokens WHERE token=?";
 		Token result = queryExecutor
 				.executeQuerySingle(Token.class, sql, token);
 		return result;
@@ -31,7 +31,7 @@ public class TokenDAOImpl implements TokenDAO {
 
 	@Override
 	public int insert(Token object) {
-		String sql = "INSERT INTO tokens (tokens.user, tokens.date, tokens.token) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO tokens (id_user, date, token) VALUES (?, ?, ?)";
 		int result = queryExecutor.executeUpdate(sql, object.getIdUser(),
 				object.getDate(), object.getToken());
 
@@ -40,7 +40,7 @@ public class TokenDAOImpl implements TokenDAO {
 
 	@Override
 	public int update(Token object) {
-		String sql = "UPDATE tokens SET user=? date=?, token=? WHERE id=?";
+		String sql = "UPDATE tokens SET id_user=? date=?, token=? WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, object.getIdUser(),
 				object.getDate(), object.getToken(), object.getId());
 		return result;
@@ -55,14 +55,14 @@ public class TokenDAOImpl implements TokenDAO {
 
 	@Override
 	public int deactivateToken(String token) {
-		String sql = "UPDATE tokens SET WHERE tokens.token=?";
+		String sql = "UPDATE tokens SET WHERE token=?";
 		int result = queryExecutor.executeUpdate(sql, 0, token);
 		return result;
 	}
 
 	@Override
 	public int activateToken(String token) {
-		String sql = "UPDATE tokens SET WHERE tokens.token=?";
+		String sql = "UPDATE tokens SET WHERE token=?";
 		int result = queryExecutor.executeUpdate(sql, 1, token);
 		return result;
 	}

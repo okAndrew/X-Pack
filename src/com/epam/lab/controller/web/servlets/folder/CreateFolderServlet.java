@@ -16,8 +16,7 @@ import com.epam.lab.controller.services.folder.FolderServiceImpl;
 public class CreateFolderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String USER_PAGE = "userpage";
-	private final Charset UTF8_CHARSET = Charset.forName("UTF-8");
-	
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
@@ -26,7 +25,6 @@ public class CreateFolderServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		long folderId = (long) session.getAttribute("folderid");
 		long userId = (long) session.getAttribute("userid");
-		String xaxa = request.getParameter("foldername");
 		if (request.getParameter("foldername") == null
 				|| request.getParameter("foldername").equals("")) {
 			request.setAttribute("message",

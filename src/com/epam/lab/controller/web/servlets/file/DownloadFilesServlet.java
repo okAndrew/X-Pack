@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.user.DownloadService;
 
 @WebServlet("/downloadfiles")
 public class DownloadFilesServlet extends HttpServlet {

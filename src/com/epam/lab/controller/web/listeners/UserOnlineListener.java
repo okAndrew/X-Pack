@@ -19,28 +19,24 @@ import com.epam.lab.model.SessionHistory;
 @WebListener
 public class UserOnlineListener implements HttpSessionListener,
 		HttpSessionAttributeListener {
-	private Map<String, SessionHistory> sessions = new HashMap<String, SessionHistory>();
 	private static final Logger logger = Logger
 			.getLogger(UserOnlineListener.class);
 	private static int activeSessions = 0;
 	SessionHistory sessionhistory = null;
 
 	public void sessionCreated(HttpSessionEvent event) {
-		activeSessions++;
-
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {
-		if (activeSessions > 0)
-			activeSessions--;
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		HttpSession session = event.getSession();
-		sessionhistory = historyService
-				.getSessionHistByUserIDAndEndDate((long) session
-						.getAttribute("userid"));
-		sessionhistory.setEnddate(CurrentTimeStamp.getCurrentTimeStamp());
-		historyService.update(sessionhistory);
-		sessions.remove(event.getSession().getId());
+		if (session.getAttribute("userid") != null) {
+			sessionhistory = historyService
+					.getSessionHistByUserIDAndEndDate((long) session
+							.getAttribute("userid"));
+			sessionhistory.setEnddate(CurrentTimeStamp.getCurrentTimeStamp());
+			historyService.update(sessionhistory);
+		}
 	}
 
 	public static int getActiveSessionNumber() {
@@ -55,17 +51,19 @@ public class UserOnlineListener implements HttpSessionListener,
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		if (event.getName().equals("userid")
 				&& session.getAttribute("userid") != null) {
-
+			activeSessions++;
 			sessionhistory = historyService.addSession(
 					(long) session.getAttribute("userid"),
 					CurrentTimeStamp.getCurrentTimeStamp());
-			sessions.put(session.getId(), sessionhistory);
 		}
 	}
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
-		//
+		if (event.getName().equals("userid")) {
+			if (activeSessions > 0)
+				activeSessions--;
+		}
 
 	}
 

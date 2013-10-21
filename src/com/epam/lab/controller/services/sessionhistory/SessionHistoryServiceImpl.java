@@ -25,4 +25,12 @@ public class SessionHistoryServiceImpl extends
 		dao.insert(sessionhistory);
 		return sessionhistory;
 	}
+
+	public SessionHistory getSessionHistByUserIDAndEndDate(long userId) {
+		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
+		SessionHistory sessionhistory = sessdaoimpl
+				.getSessionHistByUserIDAndEndDate(userId);
+		return sessionhistory;
+	}
+
 }

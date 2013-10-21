@@ -8,7 +8,7 @@ public class SessionHistory {
 	@TableColumn("id")
 	private long id;
 
-	@TableColumn("userid")
+	@TableColumn("user_id")
 	private long userid;
 
 	@TableColumn("startdate")

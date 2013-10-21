@@ -9,22 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/adminLoggingPage")
-public class AdminLoggingPageServlet extends HttpServlet {
+@WebServlet("/adminLogsEmployeeController")
+public class AdminLogsEmployeeControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String ADMIN_LOGGING_PAGE_JSP = "WEB-INF/jsp/admin/logging/adminLoggingPage.jsp";
+	private AdminLogsRequestHelper requestHelper = AdminLogsRequestHelper
+			.getInstance();
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher(ADMIN_LOGGING_PAGE_JSP);
-		dispatcher.forward(request, response);
+		processRequest(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher(ADMIN_LOGGING_PAGE_JSP);
+		processRequest(request, response);
+	}
+
+	protected void processRequest(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String page = null;
+		AdminLogsPageCommand command = requestHelper.parseCommand(request);
+		// try{
+		page = command.execute(request, response);
+		// } catch() {
+		//
+		// }
+		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}
 }

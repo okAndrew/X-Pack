@@ -15,6 +15,26 @@
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
 
+<script>
+	function loadXMLDoc(action) {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("modalArea").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET", "adminLogsEmployeeController?action="
+				+ action.value, true);
+		xmlhttp.send();
+	}
+</script>
+
+
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
@@ -39,57 +59,33 @@
 
 			<div class="panel-body">
 				<ul class="nav nav-pills">
-					<li><button type="submit" class="btn btn-default"
-							name="action" value="error">Error</button></li>
-					<li><button type="submit" class="btn btn-default"
-							name="action" value="warning">Warning</button></li>
-					<li><button type="submit" class="btn btn-default"
-							name="action" value="info">Info</button></li>
-					<li><button type="submit" class="btn btn-default"
-							name="action" value="debug">Debug</button></li>
+					<li><button type="submit" onclick="loadXMLDoc(this)"
+							class="btn btn-default" value="all">All</button></li>
+					<li><button type="submit" onclick="loadXMLDoc(this)"
+							class="btn btn-default" value="error">Error</button></li>
+					<li><button type="submit" onclick="loadXMLDoc(this)"
+							class="btn btn-default" value="warning">Warning</button></li>
+					<li><button type="submit" onclick="loadXMLDoc(this)"
+							class="btn btn-default" value="info">Info</button></li>
+					<li><button type="submit" onclick="loadXMLDoc(this)"
+							class="btn btn-default" value="debug">Debug</button></li>
 				</ul>
 
 				<!-- Table -->
-				<c:if test="${logs != null}">
-					<table class="table zebra-striped table-hover">
-						<thead>
-							<tr>
-								<th><input type="checkbox" onClick="toggle(this)" /> All</th>
-								<th>Id</th>
-								<th>Date</th>
-								<th>Logger</th>
-								<th>Level</th>
-								<th>Message</th>
-							</tr>
-						</thead>
+				<table class="table zebra-striped table-hover">
+					<thead>
+						<tr>
+							<th><input type="checkbox" onClick="toggle(this)" /> All</th>
+							<th>Id</th>
+							<th>Date</th>
+							<th>Logger</th>
+							<th>Level</th>
+							<th>Message</th>
+						</tr>
+					</thead>
+					<tbody id="modalArea"><jsp:include page="logsList.jsp"></jsp:include></tbody>
 
-						<tbody>
-							<c:forEach var="log" items="${logs}">
-								<c:choose>
-									<c:when test="${log.level == 'ERROR'}">
-										<tr class="danger">
-									</c:when>
-									<c:when test="${log.level == 'WARNING'}">
-										<tr class="warning">
-									</c:when>
-									<c:when test="${log.level == 'DEBUG'}">
-										<tr class="success">
-									</c:when>
-									<c:otherwise>
-										<tr class="active">
-									</c:otherwise>
-								</c:choose>
-								<td><input type="checkbox" name="checkLog"
-									value="${log.id}"></td>
-								<td>${log.id}</td>
-								<td>${log.datetime}</td>
-								<td>${log.logger}</td>
-								<td>${log.level}</td>
-								<td>${log.message}</td>
-							</c:forEach>
-						</tbody>
-					</table>
-				</c:if>
+				</table>
 			</div>
 		</div>
 	</div>

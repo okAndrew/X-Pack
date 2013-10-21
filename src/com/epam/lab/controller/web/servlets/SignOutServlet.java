@@ -13,12 +13,13 @@ import javax.servlet.http.HttpSession;
 public class SignOutServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-       
-    public SignOutServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public SignOutServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		session.invalidate();
 		response.sendRedirect("homepage");

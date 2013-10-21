@@ -61,12 +61,12 @@
 								<td>${user.capacity}</td>
 							</tr>
 							<tr>
-								<td>Token</td>
-								<td>${user.token}</td>
-							</tr>
-							<tr>
 								<td>Activation</td>
 								<td>${user.isActivated}</td>
+							</tr>
+							<tr>
+								<td>Role</td>
+								<td>${user.role}</td>
 							</tr>
 						</tbody>
 					</table>

@@ -45,14 +45,20 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">Tariffs</div>
-			<form action="tariffsController" method="post">
+			<form action="employeeControllerTariffs" method="post">
 				<div class="panel-body">
+				
 					<ul class="nav nav-pills">
-						<li><a data-toggle="modal" href="#addTariffModal">Add</a></li>
-						<li><a href="#">Sort</a></li>
-						<li><button type="submit" class="btn btn-default">Delete</button></li>
+						<li><button data-toggle="modal" data-target="#addTariffModal" class="btn btn-default"
+								>Add</button></li>
+						<li><button type="submit" class="btn btn-default"
+								name="action" value="isActivate">Activate</button></li>
+								
+						<li><button type="submit" class="btn btn-default"
+								name="action" value="isDelete">Delete</button></li>
+								
+											
 					</ul>
-
 					<!-- Table -->
 					<c:if test="${tariffs != null}">
 						<table class="table zebra-striped table-hover">
@@ -62,12 +68,15 @@
 									<th>Id</th>
 									<th>Name</th>
 									<th>Max Capacity</th>
+									<th>Price</th>
+									<th>Position</th>
+									<th>Description</th>
+									<th>isDelete</th>
 									<th>Edit</th>
 								</tr>
 							</thead>
 
 							<tbody>
-
 								<c:forEach var="tariff" items="${tariffs}">
 									<tr>
 										<td><input type="checkbox" name="checkTariff"
@@ -75,7 +84,11 @@
 										<td>${tariff.id}</td>
 										<td>${tariff.name}</td>
 										<td>${tariff.maxCapacity}</td>
-										<td><a href="adminUser?userid=${user.id}">edit</a></td>
+										<td>${tariff.price}</td>
+										<td>${tariff.position}</td>
+										<td>${tariff.description}</td>
+										<td>${tariff.isDelete}</td>
+										<td><a data-toggle="modal" data-target="#editTariffModal">edit</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -93,5 +106,6 @@
 		</div>
 	</div>
 	<jsp:include page="addTariffModalPage.jsp"></jsp:include>
+	<jsp:include page="editTariffModalPage.jsp"></jsp:include>
 </body>
 </html>

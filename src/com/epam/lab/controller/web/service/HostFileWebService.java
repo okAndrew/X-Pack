@@ -15,13 +15,14 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.epam.lab.controller.services.file.FileUploader;
+
+import com.epam.lab.controller.services.file.UserFileUploader;
 import com.epam.lab.model.UserFile;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.jersey.multipart.FormDataParam;
 
-@Path("host")
+@Path("file")
 public class HostFileWebService {
 
 	private static Logger logger = Logger.getLogger(HostFileWebService.class);
@@ -35,7 +36,7 @@ public class HostFileWebService {
 		JSONArray resultArray = new JSONArray();
 		List<FormDataBodyPart> fields = multiPart.getFields("file");
 		for (FormDataBodyPart field : fields) {
-			UserFile uploadedFile = new FileUploader(13).uploadFile(
+			UserFile uploadedFile = new UserFileUploader(13).uploadFile(
 					field.getValueAs(InputStream.class),
 					field.getFormDataContentDisposition());
 			putObjToArray(resultArray, uploadedFile);
@@ -47,7 +48,7 @@ public class HostFileWebService {
 		JSONObject jsonObject = null;
 		try {
 			jsonObject = toJson(uploadedFile);
-			// if some exc. will catched, object will not placed
+//			 if some exc. will catched, object will not placed
 			resultArray.put(jsonObject);
 		} catch (JSONException e) {
 			logger.error(e);

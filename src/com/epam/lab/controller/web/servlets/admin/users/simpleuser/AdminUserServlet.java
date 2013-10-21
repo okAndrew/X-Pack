@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.epam.lab.controller.services.UserService;
+
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.User;
 
 @WebServlet("/adminUser")
@@ -26,10 +27,10 @@ public class AdminUserServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 
 		long userId = Long.parseLong(request.getParameter("userid"));
-		session.setAttribute("userid", userId);
+		session.setAttribute("adminUserid", userId);
 
-		UserService userService = new UserService();
-		User user = userService.getUserById(userId);
+		UserServiceImpl userService = new UserServiceImpl();
+		User user = userService.get(userId);
 
 		request.setAttribute("user", user);
 

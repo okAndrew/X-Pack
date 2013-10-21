@@ -5,21 +5,18 @@ import java.sql.Timestamp;
 import com.epam.lab.controller.annotations.TableColumn;
 
 public class Token {
-	
+
 	@TableColumn("id")
 	private long id;
-	
-	@TableColumn("user")
-	private long user;
-	
+
+	@TableColumn("id_user")
+	private long idUser;
+
 	@TableColumn("date")
 	private Timestamp date;
 
 	@TableColumn("token")
 	private String token;
-	
-	@TableColumn("available")
-	private boolean available;
 
 	public long getId() {
 		return id;
@@ -29,12 +26,12 @@ public class Token {
 		this.id = id;
 	}
 
-	public long getUser() {
-		return user;
+	public long getIdUser() {
+		return idUser;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setIdUser(long idUser) {
+		this.idUser = idUser;
 	}
 
 	public Timestamp getDate() {
@@ -53,24 +50,15 @@ public class Token {
 		this.token = token;
 	}
 
-	public boolean getAvailable() {
-		return available;
-	}
-
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder tokenString = new StringBuilder();
 		tokenString.append("Token [id=").append(id);
-		tokenString.append(", user=").append(user);
+		tokenString.append(", idUser=").append(idUser);
 		tokenString.append(", date=").append(date);
 		tokenString.append(", token=").append(token);
-		tokenString.append("available").append(available);
 		tokenString.append("];");
-		
+
 		return tokenString.toString();
 	}
 

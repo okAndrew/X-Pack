@@ -26,7 +26,7 @@ public class AdminAddUserCommand implements AdminUsersPageCommand {
 			logger.info("user by email" + email + "add to databases");
 		} else {
 			request.setAttribute("message", errorMessage);
-			page = "WEB-INF/jsp/admin/users/addUserModalPage.jsp";
+			page = "adminUsersPage";
 			logger.error("user by email" + email + "had error to create acount");
 		}
 		return page;

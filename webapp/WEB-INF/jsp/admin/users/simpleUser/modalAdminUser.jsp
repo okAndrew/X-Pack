@@ -83,16 +83,17 @@
 												value="${user.capacity}" autofocus="autofocus"
 												disabled></td>
 										</tr>
-										<tr>
-											<td>Token</td>
-											<td><input type="text" name="userToken"
-												class="form-control first" value="${user.token}"
-												autofocus="autofocus"></td>
-										</tr>
+										
 										<tr>
 											<td>Activation</td>
 											<td><input type="text" name="userActivation"
 												class="form-control last" value="${user.isActivated}"
+												autofocus="autofocus"></td>
+										</tr>
+										<tr>
+											<td>Role</td>
+											<td><input type="text" name="userRole"
+												class="form-control last" value="${user.role}"
 												autofocus="autofocus"></td>
 										</tr>
 										

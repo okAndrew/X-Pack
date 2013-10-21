@@ -46,11 +46,11 @@
 			<!-- Default panel contents -->
 			<div class="panel-heading">Users</div>
 
-			<form action="employeeController" method="post">
+			<form action="employeeControllerUsers" method="post">
 				<div class="panel-body">
 					<ul class="nav nav-pills">
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="add">Add</button></li>
+						<li><button type="button" class="btn btn-default"
+								data-toggle="modal" data-target="#addUserModal">Add</button></li>
 						<li><button type="submit" class="btn btn-default"
 								name="action" value="delete">Delete</button></li>
 						<li><button type="submit" class="btn btn-default"
@@ -73,7 +73,7 @@
 									<th>Password</th>
 									<th>Capacity</th>
 									<th>Tariffs</th>
-									<th>Token</th>
+									<th>Type</th>
 									<th>Activated</th>
 									<th>Details</th>
 								</tr>
@@ -90,7 +90,7 @@
 										<td>${user.password}</td>
 										<td>${user.capacity}</td>
 										<td>${user.idTariff}</td>
-										<td>${user.token}</td>
+										<td>${user.role}</td>
 										<td>${user.isActivated}</td>
 										<td><a href="adminUser?userid=${user.id}">View
 												more...</a></td>
@@ -108,6 +108,7 @@
 					</c:if>
 				</div>
 			</form>
+			<jsp:include page="addUserModalPage.jsp"></jsp:include>
 		</div>
 	</div>
 </body>

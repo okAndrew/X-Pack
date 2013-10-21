@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.epam.lab.controller.services.PaymentService;
+
+import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 import com.epam.lab.model.Payment;
 
 @WebServlet("/adminUserPayments")
@@ -27,10 +28,10 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 
-		PaymentService psevrive = new PaymentService();
+		PaymentServiceImpl psevrive = new PaymentServiceImpl();
 
 		List<Payment> list = psevrive.getAllPayByUserId((long) session
-				.getAttribute("userid"));
+				.getAttribute("adminUserid"));
 
 		request.setAttribute("listPayments", list);
 

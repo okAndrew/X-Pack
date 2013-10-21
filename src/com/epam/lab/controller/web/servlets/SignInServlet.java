@@ -12,8 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.UserService;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
 
 @WebServlet("/signin")
@@ -22,6 +23,7 @@ public class SignInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SIGNIN_JSP = "WEB-INF/jsp/signin.jsp";
 	private static final String USER_PAGE = "userpage";
+	private static final String ADMIN_HOME = "adminPage";
 	static Logger logger = Logger.getLogger(SignInServlet.class);
 
 	public SignInServlet() {
@@ -44,7 +46,7 @@ public class SignInServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		MD5Encrypter md5 = new MD5Encrypter();
-		UserService service = new UserService();
+		UserServiceImpl service = new UserServiceImpl();
 		User user = service.getUser(email, md5.encrypt(password));
 
 		if (email != null && password != null) {
@@ -52,8 +54,13 @@ public class SignInServlet extends HttpServlet {
 				if (user.getIsActivated()) {
 					HttpSession session = request.getSession();
 					session.setAttribute("userid", user.getId());
+					session.setAttribute("userRole", user.getRole());
 					session.setAttribute("user", user);
-					response.sendRedirect(USER_PAGE);
+					if (user.getRole().equals(Role.USER)) {
+						response.sendRedirect(USER_PAGE);
+					} else if (user.getRole().equals(Role.ADMIN)) {
+						response.sendRedirect(ADMIN_HOME);
+					}
 				} else {
 					request.setAttribute("message",
 							"You is not activated. Please check you email");

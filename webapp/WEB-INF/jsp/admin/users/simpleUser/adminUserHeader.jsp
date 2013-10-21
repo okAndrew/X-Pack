@@ -20,7 +20,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 
-			<c:if test="${sessionScope.login != null}">
+			<c:if test="${sessionScope.userid != null}">
 				<ul class="nav navbar-nav">
 					<li class=""><a href="adminUserInfo">Info</a></li>
 					<li class=""><a href="adminUserFiles">Files</a></li>

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.file.FileService;
-import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 
@@ -32,8 +32,8 @@ public class UserPageServlet extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		FileService fileService = new FileService();
-		FolderService folderService = new FolderService();
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
+		FolderServiceImpl folderService = new FolderServiceImpl();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("userid");
 		long folderId;

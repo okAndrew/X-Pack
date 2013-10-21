@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.TariffServise;
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 
 @WebServlet("/settings")
 public class SettingsServlet extends HttpServlet {
@@ -19,13 +19,13 @@ public class SettingsServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SETTINGS_JSP);
-		request.setAttribute("tariffs", new TariffServise().getAvailableTariffs());
+		request.setAttribute("tariffs", new TariffServiseImpl().getAvailableTariffs());
 		requestDispatcher.forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SETTINGS_JSP);
-		request.setAttribute("tariffs", new TariffServise().getAvailableTariffs());
+		request.setAttribute("tariffs", new TariffServiseImpl().getAvailableTariffs());
 		requestDispatcher.forward(request, response);
 	}
 

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.UserService;
-import com.epam.lab.controller.services.file.FileService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 
 @WebServlet("/delete")
 public class DeleteServlet extends HttpServlet {
@@ -22,14 +22,14 @@ public class DeleteServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("userid");
 		if (request.getParameter("deletesingle")!=null) {
-			UserService service = new UserService();
+			UserServiceImpl service = new UserServiceImpl();
 			String[] fileId = { request.getParameter("fileid") };
 			String[] folderId = { request.getParameter("folderid") };
 			service.deleteFilesAndFolders(fileId, folderId, userId);
 		} else {
 			String[] foldersId = request.getParameterValues("folders");
 			String[] filesId = request.getParameterValues("files");
-			UserService service = new UserService();
+			UserServiceImpl service = new UserServiceImpl();
 			service.deleteFilesAndFolders(filesId, foldersId, userId);
 		}
 		response.sendRedirect(USER_PAGE);

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.eclipse.jdt.internal.compiler.codegen.LongCache;
 
-import com.epam.lab.controller.services.TariffServise;
-import com.epam.lab.controller.services.UserService;
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.User;
 
 @WebServlet("/CreatePaymentServlet")
@@ -30,11 +30,11 @@ public class CreatePaymentServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		long id = Long.valueOf(request.getParameter("id"));
 		long tariff = Long.valueOf(request.getParameter("tariff"));
-		int result = new TariffServise().changeTariff(id, tariff);
+		int result = new TariffServiseImpl().changeTariff(id, tariff);
 		
 		if (result == 1) {
 			HttpSession session = request.getSession(false);
-			User user = new UserService().getUserById(id);
+			User user = new UserServiceImpl().get(id);
 			session.setAttribute("user", user);
 		}
 		

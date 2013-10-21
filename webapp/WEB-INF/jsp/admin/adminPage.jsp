@@ -33,7 +33,7 @@
             function ()  
             {  
                 $('#load_me').load('adminPage').fadeIn("slow");  
-            }, 100);   
+            }, 10000);   
         </script> 
 </head>
 

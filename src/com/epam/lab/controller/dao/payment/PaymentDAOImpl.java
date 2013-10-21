@@ -66,4 +66,31 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return result;
 	}
 
+	@Override
+	public List<Payment> getEndedAvailablePays() {
+		String sql = "SELECT * FROM payments WHERE date_end < CURRENT_TIMESTAMP() AND available = 1;";
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
+				sql);
+		return resultList;
+	}
+
+	@Override
+	public int disableEndedPayments() {
+		String sql = "UPDATE payments SET available = 0 WHERE date_end < CURRENT_TIMESTAMP() AND available = 1";
+		return queryExecutor.executeUpdate(sql);
+	}
+
+	@Override
+	public boolean canDisableUser(long id) {
+		String sql = "SELECT * FROM payments WHERE date_end > CURRENT_TIMESTAMP() AND available = 1 AND user = ?";
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
+				sql, id);
+
+		if (resultList != null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 }

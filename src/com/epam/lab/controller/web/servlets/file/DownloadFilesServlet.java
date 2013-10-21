@@ -25,6 +25,7 @@ public class DownloadFilesServlet extends HttpServlet {
 		String[] filesIds = request.getParameterValues("files");
 		String[] foldersIds = request.getParameterValues("folders");
 		File file = service.getArchive(filesIds, foldersIds);
+		System.out.println(file.getAbsolutePath());
 		if (!file.exists()) {
 			throw new ServletException("File doesn't exists on server.");
 		}

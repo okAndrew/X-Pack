@@ -24,4 +24,7 @@
 		<servlet-name>HostService</servlet-name>
 		<url-pattern>/host/*</url-pattern>
 	</servlet-mapping>
+	<listener>
+		<listener-class>com.epam.lab.controller.web.servlets.security.AppServletContextListener</listener-class>
+	</listener>
 </web-app>

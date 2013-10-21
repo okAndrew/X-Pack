@@ -6,7 +6,6 @@ import java.util.List;
 import com.epam.lab.controller.dao.PaymentDAO;
 import com.epam.lab.controller.dao.querymanaging.DBQueryExecutor;
 import com.epam.lab.model.Payment;
-import com.epam.lab.model.User;
 
 public class PaymentDAOImpl implements PaymentDAO {
 	private DBQueryExecutor<Payment> queryExecutor = new DBQueryExecutor<Payment>();
@@ -62,8 +61,36 @@ public class PaymentDAOImpl implements PaymentDAO {
 	@Override
 	public Payment getByUserTime(long user, Timestamp time) {
 		String sql = "SELECT * FROM payments WHERE user = ? AND date_created = ?";
-		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql, user, time);
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql,
+				user, time);
 		return result;
+	}
+
+	@Override
+	public List<Payment> getEndedAvailablePays() {
+		String sql = "SELECT * FROM payments WHERE date_end < CURRENT_TIMESTAMP() AND available = 1;";
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
+				sql);
+		return resultList;
+	}
+
+	@Override
+	public int disableEndedPayments() {
+		String sql = "UPDATE payments SET available = 0 WHERE date_end < CURRENT_TIMESTAMP() AND available = 1";
+		return queryExecutor.executeUpdate(sql);
+	}
+
+	@Override
+	public boolean canDisableUser(long id) {
+		String sql = "SELECT * FROM payments WHERE date_end > CURRENT_TIMESTAMP() AND available = 1 AND user = ?";
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
+				sql, id);
+
+		if (resultList != null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }

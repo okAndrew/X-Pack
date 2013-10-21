@@ -14,4 +14,10 @@ public interface PaymentDAO extends GenericDAO<Payment> {
 	
 	Payment getByUserTime(long user, Timestamp time);
 	
+	List<Payment> getEndedAvailablePays();
+	
+	int disableEndedPayments();
+	
+	boolean canDisableUser(long id);
+	
 }

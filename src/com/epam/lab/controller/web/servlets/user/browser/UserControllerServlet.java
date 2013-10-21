@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/usercontroller")
 public class UserControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String DOWNLOAD_SERVLET = "downloadfiles";
+	private static final String DOWNLOAD_SERVLET = "download";
 	private static final String DELETE_SERVLET = "delete";
 	private static final String SEARCH_SERVLET = "search";
 	private static final String USER_PAGE_SERVLET = "userpage";
@@ -27,8 +27,9 @@ public class UserControllerServlet extends HttpServlet {
 			request.getRequestDispatcher(USER_PAGE_SERVLET).forward(request,
 					response);
 		} else if (request.getParameter("download") != null) {
-			request.getRequestDispatcher(DOWNLOAD_SERVLET).forward(request,
-					response);
+//			request.getRequestDispatcher(DOWNLOAD_SERVLET).forward(request,
+//					response);
+			response.sendRedirect((DOWNLOAD_SERVLET));
 		} else if (request.getParameter("delete") != null) {
 			request.getRequestDispatcher(DELETE_SERVLET).forward(request,
 					response);

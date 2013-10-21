@@ -1,6 +1,8 @@
 package com.epam.lab.controller.web.servlets.folder;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +19,10 @@ public class CreateFolderServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
 		FolderServiceImpl service = new FolderServiceImpl();
 		HttpSession session = request.getSession(false);
+		request.setCharacterEncoding("UTF-8");
 		long folderId = (long) session.getAttribute("folderid");
 		long userId = (long) session.getAttribute("userid");
 		if (request.getParameter("foldername") == null

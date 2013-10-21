@@ -27,8 +27,8 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 
 	@Override
 	public int insert(SessionHistory sessionObject) {
-		String sql = "INSERT INTO session_history(session_id, user_id, startdate) VALUES (?, ?, ?)";
-		int result = queryExecutor.executeUpdate(sql, sessionObject.getSessid(),
+		String sql = "INSERT INTO session_history(user_id, startdate) VALUES (?, ?)";
+		int result = queryExecutor.executeUpdate(sql,
 				sessionObject.getUserid(), sessionObject.getStartdate());
 		return result;
 	}

@@ -32,7 +32,7 @@
 
 <body>
 	<jsp:include page="menu/menuAdmin.jsp"></jsp:include>
-
+<input type="hidden" name="jspName" value="adminPage">
 	<div class="Container" id="load_me">
 		<!-- Panel -->
 		<div class="panel panel-default">

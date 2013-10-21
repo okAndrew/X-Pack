@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -47,17 +48,19 @@
 			<div class="panel-heading">Tariffs</div>
 			<form action="employeeControllerTariffs" method="post">
 				<div class="panel-body">
-				
+
 					<ul class="nav nav-pills">
-						<li><button data-toggle="modal" data-target="#addTariffModal" class="btn btn-default"
-								>Add</button></li>
+						<li><button data-toggle="modal" data-target="#addTariffModal"
+								class="btn btn-default">Add</button></li>
 						<li><button type="submit" class="btn btn-default"
-								name="action" value="isActivate">Activate</button></li>
-								
+								name="action" value="isActivate">
+								<fmt:message key="activate" bundle="${lang}" />
+							</button></li>
+
 						<li><button type="submit" class="btn btn-default"
 								name="action" value="isDelete">Delete</button></li>
-								
-											
+
+
 					</ul>
 					<!-- Table -->
 					<c:if test="${tariffs != null}">

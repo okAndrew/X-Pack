@@ -1,17 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.Locale "%>
 
 <div class="navbar navbar-fixed-top navbar-inverse">
-	<%
-		Locale l = request.getLocale();
-		Object s = session.getAttribute("sessLocale");
-	%>
-	
-	<fmt:setLocale value="<%=s%>" scope="session" />
+	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
 	<c:if test="${sessionScope.sessLocale == null}">
-		<fmt:setLocale value="<%=l%>" scope="session" />
+		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
 	</c:if>
 	<fmt:setBundle basename="locale.messages" var="lang"
 		scope="session" />
@@ -43,9 +37,9 @@
 					</div>
 				</c:if>
 
-				<c:if test="${sessionScope.login != null}">
+				<c:if test="${sessionScope.userid != null}">
 					<div class="form-group">
-						<a href="signOutAdmin" class="btn btn-success"> <fmt:message
+						<a href="signout" class="btn btn-success"> <fmt:message
 								key="signout" bundle="${lang}" />
 						</a>
 					</div>

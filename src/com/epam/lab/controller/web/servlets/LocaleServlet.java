@@ -19,8 +19,13 @@ public class LocaleServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		session.setAttribute("sessLocale", request.getParameter("language"));
-		RequestDispatcher requestDispatcher = request
-				.getRequestDispatcher(HOMEPAGE_JSP);
-		requestDispatcher.forward(request, response);
+//		RequestDispatcher requestDispatcher = request
+//				.getRequestDispatcher(HOMEPAGE_JSP);
+//		requestDispatcher.forward(request, response);
+//		String jspName = request.getParameter("jspName");
+//		RequestDispatcher rd = request.getRequestDispatcher(jspName);
+//
+//		rd.forward(request, response);
+		response.sendRedirect(request.getHeader("referer"));
 	}
 }

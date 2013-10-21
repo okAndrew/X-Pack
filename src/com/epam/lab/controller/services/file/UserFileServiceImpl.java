@@ -29,7 +29,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final Logger logger = Logger
 			.getLogger(UserFileServiceImpl.class);
 	private static long count;
-	public static final String ROOT_PATH = "D:/files/";
+	public static final String ROOT_PATH = "E:/files/";
 	public static final int MAX_FILES = 999;
 
 	/*

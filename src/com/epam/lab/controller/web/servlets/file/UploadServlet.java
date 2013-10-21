@@ -33,6 +33,7 @@ public class UploadServlet extends HttpServlet {
 				long folderId = (long) session.getAttribute("folderid");
 				ServletFileUpload upload = new ServletFileUpload(
 						new DiskFileItemFactory());
+				upload.setHeaderEncoding("UTF-8");
 				List<FileItem> items = upload.parseRequest(request);
 				UserFileUploader uploader = new UserFileUploader(folderId);
 				uploader.uploadFiles(items);

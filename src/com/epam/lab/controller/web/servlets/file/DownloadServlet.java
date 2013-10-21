@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -29,14 +29,12 @@ public class DownloadServlet extends HttpServlet {
 		if (!file.exists()) {
 			throw new ServletException("File doesn't exists on server.");
 		}
-		ServletContext ctx = getServletContext();
 		InputStream fis = new FileInputStream(file);
-		String mimeType = ctx.getMimeType(file.getAbsolutePath());
-		response.setContentType(mimeType != null ? mimeType
-				: "application/octet-stream");
+		response.setContentType("application/octet-stream; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		response.setContentLength((int) file.length());
-		response.setHeader("Content-Disposition", "attachment; filename=\""
-				+ f.getNameIncome() + "\"");
+		response.setHeader("Content-Disposition", "attachment; filename="
+				+ URLEncoder.encode(f.getNameIncome(), "UTF-8"));
 		ServletOutputStream os = response.getOutputStream();
 		byte[] bufferData = new byte[1024];
 		int read = 0;
@@ -47,5 +45,4 @@ public class DownloadServlet extends HttpServlet {
 		os.close();
 		fis.close();
 	}
-
 }

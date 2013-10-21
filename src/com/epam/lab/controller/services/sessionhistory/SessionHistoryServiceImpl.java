@@ -22,8 +22,7 @@ public class SessionHistoryServiceImpl extends
 		SessionHistory sessionhistory = new SessionHistory().setUserid(userid)
 				.setStartdate(startDate);
 
-		SessionHistoryDAOImpl sessionDAOImpl = new SessionHistoryDAOImpl();
-		sessionDAOImpl.insert(sessionhistory);
+		dao.insert(sessionhistory);
 		return sessionhistory;
 	}
 }

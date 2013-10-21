@@ -1,5 +1,8 @@
 package com.epam.lab.controller.web.listeners;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
@@ -16,6 +19,7 @@ import com.epam.lab.model.SessionHistory;
 @WebListener
 public class UserOnlineListener implements HttpSessionListener,
 		HttpSessionAttributeListener {
+	private Map<String, SessionHistory> sessions = new HashMap<String, SessionHistory>();
 	private static final Logger logger = Logger
 			.getLogger(UserOnlineListener.class);
 	private static int activeSessions = 0;
@@ -30,9 +34,13 @@ public class UserOnlineListener implements HttpSessionListener,
 		if (activeSessions > 0)
 			activeSessions--;
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
-
+		HttpSession session = event.getSession();
+		sessionhistory = historyService
+				.getSessionHistByUserIDAndEndDate((long) session
+						.getAttribute("userid"));
 		sessionhistory.setEnddate(CurrentTimeStamp.getCurrentTimeStamp());
 		historyService.update(sessionhistory);
+		sessions.remove(event.getSession().getId());
 	}
 
 	public static int getActiveSessionNumber() {
@@ -41,7 +49,9 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
+
 		HttpSession session = event.getSession();
+
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		if (event.getName().equals("userid")
 				&& session.getAttribute("userid") != null) {
@@ -49,6 +59,7 @@ public class UserOnlineListener implements HttpSessionListener,
 			sessionhistory = historyService.addSession(
 					(long) session.getAttribute("userid"),
 					CurrentTimeStamp.getCurrentTimeStamp());
+			sessions.put(session.getId(), sessionhistory);
 		}
 	}
 

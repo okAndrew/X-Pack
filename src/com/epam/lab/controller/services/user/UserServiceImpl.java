@@ -153,4 +153,16 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		return user;
 	}
 
+	public boolean checkEmailById(String email, long userId) {
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		boolean result = userDaoImpl.checkEmailById(email, userId);
+		return result;
+	}
+
+	public boolean ckeckLoginById(String login, long userId) {
+		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		boolean result = userDaoImpl.ckeckLoginById(login, userId);
+		return result;
+	}
+
 }

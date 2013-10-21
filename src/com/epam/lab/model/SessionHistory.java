@@ -8,9 +8,6 @@ public class SessionHistory {
 	@TableColumn("id")
 	private long id;
 
-	@TableColumn("sessid")
-	private String sessid;
-
 	@TableColumn("userid")
 	private long userid;
 
@@ -26,15 +23,6 @@ public class SessionHistory {
 
 	public SessionHistory setId(long id) {
 		this.id = id;
-		return this;
-	}
-
-	public String getSessid() {
-		return sessid;
-	}
-
-	public SessionHistory setSessid(String id) {
-		this.sessid = id;
 		return this;
 	}
 
@@ -67,7 +55,7 @@ public class SessionHistory {
 
 	@Override
 	public String toString() {
-		return "SessionHistory [id=" + id + ", sessid=" + sessid + ", userid="
+		return "SessionHistory [id=" + id + ",  userid="
 				+ userid + ", startdate=" + startdate + ", enddate=" + enddate
 				+ "]";
 	}

@@ -24,7 +24,12 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 	}
 
 	public Folder getRoot(long userId) {
-		return new FolderDAOImpl().getRoot(userId);
+		FolderDAOImpl dao = new FolderDAOImpl();
+		Folder root = dao.getRoot(userId);
+		if (root == null) {
+			root = dao.get(createRoot(userId));
+		}
+		return root;
 	}
 
 	public List<Folder> get(long userId, long upperId) {

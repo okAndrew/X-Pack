@@ -17,15 +17,15 @@
 
 			<c:if test="${sessionScope.userid != null}">
 				<ul class="nav navbar-nav">
-					<li class=""><a href="userpage">My Space</a></li>
-					<li class=""><a href="adminUsersPage">Users</a></li>
-					<li class=""><a href="adminFilesPage">Files</a></li>
-					<li class=""><a href="adminTariffsPage">Tariffs</a></li>
-					<li class=""><a href="adminStatisticsPage">Statistics</a></li>
-					<li class=""><a href="adminLoggingPage">Logging</a></li>
+					<li class=""><a href="userpage"><fmt:message key="My_space" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminUsersPage"><fmt:message key="Users" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminFilesPage"><fmt:message key="Files" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminTariffsPage"><fmt:message key="Tariffs" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminStatisticsPage"><fmt:message key="Statistics" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminLoggingPage"><fmt:message key="Log" bundle="${lang}" /></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="adminPage">To main menu</a></li>
+					<li class="active"><a href="adminPage"><fmt:message key="To_main_menu" bundle="${lang}" /></a></li>
 				</ul>
 			</c:if>
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -44,21 +45,33 @@
 		<!-- Panel -->
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">Users</div>
+			<div class="panel-heading">
+				<fmt:message key="Users" bundle="${lang}" />
+			</div>
 
 			<form action="employeeControllerUsers" method="post">
 				<div class="panel-body">
 					<ul class="nav nav-pills">
 						<li><button type="button" class="btn btn-default"
-								data-toggle="modal" data-target="#addUserModal">Add</button></li>
+								data-toggle="modal" data-target="#addUserModal">
+								<fmt:message key="Add" bundle="${lang}" />
+							</button></li>
 						<li><button type="submit" class="btn btn-default"
-								name="action" value="delete">Delete</button></li>
+								name="action" value="delete">
+								<fmt:message key="Delete" bundle="${lang}" />
+							</button></li>
 						<li><button type="submit" class="btn btn-default"
-								name="action" value="activated">Activate</button></li>
+								name="action" value="activated">
+								<fmt:message key="Activate" bundle="${lang}" />
+							</button></li>
 						<li><button type="submit" class="btn btn-default"
-								name="action" value="baned">Baned</button></li>
+								name="action" value="baned">
+								<fmt:message key="Baned" bundle="${lang}" />
+							</button></li>
 						<li><button type="submit" class="btn btn-default"
-								name="action" value="sendEmailUsers">Send Email</button></li>
+								name="action" value="sendEmailUsers">
+								<fmt:message key="Send_email" bundle="${lang}" />
+							</button></li>
 					</ul>
 
 					<!-- Table -->
@@ -66,16 +79,17 @@
 						<table class="table zebra-striped table-hover">
 							<thead>
 								<tr>
-									<th><input type="checkbox" onClick="toggle(this)" /> All</th>
-									<th>Id</th>
-									<th>Login</th>
-									<th>Email</th>
-									<th>Password</th>
-									<th>Capacity</th>
-									<th>Tariffs</th>
-									<th>Type</th>
-									<th>Activated</th>
-									<th>Details</th>
+									<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
+											key="All" bundle="${lang}" /></th>
+									<th><fmt:message key="Id" bundle="${lang}" /></th>
+									<th><fmt:message key="Login" bundle="${lang}" /></th>
+									<th><fmt:message key="Email" bundle="${lang}" /></th>
+									<th><fmt:message key="Password" bundle="${lang}" /></th>
+									<th><fmt:message key="Capacity" bundle="${lang}" /></th>
+									<th><fmt:message key="Tariffs" bundle="${lang}" /></th>
+									<th><fmt:message key="Type" bundle="${lang}" /></th>
+									<th><fmt:message key="Activated" bundle="${lang}" /></th>
+									<th><fmt:message key="Details" bundle="${lang}" /></th>
 								</tr>
 							</thead>
 
@@ -92,8 +106,8 @@
 										<td>${user.idTariff}</td>
 										<td>${user.role}</td>
 										<td>${user.isActivated}</td>
-										<td><a href="adminUser?userid=${user.id}">View
-												more...</a></td>
+										<td><a href="adminUser?userid=${user.id}"><fmt:message
+													key="View_more" bundle="${lang}" />...</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>

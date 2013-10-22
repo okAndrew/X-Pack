@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -80,7 +81,7 @@
 		<!-- Panel -->
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">Files</div>
+			<div class="panel-heading"><fmt:message key="Files" bundle="${lang}" /></div>
 			<div class="panel-body">
 				<div id="example"></div>
 				<div>
@@ -89,8 +90,8 @@
 							<thead>
 								<tr>
 									<td>#</td>
-									<td>Type</td>
-									<td>Size(MB)</td>
+									<td><fmt:message key="Type" bundle="${lang}" /></td>
+									<td><fmt:message key="Size" bundle="${lang}" />(MB)</td>
 								</tr>
 							</thead>
 							<tbody>

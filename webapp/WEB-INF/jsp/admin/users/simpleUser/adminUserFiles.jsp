@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,33 +42,41 @@
 	<div class="files-admin-user">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">Files</div>
+			<div class="panel-heading">
+				<fmt:message key="Files" bundle="${lang}" />
+			</div>
 			<form action="userEmployeeController">
 				<div class="panel-body">
 					<ul class="nav nav-pills">
 						<li><button type="submit" class="btn btn-default"
-								name="action" value="delete">Delete</button></li>
+								name="action" value="delete">
+								<fmt:message key="Delete" bundle="${lang}" />
+							</button></li>
 						<li><div class="input-group" style="width: 300px;">
 								<input name="searchtext" type="text" class="form-control"><span
 									class="input-group-btn"><button type="submit"
-										class="btn btn-default" name="action" value="search">Search</button></span>
+										class="btn btn-default" name="action" value="search">
+										<fmt:message key="Search" bundle="${lang}" />
+									</button></span>
 							</div></li>
 					</ul>
 
 					<table class="table table-condensed">
 						<thead>
 							<tr>
-								<th><input type="checkbox" onClick="toggle(this)" /> All</th>
-								<th>File name</th>
-								<th>Date</th>
-								<th>Size</th>
-								<th>Type</th>
-								<th>Path</th>
+								<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
+										key="All" bundle="${lang}" /></th>
+								<th><fmt:message key="File_name" bundle="${lang}" /></th>
+								<th><fmt:message key="Date" bundle="${lang}" /></th>
+								<th><fmt:message key="Size" bundle="${lang}" /></th>
+								<th><fmt:message key="Type" bundle="${lang}" /></th>
+								<th><fmt:message key="Path" bundle="${lang}" /></th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:if test="${currentFolder.idUpper!=0}">
-								<a href="adminUserFiles">Back to all files</a>
+								<a href="adminUserFiles"><fmt:message
+										key="Back_to_all_files" bundle="${lang}" /></a>
 							</c:if>
 							<c:forEach items="${folders}" var="folder">
 								<tr>
@@ -106,36 +115,5 @@
 			</form>
 		</div>
 	</div>
-
-	<!-- Don't need this -->
-	<div class="bs-example" style="max-width: 600px;"></div>
-	<!-- Don't need this? -->
-	<form action="createfolder" method="post">
-		<div class="modal fade" id="createFolderModal" tabindex="-1"
-			role="dialog" aria-labelledby="createFolderModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Create Folder</h4>
-					</div>
-					<div class="modal-body">
-						<input type="text" name="folderName" placeholder="folder name">
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Create</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-	</form>
-
 </body>
-
 </html>

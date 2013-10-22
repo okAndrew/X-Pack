@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -37,7 +38,9 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Update user</h4>
+					<h4 class="modal-title">
+						<fmt:message key="Update_user" bundle="${lang}" />
+					</h4>
 				</div>
 
 				<div class="modal-body">
@@ -58,19 +61,19 @@
 									<table class="table">
 										<tbody>
 											<tr>
-												<td>User id</td>
+												<td><fmt:message key="User_id" bundle="${lang}" /></td>
 												<td><input type="text" name="userIdHolder"
 													class="form-control first" value="${user.id}"
 													autofocus="autofocus" readonly></td>
 											</tr>
 											<tr>
-												<td>Login</td>
+												<td><fmt:message key="Login" bundle="${lang}" /></td>
 												<td><input type="text" name="userLogin"
 													class="form-control first" value="${user.login}"
 													autofocus="autofocus"></td>
 											</tr>
 											<tr>
-												<td>Email</td>
+												<td><fmt:message key="Email" bundle="${lang}" /></td>
 												<td><input type="text" name="userEmail" id="userEmail"
 													class="form-control first" value="${user.email}"
 													autofocus="autofocus" /></td>
@@ -78,25 +81,25 @@
 												<div id="mydiv"></div>-->
 											</tr>
 											<tr>
-												<td>Tariff</td>
+												<td><fmt:message key="Tariff" bundle="${lang}" /></td>
 												<td><input type="text" name="userIdTariff"
 													class="form-control first" value="${user.idTariff}"
 													autofocus="autofocus" readonly></td>
 											</tr>
 											<tr>
-												<td>Capacity</td>
+												<td><fmt:message key="Capacity" bundle="${lang}" /></td>
 												<td><input type="text" class="form-control first"
 													value="${user.capacity}" autofocus="autofocus" disabled></td>
 											</tr>
 
 											<tr>
-												<td>Activation</td>
+												<td><fmt:message key="Activation" bundle="${lang}" /></td>
 												<td><input type="text" name="userActivation"
 													id="userActivation" class="form-control last"
 													value="${user.isActivated}" autofocus="autofocus"></td>
 											</tr>
 											<tr>
-												<td>Role</td>
+												<td><fmt:message key="Role" bundle="${lang}" /></td>
 												<td><input type="text" name="userRole" id="userRole"
 													class="form-control last" value="${user.role}"
 													autofocus="autofocus"></td>
@@ -105,8 +108,9 @@
 										</tbody>
 									</table>
 
-									<button type="submit" class="btn btn-primary ">Save
-										changes</button>
+									<button type="submit" class="btn btn-primary ">
+										<fmt:message key="Save_changes" bundle="${lang}" />
+									</button>
 								</form>
 
 							</div>
@@ -115,7 +119,10 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<fmt:message key="Close" bundle="${lang}" />
+
+					</button>
 
 				</div>
 			</div>

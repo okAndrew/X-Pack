@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,9 @@
 	<div class="container">
 		<form action="signin" method="post" class="form-signin"
 			name="form-signup" onsubmit="return validateForm()">
-			<h2 class="form-signin-heading">Please sign in</h2>
+			<h2 class="form-signin-heading">
+				<fmt:message key="Please_sign_in" bundle="${lang}" />
+			</h2>
 			<div id="errorinfo" class="alert alert-danger" style="display: none;">
 				<c:if test="${message != null}">
 					${message}
@@ -50,13 +53,13 @@
 			<c:if test="${message != null}">
 				<div class="errorinfo">${message}</div>
 			</c:if>
-			<input id="emailInput" type="text" name="email" class="form-control first"
-				placeholder="Email" autofocus="autofocus">
-				
-			<input id="passInput" type="password" name="password" class="form-control last"
-				placeholder="Password">
+			<input id="emailInput" type="text" name="email"
+				class="form-control first" placeholder="Email" autofocus="autofocus">
+
+			<input id="passInput" type="password" name="password"
+				class="form-control last" placeholder="Password">
 			<button class="btn btn-lg btn-primary btn-block" type="submit">
-				Sign in
+				<fmt:message key="signin" bundle="${lang}" />
 			</button>
 		</form>
 	</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -54,7 +55,7 @@
 	<jsp:include page="menu.jsp"></jsp:include>
 	<div class="container">
 		<form action="signup" method="post" class="form-signin" name="form-signin" onsubmit="return validateForm()">
-			<h2 class="form-signin-heading">New to DreamHost? Sign up</h2>
+			<h2 class="form-signin-heading"><fmt:message key="New_to_DreamHost_Sign_up" bundle="${lang}" /></h2>
 			<div id="errorinfo" class="alert alert-danger" style="display: none;">
 				<c:if test="${message != null}">
 					${message}
@@ -64,7 +65,7 @@
 			<input type="text" name="email" class="form-control middle" placeholder="Email address" />
 			<input type="password" name="password" class="form-control middle" placeholder="Password" />
 			<input type="password" name="passwordVerify" class="form-control last" placeholder="Password" />
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="signup" bundle="${lang}" /></button>
   		</form>
  </div>
 </body>

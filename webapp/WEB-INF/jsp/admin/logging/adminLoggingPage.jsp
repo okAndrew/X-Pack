@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -55,32 +56,32 @@
 		<!-- Panel -->
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">Logging</div>
+			<div class="panel-heading"><fmt:message key="Log" bundle="${lang}" /></div>
 
 			<div class="panel-body">
 				<ul class="nav nav-pills">
 					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="all">All</button></li>
+							class="btn btn-default" value="all"><fmt:message key="All" bundle="${lang}" /></button></li>
 					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="error">Error</button></li>
+							class="btn btn-default" value="error"><fmt:message key="Error" bundle="${lang}" /></button></li>
 					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="warning">Warning</button></li>
+							class="btn btn-default" value="warning"><fmt:message key="Warning" bundle="${lang}" /></button></li>
 					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="info">Info</button></li>
+							class="btn btn-default" value="info"><fmt:message key="Info" bundle="${lang}" /></button></li>
 					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="debug">Debug</button></li>
+							class="btn btn-default" value="debug"><fmt:message key="Debug" bundle="${lang}" /></button></li>
 				</ul>
 
 				<!-- Table -->
 				<table class="table zebra-striped table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox" onClick="toggle(this)" /> All</th>
-							<th>Id</th>
-							<th>Date</th>
-							<th>Logger</th>
-							<th>Level</th>
-							<th>Message</th>
+							<th><input type="checkbox" onClick="toggle(this)" /><fmt:message key="All" bundle="${lang}" /> </th>
+							<th><fmt:message key="Id" bundle="${lang}" /></th>
+							<th><fmt:message key="Date" bundle="${lang}" /></th>
+							<th><fmt:message key="Logger" bundle="${lang}" /></th>
+							<th><fmt:message key="Level" bundle="${lang}" /></th>
+							<th><fmt:message key="Message" bundle="${lang}" /></th>
 						</tr>
 					</thead>
 					<tbody id="modalArea"><jsp:include page="logsList.jsp"></jsp:include></tbody>

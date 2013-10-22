@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -35,12 +36,12 @@
 		<!-- Panel -->
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">Statistics</div>
+			<div class="panel-heading"><fmt:message key="Statistics" bundle="${lang}" /></div>
 			<div class="panel-body"></div>
 			<ul class="nav nav-pills">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Profile</a></li>
-				<li><a href="#">Messages</a></li>
+				<li class="active"><a href="#"><fmt:message key="Home" bundle="${lang}" /></a></li>
+				<li><a href="#"><fmt:message key="Profile" bundle="${lang}" /></a></li>
+				<li><a href="#"><fmt:message key="Messages" bundle="${lang}" /></a></li>
 			</ul>
 		</div>
 	</div>

@@ -45,20 +45,20 @@
 		<!-- Panel -->
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">Tariffs</div>
+			<div class="panel-heading"><fmt:message key="Tariffs" bundle="${lang}" /></div>
 			<form action="employeeControllerTariffs" method="post">
 				<div class="panel-body">
 
 					<ul class="nav nav-pills">
 						<li><button data-toggle="modal" data-target="#addTariffModal"
-								class="btn btn-default">Add</button></li>
+								class="btn btn-default"><fmt:message key="Add" bundle="${lang}" /></button></li>
 						<li><button type="submit" class="btn btn-default"
 								name="action" value="isActivate">
-								<fmt:message key="activate" bundle="${lang}" />
+								<fmt:message key="Activate" bundle="${lang}" />
 							</button></li>
 
 						<li><button type="submit" class="btn btn-default"
-								name="action" value="isDelete">Delete</button></li>
+								name="action" value="isDelete"><fmt:message key="Delete" bundle="${lang}" /></button></li>
 
 
 					</ul>
@@ -67,15 +67,15 @@
 						<table class="table zebra-striped table-hover">
 							<thead>
 								<tr>
-									<th><input type="checkbox" onClick="toggle(this)" /> All</th>
-									<th>Id</th>
-									<th>Name</th>
-									<th>Max Capacity</th>
-									<th>Price</th>
-									<th>Position</th>
-									<th>Description</th>
-									<th>isDelete</th>
-									<th>Edit</th>
+									<th><input type="checkbox" onClick="toggle(this)" /><fmt:message key="All" bundle="${lang}" /> </th>
+									<th><fmt:message key="Id" bundle="${lang}" /> </th>
+									<th><fmt:message key="Name" bundle="${lang}" /></th>
+									<th><fmt:message key="Max_Capacity" bundle="${lang}" /></th>
+									<th><fmt:message key="Price" bundle="${lang}" /></th>
+									<th><fmt:message key="Position" bundle="${lang}" /></th>
+									<th><fmt:message key="Description" bundle="${lang}" /></th>
+									<th><fmt:message key="isDelete" bundle="${lang}" /></th>
+									<th><fmt:message key="Edit" bundle="${lang}" /></th>
 								</tr>
 							</thead>
 

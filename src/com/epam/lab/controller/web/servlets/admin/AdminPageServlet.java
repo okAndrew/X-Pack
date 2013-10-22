@@ -42,8 +42,6 @@ public class AdminPageServlet extends HttpServlet {
 			request.getRequestDispatcher(ADMIN_SIGN_IN).forward(request,
 					response);
 		} else {
-			UserOnlineListener counter = (UserOnlineListener) session
-					.getAttribute("counter");
 			int countUsers = UserOnlineListener.getActiveSessionNumber();
 			request.setAttribute("countUsers", countUsers);
 			request.setAttribute("countAllUsers", countAllUsers);
@@ -52,20 +50,3 @@ public class AdminPageServlet extends HttpServlet {
 		}
 	}
 }
-/*
- * protected void doGet(HttpServletRequest request, HttpServletResponse
- * response) throws ServletException, IOException { doPost(request, response); }
- * 
- * // delete some of methods protected void doPost(HttpServletRequest request,
- * HttpServletResponse response) throws ServletException, IOException {
- * HttpSession session = request.getSession(false); UserService service = new
- * UserService(); List<User> list = new ArrayList<User>(); list =
- * service.getAllUsers(); long countAllUsers = list.size(); if (session == null)
- * { request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request, response); }
- * else { UserOnlineListener counter = (UserOnlineListener) session
- * .getAttribute("counter"); int countUsers = counter.getActiveSessionNumber();
- * request.setAttribute("countUsers", countUsers);
- * request.setAttribute("countAllUsers", countAllUsers);
- * request.getRequestDispatcher(ADMIN_PAGE_JSP).forward(request, response); } }
- */
-

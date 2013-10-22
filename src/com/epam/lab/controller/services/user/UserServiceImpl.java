@@ -171,7 +171,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		boolean result = userDaoImpl.ckeckLoginById(login, userId);
 		return result;
 	}
-	
 
 	public User getUserByFolderId(long idFolder) throws FolderNotFoundException {
 		Folder folder = new FolderDAOImpl().get(idFolder);

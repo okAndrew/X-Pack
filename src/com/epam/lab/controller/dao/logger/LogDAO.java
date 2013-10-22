@@ -16,4 +16,6 @@ public interface LogDAO extends GenericDAO<Log> {
 	List<Log> getInfoLogs();
 	
 	List<Log> getDebagLogs();
+	
+	int clearTable();
 }

@@ -19,10 +19,10 @@
 				<ul class="nav navbar-nav">
 					<li class=""><a href="userpage">My Space</a></li>
 					<li class=""><a href="adminUsersPage">Users</a></li>
-					<li class=""><a href="adminFilesPage">Files</a></li>
+					<li class=""><a href="#">Files</a></li>
 					<li class=""><a href="adminTariffsPage">Tariffs</a></li>
 					<li class=""><a href="adminStatisticsPage">Statistics</a></li>
-					<li class=""><a href="adminLoggingPage">Logging</a></li>
+					<li class=""><a href="adminLogsPage">Logging</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active"><a href="adminPage">To main menu</a></li>

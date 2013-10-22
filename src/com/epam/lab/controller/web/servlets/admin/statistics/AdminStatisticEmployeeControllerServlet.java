@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.logging;
+package com.epam.lab.controller.web.servlets.admin.statistics;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/adminLogsEmployeeController")
-public class AdminLogsEmployeeControllerServlet extends HttpServlet {
+@WebServlet("/adminStatisticEmployeeController")
+public class AdminStatisticEmployeeControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private AdminLogsRequestHelper requestHelper = AdminLogsRequestHelper
+	private AdminStatisticRequestHelper requestHelper = AdminStatisticRequestHelper
 			.getInstance();
 
 	protected void doGet(HttpServletRequest request,
@@ -28,7 +28,7 @@ public class AdminLogsEmployeeControllerServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
-		AdminLogsPageCommand command = requestHelper.parseCommand(request);
+		AdminStatisticPageCommand command = requestHelper.parseCommand(request);
 		// try{
 		page = command.execute(request, response);
 		// } catch() {

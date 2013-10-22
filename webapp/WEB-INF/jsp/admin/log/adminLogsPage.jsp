@@ -25,7 +25,7 @@
 		}
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				document.getElementById("modalArea").innerHTML = xmlhttp.responseText;
+				document.getElementById("dynamicArea").innerHTML = xmlhttp.responseText;
 			}
 		}
 		xmlhttp.open("GET", "adminLogsEmployeeController?action="
@@ -34,6 +34,14 @@
 	}
 </script>
 
+<script>
+	function toggle(source) {
+		checkboxes = document.getElementsByName('checkLog');
+		for ( var i = 0, n = checkboxes.length; i < n; i++) {
+			checkboxes[i].checked = source.checked;
+		}
+	}
+</script>
 
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
@@ -69,6 +77,12 @@
 							class="btn btn-default" value="info">Info</button></li>
 					<li><button type="submit" onclick="loadXMLDoc(this)"
 							class="btn btn-default" value="debug">Debug</button></li>
+					<li><button type="button" class="btn btn-default"
+							data-target="adminLogsEmployeeController" name="action"
+							value="delete">Delete</button></li>
+					<li><button type="button" class="btn btn-default"
+							data-target="adminLogsEmployeeController" name=action
+							value="clear">Clear history</button></li>
 				</ul>
 
 				<!-- Table -->
@@ -83,7 +97,7 @@
 							<th>Message</th>
 						</tr>
 					</thead>
-					<tbody id="modalArea"><jsp:include page="logsList.jsp"></jsp:include></tbody>
+					<tbody id="dynamicArea"><jsp:include page="logsList.jsp"></jsp:include></tbody>
 
 				</table>
 			</div>

@@ -7,7 +7,7 @@ public enum Validator {
 	
 	USER_LOGIN("^[A-Za-z]{2,45}$"),
 	USER_EMAIL("^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$"),
-	USER_PASSWORD("/^.{6,32}$");
+	USER_PASSWORD("^[0-9]{1,32}$");
 	
 	private String regex;
 	

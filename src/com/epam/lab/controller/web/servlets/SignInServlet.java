@@ -12,8 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.controller.services.SignInService;
 import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
 
@@ -45,35 +44,33 @@ public class SignInServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 
-		MD5Encrypter md5 = new MD5Encrypter();
-		UserServiceImpl service = new UserServiceImpl();
-		User user = service.getUser(email, md5.encrypt(password));
+		SignInService signIn = new SignInService();
+		User user = signIn.signIn(email, password);
 
-		if (email != null && password != null) {
-			if (user != null) {
-				if (user.getIsActivated()) {
-					HttpSession session = request.getSession();
-					session.setAttribute("userid", user.getId());
-					session.setAttribute("userRole", user.getRole());
-					session.setAttribute("user", user);
-					if (user.getRole().equals(Role.USER)) {
-						response.sendRedirect(USER_PAGE);
-					} else if (user.getRole().equals(Role.ADMIN)) {
-						response.sendRedirect(ADMIN_HOME);
-					}
-				} else {
-					request.setAttribute("message",
-							"You is not activated. Please check you email");
-					dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
-					dispatcher.forward(request, response);
+		if (user != null) {
+			if (user.getIsActivated()) {
+				HttpSession session = request.getSession(false);
+				session.setAttribute("userid", user.getId());
+				session.setAttribute("userRole", user.getRole());
+				session.setAttribute("userLogin", user.getLogin());
+
+				if (user.getRole().equals(Role.USER)) {
+					response.sendRedirect(USER_PAGE);
+				} else if (user.getRole().equals(Role.ADMIN)) {
+					response.sendRedirect(ADMIN_HOME);
 				}
 			} else {
 				request.setAttribute("message",
-						"Error! Check you email and password");
+						"You is not activated. Please check you email");
 				dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
 				dispatcher.forward(request, response);
 			}
+		} else {
+			request.setAttribute("message", "Check email/password");
+			dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
+			dispatcher.forward(request, response);
 		}
+
 	}
 
 }

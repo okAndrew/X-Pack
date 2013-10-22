@@ -1,34 +1,50 @@
 package com.epam.lab.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.epam.lab.controller.annotations.TableColumn;
+import com.google.gson.annotations.Expose;
 
 @XmlRootElement
 public class Token4Upload {
-
+	/*
+	 * @Expose - for build json from object without 
+	 * 			properties annotated by @Expose
+	 *   
+	 * @XmlElement - for build object from json only with 
+	 * 			properties annotated by @XmlElement
+	 */
+	
+	@Expose
 	@TableColumn("id")
 	private long id;
 
+	@Expose
 	@TableColumn("id_user")
-	private long user;
+	private long idUser;
 
 	@TableColumn("token")
 	@XmlElement(name = "token")
 	private String token;
 
-	@TableColumn("date_destroy")
-	private Timestamp date;
-	
-	@XmlElement(name = "liveTime")
-	private long liveTime;
+	@Expose
+	@TableColumn("destroy_date")
+	private Timestamp destroyDate;
 
 	@TableColumn("max_num_use")
 	@XmlElement(name = "maxNumUse")
 	private int maxNumUse;
+
+	@XmlElement(name = "liveTime")
+	private long liveTime;
+
+	public boolean isActive() {
+		return destroyDate.after(new Timestamp(new Date().getTime()));
+	}
 
 	public long getId() {
 		return id;
@@ -38,20 +54,28 @@ public class Token4Upload {
 		this.id = id;
 	}
 
-	public long getUser() {
-		return user;
+	public long getIdUser() {
+		return idUser;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setIdUser(long idUser) {
+		this.idUser = idUser;
 	}
 
-	public Timestamp getDate() {
-		return date;
+	public Timestamp getDestroyDate() {
+		return destroyDate;
 	}
 
-	public void setDate(Timestamp date) {
-		this.date = date;
+	public void setDestroyDate(Timestamp destroyDate) {
+		this.destroyDate = destroyDate;
+	}
+
+	public long getLiveTime() {
+		return liveTime;
+	}
+
+	public void setLiveTime(long liveTime) {
+		this.liveTime = liveTime;
 	}
 
 	public String getToken() {

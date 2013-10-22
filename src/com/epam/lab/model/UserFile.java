@@ -81,8 +81,13 @@ public class UserFile {
 		return type;
 	}
 
-	public UserFile setType(String type) {
-		this.type = type;
+	public UserFile setTypeByExtention(String extention) {
+		this.type = FileType.findByExtention(extention).getName();
+		return this;
+	}
+
+	public UserFile setType(FileType fileType) {
+		this.type = fileType.getName();
 		return this;
 	}
 

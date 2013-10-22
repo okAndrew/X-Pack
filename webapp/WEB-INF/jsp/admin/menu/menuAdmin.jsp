@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -28,7 +29,7 @@
 					<li class=""><a href="adminStatisticsPage"><fmt:message
 								key="Statistics" bundle="${lang}" /></a></li>
 					<li class=""><a href="adminLogsPage"><fmt:message
-								key="Log" bundle="${lang}" /></a></li>
+								key="Logger" bundle="${lang}" /></a></li>
 
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

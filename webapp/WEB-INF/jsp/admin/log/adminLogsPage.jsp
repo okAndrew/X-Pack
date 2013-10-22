@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -93,7 +93,9 @@
 
 					<li><button type="button" class="btn btn-default"
 							data-target="adminLogsEmployeeController" name="action"
-							value="delete"></button></li>
+							value="delete">
+							<fmt:message key="Delete" bundle="${lang}" />
+						</button></li>
 					<li><button type="button" class="btn btn-default"
 							data-target="adminLogsEmployeeController" name=action
 							value="clear">
@@ -106,8 +108,8 @@
 				<table class="table zebra-striped table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox" onClick="toggle(this)" />
-							<fmt:message key="All" bundle="${lang}" /></th>
+							<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
+									key="All" bundle="${lang}" /></th>
 							<th><fmt:message key="Id" bundle="${lang}" /></th>
 							<th><fmt:message key="Date" bundle="${lang}" /></th>
 							<th><fmt:message key="Logger" bundle="${lang}" /></th>

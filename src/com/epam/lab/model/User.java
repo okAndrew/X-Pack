@@ -20,7 +20,7 @@ public class User {
         private long idTariff;
 
         @TableColumn("capacity")
-        private int capacity;
+        private long capacity;
 
         @TableColumn("is_activated")
         private boolean isActivated;
@@ -89,11 +89,11 @@ public class User {
                 return this;
         }
 
-        public int getCapacity() {
+        public long getCapacity() {
                 return capacity;
         }
 
-        public User setCapacity(int capacity) {
+        public User setCapacity(long capacity) {
                 this.capacity = capacity;
                 return this;
         }

@@ -66,13 +66,11 @@ public class RegistrationService {
 	}
 
 	public void sendActivations(User user) {
-		StringBuilder msg = new StringBuilder();
 		String token = createToken(user);
+		String msg = "http://localhost:8080/dreamhost/activation?token=" + token;
+		String head = "Activation";
 
-		msg.append("http://localhost:8080/dreamhost/activation?email=");
-		msg.append(user.getEmail()).append("&token=").append(token);
-
-		MailSender.send(user.getEmail(), "Activation", msg.toString());
+		MailSender.send(user.getEmail(), head, msg);
 	}
 
 	private String createToken(User user) {
@@ -92,19 +90,25 @@ public class RegistrationService {
 		return sToken;
 	}
 
-	public int activateUser(String email, String token) {
-		int result = 0;
+	public boolean activateUser(String token) {
+		boolean result = false;
 
 		UserServiceImpl userService = new UserServiceImpl();
 		TokenDAOImpl tokenDAOImpl = new TokenDAOImpl();
+		
+		logger.debug(token);
 
-		User user = userService.getUserByEmail(email);
 		Token tokenObj = tokenDAOImpl.get(token);
+		User user = userService.get(tokenObj.getIdUser());
+		
+		logger.debug(user);
+		logger.debug(tokenObj);
 
-		if (tokenObj.getIdUser() == user.getId()
-				&& tokenObj.getIdUser() == user.getId()) {
-			tokenDAOImpl.deactivateToken(token);
+		if (tokenObj.getAvailable()) {
 			userService.activateUser(user);
+			tokenObj.setAvailable(false);
+			tokenDAOImpl.update(tokenObj);
+			result = true;
 		}
 
 		return result;

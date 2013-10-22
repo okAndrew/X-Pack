@@ -24,7 +24,7 @@ public class UserFile {
 	private String type;
 
 	@TableColumn("size")
-	private double size;
+	private long size;
 
 	@TableColumn("date")
 	private Timestamp date;
@@ -81,16 +81,21 @@ public class UserFile {
 		return type;
 	}
 
-	public UserFile setType(String type) {
-		this.type = type;
+	public UserFile setTypeByExtention(String extention) {
+		this.type = FileType.findByExtention(extention).getName();
 		return this;
 	}
 
-	public double getSize() {
+	public UserFile setType(FileType fileType) {
+		this.type = fileType.getName();
+		return this;
+	}
+
+	public long getSize() {
 		return size;
 	}
 
-	public UserFile setSize(double size) {
+	public UserFile setSize(long size) {
 		this.size = size;
 		return this;
 	}

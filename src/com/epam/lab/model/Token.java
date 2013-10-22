@@ -17,6 +17,9 @@ public class Token {
 
 	@TableColumn("token")
 	private String token;
+	
+	@TableColumn("available")
+	private boolean available;
 
 	public long getId() {
 		return id;
@@ -48,6 +51,14 @@ public class Token {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+	
+	public boolean getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 	@Override

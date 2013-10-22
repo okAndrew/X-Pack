@@ -10,8 +10,6 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.web.servlets.SignInServlet;
-
 public class AppServletContextListener implements ServletContextListener {
 	
 	private ScheduledExecutorService scheduler;
@@ -32,8 +30,6 @@ public class AppServletContextListener implements ServletContextListener {
 	
 	public class CleanDBTask extends TimerTask {
 	    public void run() {
-	    	System.out.println("yahoo!");
-	    	logger.debug("yahoo");
 	    }
 	}
 

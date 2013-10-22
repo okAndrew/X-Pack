@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 
 @WebServlet("/delete")

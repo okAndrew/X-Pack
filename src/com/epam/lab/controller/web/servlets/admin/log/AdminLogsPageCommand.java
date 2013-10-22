@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.logging;
+package com.epam.lab.controller.web.servlets.admin.log;
 
 import java.io.IOException;
 
@@ -8,5 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface AdminLogsPageCommand {
 
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public String execute(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException;
 }

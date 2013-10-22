@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.logging;
+package com.epam.lab.controller.web.servlets.admin.log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +20,8 @@ public class AdminLogsRequestHelper {
 		commands.put("warning", new AdminGetWarningLogsCommand());
 		commands.put("info", new AdminGetInfoLogsCommand());
 		commands.put("debug", new AdminGetDebugLogsCommand());
+		commands.put("delete", new AdminDeleteLogsCommand());
+		commands.put("clear", new AdminClearLogsCommand());
 	}
 
 	public AdminLogsPageCommand parseCommand(HttpServletRequest request) {
@@ -30,7 +32,6 @@ public class AdminLogsRequestHelper {
 	     * 
 	     */
 			logger.error("Command in AdminLogsPage is not found");
-			logger.debug("qwertyuiodcvj");
 		}
 		return command;
 	}

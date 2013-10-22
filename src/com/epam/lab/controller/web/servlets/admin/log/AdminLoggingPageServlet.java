@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.logging;
+package com.epam.lab.controller.web.servlets.admin.log;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/adminLoggingPage")
+@WebServlet("/adminLogsPage")
 public class AdminLoggingPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String ADMIN_LOGGING_PAGE_JSP = "WEB-INF/jsp/admin/logging/adminLoggingPage.jsp";
+	private static String ADMIN_LOGGING_PAGE_JSP = "WEB-INF/jsp/admin/log/adminLogsPage.jsp";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

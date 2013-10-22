@@ -63,9 +63,15 @@ public class LogDAOImpl implements LogDAO {
 
 	@Override
 	public List<Log> getDebagLogs() {
-		String sql = "SELECT * FROM logs WHERE lvl='DEBAG'";
+		String sql = "SELECT * FROM logs WHERE lvl='DEBUG'";
 		List<Log> resultList = queryExecutor.executeQuery(Log.class, sql);
 		return resultList;
+	}
+
+	@Override
+	public int clearTable() {
+		String sql = "TRUNCATE TABLE logs";
+		return queryExecutor.executeUpdate(sql);
 	}
 
 }

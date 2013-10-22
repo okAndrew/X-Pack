@@ -1,4 +1,4 @@
-package com.epam.lab.controller.services.logger;
+package com.epam.lab.controller.services.log;
 
 import java.util.List;
 
@@ -41,5 +41,23 @@ public class LogServiceImpl extends AbstractServiceImpl<Log> implements
 	@Override
 	public List<Log> getDebugLogs() {
 		return logDAO.getDebagLogs();
+	}
+
+	@Override
+	public String deleteLogs(String[] checkLogs) {
+		String errorMessage = null;
+		if (checkLogs == null){
+			errorMessage = "Please check the logs you want to delete!!!";
+		} else {
+			for (int i=0; i < checkLogs.length; i++){
+				logDAO.delete(Long.parseLong(checkLogs[i]));
+			}
+		}
+		return errorMessage;
+	}
+
+	@Override
+	public void clearTable() {
+		logDAO.clearTable();		
 	}
 }

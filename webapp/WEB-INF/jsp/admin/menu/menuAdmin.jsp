@@ -7,8 +7,7 @@
 	<c:if test="${sessionScope.sessLocale == null}">
 		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
 	</c:if>
-	<fmt:setBundle basename="locale.messages" var="lang"
-		scope="session" />
+	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="homepage">DreamHost</a>
@@ -17,15 +16,24 @@
 
 			<c:if test="${sessionScope.userid != null}">
 				<ul class="nav navbar-nav">
-					<li class=""><a href="userpage"><fmt:message key="My_space" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminUsersPage"><fmt:message key="Users" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminFilesPage"><fmt:message key="Files" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminTariffsPage"><fmt:message key="Tariffs" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminStatisticsPage"><fmt:message key="Statistics" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminLoggingPage"><fmt:message key="Log" bundle="${lang}" /></a></li>
+
+					<li class=""><a href="userpage"><fmt:message
+								key="My_space" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminUsersPage"><fmt:message
+								key="Users" bundle="${lang}" /></a></li>
+					<li class=""><a href="#"><fmt:message key="Files"
+								bundle="${lang}" /></a></li>
+					<li class=""><a href="adminTariffsPage"><fmt:message
+								key="Tariffs" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminStatisticsPage"><fmt:message
+								key="Statistics" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminLogsPage"><fmt:message
+								key="Log" bundle="${lang}" /></a></li>
+
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="adminPage"><fmt:message key="To_main_menu" bundle="${lang}" /></a></li>
+					<li class="active"><a href="adminPage"><fmt:message
+								key="To_main_menu" bundle="${lang}" /></a></li>
 				</ul>
 			</c:if>
 

@@ -16,13 +16,13 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.file.UserFileUploader;
 
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger
-			.getLogger(UploadServlet.class);
+	private static final Logger logger = Logger.getLogger(UploadServlet.class);
 	private static final String USER_PAGE = "userpage";
 
 	protected void doPost(HttpServletRequest request,
@@ -35,9 +35,12 @@ public class UploadServlet extends HttpServlet {
 						new DiskFileItemFactory());
 				upload.setHeaderEncoding("UTF-8");
 				List<FileItem> items = upload.parseRequest(request);
-				UserFileUploader uploader = new UserFileUploader(folderId);
-				uploader.uploadFiles(items);
+				UserFileUploader uploader = new UserFileUploader();
+				uploader.uploadFiles(items, folderId);
 			} catch (FileUploadException e) {
+				logger.error(e);
+				e.printStackTrace();
+			} catch (FolderNotFoundException e) {
 				logger.error(e);
 				e.printStackTrace();
 			}

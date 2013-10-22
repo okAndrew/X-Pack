@@ -14,7 +14,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<c:if test="${sessionScope.user != null}">
+				<c:if test="${sessionScope.userLogin != null}">
 					<li><a href="userpage"><fmt:message key="My_space"
 								bundle="${lang}" /></a></li>
 				</c:if>
@@ -23,7 +23,7 @@
 			</ul>
 
 			<div class="navbar-form navbar-right">
-				<c:if test="${sessionScope.user == null}">
+				<c:if test="${sessionScope.userLogin == null}">
 					<div class="form-group">
 						<a href="signup" class="btn btn-primary"><fmt:message
 								key="signup" bundle="${lang}" /></a>
@@ -35,9 +35,9 @@
 					</div>
 				</c:if>
 
-				<c:if test="${sessionScope.user != null}">
+				<c:if test="${sessionScope.userLogin != null}">
 					<div class="btn-group">
-						<button type="button" class="btn btn-default">${sessionScope.user.login}</button>
+						<button type="button" class="btn btn-default">${sessionScope.userLogin}</button>
 						<button type="button" class="btn btn-default dropdown-toggle"
 							data-toggle="dropdown">
 							<span class="caret"></span>

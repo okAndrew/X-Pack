@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum FileType {
-	IMAGE("IMAGE", "jpg", "png", "gif"), AUDIO("AUDIO", "avi", "mp4"), VIDEO(
-			"VIDEO", "mp3"), TEXT("TEXT", "txt"), ARCHIVE("ARCHIVE", "zip",
-			"rar"), OTHERTYPE("OTHERTYPE");
+	IMAGE("IMAGE", "jpg", "png", "gif"), AUDIO("AUDIO", "mp3"), VIDEO("VIDEO",
+			"avi", "mp4"), TEXT("TEXT", "txt"), ARCHIVE("ARCHIVE", "zip", "rar"), OTHERTYPE(
+			"OTHERTYPE");
 
 	private static final List<FileType> types;
 	static {
@@ -31,7 +31,7 @@ public enum FileType {
 		FileType result = OTHERTYPE;
 		for (FileType type : types) {
 			for (String e : type.getExtensions()) {
-				if (e.equals(extention)) {
+				if (e.equalsIgnoreCase(extention)) {
 					result = type;
 					break;
 				}
@@ -45,7 +45,7 @@ public enum FileType {
 	public static FileType findByName(String name) {
 		FileType result = OTHERTYPE;
 		for (FileType type : types) {
-			if (type.getName().equals(name)) {
+			if (type.getName().equalsIgnoreCase(name)) {
 				result = type;
 				break;
 			}
@@ -54,10 +54,10 @@ public enum FileType {
 		}
 		return result;
 	}
-	
+
 	public static String getExtention(String fName) {
 		int lastIndexOfDot = fName.lastIndexOf(".");
-		return fName.substring(lastIndexOfDot);
+		return fName.substring(lastIndexOfDot + 1);
 	}
 
 	public String[] getExtensions() {

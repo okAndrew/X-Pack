@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,30 +43,37 @@ body {
 	<div class="container">
 		<div class="panel panel-default">
 			<form action="usercontroller" method="post">
-				<div class="panel-heading">File Storage</div>
+				<div class="panel-heading"><fmt:message key="File_storage"
+								bundle="${lang}" /></div>
 				<div class="btn-toolbar" style="padding: 20px">
 					<div class="btn-group">
 						<a data-toggle="modal" role="button" class="btn btn-primary"
-							href="#createFolderModal">Create Folder</a>
+							href="#createFolderModal"><fmt:message key="Create_folder"
+								bundle="${lang}" /></a>
 					</div>
 					<div class="btn-group">
 						<a data-toggle="modal" role="button" class="btn btn-primary"
-							href="#uploadFormModal">Upload</a>
+							href="#uploadFormModal"><fmt:message key="Upload"
+								bundle="${lang}" /></a>
 					</div>
 					<div class="btn-group">
-						<button type="submit" name="download" class="btn btn-primary">Download</button>
+						<button type="submit" name="download" class="btn btn-primary"><fmt:message key="Download"
+								bundle="${lang}" /></button>
 					</div>
 					<div class="btn-group">
-						<button type="submit" name="delete" class="btn btn-primary">Delete</button>
+						<button type="submit" name="delete" class="btn btn-primary"><fmt:message key="Delete"
+								bundle="${lang}" /></button>
 					</div>
 					<div class="btn-group">
-						<button type="submit" name="move" class="btn btn-primary">Move</button>
+						<button type="submit" name="move" class="btn btn-primary"><fmt:message key="Move"
+								bundle="${lang}" /></button>
 					</div>
 					<div class="btn-group pull-right">
 						<div class="input-group" style="width: 300px;">
 							<input name="searchtext" type="text" class="form-control"
 								placeholder="search"> <span class="input-group-btn">
-								<button class="btn btn-primary" name="search" type="submit">Search</button>
+								<button class="btn btn-primary" name="search" type="submit"><fmt:message key="Search"
+								bundle="${lang}" /></button>
 							</span>
 						</div>
 					</div>
@@ -78,11 +86,16 @@ body {
 						<thead>
 							<tr>
 								<th width="5%"><input type="checkbox"
-									onClick="toggle(this)" /> All</th>
-								<th width="35%">Name</th>
-								<th width="15%">Date</th>
-								<th width="10%">Size</th>
-								<th width="35%">Type</th>
+									onClick="toggle(this)" /> <fmt:message key="All"
+								bundle="${lang}" /></th>
+								<th width="35%"><fmt:message key="Name"
+								bundle="${lang}" /></th>
+								<th width="15%"><fmt:message key="Date"
+								bundle="${lang}" /></th>
+								<th width="10%"><fmt:message key="Size"
+								bundle="${lang}" /></th>
+								<th width="35%"><fmt:message key="Type"
+								bundle="${lang}" /></th>
 								<th></th><th></th><th></th><th></th>
 							</tr>
 						</thead>
@@ -109,20 +122,23 @@ body {
 									<td><c:out value="Folder" /></td>
 									<td><a data-toggle="modal" role="button"
 										class="btn btn-primary" href="#EditFolderModal"
-										onclick="set('folderidedit', ${folder.id})">Edit</a>
+										onclick="set('folderidedit', ${folder.id})"><fmt:message key="Edit"
+								bundle="${lang}" /></a>
 									<td>
 									<td>
 										<div class="btn-group">
 											<a data-toggle="modal" role="button" class="btn btn-primary"
 												href="#DeleteFolderModal"
-												onclick="set('folderiddelete', ${folder.id})">Delete</a>
+												onclick="set('folderiddelete', ${folder.id})"><fmt:message key="Delete"
+								bundle="${lang}" /></a>
 										</div>
 									</td>
 									<td>
 										<div class="btn-group">
 											<a data-toggle="modal" role="button" class="btn btn-primary"
 												href="#MoveFolderModal"
-												onclick="set('folderidmove', ${folder.id})">Move</a>
+												onclick="set('folderidmove', ${folder.id})"><fmt:message key="Move"
+								bundle="${lang}" /></a>
 										</div>
 									</td>
 								</tr>
@@ -140,21 +156,24 @@ body {
 									<td><div class="btn-group">
 											<a data-toggle="modal" role="button" class="btn btn-primary"
 												href="#EditFileModal"
-												onclick="set('fileidedit', ${file.id})">Edit</a>
+												onclick="set('fileidedit', ${file.id})"><fmt:message key="Edit"
+								bundle="${lang}" /></a>
 										</div>
 									<td>
 									<td>
 										<div class="btn-group">
 											<a data-toggle="modal" role="button" class="btn btn-primary"
 												href="#DeleteFileModal"
-												onclick="set('fileiddelete', ${file.id})">Delete</a>
+												onclick="set('fileiddelete', ${file.id})"><fmt:message key="Delete"
+								bundle="${lang}" /></a>
 										</div>
 									</td>
 									<td>
 										<div class="btn-group">
 											<a data-toggle="modal" role="button" class="btn btn-primary"
 												href="#MoveFileModal"
-												onclick="set('fileidmove', ${file.id})">Move</a>
+												onclick="set('fileidmove', ${file.id})"><fmt:message key="Move"
+								bundle="${lang}" /></a>
 										</div>
 									</td>
 								</tr>
@@ -175,11 +194,13 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h3 id="MoveFolderModalLabel">Moving Confirmation</h3>
+						<h3 id="MoveFolderModalLabel"><fmt:message key="Moving_confirmation"
+								bundle="${lang}" /></h3>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" id="folderidmove" name="folderidmove">
-						<p>Please select folder to move</p>
+						<p><fmt:message key="Please_select_folder_to_move"
+								bundle="${lang}" /></p>
 						<c:forEach items="${folders}" var="folder">
 						<c:if test="${folder.id!=getCurFolderId.call()}">
 								<input type="radio" name="folderidtarget" value="${folder.id}"> ${folder.name}<br>
@@ -187,8 +208,10 @@ body {
 						</c:forEach>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-success">Move</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="Cancel"
+								bundle="${lang}" /></button>
+						<button type="submit" class="btn btn-success"><fmt:message key="Move"
+								bundle="${lang}" /></button>
 					</div>
 				</div>
 			</div>
@@ -203,11 +226,13 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h3 id="MoveFileModalLabel">Moving Confirmation</h3>
+						<h3 id="MoveFileModalLabel"><fmt:message key="Moving_Confirmation"
+								bundle="${lang}" /></h3>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" id="fileidmove" name="fileidmove">
-						<p>Please select folder to move</p>
+						<p><fmt:message key="Please_select_folder_to_move"
+								bundle="${lang}" /></p>
 						<c:forEach items="${folders}" var="folder">
 						<c:if test="${folder.id!=getCurFolderId.call()}">
 								<input type="radio" name="folderidtarget" value="${folder.id}"> ${folder.name}<br>
@@ -215,8 +240,10 @@ body {
 						</c:forEach>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-success">Move</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="Cancel"
+								bundle="${lang}" /></button>
+						<button type="submit" class="btn btn-success"><fmt:message key="Move"
+								bundle="${lang}" /></button>
 					</div>
 				</div>
 			</div>
@@ -232,16 +259,19 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h3 id="DeleteFolderModalLabel">Delete Confirmation</h3>
+						<h3 id="DeleteFolderModalLabel"><fmt:message key="Delete_Confirmation"
+								bundle="${lang}" /></h3>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" id="folderiddelete" name="folderid">
-						<p class="error-text">Are you sure you want to delete this
-							folder?</p>
+						<p class="error-text"><fmt:message key="Are_you_sure_you_want_to_delete_this_folder"
+								bundle="${lang}" /></p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="submit" name="deletesingle" class="btn btn-danger">Delete</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="Cancel"
+								bundle="${lang}" /></button>
+						<button type="submit" name="deletesingle" class="btn btn-danger"><fmt:message key="Delete"
+								bundle="${lang}" /></button>
 					</div>
 				</div>
 			</div>
@@ -257,16 +287,19 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h3 id="DeleteFileModalLabel">Delete Confirmation</h3>
+						<h3 id="DeleteFileModalLabel"><fmt:message key="Delete_Confirmation"
+								bundle="${lang}" /></h3>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" id="fileiddelete" name="fileid">
-						<p class="error-text">Are you sure you want to delete this
-							file?</p>
+						<p class="error-text"><fmt:message key="Are_you_sure_you_want_to_delete_this_file"
+								bundle="${lang}" /></p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="submit" name="deletesingle" class="btn btn-danger">Delete</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="Cancel"
+								bundle="${lang}" /></button>
+						<button type="submit" name="deletesingle" class="btn btn-danger"><fmt:message key="Delete"
+								bundle="${lang}" /></button>
 					</div>
 				</div>
 			</div>
@@ -282,15 +315,18 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Edit</h4>
+						<h4 class="modal-title"><fmt:message key="Edit"
+								bundle="${lang}" /></h4>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" id="folderidedit" name="folderid"> <input
 							type="text" name="foldername" placeholder="folder name">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Edit</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="Close"
+								bundle="${lang}" /></button>
+						<button type="submit" class="btn btn-primary"><fmt:message key="Edit"
+								bundle="${lang}" /></button>
 					</div>
 				</div>
 			</div>
@@ -305,15 +341,18 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Edit</h4>
+						<h4 class="modal-title"><fmt:message key="Edit"
+								bundle="${lang}" /></h4>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" id="fileidedit" name="fileid"> <input
 							type="text" name="filename" placeholder="filename">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Edit</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="Close"
+								bundle="${lang}" /></button>
+						<button type="submit" class="btn btn-primary"><fmt:message key="Edit"
+								bundle="${lang}" /></button>
 					</div>
 				</div>
 			</div>
@@ -330,14 +369,17 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Create Folder</h4>
+						<h4 class="modal-title"><fmt:message key="Create_folder"
+								bundle="${lang}" /></h4>
 					</div>
 					<div class="modal-body">
 						<input type="text" name="foldername" placeholder="folder name">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Create</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="Close"
+								bundle="${lang}" /></button>
+						<button type="submit" class="btn btn-primary"><fmt:message key="Create"
+								bundle="${lang}" /></button>
 					</div>
 				</div>
 			</div>
@@ -353,14 +395,17 @@ body {
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Upload Files</h4>
+						<h4 class="modal-title"><fmt:message key="Upload_files"
+								bundle="${lang}" /></h4>
 					</div>
 					<div class="modal-body">
 						<input type="file" multiple name="fileName">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Upload</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="Close"
+								bundle="${lang}" /></button>
+						<button type="submit" class="btn btn-primary"><fmt:message key="Upload"
+								bundle="${lang}" /></button>
 					</div>
 				</div>
 			</div>

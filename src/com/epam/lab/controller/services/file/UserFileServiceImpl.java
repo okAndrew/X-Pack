@@ -21,7 +21,7 @@ import com.epam.lab.model.UserFile;
 
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
-	
+
 	public UserFileServiceImpl() {
 		super(new FileDAOImpl());
 	}
@@ -29,7 +29,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final Logger logger = Logger
 			.getLogger(UserFileServiceImpl.class);
 	private static long count;
-	public static final String ROOT_PATH = "D:/files/";
+	public static final String ROOT_PATH = "E:/files/";
 	public static final int MAX_FILES = 999;
 
 	/*
@@ -130,12 +130,12 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return false;
 	}
 
-	// IT'S AWFUL!! 
-//	public long update(UserFile file) {
-//		FileDAOImpl dao = new FileDAOImpl();
-//		dao.update(file);
-//		return dao.get(file.getId()).getId();
-//	}
+	// IT'S AWFUL!!
+	// public long update(UserFile file) {
+	// FileDAOImpl dao = new FileDAOImpl();
+	// dao.update(file);
+	// return dao.get(file.getId()).getId();
+	// }
 
 	public void movefile(long fileidmove, long folderidtarget) {
 		FileDAOImpl dao = new FileDAOImpl();
@@ -205,15 +205,19 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		try {
 			ZipOutputStream out = new ZipOutputStream(new FileOutputStream(
 					zipPath.toString()));
-			for (int i = 0; i < foldersIds.length; i++) {
-				FolderDAOImpl dao = new FolderDAOImpl();
-				Folder fold = dao.get(Long.parseLong(foldersIds[i]));
-				addToArchive(fold, out);
+			if (foldersIds != null) {
+				for (int i = 0; i < foldersIds.length; i++) {
+					FolderDAOImpl dao = new FolderDAOImpl();
+					Folder fold = dao.get(Long.parseLong(foldersIds[i]));
+					addToArchive(fold, out);
+				}
 			}
-			for (int i = 0; i < filesIds.length; i++) {
-				FileDAOImpl dao = new FileDAOImpl();
-				UserFile file = dao.get(Long.parseLong(filesIds[i]));
-				addToArchive(file, out);
+			if (filesIds != null) {
+				for (int i = 0; i < filesIds.length; i++) {
+					FileDAOImpl dao = new FileDAOImpl();
+					UserFile file = dao.get(Long.parseLong(filesIds[i]));
+					addToArchive(file, out);
+				}
 			}
 			out.close();
 		} catch (IOException e) {

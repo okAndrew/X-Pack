@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,12 +16,10 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-
 import com.epam.lab.controller.services.file.UserFileUploader;
 import com.epam.lab.model.UserFile;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
-import com.sun.jersey.multipart.FormDataParam;
 
 @Path("file")
 public class HostFileWebService {
@@ -28,10 +27,10 @@ public class HostFileWebService {
 	private static Logger logger = Logger.getLogger(HostFileWebService.class);
 
 	@POST
-	@Path("upload")
+	@Path("upload/{token}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response uploadFile(@FormDataParam("token") String token,
+	public Response uploadFile(@PathParam("token") String token,
 			FormDataMultiPart multiPart) {
 		JSONArray resultArray = new JSONArray();
 		List<FormDataBodyPart> fields = multiPart.getFields("file");

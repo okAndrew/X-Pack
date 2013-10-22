@@ -1,20 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.Locale "%>
 
 <div class="navbar navbar-fixed-top navbar-inverse">
-	<%
-		Locale l = request.getLocale();
-		Object s = session.getAttribute("sessLocale");
-	%>
-	
-	<fmt:setLocale value="<%=s%>" scope="session" />
+	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
 	<c:if test="${sessionScope.sessLocale == null}">
-		<fmt:setLocale value="<%=l%>" scope="session" />
+		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
 	</c:if>
-	<fmt:setBundle basename="locale.messages" var="lang"
-		scope="session" />
+	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="homepage">DreamHost</a>
@@ -23,15 +17,24 @@
 
 			<c:if test="${sessionScope.userid != null}">
 				<ul class="nav navbar-nav">
-					<li class=""><a href="userpage">My Space</a></li>
-					<li class=""><a href="adminUsersPage">Users</a></li>
-					<li class=""><a href="adminFilesPage">Files</a></li>
-					<li class=""><a href="adminTariffsPage">Tariffs</a></li>
-					<li class=""><a href="adminStatisticsPage">Statistics</a></li>
-					<li class=""><a href="adminLoggingPage">Logging</a></li>
+
+					<li class=""><a href="userpage"><fmt:message
+								key="My_space" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminUsersPage"><fmt:message
+								key="Users" bundle="${lang}" /></a></li>
+					<li class=""><a href="#"><fmt:message key="Files"
+								bundle="${lang}" /></a></li>
+					<li class=""><a href="adminTariffsPage"><fmt:message
+								key="Tariffs" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminStatisticsPage"><fmt:message
+								key="Statistics" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminLogsPage"><fmt:message
+								key="Logger" bundle="${lang}" /></a></li>
+
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="adminPage">To main menu</a></li>
+					<li class="active"><a href="adminPage"><fmt:message
+								key="To_main_menu" bundle="${lang}" /></a></li>
 				</ul>
 			</c:if>
 
@@ -43,9 +46,9 @@
 					</div>
 				</c:if>
 
-				<c:if test="${sessionScope.login != null}">
+				<c:if test="${sessionScope.userid != null}">
 					<div class="form-group">
-						<a href="signOutAdmin" class="btn btn-success"> <fmt:message
+						<a href="signout" class="btn btn-success"> <fmt:message
 								key="signout" bundle="${lang}" />
 						</a>
 					</div>

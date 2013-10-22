@@ -2,7 +2,7 @@ package com.epam.lab.controller.services;
 
 import java.util.List;
 
-import com.epam.lab.controller.dao.impl.PaymentDAOImpl;
+import com.epam.lab.controller.dao.payment.PaymentDAOImpl;
 import com.epam.lab.model.Payment;
 
 public class UserControlService {

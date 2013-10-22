@@ -4,5 +4,5 @@ import com.epam.lab.controller.services.AbstractService;
 import com.epam.lab.model.Folder;
 
 public interface FolderService extends AbstractService<Folder> {
-	void updateSize(long idFolder, double size);
+	void updateSize(long idFolder, long size);
 }

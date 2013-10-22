@@ -24,7 +24,7 @@ public class UserFile {
 	private String type;
 
 	@TableColumn("size")
-	private double size;
+	private long size;
 
 	@TableColumn("date")
 	private Timestamp date;
@@ -91,11 +91,11 @@ public class UserFile {
 		return this;
 	}
 
-	public double getSize() {
+	public long getSize() {
 		return size;
 	}
 
-	public UserFile setSize(double size) {
+	public UserFile setSize(long size) {
 		this.size = size;
 		return this;
 	}

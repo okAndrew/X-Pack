@@ -40,9 +40,10 @@ public class TokenDAOImpl implements TokenDAO {
 
 	@Override
 	public int update(Token object) {
-		String sql = "UPDATE tokens SET id_user=? date=?, token=? WHERE id=?";
+		String sql = "UPDATE tokens SET id_user=? date=?, token=?, available=? WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, object.getIdUser(),
-				object.getDate(), object.getToken(), object.getId());
+				object.getDate(), object.getToken(), object.getAvailable(),
+				object.getId());
 		return result;
 	}
 
@@ -50,34 +51,6 @@ public class TokenDAOImpl implements TokenDAO {
 	public int delete(long id) {
 		String sql = "DELETE FROM tokens WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, id);
-		return result;
-	}
-
-	@Override
-	public int deactivateToken(String token) {
-		String sql = "UPDATE tokens SET WHERE token=?";
-		int result = queryExecutor.executeUpdate(sql, 0, token);
-		return result;
-	}
-
-	@Override
-	public int activateToken(String token) {
-		String sql = "UPDATE tokens SET WHERE token=?";
-		int result = queryExecutor.executeUpdate(sql, 1, token);
-		return result;
-	}
-
-	@Override
-	public int activateToken(Token token) {
-		String sql = "UPDATE tokens SET WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, 1, token.getId());
-		return result;
-	}
-
-	@Override
-	public int deactivateToken(Token token) {
-		String sql = "UPDATE tokens SET WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, 0, token.getId());
 		return result;
 	}
 

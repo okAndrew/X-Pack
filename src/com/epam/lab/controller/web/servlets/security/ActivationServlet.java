@@ -9,22 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.epam.lab.controller.services.RegistrationService;
 
 @WebServlet("/activation")
 public class ActivationServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String SIGNIN_JSP = "signin";
+	private static final String SIGNIN_JSP = "homepage";
+	static Logger logger = Logger.getLogger(ActivationServlet.class);
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SIGNIN_JSP);
-		String email = request.getParameter("email");
 		String token = request.getParameter("token");
+		boolean activation = false;
 		
-		int res = new RegistrationService().activateUser(email, token);
+		logger.debug("try to activate");
+		
+		activation = new RegistrationService().activateUser(token);
+		
+		logger.debug(activation);
+		
+		if (!activation) {
+			request.setAttribute("message", "Failed to activate");
+		}
 		
 		requestDispatcher.forward(request, response);
 	}
-
 }

@@ -40,8 +40,8 @@ public class UserFileUploader {
 		String uploadedFileLocation = getUploadFileLocation(userFile);
 		// verify capacity
 		User user = new UserServiceImpl().getUserByFolderId(idFolder);
-		Tariff tariff = new TariffServiseImpl().get(user.getIdTariff());
-		if (user.getCapacity() + fileItem.getSize() > tariff.getMaxCapacity()) {
+		long maxCapacity = getMaxCapacity(user);
+		if (user.getCapacity() + fileItem.getSize() > maxCapacity) {
 			throw new FileTooLargeException();
 		}
 		try {
@@ -52,8 +52,13 @@ public class UserFileUploader {
 		}
 		userFile.setSize(fileItem.getSize());
 
-		executeActionUploadInDB(userFile);
+		userFile = writeUploadActionIntoDB(userFile);
 		return userFile;
+	}
+
+	private long getMaxCapacity(User user) {
+		Tariff tariff = new TariffServiseImpl().get(user.getIdTariff());
+		return tariff.getMaxCapacity();
 	}
 
 	public UserFile uploadFile(InputStream inputStream, String fileIncomeName,
@@ -65,13 +70,12 @@ public class UserFileUploader {
 
 		// verify capacity (when file will be download)
 		User user = new UserServiceImpl().getUserByFolderId(idFolder);
-		Tariff tariff = new TariffServiseImpl().get(user.getIdTariff());
-		long maxFileSize = tariff.getMaxCapacity() - user.getCapacity();
+		long maxFileSize = getMaxCapacity(user) - user.getCapacity();
 		File uploadedFile = writeFile(inputStream, uploadedFileLocation,
 				maxFileSize);
 
 		userFile.setSize(uploadedFile.length());
-		executeActionUploadInDB(userFile);
+		userFile = writeUploadActionIntoDB(userFile);
 		return userFile;
 	}
 
@@ -125,10 +129,11 @@ public class UserFileUploader {
 		service.updateSize(file.getIdFolder(), file.getSize());
 	}
 
-	private void executeActionUploadInDB(UserFile userFile) {
+	private UserFile writeUploadActionIntoDB(UserFile userFile) {
 		FileDAO dao = new FileDAOImpl();
 		updateFolders(userFile);
 		dao.insert(userFile);
+		return dao.getByName(userFile.getName());
 	}
 
 	private UserFile createUserFile(String fileNameIncome, long idFolder)

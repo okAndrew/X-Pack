@@ -1,7 +1,8 @@
 <%@page import="com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +33,9 @@
 		<!-- Panel -->
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">User info</div>
+			<div class="panel-heading">
+				<fmt:message key="User_info" bundle="${lang}" />
+			</div>
 			<form action="deleteUsers" method="post" id="#deleteusers">
 				<div class="panel-body">
 					<!-- Table -->
@@ -40,39 +43,40 @@
 					<table class="table zebra-striped table-hover">
 						<tbody>
 							<tr>
-								<td>User id</td>
+								<td><fmt:message key="User_id" bundle="${lang}" /></td>
 								<!-- add placeholder!!!!!! -->
 								<td>${user.id}</td>
 							</tr>
 							<tr>
-								<td>User login</td>
+								<td><fmt:message key="User_login" bundle="${lang}" /></td>
 								<td>${user.login}</td>
 							</tr>
 							<tr>
-								<td>Email</td>
+								<td><fmt:message key="Email" bundle="${lang}" /></td>
 								<td>${user.email}</td>
 							</tr>
 							<tr>
-								<td>Tariff</td>
+								<td><fmt:message key="Tariff" bundle="${lang}" /></td>
 								<td>${user.idTariff}</td>
 							</tr>
 							<tr>
-								<td>Capacity</td>
+								<td><fmt:message key="Capacity" bundle="${lang}" /></td>
 								<td>${user.capacity}</td>
 							</tr>
 							<tr>
-								<td>Activation</td>
+								<td><fmt:message key="Activation" bundle="${lang}" /></td>
 								<td>${user.isActivated}</td>
 							</tr>
 							<tr>
-								<td>Role</td>
+								<td><fmt:message key="Role" bundle="${lang}" /></td>
 								<td>${user.role}</td>
 							</tr>
 						</tbody>
 					</table>
 
 					<ul class="nav nav-pills">
-						<li><a data-toggle="modal" href="#myModal">Edit</a></li>
+						<li><a data-toggle="modal" href="#myModal"><fmt:message
+									key="Edit" bundle="${lang}" /></a></li>
 					</ul>
 				</div>
 			</form>

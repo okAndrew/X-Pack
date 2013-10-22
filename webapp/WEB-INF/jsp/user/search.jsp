@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,7 @@ body {
 				<form action="search" method="post">
 					<input name="searchtext" type="text" class="form-control">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="submit">Search</button>
+						<button class="btn btn-default" type="submit"><fmt:message key="Search" bundle="${lang}" /></button>
 					</span>
 				</form>
 
@@ -36,7 +37,7 @@ body {
 
 		<div class="bs-example">
 			<form action="downloadfiles" method="get">
-				<button type="submit" class="btn btn-default">Download</button>
+				<button type="submit" class="btn btn-default"><fmt:message key="Download" bundle="${lang}" /></button>
 				<table class="table table-condensed table-hover table-bordered">
 					<tbody>
 
@@ -64,8 +65,7 @@ body {
 				</table>
 			</form>
 			<form action="userpage" method="get">
-				<button type="submit" class="btn btn-default">Return to
-					userpage</button>
+				<button type="submit" class="btn btn-default"><fmt:message key="Return_to_userpage" bundle="${lang}" /></button>
 			</form>
 		</div>
 	</div>

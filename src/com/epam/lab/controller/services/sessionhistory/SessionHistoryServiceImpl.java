@@ -18,13 +18,19 @@ public class SessionHistoryServiceImpl extends
 	static Logger logger = Logger.getLogger(SessionHistoryServiceImpl.class);
 
 	// rename to insert(SessionHistory sessionHistory) !
-	public SessionHistory addSession(String sessId, long userid,
-			Timestamp startDate) {
-		SessionHistory sessionhistory = new SessionHistory().setSessid(sessId)
-				.setUserid(userid).setStartdate(startDate);
+	public SessionHistory addSession(long userid, Timestamp startDate) {
+		SessionHistory sessionhistory = new SessionHistory().setUserid(userid)
+				.setStartdate(startDate);
 
-		SessionHistoryDAOImpl sessionDAOImpl = new SessionHistoryDAOImpl();
-		sessionDAOImpl.insert(sessionhistory);
+		dao.insert(sessionhistory);
 		return sessionhistory;
 	}
+
+	public SessionHistory getSessionHistByUserIDAndEndDate(long userId) {
+		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
+		SessionHistory sessionhistory = sessdaoimpl
+				.getSessionHistByUserIDAndEndDate(userId);
+		return sessionhistory;
+	}
+
 }

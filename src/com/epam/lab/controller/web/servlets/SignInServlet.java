@@ -23,7 +23,7 @@ public class SignInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SIGNIN_JSP = "WEB-INF/jsp/signin.jsp";
 	private static final String USER_PAGE = "userpage";
-	private static final String ADMIN_HOME = "adminPage";
+	private static final String ADMIN_HOME = "adminUsersPage";
 	static Logger logger = Logger.getLogger(SignInServlet.class);
 
 	public SignInServlet() {

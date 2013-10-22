@@ -1,42 +1,25 @@
-package com.epam.lab.controller.web.servlets.admin.files;
+package com.epam.lab.controller.web.servlets.admin.statistics;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.file.TypesService;
 import com.epam.lab.controller.utils.DiskSpaceUtil;
 
-@WebServlet("/adminFilesPage")
-public class AdminFilesPageServlet extends HttpServlet {
+public class AdminStatisticFilesCommand implements AdminStatisticPageCommand{
 
-	private static final long serialVersionUID = 1L;
-	private static String ADMIN_FILES_PAGE_JSP = "WEB-INF/jsp/admin/files/adminFilesPage.jsp";
-
-	protected void doGet(HttpServletRequest request,
+	@Override
+	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String page = null;
 		getFreeSpace(request, response);
 		getTotalSpace(request, response);
 		getTypeFilesGroup(request, response);
-
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher(ADMIN_FILES_PAGE_JSP);
-		dispatcher.forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		getFreeSpace(request, response);
-		getTotalSpace(request, response);
-		getTypeFilesGroup(request, response);
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher(ADMIN_FILES_PAGE_JSP);
-		dispatcher.forward(request, response);
+		page = "WEB-INF/jsp/admin/statistics/files.jsp";
+		return page;
 	}
 
 	private void getFreeSpace(HttpServletRequest request,

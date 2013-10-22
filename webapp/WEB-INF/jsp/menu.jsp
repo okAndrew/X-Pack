@@ -1,16 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.Locale "%>
 
 <div class="navbar navbar-fixed-top navbar-inverse">
-	<%
-		Locale l = request.getLocale();
-		Object s = session.getAttribute("sessLocale");
-	%>
-	<fmt:setLocale value="<%=s%>" scope="session" />
+	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
 	<c:if test="${sessionScope.sessLocale == null}">
-		<fmt:setLocale value="<%=l%>" scope="session" />
+		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
 	</c:if>
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
@@ -20,10 +15,11 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<c:if test="${sessionScope.user != null}">
-					<li><a href="userpage">My space</a></li>
+					<li><a href="userpage"><fmt:message key="My_space"
+								bundle="${lang}" /></a></li>
 				</c:if>
-				<li><a href="">About</a></li>
-				<li><a href="">Home</a></li>
+				<li><a href=""><fmt:message key="About" bundle="${lang}" /></a></li>
+				<li><a href=""><fmt:message key="Home" bundle="${lang}" /></a></li>
 			</ul>
 
 			<div class="navbar-form navbar-right">
@@ -54,7 +50,7 @@
 						</ul>
 					</div>
 				</c:if>
-				<!--
+
 				<a href="locale?language=en_US"><img
 					src="res/img/flags/United-States-Flag-icon.png"></a> <a
 					href="locale?language=uk_UA"><img
@@ -63,7 +59,7 @@
 					src="res/img/flags/France-Flag-icon.png"></a> <a
 					href="locale?language=de_DE"><img
 					src="res/img/flags/Germany-Flag-icon.png"></a>
-				 -->
+
 			</div>
 		</div>
 	</div>

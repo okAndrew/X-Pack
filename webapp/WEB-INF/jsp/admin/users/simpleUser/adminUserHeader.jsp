@@ -1,17 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="java.util.Locale "%>
 
 <div class="navbar navbar-fixed-top navbar-inverse">
-	<%
-		Locale l = request.getLocale();
-		Object s = session.getAttribute("sessLocale");
-	%>
-
-	<fmt:setLocale value="<%=s%>" scope="session" />
+<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
 	<c:if test="${sessionScope.sessLocale == null}">
-		<fmt:setLocale value="<%=l%>" scope="session" />
+		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
 	</c:if>
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
@@ -22,24 +16,24 @@
 
 			<c:if test="${sessionScope.userid != null}">
 				<ul class="nav navbar-nav">
-					<li class=""><a href="adminUserInfo">Info</a></li>
-					<li class=""><a href="adminUserFiles">Files</a></li>
-					<li class=""><a href="adminUserPayments">Payments</a></li>
+					<li class=""><a href="adminUserInfo"><fmt:message key="Info" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminUserFiles"><fmt:message key="Files" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminUserPayments"><fmt:message key="Payments" bundle="${lang}" /></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="adminUsersPage">To main menu</a></li>
+					<li class="active"><a href="adminUsersPage"><fmt:message key="To_main_menu" bundle="${lang}" /></a></li>
 				</ul>
 			</c:if>
 
 			<div class="navbar-form navbar-right">
-				<c:if test="${sessionScope.login == null}">
+				<c:if test="${sessionScope.userid == null}">
 					<div class="form-group">
 						<a href="signInAdmin" class="btn btn-success"><fmt:message
 								key="signin" bundle="${lang}" /></a>
 					</div>
 				</c:if>
 
-				<c:if test="${sessionScope.login != null}">
+				<c:if test="${sessionScope.userid != null}">
 					<div class="form-group">
 						<a href="signInAdmin" class="btn btn-success"> <fmt:message
 								key="signout" bundle="${lang}" />

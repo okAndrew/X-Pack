@@ -1,121 +1,136 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="res/css/bootstrap.css" rel="stylesheet" />
+<link href="res/css/style.css" rel="stylesheet" />
+<link href="res/css/signui.css" rel="stylesheet" />
 <script type="text/javascript">
-	function check(value, id) {
-		xmlHttp = GetXmlHttpObject();
-		var url = "WEB-INF/jsp/admin/users/simpleUser/checkajax.jsp";
-		url = url + "?userEmail=" + value + "&id=" + id;
-		xmlHttp.onreadystatechange = stateChange;
-		xmlHttp.open("GET", url, true);
-
-		xmlHttp.send(null);
-	}
-	var stateChange = function stateChanged() {
-		if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") {
-			var showdata = xmlHttp.responseText;
-			document.getElementById("mydiv").innerHTML = showdata;
+	function validateForm() {
+		var email = document.forms["updateForm"]["userEmail"].value;
+		var atpos = email.indexOf("@");
+		var dotpos = email.lastIndexOf(".");
+		
+		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
+			setMessage("Not a valid e-mail address", errorinfo);
+			return false;
 		}
+		
+		return true;
 	}
-	function GetXmlHttpObject() {
-		var xmlHttp = null;
-		try {
-			xmlHttp = new XMLHttpRequest();
-		} catch (e) {
-			try {
-				xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch (e) {
-				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-		}
-		return xmlHttp;
+	
+	function setMessage(message, block) {
+		block.style.display = "block";
+		block.innerHTML = message;
 	}
-	if (true) {
-		findElementById(id).style.setBorderColor = green;
-	} else {
-		findElementById(id).style.setBorderColor = red;
-	}
-</script>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Update user</h4>
-			</div>
+	</script>
+</head>
+<body>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title">
+						<fmt:message key="Update_user" bundle="${lang}" />
+					</h4>
+				</div>
 
-			<div class="modal-body">
-				<div class="container">
-					<!-- Static navbar -->
-					<div class="navbar navbar-default">
-						<div class="navbar-collapse collapse">
-							<form action="updateUser" method="post">
-								<table class="table">
-									<tbody>
-										<tr>
-											<td>User id</td>
-											<td><input type="text" name="userIdHolder"
-												class="form-control first" value="${user.id}"
-												autofocus="autofocus" readonly></td>
-										</tr>
-										<tr>
-											<td>Login</td>
-											<td><input type="text" name="userLogin"
-												class="form-control first" value="${user.login}"
-												autofocus="autofocus"></td>
-										</tr>
-										<tr>
-											<td>Email</td>
-											<td><input type="text" name="userEmail"
-												class="form-control first" value="${user.email}"
-												autofocus="autofocus"
-												onkeyup="check(this.value, '${user.id}');">
-												<div id="mydiv"></div></td>
-										</tr>
-										<tr>
-											<td>Tariff</td>
-											<td><input type="text" name="userIdTariff"
-												class="form-control first" value="${user.idTariff}"
-												autofocus="autofocus" readonly></td>
-										</tr>
-										<tr>
-											<td>Capacity</td>
-											<td><input type="text" class="form-control first"
-												value="${user.capacity}" autofocus="autofocus"
-												disabled></td>
-										</tr>
-										
-										<tr>
-											<td>Activation</td>
-											<td><input type="text" name="userActivation"
-												class="form-control last" value="${user.isActivated}"
-												autofocus="autofocus"></td>
-										</tr>
-										<tr>
-											<td>Role</td>
-											<td><input type="text" name="userRole"
-												class="form-control last" value="${user.role}"
-												autofocus="autofocus"></td>
-										</tr>
-										
-									</tbody>
-								</table>
+				<div class="modal-body">
+					<div class="container">
+						<!-- Static navbar -->
+						<div class="navbar navbar-default">
+							<div class="navbar-collapse collapse">
+								<form action="updateUser" name="updateForm" method="post">
+									<div id="errorinfo" class="alert alert-danger"
+										style="display: none;">
+										<c:if test="${message != null}">
+					${message}
+				</c:if>
+									</div>
+									<c:if test="${message != null}">
+										<div class="errorinfo">${message}</div>
+									</c:if>
+									<table class="table">
+										<tbody>
+											<tr>
+												<td><fmt:message key="User_id" bundle="${lang}" /></td>
+												<td><input type="text" name="userIdHolder"
+													class="form-control first" value="${user.id}"
+													autofocus="autofocus" readonly></td>
+											</tr>
+											<tr>
+												<td><fmt:message key="Login" bundle="${lang}" /></td>
+												<td><input type="text" name="userLogin"
+													class="form-control first" value="${user.login}"
+													autofocus="autofocus"></td>
+											</tr>
+											<tr>
+												<td><fmt:message key="Email" bundle="${lang}" /></td>
+												<td><input type="text" name="userEmail" id="userEmail"
+													class="form-control first" value="${user.email}"
+													autofocus="autofocus" /></td>
+												<!--  onkeyup="check(this.value, '${user.id}');">
+												<div id="mydiv"></div>-->
+											</tr>
+											<tr>
+												<td><fmt:message key="Tariff" bundle="${lang}" /></td>
+												<td><input type="text" name="userIdTariff"
+													class="form-control first" value="${user.idTariff}"
+													autofocus="autofocus" readonly></td>
+											</tr>
+											<tr>
+												<td><fmt:message key="Capacity" bundle="${lang}" /></td>
+												<td><input type="text" class="form-control first"
+													value="${user.capacity}" autofocus="autofocus" disabled></td>
+											</tr>
 
-								<button type="submit" class="btn btn-primary">Save
-									changes</button>
-							</form>
+											<tr>
+												<td><fmt:message key="Activation" bundle="${lang}" /></td>
+												<td><input type="text" name="userActivation"
+													id="userActivation" class="form-control last"
+													value="${user.isActivated}" autofocus="autofocus"></td>
+											</tr>
+											<tr>
+												<td><fmt:message key="Role" bundle="${lang}" /></td>
+												<td><input type="text" name="userRole" id="userRole"
+													class="form-control last" value="${user.role}"
+													autofocus="autofocus"></td>
+											</tr>
+
+										</tbody>
+									</table>
+
+									<button type="submit" class="btn btn-primary ">
+										<fmt:message key="Save_changes" bundle="${lang}" />
+									</button>
+								</form>
+
+							</div>
+							<!--/.nav-collapse -->
 						</div>
-						<!--/.nav-collapse -->
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<fmt:message key="Close" bundle="${lang}" />
 
+					</button>
+
+				</div>
 			</div>
+			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-content -->
+		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+	<!-- /.modal -->
+</body>
+</html>
 

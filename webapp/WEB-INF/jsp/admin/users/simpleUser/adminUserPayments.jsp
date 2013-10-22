@@ -1,7 +1,8 @@
 <%@page import="com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,12 +67,17 @@
 	<div class="payments-admin-user">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
-			<div class="panel-heading">Payments</div>
+			<div class="panel-heading">
+				<fmt:message key="Payments" bundle="${lang}" />
+			</div>
 			<h2 id="tables-condensed"></h2>
-			<form action="paymentsByDate" method="post" name="paybyDate" onsubmit="return validateForm()">
+			<form action="paymentsByDate" method="post" name="paybyDate"
+				onsubmit="return validateForm()">
 				<div class="panel-body">
 					<button type="submit" class="btn btn-default" name="action"
-						value="delete">Show payments for period</button>
+						value="delete">
+						<fmt:message key="Show_payments_for_period" bundle="${lang}" />
+					</button>
 					<div class="well">
 						<input type="date" name="startDate"> <input type="date"
 							name="endDate">
@@ -81,16 +87,17 @@
 				<table class="table table-condensed">
 					<thead>
 						<tr>
-							<th>Payment id</th>
-							<th>Description</th>
-							<th>Status</th>
-							<th>Date</th>
-							<th>Avaliable</th>
+							<th><fmt:message key="Payment_id" bundle="${lang}" /></th>
+							<th><fmt:message key="Description" bundle="${lang}" /></th>
+							<th><fmt:message key="Status" bundle="${lang}" /></th>
+							<th><fmt:message key="Date" bundle="${lang}" /></th>
+							<th><fmt:message key="Avaliable" bundle="${lang}" /></th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:if test="${listPayments==null}">
-							<a href="adminUserPayments">Back to all payments</a>
+							<a href="adminUserPayments"><fmt:message
+									key="Back_to_all_payments" bundle="${lang}" /></a>
 						</c:if>
 						<c:forEach items="${listPayments}" var="payment">
 							<tr>

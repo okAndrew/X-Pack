@@ -15,8 +15,6 @@
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
-<script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
-<script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
 
 <script>
 	function loadXMLDoc(action) {
@@ -37,57 +35,9 @@
 	}
 </script>
 
-<script type="text/javascript">
-	$(function() {
-		var free = $
-		{
-			freeSpace
-		}
-		;
-		var employed = $
-		{
-			totalSpace
-		}
-		-free;
-		line1 = [ [ "Free space " + free + "GB", free ],
-				[ "Employed space" + employed + "GB", employed ] ];
-		$.jqplot("example", [ line1 ], {
-			title : "Space",
-			grid : {
-				gridLineColor : '#cccccc',
-				background : '#ffffff',
-				borderColor : '#000000',
-				borderWidth : 2.0,
-				shadow : true,
-				shadowWidth : 3,
-				shadowDepth : 3
-			},
-			seriesColors : [ "#33FF33", "#FF0000" ],
-			seriesDefaults : {
-				renderer : $.jqplot.PieRenderer,
-				rendererOptions : {
-					showDataLabels : true,
-					sliceMargin : 8,
-					diameter : 200,
-					fill : true,
-					shadowDepth : 5,
-				}
-			},
-
-			legend : {
-				show : true,
-				location : 'e',
-				marginTop : '15px'
-			}
-		});
-	});
-</script>
-
-
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
-<link href="res/css/jquery.jqplot.css" rel="stylesheet" />
 
 <style type="text/css">
 .Container {
@@ -125,10 +75,9 @@
 						</button></li>
 
 				</ul>
-
 				<div id="dynamicArea">
-					<jsp:include page="files.jsp"></jsp:include>
 					<jsp:include page="users.jsp"></jsp:include>
+					<jsp:include page="files.jsp"></jsp:include>
 				</div>
 			</div>
 		</div>

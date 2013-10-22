@@ -54,6 +54,11 @@ public enum FileType {
 		}
 		return result;
 	}
+	
+	public static String getExtention(String fName) {
+		int lastIndexOfDot = fName.lastIndexOf(".");
+		return fName.substring(lastIndexOfDot);
+	}
 
 	public String[] getExtensions() {
 		return extensions;

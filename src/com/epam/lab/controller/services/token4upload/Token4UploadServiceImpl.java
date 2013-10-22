@@ -5,10 +5,19 @@ import java.util.Random;
 
 import com.epam.lab.controller.dao.token4upload.Token4UploadDAO;
 import com.epam.lab.controller.dao.token4upload.Token4UploadDAOImpl;
+import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
+import com.epam.lab.controller.exceptions.notfound.TokenNotFoundException;
+import com.epam.lab.controller.exceptions.notfound.UserNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
+import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.user.UserService;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Upload;
+import com.epam.lab.model.User;
 
 public class Token4UploadServiceImpl extends AbstractServiceImpl<Token4Upload>
 		implements Token4UploadService {
@@ -53,5 +62,30 @@ public class Token4UploadServiceImpl extends AbstractServiceImpl<Token4Upload>
 		token = new MD5Encrypter().encrypt(currentTimeStamp.toString()
 				+ new Random().nextLong());
 		return token;
+	}
+
+	public boolean isItUserFolder(String token, long idFolder)
+			throws TokenNotFoundException, UserNotFoundException,
+			FolderNotFoundException {
+		boolean result = false;
+		Token4UploadService token4UploadService = new Token4UploadServiceImpl();
+		Token4Upload tokenData = token4UploadService.getByToken(token);
+		if (tokenData == null || !tokenData.isActive()) {
+			throw new TokenNotFoundException();
+		}
+		UserService userService = new UserServiceImpl();
+		User user = userService.get(tokenData.getIdUser());
+		if (user == null || user.getIsActivated()) {
+			throw new UserNotFoundException();
+		}
+		FolderService folderService = new FolderServiceImpl();
+		Folder folder = folderService.get(idFolder);
+		if (folder == null) {
+			throw new FolderNotFoundException();
+		}
+		if (folder.getIdUser() == user.getId()) {
+			result = true;
+		}
+		return result;
 	}
 }

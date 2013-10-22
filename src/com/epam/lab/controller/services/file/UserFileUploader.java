@@ -1,7 +1,6 @@
 package com.epam.lab.controller.services.file;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,140 +12,156 @@ import java.util.List;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.dao.file.FileDAO;
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
+import com.epam.lab.controller.exceptions.FileTooLargeException;
+import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
+import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.model.FileType;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.Tariff;
 import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
-import com.sun.jersey.core.header.FormDataContentDisposition;
 
 public class UserFileUploader {
 	private static Logger logger = Logger.getLogger(UserFileUploader.class);
-	private Folder folder = null;
 
-	public UserFileUploader(long idFolder) {
-		this.folder = new FolderDAOImpl().get(idFolder);
-	}
-
-	public UserFile uploadFile(FileItem fileItem) {
-		FileDAOImpl dao = new FileDAOImpl();
+	public UserFile uploadFile(FileItem fileItem, String fileIncomeName,
+			long idFolder) throws FolderNotFoundException, IOException,
+			FileTooLargeException {
 		UserFile userFile = null;
-		if (fileItem.getSize() > 0) {
-			userFile = createUserFile(fileItem);
-			File newFile = new File(getUploadedFileLocation(userFile));
-			try {
-				fileItem.write(newFile);
-			} catch (Exception e) {
-				logger.error(e);
-				return null;
-			}
-			updateFolders(userFile);
-			dao.insert(userFile);
+		userFile = createUserFile(fileIncomeName, idFolder);
+		String uploadedFileLocation = getUploadFileLocation(userFile);
+		// verify capacity
+		User user = new UserServiceImpl().getUserByFolderId(idFolder);
+		Tariff tariff = new TariffServiseImpl().get(user.getIdTariff());
+		if (user.getCapacity() + fileItem.getSize() > tariff.getMaxCapacity()) {
+			throw new FileTooLargeException();
 		}
-		return userFile;
-	}
-
-	public UserFile uploadFile(InputStream inputStream,
-			FormDataContentDisposition cd) {
-		FileDAOImpl dao = new FileDAOImpl();
-		UserFile userFile = null;
 		try {
-			userFile = createUserFile(cd);
-			String uploadedFileLocation = getUploadedFileLocation(userFile);
-			File uploadedFile = writeFile(inputStream, uploadedFileLocation);
-			double size = (double) uploadedFile.length();
-			userFile.setSize(size);
-		} catch (IOException e) {
+			fileItem.write(new File(uploadedFileLocation));
+		} catch (Exception e) {
 			logger.error(e);
+			throw new IOException();
 		}
-		updateFolders(userFile);
-		dao.insert(userFile);
+		userFile.setSize(fileItem.getSize());
+
+		executeActionUploadInDB(userFile);
 		return userFile;
 	}
 
-	public List<UserFile> uploadFiles(List<FileItem> items) {
+	public UserFile uploadFile(InputStream inputStream, String fileIncomeName,
+			long idFolder) throws FolderNotFoundException, IOException,
+			FileTooLargeException {
+		UserFile userFile = null;
+		userFile = createUserFile(fileIncomeName, idFolder);
+		String uploadedFileLocation = getUploadFileLocation(userFile);
+
+		// verify capacity (when file will be download)
+		User user = new UserServiceImpl().getUserByFolderId(idFolder);
+		Tariff tariff = new TariffServiseImpl().get(user.getIdTariff());
+		long maxFileSize = tariff.getMaxCapacity() - user.getCapacity();
+		File uploadedFile = writeFile(inputStream, uploadedFileLocation,
+				maxFileSize);
+
+		userFile.setSize(uploadedFile.length());
+		executeActionUploadInDB(userFile);
+		return userFile;
+	}
+
+	public List<UserFile> uploadFiles(List<FileItem> items, long idFolder)
+			throws FolderNotFoundException, FileTooLargeException {
 		List<UserFile> files = new ArrayList<UserFile>();
 		for (FileItem item : items) {
-			UserFile file = uploadFile(item);
+			UserFile file = null;
+			try {
+				file = uploadFile(item, item.getName(), idFolder);
+			} catch (IOException e) {
+				logger.error(e);
+			}
 			files.add(file);
 		}
 		return files;
 
 	}
 
-	private String getUploadedFileLocation(UserFile userFile) {
-		return userFile.getPath() + File.separator + userFile.getName();
-	}
-
-	private File writeFile(InputStream inputStream, String uploadedFileLocation)
-			throws FileNotFoundException, IOException {
+	private File writeFile(InputStream inputStream,
+			String uploadedFileLocation, long maxSize) throws IOException,
+			FileTooLargeException {
 		File newFile = new File(uploadedFileLocation);
 		OutputStream out = new FileOutputStream(newFile);
+		long sumWritenBytes = 0;
 		int read = 0;
 		byte[] bytes = new byte[1024];
-		while ((read = inputStream.read(bytes)) != -1) {
-			out.write(bytes, 0, read);
+		try {
+			while ((read = inputStream.read(bytes)) != -1) {
+				if (sumWritenBytes > maxSize) {
+					throw new FileTooLargeException();
+				}
+				out.write(bytes, 0, read);
+			}
+		} catch (IOException e) {
+			logger.error(e);
+		} finally {
+			newFile.delete();
+			out.flush();
+			out.close();
 		}
-		out.flush();
-		out.close();
 		return newFile;
 	}
 
+	private String getUploadFileLocation(UserFile userFile) {
+		return userFile.getPath() + File.separator + userFile.getName();
+	}
+
 	private void updateFolders(UserFile file) {
-		FolderServiceImpl service = new FolderServiceImpl();
+		FolderService service = new FolderServiceImpl();
 		service.updateSize(file.getIdFolder(), file.getSize());
 	}
 
-	private UserFile createUserFile(FormDataContentDisposition cd) {
-		UserFileServiceImpl fileService = new UserFileServiceImpl();
-		UserServiceImpl userService = new UserServiceImpl();
-		User user = userService.get(folder.getIdUser());
-		UserFile resultUserFile = new UserFile();
+	private void executeActionUploadInDB(UserFile userFile) {
+		FileDAO dao = new FileDAOImpl();
+		updateFolders(userFile);
+		dao.insert(userFile);
+	}
+
+	private UserFile createUserFile(String fileNameIncome, long idFolder)
+			throws FolderNotFoundException {
+		UserFile userFile = createUserFileWithName(fileNameIncome);
+		setUserFileInfo(userFile, idFolder);
+		return userFile;
+	}
+
+	private UserFile createUserFileWithName(String fileNameIncome) {
+		UserFile userFile = new UserFile();
+		if (fileNameIncome != null) {
+			String extention = FileType.getExtention(fileNameIncome);
+			userFile.setType(FileType.findByExtention(extention));
+			userFile.setNameIncome(fileNameIncome);
+		}
+		return userFile;
+	}
+
+	private void setUserFileInfo(UserFile userFile, long idFolder)
+			throws FolderNotFoundException {
+		Folder folder = new FolderDAOImpl().get(idFolder);
+		if (folder == null)
+			throw new FolderNotFoundException();
+		User user = new UserServiceImpl().get(folder.getIdUser());
 		Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
-		String incomeFileName = cd.getFileName();
+
 		String fileName = new MD5Encrypter().encrypt(currentTS.toString()
-				+ incomeFileName + user.getEmail());
-		String filePath = fileService.getFolder().getAbsolutePath();
-		String type = cd.getType();
+				+ userFile.getNameIncome() + user.getEmail());
 
-		resultUserFile.setNameIncome(incomeFileName).setName(fileName)
-				.setPath(filePath).setType(type).setSize(cd.getSize())
-				.setDate(currentTS).setIdFolder(folder.getId())
-				.setIdUser(user.getId());
-		return resultUserFile;
+		String filePath = new UserFileServiceImpl().getFolder()
+				.getAbsolutePath();
+		userFile.setName(fileName).setPath(filePath).setDate(currentTS)
+				.setIdFolder(folder.getId()).setIdUser(user.getId());
 	}
-
-	private UserFile createUserFile(FileItem item) {
-		UserServiceImpl userService = new UserServiceImpl();
-		User user = userService.get(folder.getIdUser());
-		UserFile resultUserFile = new UserFile();
-
-		String fileNameIncome = item.getName();
-		Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
-		String fileName = new MD5Encrypter().encrypt(currentTS.toString()
-				+ fileNameIncome + user.getEmail());
-		UserFileServiceImpl fileService = new UserFileServiceImpl();
-		String filePath = fileService.getFolder().getAbsolutePath();
-		String contentType = item.getContentType();
-		long fileSize = item.getSize();
-
-		resultUserFile.setNameIncome(fileNameIncome).setName(fileName)
-				.setPath(filePath).setType(contentType).setSize(fileSize)
-				.setDate(currentTS).setIdFolder(folder.getId())
-				.setIdUser(user.getId());
-		return resultUserFile;
-	}
-
-	public Folder getFolder() {
-		return folder;
-	}
-
-	public void setFolder(Folder folder) {
-		this.folder = folder;
-	}
-
 }

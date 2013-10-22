@@ -18,16 +18,16 @@ public class Folder {
 	private long idUpper;
 	
 	@TableColumn("size")
-	private double size;
+	private long size;
 	
 	@TableColumn("date")
 	private Timestamp date;
 
-	public double getSize() {
+	public long getSize() {
 		return size;
 	}
 
-	public Folder setSize(double size) {
+	public Folder setSize(long size) {
 		this.size = size;
 		return this;
 	}

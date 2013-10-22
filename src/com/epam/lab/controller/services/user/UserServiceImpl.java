@@ -7,7 +7,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.token.TokenDAOImpl;
+import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
+import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
@@ -15,6 +17,7 @@ import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.controller.utils.Validator;
+import com.epam.lab.model.Folder;
 import com.epam.lab.model.Role;
 import com.epam.lab.model.Token;
 import com.epam.lab.model.User;
@@ -167,6 +170,14 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		boolean result = userDaoImpl.ckeckLoginById(login, userId);
 		return result;
+	}
+	
+
+	public User getUserByFolderId(long idFolder) throws FolderNotFoundException {
+		Folder folder = new FolderDAOImpl().get(idFolder);
+		if (folder == null)
+			throw new FolderNotFoundException();
+		return new UserServiceImpl().get(folder.getIdUser());
 	}
 
 	public boolean editLogin(String email, String login) {

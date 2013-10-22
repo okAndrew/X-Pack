@@ -1,9 +1,7 @@
 package com.epam.lab.controller.web.servlets.file;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
@@ -14,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.user.DownloadService;
 
 @WebServlet("/download")
 public class DownloadServlet extends HttpServlet {
@@ -21,61 +20,28 @@ public class DownloadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("fileid") == null){
-			UserFileServiceImpl service = new UserFileServiceImpl();
+		UserFileServiceImpl service = new UserFileServiceImpl();
+		DownloadService downloadService = new DownloadService();
+		File file = null;
+		String fileName = null;
+		if (request.getParameter("fileid") == null) {
 			String[] filesIds = request.getParameterValues("files");
 			String[] foldersIds = request.getParameterValues("folders");
-			File file = service.getArchive(filesIds, foldersIds);
-			System.out.println(file.getAbsolutePath());
-			if (!file.exists()) {
-				throw new ServletException("File doesn't exists on server.");
-			}
-			InputStream fis = new FileInputStream(file);
-			response.setContentType("application/octet-stream; charset=UTF-8");
-			response.setCharacterEncoding("UTF-8");
-			response.setContentLength((int) file.length());
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ URLEncoder.encode(file.getName(), "UTF-8"));
-			ServletOutputStream os = response.getOutputStream();
-			
-			byte[] bufferData = new byte[1024];
-			int read = 0;
-			while ((read = fis.read(bufferData)) != -1) {
-				os.write(bufferData, 0, read);
-			}
-			os.flush();
-			os.close();
-			fis.close();
-		} else{
-			UserFileServiceImpl fileService = new UserFileServiceImpl();
+			file = service.getArchive(filesIds, foldersIds);
+			fileName = file.getName();
+		} else {
 			long fileId = Long.valueOf(request.getParameter("fileid"));
-			com.epam.lab.model.UserFile f = fileService.get(fileId);
+			com.epam.lab.model.UserFile f = service.get(fileId);
 			String filePath = f.getPath() + File.separator + f.getName();
-			File file = new File(filePath);
-			if (!file.exists()) {
-				throw new ServletException("File doesn't exists on server.");
-			}
-			InputStream fis = new FileInputStream(file);
-			
-			response.setContentType("application/octet-stream; charset=UTF-8");
-			response.setCharacterEncoding("UTF-8");
-			response.setContentLength((int) file.length());
-			response.setHeader("Content-Disposition", "attachment; filename="
-					+ URLEncoder.encode(f.getNameIncome(), "UTF-8"));
-			
-			ServletOutputStream os = response.getOutputStream();
-			byte[] bufferData = new byte[1024];
-			int read = 0;
-			while ((read = fis.read(bufferData)) != -1) {
-				os.write(bufferData, 0, read);
-			}
-			os.flush();
-			os.close();
-			fis.close();
+			file = new File(filePath);
+			fileName = f.getNameIncome();
 		}
-		}
-		
-		
-
+		response.setHeader("Content-Disposition", "attachment; filename="
+				+ URLEncoder.encode(fileName, "UTF-8"));
+		response.setContentType("application/octet-stream; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentLength((int) file.length());
+		ServletOutputStream os = response.getOutputStream();
+		downloadService.download(file, os);
 	}
-
+}

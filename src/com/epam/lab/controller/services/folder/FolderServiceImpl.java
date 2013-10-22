@@ -1,6 +1,5 @@
 package com.epam.lab.controller.services.folder;
 
-import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,10 +7,12 @@ import java.util.List;
 
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
+import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
 
 public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
@@ -56,6 +57,18 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		return result;
 	}
 
+	public List<Folder> getFolderPath(long id) {
+		List<Folder> folderPath = new LinkedList<Folder>();
+		FolderDAOImpl dao = new FolderDAOImpl();
+		Folder folder = dao.get(id);
+		while (folder.getIdUpper() != 0) {
+			folderPath.add(0, folder);
+			folder = dao.get(folder.getIdUpper());
+		}
+		folderPath.add(0, folder);
+		return folderPath;
+	}
+
 	public long createRoot(long userId) {
 		FolderDAOImpl folderDao = new FolderDAOImpl();
 		Folder folder = folderDao.getRoot(userId);
@@ -87,13 +100,18 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		return isFolderExist(pathList, userId, upperId);
 	}
 
-	public void updateSize(long folderId, double size) {
+	public void updateSize(long folderId, long size) {
 		FolderDAOImpl dao = new FolderDAOImpl();
 		Folder folder = dao.get(folderId);
 		folder.setSize(folder.getSize() + size);
 		dao.update(folder);
 		if (folder.getIdUpper() != 0) {
 			updateSize(folder.getIdUpper(), size);
+		} else {
+			UserDAOImpl userDAO = new UserDAOImpl();
+			User user = userDAO.get(folder.getIdUser());
+			user.setCapacity(folder.getSize());
+			userDAO.update(user);
 		}
 	}
 

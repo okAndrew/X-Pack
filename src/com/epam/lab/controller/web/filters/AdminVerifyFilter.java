@@ -31,6 +31,7 @@ public class AdminVerifyFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpSession session = httpRequest.getSession(false);
+		System.out.println("privet");
 		if (session != null) {
 			Object userid = session.getAttribute("userid");
 			if (userid != null) {

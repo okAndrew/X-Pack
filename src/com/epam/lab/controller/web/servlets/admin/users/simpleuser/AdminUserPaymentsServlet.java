@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.payment.PaymentServiceImpl;
+import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.model.Payment;
 
 @WebServlet("/adminUserPayments")
@@ -34,10 +35,14 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 				.getAttribute("adminUserid"));
 
 		request.setAttribute("listPayments", list);
-
+		
 		RequestDispatcher requestDispatcher = request
 				.getRequestDispatcher(ADMIN_USER_PAYMENTS_JSP);
 		requestDispatcher.forward(request, response);
+	}
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

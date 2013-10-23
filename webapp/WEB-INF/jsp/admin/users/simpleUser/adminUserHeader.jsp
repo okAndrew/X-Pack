@@ -28,14 +28,14 @@
 			<div class="navbar-form navbar-right">
 				<c:if test="${sessionScope.userid == null}">
 					<div class="form-group">
-						<a href="signInAdmin" class="btn btn-success"><fmt:message
+						<a href="signin" class="btn btn-success"><fmt:message
 								key="signin" bundle="${lang}" /></a>
 					</div>
 				</c:if>
 
 				<c:if test="${sessionScope.userid != null}">
 					<div class="form-group">
-						<a href="signInAdmin" class="btn btn-success"> <fmt:message
+						<a href="signout" class="btn btn-success"> <fmt:message
 								key="signout" bundle="${lang}" />
 						</a>
 					</div>

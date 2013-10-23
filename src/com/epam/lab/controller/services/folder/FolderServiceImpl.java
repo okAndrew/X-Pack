@@ -10,7 +10,7 @@ import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
@@ -19,7 +19,7 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		FolderService {
 	private static final String ROOT_NAME = "root";
 	private static final String SEPARATOR = "/";
-	private Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
+	private Timestamp currentTS = TimeStampManager.getFormatCurrentTimeStamp();
 
 	public FolderServiceImpl() {
 		super(new FolderDAOImpl());
@@ -82,11 +82,11 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		}
 	}
 
-	public long create(String path, long userId) {
+	public Folder create(String path, long userId) {
 		return create(path, userId, getRoot(userId).getId());
 	}
 
-	public long create(String path, long userId, long upperId) {
+	public Folder create(String path, long userId, long upperId) {
 		List<String> pathList = getPathList(path);
 		return create(pathList, userId, upperId);
 	}
@@ -139,7 +139,7 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		return result;
 	}
 
-	private long create(List<String> pathList, long userId, long upperId) {
+	private Folder create(List<String> pathList, long userId, long upperId) {
 		String folderName = pathList.get(0);
 		pathList.remove(0);
 		FolderDAOImpl dao = new FolderDAOImpl();
@@ -147,7 +147,7 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		if (pathList.size() == 0) {
 			for (Folder f : folders) {
 				if (f.getName().equals(folderName)) {
-					return f.getId();
+					return f;
 				}
 			}
 			return createFolder(folderName, userId, upperId);
@@ -157,19 +157,18 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 					return create(pathList, userId, f.getId());
 				}
 			}
-			return create(pathList, userId,
-					createFolder(folderName, userId, upperId));
+			Folder createdFolder = createFolder(folderName, userId, upperId);
+			return create(pathList, userId, createdFolder.getId());
 		}
 	}
 
-	private long createFolder(String folderName, long userId, long upperId) {
+	public Folder createFolder(String folderName, long userId, long upperId) {
 		Folder folder = new Folder();
 		folder.setDate(currentTS).setIdUpper(upperId).setIdUser(userId)
 				.setName(folderName).setSize(0);
 		FolderDAOImpl dao = new FolderDAOImpl();
 		dao.insert(folder);
-		folder = dao.getByUpperIdAndName(upperId, folderName);
-		return folder.getId();
+		return dao.getByUpperIdAndName(upperId, folderName);
 	}
 
 	private boolean isFolderExist(List<String> pathList, long userId,

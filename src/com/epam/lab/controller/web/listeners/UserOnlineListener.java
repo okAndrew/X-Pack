@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSessionListener;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.sessionhistory.SessionHistoryServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.SessionHistory;
 
 @WebListener
@@ -34,7 +34,7 @@ public class UserOnlineListener implements HttpSessionListener,
 			sessionhistory = historyService
 					.getSessionHistByUserIDAndEndDate((long) session
 							.getAttribute("userid"));
-			sessionhistory.setEnddate(CurrentTimeStamp.getCurrentTimeStamp());
+			sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
 			historyService.update(sessionhistory);
 		}
 	}
@@ -54,7 +54,7 @@ public class UserOnlineListener implements HttpSessionListener,
 			activeSessions++;
 			sessionhistory = historyService.addSession(
 					(long) session.getAttribute("userid"),
-					CurrentTimeStamp.getCurrentTimeStamp());
+					TimeStampManager.getFormatCurrentTimeStamp());
 		}
 	}
 

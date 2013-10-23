@@ -5,18 +5,13 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3>Basic info</h3>
-		<c:forEach var="tariff" items="${tariffs}">
-			<c:if test="${user.idTariff == tariff.id}">
-				<p>
-					<fmt:message key="Tariff" bundle="${lang}" />
-					: <strong>${tariff.name} (${tariff.maxCapacity}Mb)</strong>
-				</p>
-			</c:if>
-		</c:forEach>
-
+		<p>
+			<fmt:message key="Tariff" bundle="${lang}" />
+			: <strong>${tariff.name}</strong>
+		</p>
 		<p>
 			<fmt:message key="Free_space" bundle="${lang}" />
-			: <strong>194.45Mb</strong>
+			: <strong>${tariff.maxCapacity - user.capacity}</strong>
 		</p>
 		<h3>
 			<fmt:message key="Edit_profile" bundle="${lang}" />
@@ -53,8 +48,9 @@
 				</c:if>
 				<form action="EditEmailServlet" method="post">
 					<div class="form-group">
-						<input type="email" name="oldEmail" value="${user.email}" hidden="yes" /> <label><fmt:message
-								key="Email" bundle="${lang}" /></label>
+						<input type="email" name="oldEmail" value="${user.email}"
+							hidden="yes" /> <label><fmt:message key="Email"
+								bundle="${lang}" /></label>
 						<div class="input-group">
 							<input id="email" type="newEmail" class="form-control"
 								placeholder="New email" name="newEmail"> <span

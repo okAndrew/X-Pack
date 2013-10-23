@@ -43,12 +43,6 @@ public class TariffDAOImpl implements TariffDAO {
 		return queryExecutor.executeUpdate(sql, id);
 	}
 
-	@Override
-	public int isActivate(long id) {
-		String sql = "UPDATE tariffs SET is_delete=false WHERE id=?";
-		return queryExecutor.executeUpdate(sql, id);
-	}
-
 	 @Override
 	 public List<Tariff> getAvailableTariffs() {
 	  String sql = "SELECT * FROM tariffs WHERE is_delete = 0 ORDER BY position ASC";

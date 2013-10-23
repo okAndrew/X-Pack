@@ -50,7 +50,6 @@ public class Token4UploadServiceImpl extends AbstractServiceImpl<Token4Upload>
 
 	private Timestamp getDestroyDate(long liveTime) {
 		long timeInMiliSeconds = liveTime * 1000;
-		Timestamp time = new Timestamp(new Date().getTime());
 		Timestamp result = new Timestamp(new Date().getTime()
 				+ timeInMiliSeconds);
 		return result;

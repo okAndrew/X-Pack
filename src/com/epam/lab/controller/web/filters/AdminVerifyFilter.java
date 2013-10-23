@@ -23,7 +23,7 @@ import com.epam.lab.model.Role;
 		"/userEmployeeController", "/adminUserFiles", "/adminUserInfo",
 		"/adminUserPayments", "/adminUserSearchFiles", "/adminUser",
 		"/paymentsByDate", "/updateUser", "/addTariff", "/adminTarrifsPage",
-		"/tariffsController", "/adminFilesPage", "/adminLoggingPage", "/userpage"})
+		"/tariffsController", "/adminFilesPage", "/adminLoggingPage"})
 
 public class AdminVerifyFilter implements Filter {
 

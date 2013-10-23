@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.sessionhistory.SessionHistoryServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.SessionHistory;
 
 @WebServlet("/signOutAdmin")

@@ -30,7 +30,8 @@ public class UserVerifyFilter implements Filter {
 			Object userid = session.getAttribute("userid");
 			if (userid != null) {
 				Object role = session.getAttribute("userRole");
-				if (role != null && role.equals(Role.USER)) {
+				if (role != null
+						&& (role.equals(Role.USER) || role.equals(Role.ADMIN))) {
 					chain.doFilter(request, response);
 					return;
 				}

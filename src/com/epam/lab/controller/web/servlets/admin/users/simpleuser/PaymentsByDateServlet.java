@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.payment.PaymentServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.Payment;
 
 @WebServlet("/paymentsByDate")
@@ -54,7 +54,7 @@ public class PaymentsByDateServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			} else {
-				endDate = CurrentTimeStamp.getCurrentTimeStamp();
+				endDate = TimeStampManager.getFormatCurrentTimeStamp();
 			}
 			try {
 				startDate = new Timestamp(sf.parse(

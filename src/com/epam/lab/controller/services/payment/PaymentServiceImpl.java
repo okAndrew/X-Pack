@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.dao.payment.PaymentDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.Payment;
 import com.epam.lab.model.Tariff;
 import com.epam.lab.model.User;
@@ -36,7 +36,7 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 	public void createPayment(User user, Tariff tariff) {
 		PaymentDAOImpl paymentDAOImpl = new PaymentDAOImpl();
 		Payment payment = new Payment();
-		Timestamp time = CurrentTimeStamp.getCurrentTimeStamp();
+		Timestamp time = TimeStampManager.getFormatCurrentTimeStamp();
 
 		payment.setUser(user.getId());
 		payment.setTariff(tariff.getId());
@@ -53,11 +53,11 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 	}
 
 	public int activatePayment(Payment payment) {
-		Timestamp dateEnd = CurrentTimeStamp.addMonth(payment.getDateCreated());
+		Timestamp dateEnd = TimeStampManager.addMonth(payment.getDateCreated());
 		payment.setStatus(true);
 		payment.setDateEnd(dateEnd);
 
-		if (CurrentTimeStamp.getCurrentTimeStamp().before(dateEnd)) {
+		if (TimeStampManager.getFormatCurrentTimeStamp().before(dateEnd)) {
 			payment.setAvailable(true);
 		}
 

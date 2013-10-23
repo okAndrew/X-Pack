@@ -1,11 +1,13 @@
 package com.epam.lab.controller.services.user;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
+import com.epam.lab.controller.dao.token.TokenDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -13,9 +15,11 @@ import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.Role;
+import com.epam.lab.model.Token;
 import com.epam.lab.model.User;
 
 public class UserServiceImpl extends AbstractServiceImpl<User> implements
@@ -167,13 +171,96 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		boolean result = userDaoImpl.ckeckLoginById(login, userId);
 		return result;
 	}
-	
 
 	public User getUserByFolderId(long idFolder) throws FolderNotFoundException {
 		Folder folder = new FolderDAOImpl().get(idFolder);
 		if (folder == null)
 			throw new FolderNotFoundException();
 		return new UserServiceImpl().get(folder.getIdUser());
+	}
+
+	public boolean editLogin(String email, String login) {
+		boolean res = false;
+
+		if (Validator.USER_LOGIN.validate(login)
+				&& Validator.USER_EMAIL.validate(email)) {
+			UserDAOImpl userDaoImpl = new UserDAOImpl();
+			User user = userDaoImpl.getByEmail(email);
+			user.setLogin(login);
+
+			if (userDaoImpl.update(user) == 1) {
+				res = true;
+			}
+		}
+
+		return res;
+	}
+
+	public boolean tryEditEmail(String oldEmail, String newEmail) {
+		boolean res = false;
+		User user = null;
+
+		if (Validator.USER_EMAIL.validate(oldEmail)
+				&& Validator.USER_EMAIL.validate(newEmail)) {
+			user = getUserByEmail(oldEmail);
+			StringBuilder msg = new StringBuilder();
+			String head = "Activation";
+			String token = createToken(user);
+
+			msg.append("http://localhost:8080/dreamhost/edituseremail");
+			msg.append("?oldEmail=").append(oldEmail);
+			msg.append("&newEmail=").append(newEmail);
+			msg.append("&token=").append(token);
+
+			MailSender.send(user.getEmail(), head, msg.toString());
+			res = true;
+		}
+
+		return res;
+	}
+
+	private String createToken(User user) {
+		Token token = new Token();
+		MD5Encrypter md5 = new MD5Encrypter();
+		String sToken = null;
+		Timestamp timestamp = TimeStampManager.getCurrentTime();
+
+		sToken = md5.encrypt(user.getEmail() + timestamp);
+
+		token.setIdUser(user.getId());
+		token.setDate(timestamp);
+		token.setToken(sToken);
+
+		new TokenDAOImpl().insert(token);
+
+		return sToken;
+	}
+
+	public boolean editUserEmail(String oldEmail, String newEmail, String token) {
+		boolean res = false;
+		TokenDAOImpl tokenDAO = new TokenDAOImpl();
+
+		if (Validator.MD5_CHECKSUM.validate(token)
+				&& Validator.USER_EMAIL.validate(oldEmail)
+				&& Validator.USER_EMAIL.validate(newEmail)) {
+
+			User user = getUserByEmail(oldEmail);
+			Token tokenObj = tokenDAO.get(token);
+
+			if (tokenObj != null && tokenObj.getAvailable()
+					&& tokenObj.getIdUser() == user.getId()) {
+				user.setEmail(newEmail);
+				tokenObj.setAvailable(false);
+
+				update(user);
+				tokenDAO.update(tokenObj);
+				res = true;
+			} else {
+				res = false;
+			}
+		}
+
+		return res;
 	}
 
 }

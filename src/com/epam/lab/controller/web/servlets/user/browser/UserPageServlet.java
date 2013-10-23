@@ -45,8 +45,10 @@ public class UserPageServlet extends HttpServlet {
 		}
 		Folder currentFolder = folderService.get(folderId);
 		List<Folder> folders = folderService.get(userId, folderId);
+		List<Folder> allFolders = folderService.getAll(userId);
 		List<UserFile> files = fileService.getByFolderId(folderId);
 		List<Folder> folderPath = folderService.getFolderPath(folderId);
+		request.setAttribute("allFolders", allFolders);
 		request.setAttribute("folders", folders);
 		request.setAttribute("files", files);
 		request.setAttribute("currentFolder", currentFolder);

@@ -5,18 +5,13 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3>Basic info</h3>
-		<c:forEach var="tariff" items="${tariffs}">
-			<c:if test="${sessionScope.user.idTariff == tariff.id}">
-				<p>
-					<fmt:message key="Tariff" bundle="${lang}" />
-					: <strong>${tariff.name} (${tariff.maxCapacity}Mb)</strong>
-				</p>
-			</c:if>
-		</c:forEach>
-
+		<p>
+			<fmt:message key="Tariff" bundle="${lang}" />
+			: <strong>${tariff.name}</strong>
+		</p>
 		<p>
 			<fmt:message key="Free_space" bundle="${lang}" />
-			: <strong>194.45Mb</strong>
+			: <strong>${tariff.maxCapacity - user.capacity}</strong>
 		</p>
 		<h3>
 			<fmt:message key="Edit_profile" bundle="${lang}" />
@@ -31,13 +26,13 @@
 				</div>
 				<form action="EditUserLoginServlet" method="post">
 					<div class="form-group">
-						<input type="email" name="email"
-							value="${sessionScope.user.email}" hidden="yes" /> <label><fmt:message
-								key="Login" bundle="${lang}" /></label>
+						<input type="email" name="email" value="${user.email}"
+							hidden="yes" /> <label><fmt:message key="Login"
+								bundle="${lang}" /></label>
 						<div class="input-group">
 							<input id="inputLogin" type="text" class="form-control"
-								placeholder="Login" value="${sessionScope.user.login}"
-								name="login"> <span class="input-group-btn">
+								placeholder="Login" value="${user.login}" name="login">
+							<span class="input-group-btn">
 								<button class="btn btn-primary" type="submit"
 									onclick="return checkChangeLoginForm()">
 									<fmt:message key="Edit" bundle="${lang}" />
@@ -51,10 +46,31 @@
 						<p>${editLoginError}</p>
 					</div>
 				</c:if>
-				<div class="form-group">
+				<form action="EditEmailServlet" method="post">
+					<div class="form-group">
+						<input type="email" name="oldEmail" value="${user.email}"
+							hidden="yes" /> <label><fmt:message key="Email"
+								bundle="${lang}" /></label>
+						<div class="input-group">
+							<input id="email" type="newEmail" class="form-control"
+								placeholder="New email" name="newEmail"> <span
+								class="input-group-btn">
+								<button class="btn btn-primary" type="submit">
+									<fmt:message key="Edit" bundle="${lang}" />
+								</button>
+							</span>
+						</div>
+					</div>
+				</form>
+				<c:if test="${editEmailError != null}">
+					<div class="alert alert-danger">
+						<p>${editEmailError}</p>
+					</div>
+				</c:if>
+				<!-- <div class="form-group">
 					<a data-toggle="modal" href="#editEmail"><fmt:message
 							key="Change_email" bundle="${lang}" /></a>
-				</div>
+				</div> -->
 				<div class="form-group">
 					<a data-toggle="modal" href="#editPassword"
 						onclick="formPassReset()"><fmt:message key="Change_password"

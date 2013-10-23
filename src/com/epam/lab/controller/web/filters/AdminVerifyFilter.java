@@ -23,7 +23,7 @@ import com.epam.lab.model.Role;
 		"/userEmployeeController", "/adminUserFiles", "/adminUserInfo",
 		"/adminUserPayments", "/adminUserSearchFiles", "/adminUser",
 		"/paymentsByDate", "/updateUser", "/addTariff", "/adminTarrifsPage",
-		"/tariffsController", "/adminFilesPage", "/adminLoggingPage", "/userpage"})
+		"/tariffsController", "/adminFilesPage", "/adminLoggingPage"})
 
 public class AdminVerifyFilter implements Filter {
 
@@ -31,6 +31,7 @@ public class AdminVerifyFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpSession session = httpRequest.getSession(false);
+		System.out.println("privet");
 		if (session != null) {
 			Object userid = session.getAttribute("userid");
 			if (userid != null) {

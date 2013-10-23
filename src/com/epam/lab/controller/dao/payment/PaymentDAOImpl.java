@@ -43,7 +43,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	@Override
 	public List<Payment> getPayByUserId(long id) {
-		String sql = "SELECT * FROM payments WHERE id_user=?";
+		String sql = "SELECT * FROM payments WHERE user=?";
 		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
 				sql, id);
 		return resultList;
@@ -52,7 +52,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 	@Override
 	public List<Payment> getPayByPeriod(long userId, Timestamp startDate,
 			Timestamp endDate) {
-		String sql = "SELECT * FROM payments WHERE id_user=? AND date BETWEEN ? AND ?;";
+		String sql = "SELECT * FROM payments WHERE user=? AND date_created BETWEEN ? AND ?;";
 		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
 				sql, userId, startDate, endDate);
 		return resultList;

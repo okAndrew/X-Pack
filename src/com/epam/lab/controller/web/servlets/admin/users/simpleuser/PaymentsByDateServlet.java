@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,17 +35,18 @@ public class PaymentsByDateServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
+		RequestDispatcher dispatcher = null;
 		PaymentServiceImpl psevrive = new PaymentServiceImpl();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-
+		Object s = request.getParameter("startDate");
+		Object s1 = request.getParameter("endDate");
 		Timestamp endDate = null;
 		Timestamp startDate = null;
 
-		if (request.getParameter("startDate") != null) {
-			if (request.getParameter("endDate") != null) {
+		if (request.getParameter("startDate") != "") {
+			if (request.getParameter("endDate") != "") {
 				try {
 					endDate = new Timestamp(sf.parse(
 							request.getParameter("endDate")).getTime());
@@ -64,13 +67,14 @@ public class PaymentsByDateServlet extends HttpServlet {
 					endDate);
 
 			request.setAttribute("listPayments", list);
+			request.setAttribute("notFullList", true);
 			request.getRequestDispatcher(ADMIN_USER_PAYMENTS_JSP).forward(
 					request, response);
 
 		} else {
-			out.print("Please select period");
-			request.getRequestDispatcher(ADMIN_USER_PAYMENTS_JSP).include(
-					request, response);
+			request.setAttribute("message", "Please select period");
+			dispatcher = request.getRequestDispatcher("adminUserPayments");
+			dispatcher.forward(request, response);
 		}
 	}
 }

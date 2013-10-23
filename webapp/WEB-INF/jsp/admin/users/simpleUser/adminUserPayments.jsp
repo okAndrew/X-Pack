@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,98 +14,93 @@
 <link rel="shortcut icon" href="images/favicon.png">
 
 <title>Dream Host</title>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+	type="text/javascript"></script>
+<script src="res/js/bootstrap.js"></script>
 
-<!-- Bootstrap core CSS -->
-<link href="res/css/bootstrap.css" rel="stylesheet">
 
-<!-- Custom styles for this template -->
-<link href="res/css/navbar.css" rel="stylesheet">
+<link href="res/css/bootstrap.css" rel="stylesheet" />
+<script src="js/google-code-prettify/prettify.js"></script>
 <link href="res/css/style.css" rel="stylesheet" />
-
-<script src="res/js/html5shiv.js"></script>
-<script src="res/js/respond.min.js"></script>
-<link
-	href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css" media="screen"
-	href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
-<script type="text/javascript">
-	function validateForm() {
-		var p1 = document.forms["paybyDate"]["startDate"].value;
-		if (p1 == "") {
-			setMessage("Fields cannot be empty", errorinfo);
-			return false;
-		}
-
-		return true;
-	}
-
-	function setMessage(message, block) {
-		block.style.display = "block";
-		block.innerHTML = message;
-	}
-</script>
+<link href="res/css/signui.css" rel="stylesheet" />
+<link href="res/css/datepicker.css" rel="stylesheet" />
+<style>
+body {
+	padding-top: 40px;
+}
+</style>
 </head>
-
 <body>
-	<script type="text/javascript"
-		src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-		
-	</script>
-	<script type="text/javascript"
-		src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
-		
-	</script>
-	<script type="text/javascript"
-		src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
-		
-	</script>
-	<script type="text/javascript"
-		src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
-		
-	</script>
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
+
 	<div class="payments-admin-user">
 		<div class="panel panel-default">
+
 			<!-- Default panel contents -->
 			<div class="panel-heading">
+
 				<fmt:message key="Payments" bundle="${lang}" />
 			</div>
-			<h2 id="tables-condensed"></h2>
-			<form action="paymentsByDate" method="post" name="paybyDate"
-				onsubmit="return validateForm()">
+
+			<form action="paymentsByDate" method="post" name="paybyDate">
+
 				<div class="panel-body">
 					<button type="submit" class="btn btn-default" name="action"
 						value="delete">
 						<fmt:message key="Show_payments_for_period" bundle="${lang}" />
 					</button>
 					<div class="well">
-						<input type="date" name="startDate"> <input type="date"
-							name="endDate">
+						<div class="input">
+
+							<div class="input-append date">
+								<input data-date-format="yyyy-mm-dd" type="text" class="span2"
+									name="startDate" id="dpd1" onchange="setCookie()"> <input
+									data-date-format="yyyy-mm-dd" type="text" class="span2"
+									name="endDate"
+									placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
+									id="dpd2" onchange="setCookie()">
+
+							</div>
+
+						</div>
+
 					</div>
+					<c:if test="${message != null}">
+						<div class="errorinfo">${message}</div>
+					</c:if>
 
 				</div>
+				<c:set var="headerRef" value="${header}" />
+				<c:if test="${notFullList}">
+					<a href="adminUserPayments"><fmt:message key="Payments"
+							bundle="${lang}" /></a>
+				</c:if>
+
+
 				<table class="table table-condensed">
 					<thead>
 						<tr>
 							<th><fmt:message key="Payment_id" bundle="${lang}" /></th>
-							<th><fmt:message key="Description" bundle="${lang}" /></th>
+							<th><fmt:message key="Tariff" bundle="${lang}" /></th>
+							<th><fmt:message key="DateCreated" bundle="${lang}" /></th>
+							<th><fmt:message key="DateEnd" bundle="${lang}" /></th>
+							<th><fmt:message key="Price" bundle="${lang}" /></th>
 							<th><fmt:message key="Status" bundle="${lang}" /></th>
-							<th><fmt:message key="Date" bundle="${lang}" /></th>
 							<th><fmt:message key="Avaliable" bundle="${lang}" /></th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${listPayments==null}">
-							<a href="adminUserPayments"><fmt:message
-									key="Back_to_all_payments" bundle="${lang}" /></a>
-						</c:if>
 						<c:forEach items="${listPayments}" var="payment">
 							<tr>
 								<td>${payment.id}</td>
-								<td>${payment.description}</td>
+								<td>${payment.tariff}</td>
+								<td><fmt:formatDate value="${payment.dateCreated}" /></td>
+								<td><fmt:formatDate value="${payment.dateEnd}" /></td>
+								<td>${payment.price}</td>
 								<td>${payment.status}</td>
-								<td>${payment.date}</td>
 								<td>${payment.available}</td>
 							</tr>
 						</c:forEach>
@@ -113,7 +109,36 @@
 			</form>
 		</div>
 	</div>
+	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+	<script src="res/js/bootstrap-datepicker.js"></script>
+	<script>
+		var nowTemp = new Date();
+		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp
+				.getDate(), 0, 0, 0, 0);
+
+		var checkin = $('#dpd1').datepicker({
+			defaultDate : now,
+			onRender : function(date) {
+				return date.valueOf();
+			}
+
+		}).on('changeDate', function(ev) {
+			if (ev.date.valueOf() > checkout.date.valueOf()) {
+				var newDate = new Date(ev.date);
+				newDate.setDate(newDate.getDate() + 1);
+				checkout.setValue(newDate);
+			}
+			checkin.hide();
+			$('#dpd2')[0].focus();
+		}).data('datepicker');
+
+		var checkout = $('#dpd2').datepicker({
+			onRender : function(date) {
+				return date.valueOf();
+			}
+		}).on('changeDate', function(ev) {
+			checkout.hide();
+		}).data('datepicker');
+	</script>
 </body>
 </html>
-
-

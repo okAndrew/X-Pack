@@ -1,4 +1,3 @@
-
 package com.epam.lab.controller.dao.file;
 
 import java.util.List;
@@ -9,5 +8,7 @@ import com.epam.lab.model.UserFile;
 
 public interface FileDAO extends GenericDAO<UserFile> {
 
-	List<FilesTypesSize> getFilesGroupType();
+	public List<FilesTypesSize> getFilesGroupType();
+
+	public UserFile getByName(String fName);
 }

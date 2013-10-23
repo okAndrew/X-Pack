@@ -24,11 +24,10 @@
 								bundle="${lang}" /></label>
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="email"
-								value="${sessionScope.user.email}" disabled="disabled">
+								value="${user.email}" disabled="disabled">
 							<span class="input-group-btn">
 								<button class="btn btn-primary" type="button" id="sendCode">
 									<fmt:message key="Send_secret_code" bundle="${lang}" />
-
 								</button>
 							</span>
 						</div>

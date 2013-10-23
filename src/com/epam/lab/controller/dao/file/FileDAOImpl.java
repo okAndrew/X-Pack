@@ -12,7 +12,8 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public UserFile get(long id) {
 		String sql = "SELECT * FROM files WHERE id=?";
-		UserFile result = queryExecutor.executeQuerySingle(UserFile.class, sql, id);
+		UserFile result = queryExecutor.executeQuerySingle(UserFile.class, sql,
+				id);
 		return result;
 	}
 
@@ -23,15 +24,15 @@ public class FileDAOImpl implements FileDAO {
 
 	public List<UserFile> getAllByUserId(long userId) {
 		String sql = "SELECT * FROM files WHERE id_user = ?";
-		List<UserFile> resultList = queryExecutor.executeQuery(UserFile.class, sql,
-				userId);
+		List<UserFile> resultList = queryExecutor.executeQuery(UserFile.class,
+				sql, userId);
 		return resultList;
 	}
 
 	public List<UserFile> getAllByFolderId(long folderId) {
 		String sql = "SELECT * FROM files WHERE id_folder = ?";
-		List<UserFile> resultList = queryExecutor.executeQuery(UserFile.class, sql,
-				folderId);
+		List<UserFile> resultList = queryExecutor.executeQuery(UserFile.class,
+				sql, folderId);
 		return resultList;
 	}
 
@@ -70,7 +71,13 @@ public class FileDAOImpl implements FileDAO {
 	@Override
 	public List<FilesTypesSize> getFilesGroupType() {
 		String sql = "SELECT type, SUM(size) AS size FROM files GROUP BY(type)";
-		List<FilesTypesSize> resultList = new DBQueryExecutor<FilesTypesSize>().executeQuery(FilesTypesSize.class, sql);
+		List<FilesTypesSize> resultList = new DBQueryExecutor<FilesTypesSize>()
+				.executeQuery(FilesTypesSize.class, sql);
 		return resultList;
+	}
+
+	public UserFile getByName(String fName) {
+		String sql = "SELECT * FROM files WHERE name=?";
+		return queryExecutor.executeQuerySingle(UserFile.class, sql, fName);
 	}
 }

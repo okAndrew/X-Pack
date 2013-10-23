@@ -28,18 +28,12 @@ public class DownloadServlet extends HttpServlet {
 			String[] filesIds = request.getParameterValues("files");
 			String[] foldersIds = request.getParameterValues("folders");
 			file = service.getArchive(filesIds, foldersIds);
-			if (!file.exists()) {
-				throw new ServletException("File doesn't exists on server.");
-			}
 			fileName = file.getName();
 		} else {
 			long fileId = Long.valueOf(request.getParameter("fileid"));
 			com.epam.lab.model.UserFile f = service.get(fileId);
 			String filePath = f.getPath() + File.separator + f.getName();
 			file = new File(filePath);
-			if (!file.exists()) {
-				throw new ServletException("File doesn't exists on server.");
-			}
 			fileName = f.getNameIncome();
 		}
 		response.setHeader("Content-Disposition", "attachment; filename="

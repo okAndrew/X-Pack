@@ -124,7 +124,7 @@ body {
 									<td><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;
 										<a href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
 									</td>
-									<td><c:out value="${folder.date}" /></td>
+									<td><fmt:formatDate value='${folder.date}'/></td>
 									<td><c:out value="${folder.size}" /></td>
 									<td><c:out value="Folder" /></td>
 									<td><a data-toggle="modal" role="button"

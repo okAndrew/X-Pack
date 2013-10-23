@@ -1,7 +1,6 @@
 package com.epam.lab.controller.services.file;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,14 +15,17 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.dao.file.FileDAO;
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
+import com.epam.lab.controller.exceptions.FileTooLargeException;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.FileType;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.Tariff;
 import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
 
@@ -31,10 +33,17 @@ public class UserFileUploader {
 	private static Logger logger = Logger.getLogger(UserFileUploader.class);
 
 	public UserFile uploadFile(FileItem fileItem, String fileIncomeName,
-			long idFolder) throws FolderNotFoundException, IOException {
+			long idFolder) throws FolderNotFoundException, IOException,
+			FileTooLargeException {
 		UserFile userFile = null;
 		userFile = createUserFile(fileIncomeName, idFolder);
 		String uploadedFileLocation = getUploadFileLocation(userFile);
+		// verify capacity
+		User user = new UserServiceImpl().getUserByFolderId(idFolder);
+		long maxCapacity = getMaxCapacity(user);
+		if (user.getCapacity() + fileItem.getSize() > maxCapacity) {
+			throw new FileTooLargeException();
+		}
 		try {
 			fileItem.write(new File(uploadedFileLocation));
 		} catch (Exception e) {
@@ -43,26 +52,35 @@ public class UserFileUploader {
 		}
 		userFile.setSize(fileItem.getSize());
 
-		executeActionUploadInDB(userFile);
+		userFile = writeUploadActionIntoDB(userFile);
 		return userFile;
 	}
 
+	private long getMaxCapacity(User user) {
+		Tariff tariff = new TariffServiseImpl().get(user.getIdTariff());
+		return tariff.getMaxCapacity();
+	}
+
 	public UserFile uploadFile(InputStream inputStream, String fileIncomeName,
-			long idFolder) throws FolderNotFoundException, IOException {
+			long idFolder) throws FolderNotFoundException, IOException,
+			FileTooLargeException {
 		UserFile userFile = null;
 		userFile = createUserFile(fileIncomeName, idFolder);
 		String uploadedFileLocation = getUploadFileLocation(userFile);
-		File uploadedFile = writeFile(inputStream, uploadedFileLocation);
-		if (uploadedFile == null)
-			return null;
-		userFile.setSize(uploadedFile.length());
 
-		executeActionUploadInDB(userFile);
+		// verify capacity (when file will be download)
+		User user = new UserServiceImpl().getUserByFolderId(idFolder);
+		long maxFileSize = getMaxCapacity(user) - user.getCapacity();
+		File uploadedFile = writeFile(inputStream, uploadedFileLocation,
+				maxFileSize);
+
+		userFile.setSize(uploadedFile.length());
+		userFile = writeUploadActionIntoDB(userFile);
 		return userFile;
 	}
 
 	public List<UserFile> uploadFiles(List<FileItem> items, long idFolder)
-			throws FolderNotFoundException {
+			throws FolderNotFoundException, FileTooLargeException {
 		List<UserFile> files = new ArrayList<UserFile>();
 		for (FileItem item : items) {
 			UserFile file = null;
@@ -77,17 +95,28 @@ public class UserFileUploader {
 
 	}
 
-	private File writeFile(InputStream inputStream, String uploadedFileLocation)
-			throws FileNotFoundException, IOException {
+	private File writeFile(InputStream inputStream,
+			String uploadedFileLocation, long maxSize) throws IOException,
+			FileTooLargeException {
 		File newFile = new File(uploadedFileLocation);
 		OutputStream out = new FileOutputStream(newFile);
+		long sumWritenBytes = 0;
 		int read = 0;
 		byte[] bytes = new byte[1024];
-		while ((read = inputStream.read(bytes)) != -1) {
-			out.write(bytes, 0, read);
+		try {
+			while ((read = inputStream.read(bytes)) != -1) {
+				if (sumWritenBytes > maxSize) {
+					throw new FileTooLargeException();
+				}
+				out.write(bytes, 0, read);
+			}
+		} catch (IOException e) {
+			logger.error(e);
+		} finally {
+			newFile.delete();
+			out.flush();
+			out.close();
 		}
-		out.flush();
-		out.close();
 		return newFile;
 	}
 
@@ -100,10 +129,11 @@ public class UserFileUploader {
 		service.updateSize(file.getIdFolder(), file.getSize());
 	}
 
-	private void executeActionUploadInDB(UserFile userFile) {
+	private UserFile writeUploadActionIntoDB(UserFile userFile) {
 		FileDAO dao = new FileDAOImpl();
 		updateFolders(userFile);
 		dao.insert(userFile);
+		return dao.getByName(userFile.getName());
 	}
 
 	private UserFile createUserFile(String fileNameIncome, long idFolder)

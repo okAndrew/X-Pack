@@ -16,6 +16,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.exceptions.FileTooLargeException;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.file.UserFileUploader;
 
@@ -41,6 +42,9 @@ public class UploadServlet extends HttpServlet {
 				logger.error(e);
 				e.printStackTrace();
 			} catch (FolderNotFoundException e) {
+				logger.error(e);
+				e.printStackTrace();
+			} catch (FileTooLargeException e) {
 				logger.error(e);
 				e.printStackTrace();
 			}

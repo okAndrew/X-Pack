@@ -33,10 +33,9 @@ public class Token4UploadServiceImpl extends AbstractServiceImpl<Token4Upload>
 		token4Upload.setIdUser(idUser);
 		token4Upload.setMaxNumUse(maxNumUse);
 		token4Upload.setDestroyDate(getDestroyDate(liveTime));
-		token4Upload.setToken(generateToken());
-		while (insert(token4Upload) == 0) { // if token has already in DB
+		do {
 			token4Upload.setToken(generateToken());
-		}
+		} while (insert(token4Upload) == 0);// if token has already in DB
 		return tokenDAO.getByToken(token4Upload.getToken());
 	}
 
@@ -75,7 +74,7 @@ public class Token4UploadServiceImpl extends AbstractServiceImpl<Token4Upload>
 		}
 		UserService userService = new UserServiceImpl();
 		User user = userService.get(tokenData.getIdUser());
-		if (user == null || user.getIsActivated()) {
+		if (user == null || !user.getIsActivated()) {
 			throw new UserNotFoundException();
 		}
 		FolderService folderService = new FolderServiceImpl();

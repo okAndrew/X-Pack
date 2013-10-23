@@ -49,7 +49,7 @@ public class SignInServlet extends HttpServlet {
 
 		if (user != null) {
 			if (user.getIsActivated()) {
-				HttpSession session = request.getSession(false);
+				HttpSession session = request.getSession(true);
 				session.setAttribute("userid", user.getId());
 				session.setAttribute("userRole", user.getRole());
 				session.setAttribute("userLogin", user.getLogin());

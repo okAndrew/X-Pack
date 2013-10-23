@@ -2,6 +2,7 @@ package com.epam.lab.controller.web.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +14,17 @@ import javax.servlet.http.HttpSession;
 public class SignOutServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private static final String HOME_JSP = "homepage";
 
-	public SignOutServlet() {
-		super();
-	}
-
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(HOME_JSP);
 		HttpSession session = request.getSession(false);
-		session.invalidate();
-		response.sendRedirect("homepage");
+		
+		if (session != null) {
+			session.invalidate();
+		}
+		
+		requestDispatcher.forward(request, response);
 	}
 
 }

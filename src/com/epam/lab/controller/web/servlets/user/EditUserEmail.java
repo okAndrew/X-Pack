@@ -2,7 +2,6 @@ package com.epam.lab.controller.web.servlets.user;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +17,6 @@ public class EditUserEmail extends HttpServlet {
 	private static final String SETTINGS_JSP = "settings";
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SETTINGS_JSP);
 		String oldEmail = request.getParameter("oldEmail");
 		String newEmail = request.getParameter("newEmail");
 		String token = request.getParameter("token");
@@ -26,7 +24,7 @@ public class EditUserEmail extends HttpServlet {
 		UserServiceImpl userService = new UserServiceImpl();
 		userService.editUserEmail(oldEmail, newEmail, token);
 		
-		requestDispatcher.forward(request, response);
+		response.sendRedirect(SETTINGS_JSP);
 	}
 
 }

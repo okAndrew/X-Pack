@@ -58,7 +58,7 @@
 							</button></li>
 						<li><button type="submit" class="btn btn-default"
 								name="action" value="baned">
-								<fmt:message key="Baned" bundle="${lang}" />
+								<fmt:message key="Ban" bundle="${lang}" />
 							</button></li>
 						<li><button type="submit" class="btn btn-default"
 								name="action" value="sendEmailUsers">

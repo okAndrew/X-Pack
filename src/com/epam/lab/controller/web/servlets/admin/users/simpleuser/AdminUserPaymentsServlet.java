@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.payment.PaymentServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.model.Payment;
 
 @WebServlet("/adminUserPayments")

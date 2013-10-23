@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.eclipse.jdt.internal.compiler.codegen.LongCache;
-
 import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.User;
@@ -21,10 +19,6 @@ public class CreatePaymentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String SETTINGS_JSP = "settings";
-
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

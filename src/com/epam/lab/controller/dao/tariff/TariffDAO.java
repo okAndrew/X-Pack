@@ -7,7 +7,6 @@ import com.epam.lab.model.Tariff;
 
 public interface TariffDAO extends GenericDAO<Tariff> {
 
-	int isActivate(long id);
-
 	List<Tariff> getAvailableTariffs();
+	
 }

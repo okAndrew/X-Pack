@@ -8,23 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet("/signout")
-public class SignOutServlet extends HttpServlet {
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 
+@WebServlet("/pricing")
+public class PricesServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-	private static final String HOME_JSP = "homepage";
-
+	private static final String PRICES_JSP = "WEB-INF/jsp/pricing.jsp";
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(HOME_JSP);
-		HttpSession session = request.getSession(false);
-		
-		if (session != null) {
-			session.invalidate();
-		}
-		
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PRICES_JSP);
+		request.setAttribute("tariffs", new TariffServiseImpl().getAvailableTariffs());
 		requestDispatcher.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

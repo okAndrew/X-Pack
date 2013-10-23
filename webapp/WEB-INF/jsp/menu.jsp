@@ -20,6 +20,8 @@
 				</c:if>
 				<li><a href=""><fmt:message key="About" bundle="${lang}" /></a></li>
 				<li><a href=""><fmt:message key="Home" bundle="${lang}" /></a></li>
+				<li><a href="pricing"><fmt:message key="Prices"
+							bundle="${lang}" /></a></li>
 			</ul>
 
 			<div class="navbar-form navbar-right">

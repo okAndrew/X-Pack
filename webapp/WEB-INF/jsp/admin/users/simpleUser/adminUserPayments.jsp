@@ -14,16 +14,8 @@
 <link rel="shortcut icon" href="images/favicon.png">
 
 <title>Dream Host</title>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
-	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
-
-
 <link href="res/css/bootstrap.css" rel="stylesheet" />
-<script src="js/google-code-prettify/prettify.js"></script>
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
 <link href="res/css/datepicker.css" rel="stylesheet" />
@@ -35,51 +27,42 @@ body {
 </head>
 <body>
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
-
 	<div class="payments-admin-user">
 		<div class="panel panel-default">
-
 			<!-- Default panel contents -->
 			<div class="panel-heading">
-
 				<fmt:message key="Payments" bundle="${lang}" />
 			</div>
-
 			<form action="paymentsByDate" method="post" name="paybyDate">
-
 				<div class="panel-body">
-					<button type="submit" class="btn btn-default" name="action"
-						value="delete">
-						<fmt:message key="Show_payments_for_period" bundle="${lang}" />
-					</button>
 					<div class="well">
 						<div class="input">
-
 							<div class="input-append date">
 								<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-									name="startDate" id="dpd1" onchange="setCookie()"> <input
-									data-date-format="yyyy-mm-dd" type="text" class="span2"
+									name="startDate" id="dpd1"
+									placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
+								<input data-date-format="yyyy-mm-dd" type="text" class="span2"
 									name="endDate"
 									placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
-									id="dpd2" onchange="setCookie()">
-
+									id="dpd2">
+								<button type="submit" class="btn btn-default">
+									<fmt:message key="Show_payments_for_period" bundle="${lang}" />
+								</button>
 							</div>
-
 						</div>
-
 					</div>
 					<c:if test="${message != null}">
 						<div class="errorinfo">${message}</div>
 					</c:if>
-
+					<c:if test="${messagePeriod != null}">
+						<div class="info">${messagePeriod}</div>
+					</c:if>
 				</div>
 				<c:set var="headerRef" value="${header}" />
 				<c:if test="${notFullList}">
-					<a href="adminUserPayments"><fmt:message key="Payments"
+					<a href="adminUserPayments"><fmt:message key="AllPayments"
 							bundle="${lang}" /></a>
 				</c:if>
-
-
 				<table class="table table-condensed">
 					<thead>
 						<tr>

@@ -61,3 +61,16 @@ div .errorinfo {
     padding: 5px;
     margin-bottom: 10px;
 }
+div .info {
+	background-color: #999;
+	border-radius: 3px;
+	font-size: 12pt;
+	color: white;
+	font-weight: bold;
+	float: left;
+	word-wrap: break-word;
+    max-width: 700px;
+    display: block;
+    padding: 5px;
+    margin-bottom: 10px;
+}

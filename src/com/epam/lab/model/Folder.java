@@ -3,20 +3,25 @@ package com.epam.lab.model;
 import java.sql.Timestamp;
 
 import com.epam.lab.controller.annotations.TableColumn;
+import com.google.gson.annotations.Expose;
 
 public class Folder {
+	@Expose
 	@TableColumn("id")
 	private long id;
 
 	@TableColumn("id_user")
 	private long idUser;
 
+	@Expose
 	@TableColumn("name")
 	private String name;
 
+	@Expose
 	@TableColumn("id_upper")
 	private long idUpper;
 	
+	@Expose
 	@TableColumn("size")
 	private long size;
 	

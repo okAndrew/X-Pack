@@ -1,7 +1,6 @@
 package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,8 +39,6 @@ public class PaymentsByDateServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-		Object s = request.getParameter("startDate");
-		Object s1 = request.getParameter("endDate");
 		Timestamp endDate = null;
 		Timestamp startDate = null;
 
@@ -68,6 +65,11 @@ public class PaymentsByDateServlet extends HttpServlet {
 
 			request.setAttribute("listPayments", list);
 			request.setAttribute("notFullList", true);
+			request.setAttribute(
+					"messagePeriod",
+					"Your payments for period: "
+							+ request.getParameter("startDate") + " - "
+							+ request.getParameter("endDate"));
 			request.getRequestDispatcher(ADMIN_USER_PAYMENTS_JSP).forward(
 					request, response);
 

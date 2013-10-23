@@ -49,9 +49,10 @@ public class Token4UploadDAOImpl implements Token4UploadDAO {
 		String sql = "SELECT * FROM tokens4upload WHERE token=?";
 		return queryExecutor.executeQuerySingle(type, sql, token);
 	}
-	
-	public int deleteNotActiveTokens(){
-		String sql = "DELETE FROM tokens4upload WHERE destroy_date < ?";
-		return queryExecutor.executeUpdate(sql , new Timestamp(new Date().getTime()));
+
+	public int deleteNotActiveTokens() {
+		String sql = "DELETE FROM tokens4upload WHERE destroy_date < ? OR max_num_use<=0";
+		return queryExecutor.executeUpdate(sql,
+				new Timestamp(new Date().getTime()));
 	}
 }

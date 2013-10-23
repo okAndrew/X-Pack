@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.service;
+package com.epam.lab.controller.web.hostservices;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,7 +25,6 @@ import com.google.gson.GsonBuilder;
 
 @Path("token")
 public class TokenWebService {
-
 	private static Logger logger = Logger.getLogger(TokenWebService.class);
 
 	@POST
@@ -35,31 +34,13 @@ public class TokenWebService {
 	public String createToken4Download(@PathParam("email") String email,
 			@PathParam("password") String password, Token4Upload tokenData) {
 		User user = getUser(email, password);
-		Token4Upload createdToken = createToken(tokenData, user);
-		String response = createResponse(createdToken);
-		return response;
-	}
-
-	private Token4Upload createToken(Token4Upload tokenData, User user) {
-		Token4UploadService service = new Token4UploadServiceImpl();
 		Token4Upload createdToken = null;
+		String response = null;
 		if (user != null) {
-			createdToken = service.createToken(user.getId(),
-					tokenData.getLiveTime(), tokenData.getMaxNumUse());
+			createdToken = createToken(tokenData, user);
+			response = createResponse(createdToken);
 		}
-		return createdToken;
-	}
-
-	private User getUser(String email, String password) {
-		UserServiceImpl userService = new UserServiceImpl();
-		String encryptPass = new MD5Encrypter().encrypt(password);
-		User user = userService.getUser(email, encryptPass);
-		return user;
-	}
-
-	private String createResponse(Token4Upload createdToken) {
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-		return gson.toJson(createdToken);
+		return response;
 	}
 
 	@GET
@@ -86,5 +67,26 @@ public class TokenWebService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteToken4Download() {
 		return Response.status(200).build();
+	}
+
+	private Token4Upload createToken(Token4Upload tokenData, User user) {
+		Token4UploadService service = new Token4UploadServiceImpl();
+		Token4Upload createdToken = null;
+		createdToken = service.createToken(user.getId(),
+				tokenData.getLiveTime(), tokenData.getMaxNumUse());
+		return createdToken;
+	}
+
+	private User getUser(String email, String password) {
+		UserServiceImpl userService = new UserServiceImpl();
+		String encryptPass = new MD5Encrypter().encrypt(password);
+		User user = userService.getUser(email, encryptPass);
+		return user;
+	}
+
+	private String createResponse(Token4Upload createdToken) {
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+				.create();
+		return gson.toJson(createdToken);
 	}
 }

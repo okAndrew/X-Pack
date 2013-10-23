@@ -10,7 +10,7 @@ public class Tariff {
 	private String name;
 
 	@TableColumn("max_capacity")
-	private int maxCapacity;
+	private long maxCapacity;
 
 	@TableColumn("price")
 	private double price;
@@ -60,11 +60,11 @@ public class Tariff {
 		return this;
 	}
 
-	public int getMaxCapacity() {
+	public long getMaxCapacity() {
 		return maxCapacity;
 	}
 
-	public Tariff setMaxCapacity(int maxCapacity) {
+	public Tariff setMaxCapacity(long maxCapacity) {
 		this.maxCapacity = maxCapacity;
 		return this;
 	}

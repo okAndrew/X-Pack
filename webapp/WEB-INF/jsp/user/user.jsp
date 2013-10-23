@@ -10,9 +10,11 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+<link href="res/css/treeshow.css" rel="stylesheet" />
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
+<script src="res/js/TreeMenu.js" type="text/javascript"></script>
 <script>
 	function toggle(source) {
 		checkboxes = document.getElementsByName('folders');
@@ -448,5 +450,20 @@ body {
 			</div>
 		</div>
 	</form>
+	<div class="menu">
+		<ul id="example1">
+			<li>Root
+			<c:forEach items="${allFolders}" var="folder" >
+				<ul>
+					<li><c:out value="${folder.name}"/></li>
+				</ul>
+			</c:forEach>
+			</li>
+			
+		</ul>
+		<script type="text/javascript">
+			make_tree_menu('example1');
+		</script>
+	</div>
 </body>
 </html>

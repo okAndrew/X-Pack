@@ -33,10 +33,7 @@
 			checkboxes[i].checked = source.checked;
 		}
 	}
-</script>
 
-
-<script type="text/javascript">
 	$(document).ready(function() {
 		$("#tablesorter-demo").tablesorter({
 			widthFixed : true,
@@ -45,11 +42,7 @@
 			container : $("#pager")
 		});
 	});
-</script>
-
-
-
-<script type="text/javascript">
+	
 	$(document).ready(function() {
 		$('#tablesorter-demo').dataTable({
 			"aoColumnDefs" : [ {
@@ -58,18 +51,13 @@
 			} ]
 		});
 	});
-</script>
-
-
-<script type="text/javascript">
+	
 	$(document).ready(function() {
 		$("#tablesorter-demo").tablesorter({
 			sortList : [ [ 0, 0 ], [ 2, 0 ] ]
 		});
 	});
-</script>
-
-<script type="text/javascript">
+	
 	$(document).ready(function() {
 		$('#tablesorter-demo').dataTable().columnFilter({
 			aoColumns : [ {

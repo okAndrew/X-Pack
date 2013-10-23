@@ -13,7 +13,7 @@ public interface Token4UploadService extends AbstractService<Token4Upload> {
 
 	public int deleteNotActiveTokens();
 
-	public boolean isItUserFolder(String token, long idFolder)
+	public boolean verifyAccessToFolder(String token, long idFolder)
 			throws TokenNotFoundException, UserNotFoundException,
 			FolderNotFoundException;
 }

@@ -21,7 +21,7 @@ import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.FileType;
 import com.epam.lab.model.Folder;
@@ -159,7 +159,7 @@ public class UserFileUploader {
 		if (folder == null)
 			throw new FolderNotFoundException();
 		User user = new UserServiceImpl().get(folder.getIdUser());
-		Timestamp currentTS = CurrentTimeStamp.getCurrentTimeStamp();
+		Timestamp currentTS = TimeStampManager.getFormatCurrentTimeStamp();
 
 		String fileName = new MD5Encrypter().encrypt(currentTS.toString()
 				+ userFile.getNameIncome() + user.getEmail());

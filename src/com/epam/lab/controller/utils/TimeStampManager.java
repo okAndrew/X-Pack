@@ -4,16 +4,18 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
-public class CurrentTimeStamp {
+public class TimeStampManager {
 
-	public static Timestamp getCurrentTimeStamp() {
-		Calendar cal = Calendar.getInstance();
+	public static Timestamp getFormatCurrentTimeStamp() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String dateTime = dateFormat.format(cal.getTime());
-		Timestamp timestamp = Timestamp.valueOf(dateTime);
+		String dateTime = dateFormat.format(new Date().getTime());
+		return Timestamp.valueOf(dateTime);
+	}
 
-		return timestamp;
+	public static Timestamp getCurrentTime() {
+		return new Timestamp(new Date().getTime());
 	}
 
 	public static Timestamp addMonth(Timestamp timestamp) {

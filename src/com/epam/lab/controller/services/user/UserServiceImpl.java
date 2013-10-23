@@ -6,16 +6,16 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.dao.token.TokenDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
+import com.epam.lab.controller.dao.token.TokenDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.Role;
@@ -223,7 +223,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		Token token = new Token();
 		MD5Encrypter md5 = new MD5Encrypter();
 		String sToken = null;
-		Timestamp timestamp = CurrentTimeStamp.getCurrentTimeStamp();
+		Timestamp timestamp = TimeStampManager.getCurrentTime();
 
 		sToken = md5.encrypt(user.getEmail() + timestamp);
 

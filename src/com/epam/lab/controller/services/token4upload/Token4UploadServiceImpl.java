@@ -1,6 +1,7 @@
 package com.epam.lab.controller.services.token4upload;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Random;
 
 import com.epam.lab.controller.dao.token4upload.Token4UploadDAO;
@@ -13,7 +14,7 @@ import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.services.user.UserService;
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.utils.CurrentTimeStamp;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Upload;
@@ -49,21 +50,20 @@ public class Token4UploadServiceImpl extends AbstractServiceImpl<Token4Upload>
 
 	private Timestamp getDestroyDate(long liveTime) {
 		long timeInMiliSeconds = liveTime * 1000;
-		long time = CurrentTimeStamp.getCurrentTimeStamp().getTime()
-				+ timeInMiliSeconds;
-		Timestamp result = new Timestamp(time);
+		Timestamp result = new Timestamp(new Date().getTime()
+				+ timeInMiliSeconds);
 		return result;
 	}
 
 	private String generateToken() {
 		String token = null;
-		Timestamp currentTimeStamp = CurrentTimeStamp.getCurrentTimeStamp();
+		Timestamp currentTimeStamp = new Timestamp(new Date().getTime());
 		token = new MD5Encrypter().encrypt(currentTimeStamp.toString()
 				+ new Random().nextLong());
 		return token;
 	}
 
-	public boolean isItUserFolder(String token, long idFolder)
+	public boolean verifyAccessToFolder(String token, long idFolder)
 			throws TokenNotFoundException, UserNotFoundException,
 			FolderNotFoundException {
 		boolean result = false;

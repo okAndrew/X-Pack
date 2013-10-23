@@ -27,7 +27,7 @@ import com.epam.lab.model.UserFile;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
-@Path("files")
+@Path("file")
 public class FilesWebService {
 
 	private static Logger logger = Logger.getLogger(FilesWebService.class);
@@ -44,7 +44,7 @@ public class FilesWebService {
 			@PathParam("idFolder") String idFolderStr,
 			FormDataMultiPart multiPart) {
 		long idFolder = Long.valueOf(idFolderStr);
-		String message = validateUploadRequest(token, idFolder);
+		String message = verifyUploadRequest(token, idFolder);
 		if (message != null) {
 			JSONObject jsonError = buildJsonError(message);
 			return new JSONArray().put(jsonError);
@@ -92,12 +92,12 @@ public class FilesWebService {
 		return jsonObject;
 	}
 
-	private String validateUploadRequest(String token, long idFolder) {
+	private String verifyUploadRequest(String token, long idFolder) {
 		String message = null;
 		Token4UploadService service = new Token4UploadServiceImpl();
 		boolean itUserFolder = false;
 		try {
-			itUserFolder = service.isItUserFolder(token, idFolder);
+			itUserFolder = service.verifyAccessToFolder(token, idFolder);
 		} catch (TokenNotFoundException e) {
 			logger.warn(e);
 			message = TOKEN_NOT_FOUND;

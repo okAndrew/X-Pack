@@ -1,8 +1,5 @@
 package com.epam.lab.controller.web.listeners;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
@@ -34,7 +31,8 @@ public class UserOnlineListener implements HttpSessionListener,
 			sessionhistory = historyService
 					.getSessionHistByUserIDAndEndDate((long) session
 							.getAttribute("userid"));
-			sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
+			sessionhistory.setEnddate(TimeStampManager
+					.getFormatCurrentTimeStamp());
 			historyService.update(sessionhistory);
 		}
 	}

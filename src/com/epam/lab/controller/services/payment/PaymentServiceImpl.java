@@ -32,6 +32,10 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 				startDate, endDate);
 		return list;
 	}
+	
+	public Payment getCurrentPayment(long userId) {
+		return new PaymentDAOImpl().getCurrentPayment(userId);
+	}
 
 	public void createPayment(User user, Tariff tariff) {
 		PaymentDAOImpl paymentDAOImpl = new PaymentDAOImpl();
@@ -53,7 +57,7 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 	}
 
 	public int activatePayment(Payment payment) {
-		Timestamp dateEnd = TimeStampManager.addMonth(payment.getDateCreated());
+		Timestamp dateEnd = TimeStampManager.addNumberOfMonth(payment.getDateCreated(), 1);
 		payment.setStatus(true);
 		payment.setDateEnd(dateEnd);
 

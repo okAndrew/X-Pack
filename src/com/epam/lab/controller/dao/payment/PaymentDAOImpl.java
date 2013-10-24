@@ -93,4 +93,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 		}
 	}
 
+	@Override
+	public Payment getCurrentPayment(long userId) {
+		String sql = "SELECT * FROM payments WHERE user = ? AND date_created < curtime() AND date_end > curtime() and available = 1";
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql, userId);
+		return result;
+	}
+
 }

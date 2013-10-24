@@ -15,12 +15,13 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<c:if test="${sessionScope.userLogin != null}">
-					<li><a href="userpage"><fmt:message key="My_space"
-								bundle="${lang}" /></a></li>
+					<li id="menu_myspace"><a href="userpage">
+						<fmt:message key="My_space" bundle="${lang}" /></a>
+					</li>
 				</c:if>
-				<li><a href=""><fmt:message key="About" bundle="${lang}" /></a></li>
-				<li><a href=""><fmt:message key="Home" bundle="${lang}" /></a></li>
-				<li><a href="pricing"><fmt:message key="Prices"
+				<li id="menu_about"><a href=""><fmt:message key="About" bundle="${lang}" /></a></li>
+				<li id="menu_home"><a href=""><fmt:message key="Home" bundle="${lang}" /></a></li>
+				<li id="menu_pricing"><a href="pricing"><fmt:message key="Pricing"
 							bundle="${lang}" /></a></li>
 			</ul>
 

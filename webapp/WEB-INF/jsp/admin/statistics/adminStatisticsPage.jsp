@@ -8,7 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Statistics</title>
-
 <script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>

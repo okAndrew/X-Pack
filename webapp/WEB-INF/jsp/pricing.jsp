@@ -38,8 +38,14 @@ $("#form_pay_submit").click( function() {
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h4>
-									${tariff.name} - ${tariff.maxCapacity}Mb
-									<c:if test="${currentTariff.id == tariff.id}">(current)</c:if>
+									<c:choose>
+										<c:when test="${currentTariff.id == tariff.id}">
+											<b>${tariff.name} - ${tariff.maxCapacity}Mb (current)</b>
+										</c:when>
+										<c:otherwise>
+											${tariff.name} - ${tariff.maxCapacity}Mb
+										</c:otherwise>
+									</c:choose>
 								</h4>
 							</div>
 							<div class="panel-body">
@@ -47,35 +53,32 @@ $("#form_pay_submit").click( function() {
 								<form action="CreatePaymentServlet" method="post">
 									<input type="text" name="id" value="${sessionScope.userid}" hidden />
 									<input type="text" name="tariff" value="${tariff.id}" hidden />
-									<c:choose>
-										<c:when test="${currentTariff.id == tariff.id}">
-											<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right" onclick="set('tariffId', ${tariff.id})">
-												Continue more
-											</a>
-										</c:when>
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${currentTariff.price >= tariff.price}">
-													<c:choose>
-														<c:when test="${daysLeft > 0}">
-															<a class="btn btn-success pull-right" disabled="disabled">
-																${daysLeft} days left
-															</a>
-														</c:when>
-														<c:otherwise>${tariff.price}$</c:otherwise>
-													</c:choose>
-												</c:when>
-												<c:otherwise>
-													<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})">
-														<c:choose>
-															<c:when test="${savedCash > 0}">${tariff.price}$ - <strong>${savedCash}$ (saved cash)</strong></c:when>
-															<c:otherwise>${tariff.price}$</c:otherwise>
-														</c:choose>
-													</a>
-												</c:otherwise>
-											</c:choose>
-										</c:otherwise>
-									</c:choose>
+									<c:if test="${tariff.price > 0}">
+										<c:choose>
+											<c:when test="${tariff.price < currentTariff.price}">
+												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})" disabled="disabled">
+													${tariff.price}$
+												</a>
+											</c:when>
+											<c:when test="${tariff.price == currentTariff.price}">
+												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})">
+													Continue more
+												</a>
+											</c:when>
+											<c:otherwise>
+												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})">
+												<c:choose>
+													<c:when test="${savedCash > 0}">
+														${tariff.price}$ - <strong>${savedCash}$ (saved cash)</strong>
+													</c:when>
+													<c:otherwise>
+														${tariff.price}$
+													</c:otherwise>
+												</c:choose>
+												</a>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
 								</form>
 							</div>
 						</div>

@@ -17,12 +17,24 @@ public class SessionHistory {
 	@TableColumn("enddate")
 	private Timestamp enddate;
 
+	@TableColumn("sessIdTomcat")
+	private String sessIdTomcat;
+
 	public long getId() {
 		return id;
 	}
 
 	public SessionHistory setId(long id) {
 		this.id = id;
+		return this;
+	}
+
+	public String getSessIdTomcat() {
+		return sessIdTomcat;
+	}
+
+	public SessionHistory setSessIdTomcat(String sessIdTomcat) {
+		this.sessIdTomcat = sessIdTomcat;
 		return this;
 	}
 
@@ -55,9 +67,10 @@ public class SessionHistory {
 
 	@Override
 	public String toString() {
-		return "SessionHistory [id=" + id + ",  userid="
-				+ userid + ", startdate=" + startdate + ", enddate=" + enddate
-				+ "]";
+		return "SessionHistory [id=" + id + ", userid=" + userid
+				+ ", startdate=" + startdate + ", enddate=" + enddate
+				+ ", sessIdTomcat=" + sessIdTomcat + "]";
 	}
+
 
 }

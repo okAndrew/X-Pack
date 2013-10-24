@@ -27,8 +27,10 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand{
 		if (session == null) {
 			page = "signin";
 		} else {
+			int countUsersLogged = UserOnlineListener.getActiveSessionNumberLogged();
 			int countUsers = UserOnlineListener.getActiveSessionNumber();
 			request.setAttribute("countUsers", countUsers);
+			request.setAttribute("countUsersLogged", countUsersLogged);
 			request.setAttribute("countAllUsers", countAllUsers);
 			page = "WEB-INF/jsp/admin/statistics/users.jsp";
 		}

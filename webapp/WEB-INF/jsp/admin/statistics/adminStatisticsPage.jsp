@@ -9,13 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Statistics</title>
 
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
-	type="text/javascript"></script>
+<script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
-
+<link href="res/css/jquery.jqplot.css" rel="stylesheet" />
 <script>
 	function loadXMLDoc(action) {
 		var xmlhttp;
@@ -27,11 +25,46 @@
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				document.getElementById("dynamicArea").innerHTML = xmlhttp.responseText;
+				plotGist();
 			}
 		}
-		xmlhttp.open("GET", "adminStatisticEmployeeController?action="
-				+ action.value, true);
+		xmlhttp.open("GET", "adminStatisticEmployeeController?action=" + action.value, true);
 		xmlhttp.send();
+	}
+
+	function plotGist() {
+		var free = '${freeSpace}';
+		var employed = '${totalSpace}' - free;
+		line1 = [ [ "Free space " + free + "GB", free ], [ "Employed space" + employed + "GB", employed ] ];
+		$.jqplot("example", [ line1 ], {
+			title : "Space",
+			grid : {
+				gridLineColor : '#cccccc',
+				background : '#ffffff',
+				borderColor : '#000000',
+				borderWidth : 2.0,
+				shadow : true,
+				shadowWidth : 3,
+				shadowDepth : 3
+			},
+			seriesColors : [ "#33FF33", "#FF0000" ],
+			seriesDefaults : {
+				renderer : $.jqplot.PieRenderer,
+				rendererOptions : {
+					showDataLabels : true,
+					sliceMargin : 8,
+					diameter : 200,
+					fill : true,
+					shadowDepth : 5,
+				}
+			},
+
+			legend : {
+				show : true,
+				location : 'e',
+				marginTop : '15px'
+			}
+		});
 	}
 </script>
 
@@ -65,7 +98,7 @@
 							class="btn btn-default" value="users">
 							<fmt:message key="Users" bundle="${lang}" />
 						</button></li>
-					<li><button type="submit" onclick="loadXMLDoc(this)"
+					<li><button type="submit" onclick="loadXMLDoc(this);"
 							class="btn btn-default" value="files">
 							<fmt:message key="Files" bundle="${lang}" />
 						</button></li>
@@ -75,10 +108,7 @@
 						</button></li>
 
 				</ul>
-				<div id="dynamicArea">
-					<jsp:include page="users.jsp"></jsp:include>
-					<jsp:include page="files.jsp"></jsp:include>
-				</div>
+				<div id="dynamicArea"></div>
 			</div>
 		</div>
 	</div>

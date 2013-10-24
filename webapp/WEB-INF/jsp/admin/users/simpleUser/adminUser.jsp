@@ -15,11 +15,7 @@
 <title>Dream Host</title>
 
 <!-- Bootstrap core CSS -->
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
-	type="text/javascript"></script>
+
 <script src="res/js/bootstrap.js"></script>
 
 <link href="res/css/bootstrap.css" rel="stylesheet" />

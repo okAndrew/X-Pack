@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>DreamHost(Administrator) | Statistics</title>
 <script type="text/javascript" src="res/js/jqplot.canvasTextRenderer.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.canvasAxisLabelRenderer.min.js"></script>
 <link href="res/css/jquery.jqplot.css" rel="stylesheet" />
@@ -35,6 +42,9 @@ $(document).ready(function(){
     });
 });
 </script>
+</head>
+
+<body>
 <table class="table zebra-striped table-hover">
 	<tbody>
 		<tr>
@@ -66,3 +76,5 @@ $(document).ready(function(){
 	</tbody>
 </table>
 <div id="chart2"></div>
+</body>
+</html>

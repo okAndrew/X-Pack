@@ -25,18 +25,18 @@ public class Token4UploadDAOImpl implements Token4UploadDAO {
 
 	@Override
 	public int insert(Token4Upload token4Upload) {
-		String sql = "INSERT INTO tokens4upload (id_user, token, max_num_use, destroy_date, id) VALUES(?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO tokens4upload (id_user, token, destroy_date, id) VALUES(?, ?, ?, ?)";
 		return queryExecutor.executeUpdate(sql, token4Upload.getIdUser(),
-				token4Upload.getToken(), token4Upload.getMaxNumUse(),
-				token4Upload.getDestroyDate(), token4Upload.getId());
+				token4Upload.getToken(), token4Upload.getDestroyDate(),
+				token4Upload.getId());
 	}
 
 	@Override
 	public int update(Token4Upload token4Upload) {
-		String sql = "UPDATE SET tokens4upload=?, id_user=?, token=?, max_num_use=?, destroy_date=? WHERE id=?";
+		String sql = "UPDATE SET tokens4upload=?, id_user=?, token=?, destroy_date=? WHERE id=?";
 		return queryExecutor.executeUpdate(sql, token4Upload.getIdUser(),
-				token4Upload.getToken(), token4Upload.getMaxNumUse(),
-				token4Upload.getDestroyDate(), token4Upload.getId());
+				token4Upload.getToken(), token4Upload.getDestroyDate(),
+				token4Upload.getId());
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public class Token4UploadDAOImpl implements Token4UploadDAO {
 	}
 
 	public int deleteNotActiveTokens() {
-		String sql = "DELETE FROM tokens4upload WHERE destroy_date < ? OR max_num_use<=0";
-		return queryExecutor.executeUpdate(sql,
-				new Timestamp(new Date().getTime()));
+		String sql = "DELETE FROM tokens4upload WHERE destroy_date < ?";
+		Timestamp curTime = new Timestamp(new Date().getTime());
+		return queryExecutor.executeUpdate(sql, curTime);
 	}
 }

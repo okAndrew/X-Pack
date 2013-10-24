@@ -11,5 +11,16 @@
 			<td><fmt:message key="Online_users" bundle="${lang}" /></td>
 			<td>${countUsers}</td>
 		</tr>
+		<tr>
+			<td>Visited on last day</td>
+		</tr>
+		
+		<tr>
+			<td>Visited to last week</td>
+		</tr>
+		
+		<tr>
+			<td>Visited to last mounts</td>
+		</tr>
 	</tbody>
 </table>

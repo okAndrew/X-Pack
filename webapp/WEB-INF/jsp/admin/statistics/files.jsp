@@ -1,8 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+	type="text/javascript"></script>
+
 <script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
 
+<script src="res/js/bootstrap.js"></script>
+
+
+<link href="res/css/bootstrap.css" rel="stylesheet" />
+<link href="res/css/style.css" rel="stylesheet" />
+<link href="res/css/signui.css" rel="stylesheet" />
 <link href="res/css/jquery.jqplot.css" rel="stylesheet" />
 
 <script type="text/javascript">
@@ -42,6 +54,7 @@
 		});
 	});
 </script>
+
 
 <div id="example"></div>
 <h1>${freeSpace}</h1>

@@ -2,6 +2,7 @@ package com.epam.lab.controller.services.folder;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +11,6 @@ import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
-import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
@@ -19,7 +19,6 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		FolderService {
 	private static final String ROOT_NAME = "root";
 	private static final String SEPARATOR = "/";
-	private Timestamp currentTS = TimeStampManager.getFormatCurrentTimeStamp();
 
 	public FolderServiceImpl() {
 		super(new FolderDAOImpl());
@@ -164,6 +163,7 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 
 	public Folder createFolder(String folderName, long userId, long upperId) {
 		Folder folder = new Folder();
+		Timestamp currentTS = new Timestamp(new Date().getTime());
 		folder.setDate(currentTS).setIdUpper(upperId).setIdUser(userId)
 				.setName(folderName).setSize(0);
 		FolderDAOImpl dao = new FolderDAOImpl();

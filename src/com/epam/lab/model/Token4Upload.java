@@ -17,15 +17,15 @@ public class Token4Upload {
 	@TableColumn("id_user")
 	private long idUser;
 
-	@Expose
 	@TableColumn("token")
+	@Expose
 	@XmlElement(name = "token")
 	private String token;
 
 	@TableColumn("destroy_date")
+	@Expose
 	private Timestamp destroyDate;
 
-	@Expose
 	@XmlElement(name = "liveTime")
 	private long liveTime;
 

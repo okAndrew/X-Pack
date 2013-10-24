@@ -45,6 +45,35 @@ public class DBQueryExecutor<T> {
 		}
 		return result;
 	}
+	
+	public boolean executeTransaction(String[] sql, Object[][] args) {
+		boolean result = false;
+		
+		PreparedStatement pst = null;
+		Connection connection = null;
+		
+		try {
+			connection = connManager.getConnection();
+			connection.setAutoCommit(false);
+			
+			for (int i = 0; i < sql.length; i++) {
+				pst = connection.prepareStatement(sql[i]);
+				new PSTManager().putArgs(pst, args[i]);
+				
+				if (pst.execute()) {
+					result = false;
+				}
+			}
+			
+			connection.commit();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connManager.closeQuality(connection);
+		}
+		
+		return result;
+	}
 
 	/*
 	 * SELECT

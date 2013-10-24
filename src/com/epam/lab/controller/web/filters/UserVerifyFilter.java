@@ -19,7 +19,7 @@ import com.epam.lab.model.Role;
 		"/useredit", "/upload", "/createfolder", "/ChangePasswordServlet",
 		"/search", "/userfoldernav", "/usercontroller", "/userpage",
 		"/EditEmailServlet", "/EditUserLoginServlet", "/settings", "/move",
-		"/CreatePaymentServlet" })
+		"/CreatePaymentServlet", "/pricing" })
 public class UserVerifyFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,

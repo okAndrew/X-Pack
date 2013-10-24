@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.tariff.TariffServiseImpl;
-import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.model.User;
+import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 
 @WebServlet("/CreatePaymentServlet")
 public class CreatePaymentServlet extends HttpServlet {
@@ -22,17 +20,15 @@ public class CreatePaymentServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		long id = Long.valueOf(request.getParameter("id"));
-		long tariff = Long.valueOf(request.getParameter("tariff"));
-		int result = new TariffServiseImpl().changeTariff(id, tariff);
-		
-		if (result == 1) {
-			HttpSession session = request.getSession(false);
-			User user = new UserServiceImpl().get(id);
-			session.setAttribute("user", user);
-		}
-		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SETTINGS_JSP);
+		HttpSession session = request.getSession(false);
+		
+		long userId = Long.valueOf(session.getAttribute("userid").toString());
+		int months = Integer.valueOf(request.getParameter("months"));
+		long tariffId = Long.valueOf(request.getParameter("tariffId"));
+		
+		new PaymentServiceImpl().pay(tariffId, months, userId);
+		
 		requestDispatcher.forward(request, response);
 	}
 }

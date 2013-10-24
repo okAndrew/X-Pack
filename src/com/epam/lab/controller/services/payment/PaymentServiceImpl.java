@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.payment.PaymentDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.Payment;
@@ -37,35 +38,55 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 		return new PaymentDAOImpl().getCurrentPayment(userId);
 	}
 
-	public void createPayment(User user, Tariff tariff) {
-		PaymentDAOImpl paymentDAOImpl = new PaymentDAOImpl();
-		Payment payment = new Payment();
-		Timestamp time = TimeStampManager.getFormatCurrentTimeStamp();
-
-		payment.setUser(user.getId());
-		payment.setTariff(tariff.getId());
-		payment.setPrice(tariff.getPrice());
-		payment.setDateCreated(time);
-
-		paymentDAOImpl.insert(payment);
-		payment = paymentDAOImpl.getByUserTime(user.getId(), time);
-
-		activatePayment(payment);
-
-		user.setIdTariff(tariff.getId());
-		new UserServiceImpl().update(user);
-	}
-
-	public int activatePayment(Payment payment) {
-		Timestamp dateEnd = TimeStampManager.addNumberOfMonth(payment.getDateCreated(), 1);
-		payment.setStatus(true);
-		payment.setDateEnd(dateEnd);
-
-		if (TimeStampManager.getFormatCurrentTimeStamp().before(dateEnd)) {
-			payment.setAvailable(true);
+	public void pay(long tariffId, int months, long userId) {
+		PaymentDAOImpl paymentDAO = new PaymentDAOImpl();
+		UserServiceImpl userService = new UserServiceImpl();
+		TariffServiseImpl tariffService = new TariffServiseImpl();
+		Timestamp time = TimeStampManager.getCurrentTime();
+		
+		Tariff newTariff = tariffService.get(tariffId);
+		User user = userService.get(userId);
+		Payment payment = getCurrentPayment(user.getId());
+		
+		if (payment != null) {
+			payment.setDateEnd(time);
+			payment.setAvailable(false);
+			paymentDAO.update(payment);
+			Payment newPayment = new Payment();
+			newPayment.setUser(user.getId());
+			newPayment.setTariff(newTariff.getId());
+			newPayment.setDateCreated(time);
+			time = TimeStampManager.addNumberOfMonth(time, months);
+			newPayment.setDateEnd(time);
+		
+			int daysBetween = TimeStampManager.daysBetween(payment.getDateCreated(), payment.getDateEnd());
+			int daysLeft = TimeStampManager.daysBetween(TimeStampManager.getCurrentTime(), payment.getDateEnd());
+			double savedCash = payment.getPrice() / daysBetween * daysLeft;
+			
+			newPayment.setPrice(newTariff.getPrice() - savedCash);
+			newPayment.setStatus(true);
+			newPayment.setAvailable(true);
+			insert(newPayment);
+			user.setIdTariff(newTariff.getId());
+			userService.update(user);
 		}
-
-		return new PaymentDAOImpl().update(payment);
 	}
-
+	
+	private Payment createPayment(long userId, long tariffId, Timestamp dateCreated, Timestamp dateEnded, double price, boolean status, boolean available) {
+		PaymentDAOImpl paymentDAO = new PaymentDAOImpl();
+		Payment payment = new Payment();
+		
+		payment.setUser(userId);
+		payment.setTariff(tariffId);
+		payment.setDateCreated(dateCreated);
+		payment.setDateEnd(dateEnded);
+		payment.setPrice(price);
+		payment.setStatus(status);
+		payment.setAvailable(available);
+		
+		paymentDAO.insert(payment);
+		
+		return payment;
+	}
+	
 }

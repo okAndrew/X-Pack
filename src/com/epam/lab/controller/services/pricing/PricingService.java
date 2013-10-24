@@ -44,8 +44,10 @@ public class PricingService {
 			}
 			
 			request.setAttribute("currentTariff", tariffServise.get(user.getIdTariff()));
-			request.setAttribute("tariffs", new TariffServiseImpl().getAvailableTariffs());
 		}
+		
+		request.setAttribute("tariffs", new TariffServiseImpl().getAvailableTariffs());
+		
 		return request;
 	}
 	

@@ -15,24 +15,28 @@
 				<div class="alert alert-info">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices nibh vitae erat lobortis posuere. Donec dictum suscipit semper. In tincidunt commodo mauris at interdum. Integer vel dolor turpis. Etiam vitae eros diam. Aliquam in.
 				</div>
-				<div class="form-group">
-					<label>Month</label>
-					<select>
-						<option>1</option>
-						<option>3</option>
-						<option>6</option>
-						<option>12</option>
-					</select>
-				</div>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices nibh vitae erat lobortis posuere. Donec dictum suscipit semper. In tincidunt commodo mauris at interdum. Integer vel dolor turpis. Etiam vitae eros diam. Aliquam in.
-				</p>
+				<form action="CreatePaymentServlet" method="post" id="form_pay">
+					<div class="form-group">
+						<input type="text" id="tariffId" name="tariffId" hidden="yes" />
+						<label>Months</label>
+						<select name="months">
+							<option>1</option>
+							<option>3</option>
+							<option>6</option>
+							<option>12</option>
+						</select>
+					</div>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices nibh vitae erat lobortis posuere. Donec dictum suscipit semper. In tincidunt commodo mauris at interdum. Integer vel dolor turpis. Etiam vitae eros diam. Aliquam in.
+					</p>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<fmt:message key="Close" bundle="${lang}" />
 				</button>
-				<a href="" class="btn btn-primary">Pay</a>
+				<input type="submit" form="form_pay" value="Send" />
+				<button class="btn btn-primary" id="form_pay_submit">Pay</button>
 			</div>
 		</div>
 	</div>

@@ -21,4 +21,8 @@ public interface PaymentDAO extends GenericDAO<Payment> {
 	
 	boolean canDisableUser(long id);
 	
+	Payment getCurrentPayment(long userId);
+	
+	boolean pay(String[] sqls, String[][] args);
+	
 }

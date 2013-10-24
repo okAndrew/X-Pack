@@ -26,7 +26,7 @@ public class PricesServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PRICES_JSP);
-		request = new PricingService(request).initialize();
+		request = new PricingService().initialize(request);
 		requestDispatcher.forward(request, response);
 	}
 

@@ -16,11 +16,11 @@ import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 public class CreatePaymentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String SETTINGS_JSP = "settings";
+	private static final String PRICING_JSP = "pricing";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(SETTINGS_JSP);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PRICING_JSP);
 		HttpSession session = request.getSession(false);
 		
 		long userId = Long.valueOf(session.getAttribute("userid").toString());

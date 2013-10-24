@@ -18,10 +18,10 @@ public class TimeStampManager {
 		return new Timestamp(new Date().getTime());
 	}
 
-	public static Timestamp addNumberOfMonth(Timestamp timestamp, int month) {
+	public static Timestamp addNumberOfMonth(Timestamp timestamp, int months) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(timestamp.getTime());
-		calendar.add(Calendar.MONTH, month);
+		calendar.add(Calendar.MONTH, months);
 		timestamp.setTime(calendar.getTimeInMillis());
 		return timestamp;
 	}

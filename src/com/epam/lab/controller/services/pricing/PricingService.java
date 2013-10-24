@@ -17,38 +17,38 @@ public class PricingService {
 	TimeStampManager timeManager = null;
 	PaymentServiceImpl paymentService = null;
 	HttpSession session = null;
-	HttpServletRequest request = null;
 	User user = null;
 	
-	public PricingService(HttpServletRequest request) {
-		this.request = request;
+	public HttpServletRequest initialize(HttpServletRequest request) {
 		tariffServise = new TariffServiseImpl();
 		userService = new UserServiceImpl();
-		session = this.request.getSession(false);
+		session = request.getSession(false);
 		timeManager = new TimeStampManager();
 		paymentService = new PaymentServiceImpl();
-	}
-
-	public HttpServletRequest initialize() {
+		
 		if (session != null) {
 			user = userService.get(Long.valueOf(session.getAttribute("userid").toString()));
 			Payment curPayment = paymentService.getCurrentPayment(user.getId());
-			
 			if (curPayment != null) {
-				int daysBetween = TimeStampManager.daysBetween(curPayment.getDateCreated(), curPayment.getDateEnd());
-				int daysLeft = TimeStampManager.daysBetween(TimeStampManager.getCurrentTime(), curPayment.getDateEnd());
-				double savedCash = curPayment.getPrice() / daysBetween * daysLeft;
+				double savedCash = savedCash(curPayment);
 				request.setAttribute("savedCash", Math.round(savedCash * 100.0) / 100.0);
-				request.setAttribute("daysLeft", daysLeft);
-				request.setAttribute("daysBetween", daysBetween);
 			}
-			
 			request.setAttribute("currentTariff", tariffServise.get(user.getIdTariff()));
 		}
-		
 		request.setAttribute("tariffs", new TariffServiseImpl().getAvailableTariffs());
 		
 		return request;
+	}
+	
+	public void pay() {
+	}
+	
+	private double savedCash(Payment currentPayment) {
+		int daysBetween = TimeStampManager.daysBetween(currentPayment.getDateCreated(), currentPayment.getDateEnd());
+		int daysLeft = TimeStampManager.daysBetween(TimeStampManager.getCurrentTime(), currentPayment.getDateEnd());
+		double savedCash = currentPayment.getPrice() / daysBetween * daysLeft;
+		
+		return savedCash;
 	}
 	
 }

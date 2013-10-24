@@ -49,24 +49,19 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 		Payment payment = getCurrentPayment(user.getId());
 		
 		if (payment != null) {
+			
+			int daysBetween = TimeStampManager.daysBetween(payment.getDateCreated(), payment.getDateEnd());
+			int daysLeft = TimeStampManager.daysBetween(TimeStampManager.getCurrentTime(), payment.getDateEnd());
+			double savedCash = Math.round((payment.getPrice() / daysBetween * daysLeft) * 100.0) / 100.0;
+			
+			Timestamp dateEnd = TimeStampManager.getCurrentTime();
+			TimeStampManager.addNumberOfMonth(dateEnd, months);
+			double price = newTariff.getPrice() * months - savedCash;
+			
 			payment.setDateEnd(time);
 			payment.setAvailable(false);
 			paymentDAO.update(payment);
-			Payment newPayment = new Payment();
-			newPayment.setUser(user.getId());
-			newPayment.setTariff(newTariff.getId());
-			newPayment.setDateCreated(time);
-			time = TimeStampManager.addNumberOfMonth(time, months);
-			newPayment.setDateEnd(time);
-		
-			int daysBetween = TimeStampManager.daysBetween(payment.getDateCreated(), payment.getDateEnd());
-			int daysLeft = TimeStampManager.daysBetween(TimeStampManager.getCurrentTime(), payment.getDateEnd());
-			double savedCash = payment.getPrice() / daysBetween * daysLeft;
-			
-			newPayment.setPrice(newTariff.getPrice() - savedCash);
-			newPayment.setStatus(true);
-			newPayment.setAvailable(true);
-			insert(newPayment);
+			Payment newPayment = createPayment(user.getId(), newTariff.getId(), time, dateEnd, price, true, true);
 			user.setIdTariff(newTariff.getId());
 			userService.update(user);
 		}
@@ -88,5 +83,5 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 		
 		return payment;
 	}
-	
+
 }

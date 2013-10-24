@@ -22,13 +22,13 @@
 </script>
 
 <script type="text/javascript">
-	$("tablesorter-demo").ready(function() {
-		$("#tablesorter-demo").tablesorter({
+	$("tablesorter").ready(function() {
+		$("#tablesorter").tablesorter({
 			headers : {
 				0 : {
 					sorter : false
 				},
-				9 : {
+				10 : {
 					sorter : false
 				}
 			},
@@ -44,7 +44,7 @@
 
 <link rel="stylesheet" href="res/css/styleTable.css" type="text/css"/>
 
-					<table id="tablesorter-demo" class="tablesorter">
+					<table id="tablesorter" class="tablesorter">
 						<thead>
 							<tr>
 								<th><input type="checkbox"
@@ -58,6 +58,7 @@
 								<th><fmt:message key="Tariffs" bundle="${lang}" /></th>
 								<th><fmt:message key="Type" bundle="${lang}" /></th>
 								<th><fmt:message key="Activated" bundle="${lang}" /></th>
+								<th>Baned</th>
 								<th><fmt:message key="Details" bundle="${lang}" /></th>
 							</tr>
 						</thead>
@@ -74,6 +75,7 @@
 									<td>${user.capacity}</td>
 									<td>${user.idTariff}</td>
 									<td>${user.role}</td>
+									<td>${user.isBanned}</td>
 									<td>${user.isActivated}</td>
 									<td><a href="adminUser?userid=${user.id}"><fmt:message
 												key="View_more" bundle="${lang}" />...</a></td>

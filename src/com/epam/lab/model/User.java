@@ -24,15 +24,18 @@ public class User {
 
         @TableColumn("is_activated")
         private boolean isActivated;
+        
+        @TableColumn("is_banned")
+        private boolean isBanned;
 
-        @TableColumn("id_role")
+		@TableColumn("id_role")
         private int role;
 
         public User() {
         }
 
         public User(long id, String login, String email, String password,
-                        long idTariff, int capacity, boolean isActivated, Role role) {
+                        long idTariff, int capacity, boolean isActivated, boolean isBaned, Role role) {
                 super();
                 this.id = id;
                 this.login = login;
@@ -106,6 +109,15 @@ public class User {
                 this.isActivated = isActivated;
                 return this;
         }
+
+        public boolean getIsBanned() {
+			return isBanned;
+		}
+
+		public User setIsBanned(boolean isBanned) {
+			this.isBanned = isBanned;
+			return this;
+		}
 
         // one crafty getter...
         public Role getRole() {

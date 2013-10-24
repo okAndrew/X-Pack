@@ -46,10 +46,23 @@ $(document).ready(function(){
 			<td>${countUsers}</td>
 		</tr>
 		<tr>
+
 			<td><fmt:message key="Online_logged_users" bundle="${lang}" /></td>
 			<td>${countUsersLogged}</td>
 		</tr>
 	
+
+			<td>Visited on last day</td>
+		</tr>
+		
+		<tr>
+			<td>Visited to last week</td>
+		</tr>
+		
+		<tr>
+			<td>Visited to last mounts</td>
+		</tr>
+
 	</tbody>
 </table>
 <div id="chart2"></div>

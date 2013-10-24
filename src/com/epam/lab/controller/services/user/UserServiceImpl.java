@@ -38,6 +38,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		user.setIdTariff(1);
 		user.setCapacity(0);
 		user.setRole(Role.USER);
+		user.setIsBanned(false);
 		insert(user);
 	}
 

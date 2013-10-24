@@ -73,7 +73,7 @@ public class TokenWebService {
 		Token4UploadService service = new Token4UploadServiceImpl();
 		Token4Upload createdToken = null;
 		createdToken = service.createToken(user.getId(),
-				tokenData.getLiveTime(), tokenData.getMaxNumUse());
+				tokenData.getLiveTime());
 		return createdToken;
 	}
 

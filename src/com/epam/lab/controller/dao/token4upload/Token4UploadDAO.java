@@ -7,4 +7,5 @@ public interface Token4UploadDAO extends GenericDAO<Token4Upload> {
 	public Token4Upload getByToken(String token);
 
 	public int deleteNotActiveTokens();
+
 }

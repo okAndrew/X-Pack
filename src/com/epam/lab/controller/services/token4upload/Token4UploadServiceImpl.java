@@ -14,7 +14,6 @@ import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.services.user.UserService;
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Upload;
@@ -29,14 +28,13 @@ public class Token4UploadServiceImpl extends AbstractServiceImpl<Token4Upload>
 		super(new Token4UploadDAOImpl());
 	}
 
-	public Token4Upload createToken(long idUser, long liveTime, int maxNumUse) {
+	public Token4Upload createToken(long idUser, long liveTime) {
 		Token4Upload token4Upload = new Token4Upload();
 		token4Upload.setIdUser(idUser);
-		token4Upload.setMaxNumUse(maxNumUse);
 		token4Upload.setDestroyDate(getDestroyDate(liveTime));
 		do {
 			token4Upload.setToken(generateToken());
-		} while (insert(token4Upload) == 0);// if token has already in DB
+		} while (insert(token4Upload) == 0); // if token has already in DB
 		return tokenDAO.getByToken(token4Upload.getToken());
 	}
 

@@ -67,8 +67,9 @@
 						<li><input id="filter" type="text" class="form-control"
 							placeholder="Search"></li>
 					</ul>
+					<jsp:include page="tableUsers.jsp"></jsp:include>
 				</form>
-					<jsp:include page="table.jsp"></jsp:include>
+					
 			</div>
 			<c:if test="${message != null}">
 				<div class="alert alert-block">

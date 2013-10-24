@@ -28,9 +28,18 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 
 	@Override
 	public int insert(SessionHistory sessionObject) {
-		String sql = "INSERT INTO session_history(user_id, startdate) VALUES (?, ?)";
+		String sql = "INSERT INTO session_history(user_id, startdate, sessIdTomcat) VALUES (?, ?, ?)";
 		int result = queryExecutor.executeUpdate(sql,
-				sessionObject.getUserid(), sessionObject.getStartdate());
+				sessionObject.getUserid(), sessionObject.getStartdate(),
+				sessionObject.getSessIdTomcat());
+		return result;
+	}
+
+	@Override
+	public int insertWithoutUser(SessionHistory sessionObject) {
+		String sql = "INSERT INTO session_history(startdate, sessIdTomcat) VALUES (?, ?)";
+		int result = queryExecutor.executeUpdate(sql,
+				sessionObject.getStartdate(), sessionObject.getSessIdTomcat());
 		return result;
 	}
 
@@ -39,6 +48,13 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 		String sql = "UPDATE session_history SET enddate=? WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql,
 				sessionObject.getEnddate(), sessionObject.getId());
+		return result;
+	}
+	@Override
+	public int setUserId(SessionHistory sessionObject) {
+		String sql = "UPDATE session_history SET user_id=? WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql,
+				sessionObject.getUserid(), sessionObject.getId());
 		return result;
 	}
 
@@ -50,9 +66,16 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 
 	@Override
 	public SessionHistory getSessionHistByUserIDAndEndDate(long userId) {
-		String sql = "SELECT * FROM session_history WHERE user_id=? AND enddate IS NULL";
+		String sql = "SELECT * FROM session_history WHERE user_id=? AND enddate IS NULL ORDER BY id DESC LIMIT 1";
 		SessionHistory result = queryExecutor.executeQuerySingle(
 				SessionHistory.class, sql, userId);
+		return result;
+	}
+	@Override
+	public SessionHistory getSessionHistBySessIdTomcat(String sessId) {
+		String sql = "SELECT * FROM session_history WHERE sessIdTomcat=? ORDER BY id DESC LIMIT 1";
+		SessionHistory result = queryExecutor.executeQuerySingle(
+				SessionHistory.class, sql, sessId);
 		return result;
 	}
 

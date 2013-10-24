@@ -11,41 +11,27 @@ import com.google.gson.annotations.Expose;
 
 @XmlRootElement
 public class Token4Upload {
-	/*
-	 * @Expose - for build json from object without properties annotated by
-	 * 
-	 * @Expose
-	 * 
-	 * @XmlElement - for build object from json only with properties annotated
-	 * by @XmlElement
-	 */
-
 	@TableColumn("id")
 	private long id;
 
 	@TableColumn("id_user")
 	private long idUser;
 
-	@Expose
 	@TableColumn("token")
+	@Expose
 	@XmlElement(name = "token")
 	private String token;
 
 	@TableColumn("destroy_date")
+	@Expose
 	private Timestamp destroyDate;
 
-	@Expose
-	@TableColumn("max_num_use")
-	@XmlElement(name = "maxNumUse")
-	private int maxNumUse;
-
-	@Expose
 	@XmlElement(name = "liveTime")
 	private long liveTime;
 
 	public boolean isActive() {
 		boolean isActive = destroyDate
-				.after(new Timestamp(new Date().getTime())) && maxNumUse >= 0;
+				.after(new Timestamp(new Date().getTime()));
 		return isActive;
 	}
 
@@ -87,13 +73,5 @@ public class Token4Upload {
 
 	public void setToken(String token) {
 		this.token = token;
-	}
-
-	public int getMaxNumUse() {
-		return maxNumUse;
-	}
-
-	public void setMaxNumUse(int maxNumUse) {
-		this.maxNumUse = maxNumUse;
 	}
 }

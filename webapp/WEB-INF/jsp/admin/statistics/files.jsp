@@ -1,52 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
-<script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
-
-<link href="res/css/jquery.jqplot.css" rel="stylesheet" />
-
-<script type="text/javascript">
-	$(function() {
-		var free = ${freeSpace};
-		var employed = ${totalSpace}-free;
-		line1 = [ [ "Free space " + free + "GB", free ],
-				[ "Employed space" + employed + "GB", employed ] ];
-		$.jqplot("example", [ line1 ], {
-			title : "Space",
-			grid : {
-				gridLineColor : '#cccccc',
-				background : '#ffffff',
-				borderColor : '#000000',
-				borderWidth : 2.0,
-				shadow : true,
-				shadowWidth : 3,
-				shadowDepth : 3
-			},
-			seriesColors : [ "#33FF33", "#FF0000" ],
-			seriesDefaults : {
-				renderer : $.jqplot.PieRenderer,
-				rendererOptions : {
-					showDataLabels : true,
-					sliceMargin : 8,
-					diameter : 200,
-					fill : true,
-					shadowDepth : 5,
-				}
-			},
-
-			legend : {
-				show : true,
-				location : 'e',
-				marginTop : '15px'
-			}
-		});
-	});
-</script>
-
 <div id="example"></div>
+
 <h1>${freeSpace}</h1>
 <h1>${totalSpace}</h1>
-
 <table class="table zebra-striped table-hover">
 	<thead>
 		<tr>

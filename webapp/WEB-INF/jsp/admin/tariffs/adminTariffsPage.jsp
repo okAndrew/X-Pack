@@ -16,14 +16,6 @@
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
 
-<script>
-	function toggle(source) {
-		checkboxes = document.getElementsByName('checkTariff');
-		for ( var i = 0, n = checkboxes.length; i < n; i++) {
-			checkboxes[i].checked = source.checked;
-		}
-	}
-</script>
 
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
@@ -62,41 +54,9 @@
 
 
 					</ul>
-					<!-- Table -->
-					<c:if test="${tariffs != null}">
-						<table class="table zebra-striped table-hover">
-							<thead>
-								<tr>
-									<th><input type="checkbox" onClick="toggle(this)" /><fmt:message key="All" bundle="${lang}" /> </th>
-									<th><fmt:message key="Id" bundle="${lang}" /> </th>
-									<th><fmt:message key="Name" bundle="${lang}" /></th>
-									<th><fmt:message key="Max_Capacity" bundle="${lang}" /></th>
-									<th><fmt:message key="Price" bundle="${lang}" /></th>
-									<th><fmt:message key="Position" bundle="${lang}" /></th>
-									<th><fmt:message key="Description" bundle="${lang}" /></th>
-									<th><fmt:message key="isDelete" bundle="${lang}" /></th>
-									<th><fmt:message key="Edit" bundle="${lang}" /></th>
-								</tr>
-							</thead>
 
-							<tbody>
-								<c:forEach var="tariff" items="${tariffs}">
-									<tr>
-										<td><input type="checkbox" name="checkTariff"
-											value="${tariff.id}"></td>
-										<td>${tariff.id}</td>
-										<td>${tariff.name}</td>
-										<td>${tariff.maxCapacity}</td>
-										<td>${tariff.price}</td>
-										<td>${tariff.position}</td>
-										<td>${tariff.description}</td>
-										<td>${tariff.isDelete}</td>
-										<td><a data-toggle="modal" data-target="#editTariffModal">edit</a></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</c:if>
+					<jsp:include page="tableTariffs.jsp"></jsp:include>						
+
 					<c:if test="${message != null}">
 						<div class="alert alert-block">
 							<button type="button" class="close" data-dismiss="alert">&times;</button>

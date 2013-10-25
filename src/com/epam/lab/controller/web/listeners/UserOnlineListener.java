@@ -54,7 +54,6 @@ public class UserOnlineListener implements HttpSessionListener,
 	public void attributeAdded(HttpSessionBindingEvent event) {
 
 		HttpSession session = event.getSession();
-		System.out.println(session.getId());
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		if (event.getName().equals("userid")
 				&& session.getAttribute("userid") != null) {

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ErrorServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ERROR_JSP = "WEB-INF/jsp/error.jsp";
+	private static final String ERROR_JSP = "WEB-INF/jsp/errorSW.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest request,

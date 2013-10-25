@@ -94,6 +94,7 @@ body {
 	</div>
 	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
 	<script src="res/js/bootstrap-datepicker.js"></script>
+	
 	<script>
 		var nowTemp = new Date();
 		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp
@@ -122,6 +123,6 @@ body {
 		}).on('changeDate', function(ev) {
 			checkout.hide();
 		}).data('datepicker');
-	</script>
+	</script>https://gist.github.com/nareshv/3169847
 </body>
 </html>

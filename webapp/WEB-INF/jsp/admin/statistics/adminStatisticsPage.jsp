@@ -41,8 +41,8 @@
 	}
 
 	function plotGist() {
-		var free = 458;
-		var employed = 570 - free;
+		var free = ${freeSpace};
+		var employed = 570-free;
 		line1 = [ [ "Free space " + free + "GB", free ],
 				[ "Employed space" + employed + "GB", employed ] ];
 		$.jqplot("example", [ line1 ], {
@@ -67,7 +67,6 @@
 					shadowDepth : 5,
 				}
 			},
-
 			legend : {
 				show : true,
 				location : 'e',
@@ -120,7 +119,7 @@
 </head>
 
 <body>
-	<jsp:include page="../menu/menuAdmin.jsp"></jsp:include>
+	<jsp:include page="../../menu.jsp"></jsp:include>
 
 	<div class="Container">
 		<!-- Panel -->
@@ -146,7 +145,6 @@
 						</button></li>
 
 				</ul>
-				<h1>${freeSpace}</h1>
 				<div id="dynamicArea"></div>
 			</div>
 		</div>

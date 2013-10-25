@@ -31,8 +31,9 @@
 </head>
 
 <body>
-	<jsp:include page="../menu/menuAdmin.jsp"></jsp:include>
+	<jsp:include page="../../menu.jsp"></jsp:include>
 	<jsp:include page="addUserModalPage.jsp"></jsp:include>
+	<jsp:include page="noDeleteUsersModal.jsp"></jsp:include>
 
 	<div class="Container">
 		<div class="panel panel-default">
@@ -67,17 +68,22 @@
 						<li><input id="filter" type="text" class="form-control"
 							placeholder="Search"></li>
 					</ul>
+					<c:if test="${message != null}">
+						<div class="alert alert-block">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<h4>Warning!</h4>
+							<h5>${message}</h5>
+						</div>
+					</c:if>
+					
+					<c:if test="${noDeletedUsers != null}">
+						<script>$('#noDeleteUsersModal').modal('show')</script>
+					</c:if>
+					
 					<jsp:include page="tableUsers.jsp"></jsp:include>
 				</form>
-					
+
 			</div>
-			<c:if test="${message != null}">
-				<div class="alert alert-block">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<h4>Warning!</h4>
-					<h5>${message}</h5>
-				</div>
-			</c:if>
 		</div>
 	</div>
 </body>

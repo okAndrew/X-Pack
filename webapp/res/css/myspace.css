@@ -1,0 +1,29 @@
+table {
+	table-layout: fixed;
+}
+
+table th,table td {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+table td:LAST-CHILD {
+	text-align: right;
+}
+
+.glyphicon {
+	margin-right: 5px;
+}
+
+.collapse.navbar-collapse.controlmenu {
+	padding: 0px;
+	margin: 0px;
+	background-color: #fff;
+	border: 0px;
+}
+
+.navbar.navbar-default.controlmenu {
+	border: 0px;
+	background-color: #fff;
+	margin-bottom: 0px;
+}

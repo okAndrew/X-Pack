@@ -11,6 +11,10 @@
 <script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript"
+	src="res/js/jqplot.canvasTextRenderer.min.js"></script>
+<script type="text/javascript"
+	src="res/js/jqplot.canvasAxisLabelRenderer.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <link href="res/css/jquery.jqplot.css" rel="stylesheet" />
 <script>
@@ -34,7 +38,7 @@
 
 	function plotGist() {
 		var free = 458;
-		var employed = 570-free;
+		var employed = 570 - free;
 		line1 = [ [ "Free space " + free + "GB", free ],
 				[ "Employed space" + employed + "GB", employed ] ];
 		$.jqplot("example", [ line1 ], {
@@ -64,6 +68,24 @@
 				show : true,
 				location : 'e',
 				marginTop : '15px'
+			}
+		});
+	};
+	
+	function Hello() {
+		$.jqplot("chart2", [ [ 3, 7, 9, 1, 4, 6, 8, 2, 5 ] ], {
+			title : 'Plot With Options',
+			axesDefaults : {
+				labelRenderer : $.jqplot.CanvasAxisLabelRenderer
+			},
+			axes : {
+				xaxis : {
+					label : "X Axis",
+					pad : 0
+				},
+				yaxis : {
+					label : "Y Axis"
+				}
 			}
 		});
 	};

@@ -5,7 +5,7 @@ import java.util.List;
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.SessionHistory;
 import com.epam.lab.model.User;
-import com.sun.jmx.snmp.Timestamp;
+import java.sql.Timestamp;
 
 public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 	private DBQueryExecutor<SessionHistory> queryExecutor = new DBQueryExecutor<SessionHistory>();
@@ -50,6 +50,7 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 				sessionObject.getEnddate(), sessionObject.getId());
 		return result;
 	}
+
 	@Override
 	public int setUserId(SessionHistory sessionObject) {
 		String sql = "UPDATE session_history SET user_id=? WHERE id=?";
@@ -65,18 +66,29 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 	}
 
 	@Override
-	public SessionHistory getSessionHistByUserIDAndEndDate(long userId) {
-		String sql = "SELECT * FROM session_history WHERE user_id=? AND enddate IS NULL ORDER BY id DESC LIMIT 1";
-		SessionHistory result = queryExecutor.executeQuerySingle(
-				SessionHistory.class, sql, userId);
-		return result;
-	}
-	@Override
 	public SessionHistory getSessionHistBySessIdTomcat(String sessId) {
 		String sql = "SELECT * FROM session_history WHERE sessIdTomcat=? ORDER BY id DESC LIMIT 1";
 		SessionHistory result = queryExecutor.executeQuerySingle(
 				SessionHistory.class, sql, sessId);
 		return result;
+	}
+
+	@Override
+	public List<SessionHistory> getAllVisitorsByDate(Timestamp startDate,
+			Timestamp endtDate) {
+		String sql = "SELECT * FROM session_history WHERE startdate BETWEEN ? AND ?";
+		List<SessionHistory> resultList = queryExecutor.executeQuery(
+				SessionHistory.class, sql, startDate, endtDate);
+		return resultList;
+	}
+
+	@Override
+	public List<SessionHistory> getLoggedVisitorsByDate(Timestamp startDate,
+			Timestamp endtDate) {
+		String sql = "SELECT * FROM session_history WHERE user_id IS NOT NULL AND startdate BETWEEN ? AND ? ";
+		List<SessionHistory> resultList = queryExecutor.executeQuery(
+				SessionHistory.class, sql, startDate, endtDate);
+		return resultList;
 	}
 
 }

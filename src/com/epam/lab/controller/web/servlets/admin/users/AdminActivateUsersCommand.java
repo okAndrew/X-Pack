@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.controller.utils.CheckListUtil;
 
 public class AdminActivateUsersCommand implements AdminUsersPageCommand {
 
@@ -11,13 +12,17 @@ public class AdminActivateUsersCommand implements AdminUsersPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String page = null;
-		String message = null;
 		String[] chekedUsers = request.getParameterValues("checkUser");
-		UserServiceImpl service = new UserServiceImpl();
-		message = service.activateUsers(chekedUsers);
-		request.setAttribute("message", message);
-		page = "adminUsersPage";
+		CheckListUtil checkUtil = new CheckListUtil();
+		if (!checkUtil.check(chekedUsers)) {
+			request.setAttribute("message", "Please check users!!!");
+			page = "adminUsersPage";
+			return page;
+		} else {
+			UserServiceImpl service = new UserServiceImpl();
+			service.activateUsers(chekedUsers);
+			page = "adminUsersPage";
+		}
 		return page;
 	}
-
 }

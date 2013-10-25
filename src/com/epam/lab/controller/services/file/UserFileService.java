@@ -6,5 +6,8 @@ import com.epam.lab.controller.services.AbstractService;
 import com.epam.lab.model.UserFile;
 
 public interface UserFileService extends AbstractService<UserFile> {
-	public List<UserFile> getByFolderId(long folderId);
+
+	List<UserFile> getByFolderId(long folderId);
+
+	int deleteByUserId(long userId);
 }

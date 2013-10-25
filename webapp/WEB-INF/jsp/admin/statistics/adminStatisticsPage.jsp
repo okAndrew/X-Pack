@@ -8,10 +8,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Statistics</title>
-
 <script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript"
+	src="res/js/jqplot.canvasTextRenderer.min.js"></script>
+<script type="text/javascript"
+	src="res/js/jqplot.canvasAxisLabelRenderer.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <link href="res/css/jquery.jqplot.css" rel="stylesheet" />
 <script>
@@ -67,6 +70,24 @@
 			}
 		});
 	};
+	
+	function Hello() {
+		$.jqplot("chart2", [ [ 3, 7, 9, 1, 4, 6, 8, 2, 5 ] ], {
+			title : 'Plot With Options',
+			axesDefaults : {
+				labelRenderer : $.jqplot.CanvasAxisLabelRenderer
+			},
+			axes : {
+				xaxis : {
+					label : "X Axis",
+					pad : 0
+				},
+				yaxis : {
+					label : "Y Axis"
+				}
+			}
+		});
+	};
 </script>
 
 <link href="res/css/bootstrap.css" rel="stylesheet" />
@@ -83,7 +104,7 @@
 </head>
 
 <body>
-	<jsp:include page="../menu/menuAdmin.jsp"></jsp:include>
+	<jsp:include page="../../menu.jsp"></jsp:include>
 
 	<div class="Container">
 		<!-- Panel -->

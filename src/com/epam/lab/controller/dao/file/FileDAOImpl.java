@@ -80,4 +80,11 @@ public class FileDAOImpl implements FileDAO {
 		String sql = "SELECT * FROM files WHERE name=?";
 		return queryExecutor.executeQuerySingle(UserFile.class, sql, fName);
 	}
+
+	@Override
+	public int deleteByUserId(long userId) {
+		String sql = "DELETE FROM files WHERE id_user=?";
+		int result = queryExecutor.executeUpdate(sql, userId);
+		return result;
+	}
 }

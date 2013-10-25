@@ -64,8 +64,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int activatedUserById(long id) {
-		String sql = "UPDATE users SET is_activated=? WHERE id=?";
-		return queryExecutor.executeUpdate(sql, true, id);
+		String sql = "UPDATE users SET is_banned=? WHERE id=?";
+		return queryExecutor.executeUpdate(sql, false, id);
 	}
 
 	public boolean checkEmailById(String email, long userId) {

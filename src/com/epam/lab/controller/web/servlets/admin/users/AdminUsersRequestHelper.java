@@ -20,7 +20,6 @@ public class AdminUsersRequestHelper {
 		commands.put("activated", new AdminActivateUsersCommand());
 		commands.put("delete", new AdminDeleteUsersCommand());
 		commands.put("add", new AdminAddUserCommand());
-		commands.put("deleteUsersWithFiles", new AdminDeleteUsersWithFilesCommand());
 	}
 
 	public AdminUsersPageCommand getCommand(HttpServletRequest request) {

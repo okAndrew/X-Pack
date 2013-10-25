@@ -22,9 +22,10 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	@Override
 	public int insert(Payment object) {
-		String sql = "INSERT INTO payments(user, tariff, price, date_created) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO payments(user, tariff, price, date_created, date_end, status, available) VALUES(?, ?, ?, ?, ?, ?, ?)";
 		return queryExecutor.executeUpdate(sql, object.getUser(),
-				object.getTariff(), object.getPrice(), object.getDateCreated());
+				object.getTariff(), object.getPrice(), object.getDateCreated(),
+				object.getDateEnd(), object.getStatus(), object.getAvailable());
 	}
 
 	@Override
@@ -93,4 +94,17 @@ public class PaymentDAOImpl implements PaymentDAO {
 		}
 	}
 
+	@Override
+	public Payment getCurrentPayment(long userId) {
+		String sql = "SELECT * FROM payments WHERE user = ? AND date_created < curtime() AND date_end > curtime() and available = 1";
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql,
+				userId);
+		return result;
+	}
+
+	@Override
+	public boolean pay(String[] sqls, Object[][] args) {
+		return queryExecutor.executeTransaction(sqls, args);
+	}
+	
 }

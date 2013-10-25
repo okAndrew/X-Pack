@@ -9,6 +9,7 @@
 <title>DreamHost | Settings</title>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
+<link href="res/css/settings.css" rel="stylesheet" />
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
@@ -20,15 +21,14 @@
 	<jsp:include page="settings/modalpassword.jsp"></jsp:include>
 
 	<div class="container">
-		<div class="panel panel-default">
+		<div class="panel panel-default main">
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-3">
 						<ul class="nav nav-pills nav-stacked">
 							<li class="active"><a href="#tabs1-pane1" data-toggle="tab">Personal
 									information</a></li>
-							<li><a href="#tabs1-pane2" data-toggle="tab">Service</a></li>
-							<li><a href="#tabs1-pane3" data-toggle="tab">...</a></li>
+							<li><a href="#tabs1-pane2" data-toggle="tab">Payments</a></li>
 						</ul>
 					</div>
 					<div class="col-md-9">
@@ -39,14 +39,10 @@
 							<div class="tab-pane" id="tabs1-pane2">
 								<jsp:include page="settings/tariffs.jsp"></jsp:include>
 							</div>
-							<div class="tab-pane" id="tabs1-pane3">
-								<p>Other</p>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="panel-footer">Footer</div>
 		</div>
 	</div>
 </body>

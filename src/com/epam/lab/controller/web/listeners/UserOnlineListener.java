@@ -1,8 +1,5 @@
 package com.epam.lab.controller.web.listeners;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
@@ -21,22 +18,32 @@ public class UserOnlineListener implements HttpSessionListener,
 		HttpSessionAttributeListener {
 	private static final Logger logger = Logger
 			.getLogger(UserOnlineListener.class);
+	private static int activeSessionsLogged = 0;
 	private static int activeSessions = 0;
 	SessionHistory sessionhistory = null;
 
 	public void sessionCreated(HttpSessionEvent event) {
+		activeSessions++;
+		HttpSession session = event.getSession();
+		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
+		sessionhistory = historyService.insertSessionWithoutUser(
+				session.getId(), TimeStampManager.getFormatCurrentTimeStamp());
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {
+		if (activeSessions > 0) {
+			activeSessions--;
+		}
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		HttpSession session = event.getSession();
-		if (session.getAttribute("userid") != null) {
-			sessionhistory = historyService
-					.getSessionHistByUserIDAndEndDate((long) session
-							.getAttribute("userid"));
-			sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
-			historyService.update(sessionhistory);
-		}
+		sessionhistory = historyService.getSessionHistBySessIdTomcat(session
+				.getId());
+		sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
+		historyService.update(sessionhistory);
+	}
+
+	public static int getActiveSessionNumberLogged() {
+		return activeSessionsLogged;
 	}
 
 	public static int getActiveSessionNumber() {
@@ -47,22 +54,23 @@ public class UserOnlineListener implements HttpSessionListener,
 	public void attributeAdded(HttpSessionBindingEvent event) {
 
 		HttpSession session = event.getSession();
-
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		if (event.getName().equals("userid")
 				&& session.getAttribute("userid") != null) {
-			activeSessions++;
-			sessionhistory = historyService.addSession(
-					(long) session.getAttribute("userid"),
-					TimeStampManager.getFormatCurrentTimeStamp());
+			activeSessionsLogged++;
+			sessionhistory = historyService
+					.getSessionHistBySessIdTomcat(session.getId());
+			sessionhistory.setUserid((long) session.getAttribute("userid"));
+			historyService.setUserId(sessionhistory);
 		}
 	}
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
 		if (event.getName().equals("userid")) {
-			if (activeSessions > 0)
-				activeSessions--;
+			if (activeSessionsLogged > 0) {
+				activeSessionsLogged--;
+			}
 		}
 
 	}

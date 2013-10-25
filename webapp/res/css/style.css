@@ -1,5 +1,5 @@
 body {
-  padding-top: 70px;
+  padding-top: 50px;
 }
 .starter-template {
   padding: 40px 15px;
@@ -24,4 +24,7 @@ body {
 	max-width: 1000px;
 	margin: auto;
 }
-
+div .panel.panel-default.main {
+	margin-top: 20px;
+	padding: 20px;
+}

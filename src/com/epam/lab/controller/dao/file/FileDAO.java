@@ -8,7 +8,9 @@ import com.epam.lab.model.UserFile;
 
 public interface FileDAO extends GenericDAO<UserFile> {
 
-	public List<FilesTypesSize> getFilesGroupType();
+	List<FilesTypesSize> getFilesGroupType();
 
-	public UserFile getByName(String fName);
+	UserFile getByName(String fName);
+	
+	int deleteByUserId(long userId);
 }

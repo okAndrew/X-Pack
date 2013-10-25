@@ -31,7 +31,7 @@
 </head>
 
 <body>
-	<jsp:include page="../menu/menuAdmin.jsp"></jsp:include>
+	<jsp:include page="../../menu.jsp"></jsp:include>
 	<jsp:include page="addUserModalPage.jsp"></jsp:include>
 	<jsp:include page="noDeleteUsersModal.jsp"></jsp:include>
 

@@ -203,4 +203,11 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		dao.update(folder);
 
 	}
+
+	@Override
+	public int deleteByUserId(long userId) {
+		FolderDAOImpl folderDao = new FolderDAOImpl();
+		int result = folderDao.deleteByUserId(userId);
+		return result;
+	}
 }

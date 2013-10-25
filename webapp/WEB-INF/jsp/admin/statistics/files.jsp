@@ -3,8 +3,6 @@
 
 <div id="example"></div>
 
-<h1>${freeSpace}</h1>
-<h1>${totalSpace}</h1>
 <table class="table zebra-striped table-hover">
 	<thead>
 		<tr>

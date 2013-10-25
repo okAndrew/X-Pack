@@ -73,16 +73,17 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		}
 	}
 
-	public String deleteUsers(String[] usersId) {
-		String errorMessage = null;
-		if (usersId == null) {
-			errorMessage = "Please check the users you want to delete!!!";
-		} else {
-			for (int i = 0; i < usersId.length; i++) {
-				delete(Long.parseLong(usersId[i]));
-			}
-		}
-		return errorMessage;
+	public List<User> deleteUsers(String[] usersId) {
+		List<User> noDeleteList = new ArrayList<User>();	
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
+		for (int i = 0; i < usersId.length; i++) {
+				if(fileService.getByUserId(Long.parseLong(usersId[i])).isEmpty()){
+					delete(Long.parseLong(usersId[i]));
+				} else {
+					noDeleteList.add(get(Long.parseLong((usersId[i]))));
+					}
+				}
+		return noDeleteList;
 	}
 
 	public int activateUser(User user) {
@@ -148,7 +149,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		}
 		return errorMessage;
 	}
-
+	
 	public User changeUserLogin(String email, String login) {
 		User user = getUserByEmail(email);
 

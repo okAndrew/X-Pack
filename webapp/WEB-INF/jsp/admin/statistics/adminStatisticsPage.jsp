@@ -34,7 +34,7 @@
 	}
 
 	function plotGist() {
-		var free = 458;
+		var free = ${freeSpace};
 		var employed = 570-free;
 		line1 = [ [ "Free space " + free + "GB", free ],
 				[ "Employed space" + employed + "GB", employed ] ];
@@ -60,7 +60,6 @@
 					shadowDepth : 5,
 				}
 			},
-
 			legend : {
 				show : true,
 				location : 'e',
@@ -110,7 +109,6 @@
 						</button></li>
 
 				</ul>
-				<h1>${freeSpace}</h1>
 				<div id="dynamicArea"></div>
 			</div>
 		</div>

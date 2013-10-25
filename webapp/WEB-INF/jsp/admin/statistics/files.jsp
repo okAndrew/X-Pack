@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <div id="example"></div>
 
 <h1>${freeSpace}</h1>

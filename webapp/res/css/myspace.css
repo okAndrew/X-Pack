@@ -1,0 +1,14 @@
+table {
+	table-layout: fixed;
+}
+
+table th,table td {
+	overflow: hidden;
+	white-space: nowrap;
+}
+table td:LAST-CHILD {
+	text-align: right;
+}
+.glyphicon {
+	margin-right: 5px;
+}

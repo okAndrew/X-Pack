@@ -10,8 +10,10 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/team.css" rel="stylesheet" />
-<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-<script	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Lobster'
+	rel='stylesheet' type='text/css'>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/team.js"></script>
 </head>
@@ -19,7 +21,8 @@
 	<jsp:include page="menu.jsp"></jsp:include>
 	<div class="container">
 		<div class="panel panel-default main">
-			<div class="row" id="row">
+			<div class="panel-body">
+				<div class="row" id="row"></div>
 			</div>
 		</div>
 	</div>

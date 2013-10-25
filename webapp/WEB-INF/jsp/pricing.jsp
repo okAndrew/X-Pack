@@ -30,6 +30,7 @@ $("#form_pay_submit").click( function() {
 	<jsp:include page="pricing/modalpay.jsp"></jsp:include>
 	<div class="container">
 		<div class="panel panel-default main">
+			<div class="panel-body">
 			<div class="row">
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
@@ -87,6 +88,7 @@ $("#form_pay_submit").click( function() {
 					</c:forEach>
 				</div>
 				<div class="col-md-3"></div>
+			</div>
 			</div>
 		</div>
 	</div>

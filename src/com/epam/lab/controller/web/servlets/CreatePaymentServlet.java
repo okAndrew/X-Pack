@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.payment.PaymentServiceImpl;
+import com.epam.lab.controller.services.pricing.PricingService;
 
 @WebServlet("/CreatePaymentServlet")
 public class CreatePaymentServlet extends HttpServlet {
@@ -27,7 +27,7 @@ public class CreatePaymentServlet extends HttpServlet {
 		int months = Integer.valueOf(request.getParameter("months"));
 		long tariffId = Long.valueOf(request.getParameter("tariffId"));
 		
-		new PaymentServiceImpl().pay(tariffId, months, userId);
+		new PricingService().pay(userId, tariffId, months);
 		
 		requestDispatcher.forward(request, response);
 	}

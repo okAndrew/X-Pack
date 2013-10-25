@@ -16,6 +16,9 @@
 <script type="text/javascript"
 	src="res/js/jqplot.canvasAxisLabelRenderer.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
+<script type="text/javascript"
+	src="res/js/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="res/js/jqplot.jqplot.cursor.min.js"></script>
 <link href="res/css/jquery.jqplot.css" rel="stylesheet" />
 <script>
 	function loadXMLDoc(action) {
@@ -29,6 +32,7 @@
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				document.getElementById("dynamicArea").innerHTML = xmlhttp.responseText;
 				plotGist();
+				Hello();
 			}
 		}
 		xmlhttp.open("GET", "adminStatisticEmployeeController?action="
@@ -71,24 +75,35 @@
 			}
 		});
 	};
-	
+
 	function Hello() {
-		$.jqplot("chart2", [ [ 3, 7, 9, 1, 4, 6, 8, 2, 5 ] ], {
-			title : 'Plot With Options',
-			axesDefaults : {
-				labelRenderer : $.jqplot.CanvasAxisLabelRenderer
-			},
-			axes : {
-				xaxis : {
-					label : "X Axis",
-					pad : 0
-				},
-				yaxis : {
-					label : "Y Axis"
-				}
+		var line1 = [ [ '2008-06-30', 4 ], [ '2008-7-30 8:00AM', 100 ],
+						[ '2008-8-30 8:00AM', 5.7 ], [ '2008-9-30 8:00AM', 9 ],
+						[ '2008-11-30 8:00AM', 8.2 ], [ '2008-12-30 8:00AM', 8.2 ],
+						[ '2009-01-30 8:00AM', 8.2 ], [ '2009-02-30 8:00AM', 8.2 ] ];
+				var plot2 = $.jqplot('chart2', [ line1 ], {
+					title : 'Visitors by period:',
+					gridPadding : {
+						right : 35
+					},
+					axes : {
+						xaxis : {
+							renderer : $.jqplot.DateAxisRenderer,
+							tickOptions : {
+								formatString : '%b %#d, %y'
+							},
+							min : 'May 30, 2008',
+							tickInterval : '1 month'
+						}
+					},
+					series : [ {
+						lineWidth : 2,
+						markerOptions : {
+							style : 'round'
+						}
+					} ]
+				});
 			}
-		});
-	};
 </script>
 
 <link href="res/css/bootstrap.css" rel="stylesheet" />

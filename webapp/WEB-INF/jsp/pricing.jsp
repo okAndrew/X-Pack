@@ -9,7 +9,6 @@
 <title>DreamHost | Pricing</title>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/pricing.css" rel="stylesheet" />
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
@@ -57,12 +56,15 @@ $("#form_pay_submit").click( function() {
 										<c:choose>
 											<c:when test="${tariff.price < currentTariff.price}">
 												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})" disabled="disabled">
-													${tariff.price}$
+												<c:choose>
+													<c:when test="${daysLeft > 0}">${daysLeft} days left</c:when>
+													<c:otherwise>${tariff.price}$</c:otherwise>
+												</c:choose>
 												</a>
 											</c:when>
 											<c:when test="${tariff.price == currentTariff.price}">
 												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})">
-													Continue more
+													Get more
 												</a>
 											</c:when>
 											<c:otherwise>

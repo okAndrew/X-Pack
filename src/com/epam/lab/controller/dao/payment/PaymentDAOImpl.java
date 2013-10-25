@@ -103,7 +103,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 	}
 
 	@Override
-	public boolean pay(String[] sqls, String[][] args) {
+	public boolean pay(String[] sqls, Object[][] args) {
 		return queryExecutor.executeTransaction(sqls, args);
 	}
 	

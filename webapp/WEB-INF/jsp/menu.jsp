@@ -10,19 +10,25 @@
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="homepage">DreamHost</a>
+			<a class="navbar-brand" href="homepage">DREAMHOST</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<c:if test="${sessionScope.userLogin != null}">
-					<li id="menu_myspace"><a href="userpage">
+					<li id="menu_myspace"> <a href="userpage">
 						<fmt:message key="My_space" bundle="${lang}" /></a>
 					</li>
+					<li id="menu_pricing"> <a href="pricing">
+						<fmt:message key="Pricing" bundle="${lang}" /></a>
+					</li>
 				</c:if>
-				<li id="menu_about"><a href=""><fmt:message key="About" bundle="${lang}" /></a></li>
-				<li id="menu_home"><a href=""><fmt:message key="Home" bundle="${lang}" /></a></li>
-				<li id="menu_pricing"><a href="pricing"><fmt:message key="Pricing"
-							bundle="${lang}" /></a></li>
+				<li class="dropdown" id="menu_about">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="About" bundle="${lang}" /> <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="about">Project</a></li>
+						<li><a href="team">Team</a></li>
+					</ul>
+				</li>
 			</ul>
 
 			<div class="navbar-form navbar-right">

@@ -41,25 +41,15 @@
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
-				<nav class="navbar navbar-default" role="navigation">
-					<div class="collapse navbar-collapse">
+				<nav class="navbar navbar-default controlmenu" role="navigation">
+					<div class="collapse navbar-collapse controlmenu">
 						<div class="btn-group">
-							<a href="#createFolderModal" data-toggle="modal" role="button" class="btn btn-default navbar-btn"><fmt:message key="Create_folder" bundle="${lang}" /></a>
-							<a href="#uploadFormModal" data-toggle="modal" role="button" class="btn btn-default navbar-btn"><fmt:message key="Upload" bundle="${lang}" /></a>
-							<button type="submit" name="download" class="btn btn-default navbar-btn"><fmt:message key="Download" bundle="${lang}" /></button>
-							<button type="submit" name="delete" class="btn btn-default navbar-btn"><fmt:message key="Delete" bundle="${lang}" /></button>
-							<button type="submit" name="move" class="btn btn-default navbar-btn"><fmt:message key="Move" bundle="${lang}" /></button>
+							<a href="#createFolderModal" data-toggle="modal" role="button" class="btn btn-default"><fmt:message key="Create_folder" bundle="${lang}" /></a>
+							<a href="#uploadFormModal" data-toggle="modal" role="button" class="btn btn-default"><fmt:message key="Upload" bundle="${lang}" /></a>
+							<button type="submit" name="download" class="btn btn-default"><fmt:message key="Download" bundle="${lang}" /></button>
+							<button type="submit" name="delete" class="btn btn-default"><fmt:message key="Delete" bundle="${lang}" /></button>
+							<button type="submit" name="move" class="btn btn-default"><fmt:message key="Move" bundle="${lang}" /></button>
 						</div>
-						<ul class="nav navbar-nav navbar-right">
-							<li>
-								<form class="navbar-form navbar-left" role="search">
-									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Search">
-									</div>
-									<button type="submit" class="btn btn-default"><fmt:message key="Search" bundle="${lang}" /></button>
-								</form>
-							</li>
-						</ul>
 					</div>
 				</nav>
 				

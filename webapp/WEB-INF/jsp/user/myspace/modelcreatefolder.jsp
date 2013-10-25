@@ -10,8 +10,14 @@
 				<h4 class="modal-title"><fmt:message key="Create_folder" bundle="${lang}" /></h4>
 			</div>
 			<div class="modal-body">
+				<div class="alert alert-info">
+					Must consist of symbols only ... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ult
+				</div>
 				<form id="form_create_folder" action="createfolder" method="post">
-					<input type="text" name="foldername" placeholder="folder name">
+					<div class="form-group">
+						<label>Folder name</label>
+						<input type="text" name="foldername" placeholder="folder name" class="form-control" />
+					</div>
 				</form>
 			</div>
 			<div class="modal-footer">

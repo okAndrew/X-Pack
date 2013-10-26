@@ -53,6 +53,7 @@ function initTeamPage() {
 	var max = colors.length - 1;
 
 	for ( var i = 0; i < team.length; i++) {
+		var n = Math.floor(Math.random() * (max - min + 1)) + min;
 		var start = "<div class='col-md-4'><div class='panel panel-default' id='person' style='background-color: "
 				+ colors[n].c + "'><div class='panel-body'>";
 		var img = "<img class='avatar' src='" + team[i].photo + "'/>";

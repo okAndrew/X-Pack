@@ -70,7 +70,7 @@ public class LogDAOImpl implements LogDAO {
 
 	@Override
 	public int clearTable() {
-		String sql = "TRUNCATE TABLE logs";
+		String sql = "TRUNCATE TABLE dreamhost.logs";
 		return queryExecutor.executeUpdate(sql);
 	}
 

@@ -17,7 +17,7 @@ public interface LogService extends AbstractService<Log> {
 
 	List<Log> getDebugLogs();
 	
-	String deleteLogs(String[] checkLogs);
+	void deleteLogs(String[] checkLogs);
 	
 	void clearTable();
 }

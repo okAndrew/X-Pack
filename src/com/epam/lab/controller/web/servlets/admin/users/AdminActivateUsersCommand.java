@@ -11,7 +11,7 @@ public class AdminActivateUsersCommand implements AdminUsersPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String page = null;
-		if (request.getParameterValues("checkUser").length == 0) {
+		if (request.getParameterValues("checkUser") == null) {
 			request.setAttribute("message", "Please check users!!!");
 			page = "adminUsersPage";
 			return page;

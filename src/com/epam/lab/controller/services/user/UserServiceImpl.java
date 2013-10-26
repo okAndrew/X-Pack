@@ -58,8 +58,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		return new UserDAOImpl().getByEmail(email);
 	}
 
-	public void deleteFilesAndFolders(String[] filesId, String[] foldersId,
-			long userId) {
+	public void deleteFilesAndFolders(String[] filesId, String[] foldersId) {
 		FolderServiceImpl folderService = new FolderServiceImpl();
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		if (filesId != null && filesId[0] != null && !filesId[0].equals("")) {

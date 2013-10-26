@@ -27,11 +27,11 @@
 <script src="res/js/TreeMenu.js" type="text/javascript"></script>
 <script>
 	function toggle(source) {
-		checkboxes = document.getElementsByName('folders');
+		var checkboxes = document.getElementsByName('folders');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			checkboxes[i].checked = source.checked;
 		}
-		checkboxes = document.getElementsByName('files');
+		var checkboxes = document.getElementsByName('files');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			checkboxes[i].checked = source.checked;
 		}
@@ -43,6 +43,30 @@
 	function getCurFolderId(){
 		document.getElementById("folderidmove").getAttribute("value");
 	}
+	function checkboxesStatus(source) {
+		var checkboxes = document.getElementsByName('folders');
+		for ( var i = 0, n = checkboxes.length; i < n; i++) {
+			if (checkboxes[i].checked === true) {
+				document.getElementById('download').removeAttribute('disabled');
+				document.getElementById('delete').removeAttribute('disabled');
+				document.getElementById('move').removeAttribute('disabled');
+				return;
+			}
+		}
+		var checkboxes = document.getElementsByName('files');
+		for ( var i = 0, n = checkboxes.length; i < n; i++) {
+			if (checkboxes[i].checked === true) {
+				document.getElementById('download').removeAttribute('disabled');
+				document.getElementById('delete').removeAttribute('disabled');
+				document.getElementById('move').removeAttribute('disabled');
+				return;
+			}
+		}
+		document.getElementById('download').setAttribute('disabled','disabled');
+		document.getElementById('delete').setAttribute('disabled','disabled');
+		document.getElementById('move').setAttribute('disabled','disabled');
+
+	}
 </script>
 </head>
 <body>
@@ -53,35 +77,48 @@
 			<input name="file" type="file" multiple />
 		</div>
 	</form>
+	<form action="usercontroller" method="post">
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<nav class="navbar navbar-default controlmenu" role="navigation">
 					<div class="collapse navbar-collapse controlmenu">
 						<div class="btn-group">
-							<a href="#createFolderModal" data-toggle="modal" role="button" class="btn btn-default"><fmt:message key="Create_folder" bundle="${lang}" /></a>
-							<a href="#uploadFormModal" data-toggle="modal" role="button" class="btn btn-default"><fmt:message key="Upload" bundle="${lang}" /></a>
-							<button type="submit" name="download" class="btn btn-default"><fmt:message key="Download" bundle="${lang}" /></button>
-							<button type="submit" name="delete" class="btn btn-default"><fmt:message key="Delete" bundle="${lang}" /></button>
-							<button type="submit" name="move" class="btn btn-default"><fmt:message key="Move" bundle="${lang}" /></button>
+							<a href="#createFolderModal" data-toggle="modal" role="button"
+								class="btn btn-default"><fmt:message key="Create_folder"
+									bundle="${lang}" /></a>
+							<button type="submit" name="download" class="btn btn-default" disabled="disabled" id="download">
+								<fmt:message key="Download" bundle="${lang}" />
+							</button>
+							<button type="submit" name="delete" class="btn btn-default" disabled="disabled" id="delete">
+								<fmt:message key="Delete" bundle="${lang}" />
+							</button>
+							<button type="submit" name="move" class="btn btn-default" disabled="disabled" id="move">
+								<fmt:message key="Move" bundle="${lang}" />
+							</button>
 						</div>
 					</div>
 				</nav>
-				
+
 				<ol class="breadcrumb">
 					<c:forEach items="${folderpath}" var="folder">
 						<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
 					</c:forEach>
 				</ol>
-				
+
 				<table class="table zebra-striped table-hover table-condensed">
 					<thead>
 						<tr>
-							<th style="width: 30px;"><input type="checkbox" onClick="toggle(this)" /></th>
-							<th style="width: 100%;"><fmt:message key="Name" bundle="${lang}" /></th>
-							<th style="width: 120px;"><fmt:message key="Date" bundle="${lang}" /></th>
-							<th style="width: 100px;"><fmt:message key="Size" bundle="${lang}" /></th>
-							<th style="width: 120px"><fmt:message key="Type" bundle="${lang}" /></th>
+							<th style="width: 30px;"><input type="checkbox"
+								onClick="toggle(this)" /></th>
+							<th style="width: 100%;"><fmt:message key="Name"
+									bundle="${lang}" /></th>
+							<th style="width: 120px;"><fmt:message key="Date"
+									bundle="${lang}" /></th>
+							<th style="width: 100px;"><fmt:message key="Size"
+									bundle="${lang}" /></th>
+							<th style="width: 120px"><fmt:message key="Type"
+									bundle="${lang}" /></th>
 							<th style="width: 70px;"></th>
 						</tr>
 					</thead>
@@ -89,70 +126,83 @@
 						<c:if test="${currentFolder.idUpper!=0}">
 							<tr>
 								<td></td>
-								<td colspan="7">
-									<a href="userfoldernav?folderid=${currentFolder.idUpper}" style="font-size: 20px;"><span class="glyphicon glyphicon-chevron-up"></span></a>
-								</td>
+								<td colspan="7"><a
+									href="userfoldernav?folderid=${currentFolder.idUpper}"
+									style="font-size: 20px;"><span
+										class="glyphicon glyphicon-chevron-up"></span></a></td>
 								<td></td>
 							</tr>
 						</c:if>
 						<c:forEach items="${folders}" var="folder">
-						<tr>
-							<td><input type="checkbox" name="folders" value="${folder.id}" /></td>
-							<td><span class="glyphicon glyphicon-folder-open"></span><a href="userfoldernav?folderid=${folder.id}" class=""><b> ${folder.name}</b></a></td>
-							<td><fmt:formatDate value="${folder.date}" /></td>
-							<td><c:out value="${folder.size}" /></td>
-							<td><c:out value="folder" /></td>
-							<td>
-                            	<div class="btn-group">
-									<a data-toggle="modal" role="button" href="#EditFileModal" onclick="set('fileidedit', ${file.id})">
-										<span class="glyphicon glyphicon-pencil"></span>
-									</a>
-								</div>
-								<div class="btn-group">
-									<a data-toggle="modal" role="button" href="#DeleteFileModal" onclick="set('fileiddelete', ${file.id})">
-										<span class="glyphicon glyphicon-trash"></span>
-									</a>
-								</div>
-								<div class="btn-group">
-									<a data-toggle="modal" role="button" href="#MoveFileModal" onclick="set('fileidmove', ${file.id})">
-										<span class="glyphicon glyphicon-move"></span>
-									</a>
-								</div>
-							</td>
-						</tr>
+							<tr>
+								<td><input type="checkbox" name="folders"
+									value="${folder.id}" onclick="checkboxesStatus(this)"/></td>
+								<td><span class="glyphicon glyphicon-folder-open"></span><a
+									href="userfoldernav?folderid=${folder.id}" class=""><b>
+											${folder.name}</b></a></td>
+								<td><fmt:formatDate value="${folder.date}" /></td>
+								<td><c:out value="${folder.size}" /></td>
+								<td><c:out value="folder" /></td>
+								<td>
+									<div class="btn-group">
+										<a data-toggle="modal" role="button" href="#EditFileModal"
+											onclick="set('fileidedit', ${file.id})"> <span
+											class="glyphicon glyphicon-pencil"></span>
+										</a>
+									</div>
+									<div class="btn-group">
+										<a data-toggle="modal" role="button" href="#DeleteFileModal"
+											onclick="set('fileiddelete', ${file.id})"> <span
+											class="glyphicon glyphicon-trash"></span>
+										</a>
+									</div>
+									<div class="btn-group">
+										<a data-toggle="modal" role="button" href="#MoveFileModal"
+											onclick="set('fileidmove', ${file.id})"> <span
+											class="glyphicon glyphicon-move"></span>
+										</a>
+									</div>
+								</td>
+							</tr>
 						</c:forEach>
 						<c:forEach items="${files}" var="file">
-						<tr>
-                        	<td><label class="checkbox-inline"><input type="checkbox" name="files" value="${file.id}" /></label></td>
-							<td><span class="glyphicon glyphicon-file"></span><a href="download?fileid=${file.id}">${file.nameIncome}</a></td>
-							<td><c:out value="${file.date}" /></td>
-                            <td><c:out value="${file.size}" /></td>
-                            <td><c:out value="${file.type}" /></td>
-                            <td>
-                            	<div class="btn-group">
-									<a data-toggle="modal" role="button" href="#EditFileModal" onclick="set('fileidedit', ${file.id})">
-										<span class="glyphicon glyphicon-pencil"></span>
-									</a>
-								</div>
-								<div class="btn-group">
-									<a data-toggle="modal" role="button" href="#DeleteFileModal" onclick="set('fileiddelete', ${file.id})">
-										<span class="glyphicon glyphicon-trash"></span>
-									</a>
-								</div>
-								<div class="btn-group">
-									<a data-toggle="modal" role="button" href="#MoveFileModal" onclick="set('fileidmove', ${file.id})">
-										<span class="glyphicon glyphicon-move"></span>
-									</a>
-								</div>
-							</td>
-						</tr>
+							<tr>
+								<td><label class="checkbox-inline"><input
+										type="checkbox" name="files" value="${file.id}" onclick="checkboxesStatus(this)"/></label></td>
+								<td><span class="glyphicon glyphicon-file"></span><a
+									href="download?fileid=${file.id}">${file.nameIncome}</a></td>
+								<td><fmt:formatDate value="${file.date}" /></td>
+								<td><c:out value="${file.size}" /></td>
+								<td><c:out value="${file.type}" /></td>
+								<td>
+									<div class="btn-group">
+										<a data-toggle="modal" role="button" href="#EditFileModal"
+											onclick="set('fileidedit', ${file.id})"> <span
+											class="glyphicon glyphicon-pencil"></span>
+										</a>
+									</div>
+									<div class="btn-group">
+										<a data-toggle="modal" role="button" href="#DeleteFileModal"
+											onclick="set('fileiddelete', ${file.id})"> <span
+											class="glyphicon glyphicon-trash"></span>
+										</a>
+									</div>
+									<div class="btn-group">
+										<a data-toggle="modal" role="button" href="#MoveFileModal"
+											onclick="set('fileidmove', ${file.id})"> <span
+											class="glyphicon glyphicon-move"></span>
+										</a>
+									</div>
+								</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-								
+
 			</div>
 		</div>
 	</div>
+	</form>
 	<form action="move" method="post">
 		<div class="modal fade" id="MoveFolderModal" tabindex="-1"
 			role="dialog" aria-labelledby="MoveFolderModalLabel"

@@ -14,7 +14,7 @@ public class AdminRestoreUsersCommand implements AdminUsersPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
-		if (request.getParameterValues("checkUser").length == 0) {
+		if (request.getParameterValues("checkUser") == null) {
 			request.setAttribute("message", "Please check users!!!");
 			page = "adminUsersPage";
 			return page;

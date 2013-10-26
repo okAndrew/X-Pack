@@ -133,24 +133,7 @@
 				</ul>
 
 				<div id="dynamicArea"><jsp:include page="tableLogs.jsp"></jsp:include></div>
-<!-- 				
-<!-- 				Table -->
-<!-- 				<table class="table zebra-striped table-hover"> -->
-<!-- 					<thead> -->
-<!-- 						<tr> -->
-<%-- 							<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message --%>
-<%-- 									key="All" bundle="${lang}" /></th> --%>
-<%-- 							<th><fmt:message key="Id" bundle="${lang}" /></th> --%>
-<%-- 							<th><fmt:message key="Date" bundle="${lang}" /></th> --%>
-<%-- 							<th><fmt:message key="Logger" bundle="${lang}" /></th> --%>
-<%-- 							<th><fmt:message key="Level" bundle="${lang}" /></th> --%>
-<%-- 							<th><fmt:message key="Message" bundle="${lang}" /></th> --%>
-<!-- 						</tr> -->
-<!-- 					</thead> -->
-<%-- 					<tbody id="dynamicArea"><jsp:include page="logsList.jsp"></jsp:include></tbody> --%>
 
-<!-- 				</table> -->
-<!-- 				-->	
 			</div>
 		</div>
 	</div>

@@ -20,6 +20,17 @@ public class DownloadServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		processRequest(request, response);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		processRequest(req, resp);
+	}
+	
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		UserFileServiceImpl service = new UserFileServiceImpl();
 		DownloadService downloadService = new DownloadService();
 		File file = null;

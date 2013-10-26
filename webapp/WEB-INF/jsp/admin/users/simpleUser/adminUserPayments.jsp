@@ -123,6 +123,6 @@ body {
 		}).on('changeDate', function(ev) {
 			checkout.hide();
 		}).data('datepicker');
-	</script>https://gist.github.com/nareshv/3169847
+	</script>
 </body>
 </html>

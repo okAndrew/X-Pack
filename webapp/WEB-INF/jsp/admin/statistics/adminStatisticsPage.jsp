@@ -8,18 +8,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Statistics</title>
+<script src="res/js/bootstrap.js"></script>
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../src/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="res/js/NatalyaWillReplaceIt/jquery.min.js"></script>
 <script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
-<script type="text/javascript"
-	src="res/js/jqplot.canvasTextRenderer.min.js"></script>
-<script type="text/javascript"
-	src="res/js/jqplot.canvasAxisLabelRenderer.min.js"></script>
-<script src="res/js/bootstrap.js"></script>
-<script type="text/javascript"
-	src="res/js/jqplot.dateAxisRenderer.min.js"></script>
-<script type="text/javascript" src="res/js/jqplot.jqplot.cursor.min.js"></script>
-<link href="res/css/jquery.jqplot.css" rel="stylesheet" />
+<script type="text/javascript" src="res/js/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="res/js/jqplot.cursor.min.js"></script>
+
 <script>
 	function loadXMLDoc(action) {
 		var xmlhttp;
@@ -41,8 +38,8 @@
 	}
 
 	function plotGist() {
-		var free = ${freeSpace};
-		var employed = 570-free;
+		var free = 750;
+		var employed = 570 - free;
 		line1 = [ [ "Free space " + free + "GB", free ],
 				[ "Employed space" + employed + "GB", employed ] ];
 		$.jqplot("example", [ line1 ], {
@@ -76,38 +73,60 @@
 	};
 
 	function Hello() {
-		var line1 = [ [ '2008-06-30', 4 ], [ '2008-7-30 8:00AM', 100 ],
-						[ '2008-8-30 8:00AM', 5.7 ], [ '2008-9-30 8:00AM', 9 ],
-						[ '2008-11-30 8:00AM', 8.2 ], [ '2008-12-30 8:00AM', 8.2 ],
-						[ '2009-01-30 8:00AM', 8.2 ], [ '2009-02-30 8:00AM', 8.2 ] ];
-				var plot2 = $.jqplot('chart2', [ line1 ], {
-					title : 'Visitors by period:',
-					gridPadding : {
-						right : 35
-					},
-					axes : {
-						xaxis : {
-							renderer : $.jqplot.DateAxisRenderer,
-							tickOptions : {
-								formatString : '%b %#d, %y'
-							},
-							min : 'May 30, 2008',
-							tickInterval : '1 month'
-						}
-					},
-					series : [ {
-						lineWidth : 2,
-						markerOptions : {
-							style : 'round'
-						}
-					} ]
-				});
+		var map = {
+				'2013-10-14' : 1,
+				'2013-10-20' : 2,
+				'2013-10-24' : 3, 
+				'2013-10-25' : 3, 
+				'2013-10-26' : 5,
+				'2013-11-14' : 1,
+				'2013-11-20' : 2,
+				'2013-11-24' : 3, 
+				'2013-11-25' : 3, 
+				'2013-11-26' : 5,
+				'2013-12-24' : 3, 
+				'2013-12-25' : 3, 
+				'2013-12-26' : 5 
+			}, goog1 = [];
+
+			for ( var property in map) {
+				goog1.push([ property, map[property] ]);
 			}
+		var plot1 = $.jqplot('chart1', [ goog1 ], {
+			title : 'Visitors:',
+			series : [ {
+				label : 'Google, Inc.',
+				neighborThreshold : -1
+			} ],
+			axes : {
+				xaxis : {
+					renderer : $.jqplot.DateAxisRenderer,
+					min : 'October 1, 2013',
+					tickInterval : '1 months',
+					tickOptions : {
+						formatString : '%Y/%#m/%#d'
+					}
+				},
+				
+			},
+			cursor : {
+				show : true,
+				zoom : true,
+				showTooltip : false
+			}
+		});
+
+		$('.button-reset').click(function() {
+			plot1.resetZoom()
+		});
+	};
 </script>
+
 
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+<link href="res/css/jquery.jqplot.min.css" rel="stylesheet" />
 
 <style type="text/css">
 .Container {
@@ -116,9 +135,19 @@
 	margin: auto;
 }
 </style>
+<style type="text/css">
+.button-reset {
+	margin: 30px;
+	margin-left: 90px;
+}
+</style>
 </head>
 
 <body>
+
+	<div class="code prettyprint">
+		<pre class="code prettyprint brush: js"></pre>
+	</div>
 	<jsp:include page="../../menu.jsp"></jsp:include>
 
 	<div class="Container">

@@ -5,19 +5,19 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public enum GetterItem {
-	INT(Integer.class) {
+	INT(Integer.TYPE, Integer.class) {
 		@Override
 		Object executeGet(ResultSet rs, String colName) throws SQLException {
 			return rs.getInt(colName);
 		}
 	},
-	LONG(Long.class) {
+	LONG(Long.TYPE, Long.class) {
 		@Override
 		Object executeGet(ResultSet rs, String colName) throws SQLException {
 			return rs.getLong(colName);
 		}
 	},
-	DOUBLE(Double.class) {
+	DOUBLE(Double.TYPE, Double.class) {
 		@Override
 		Object executeGet(ResultSet rs, String colName) throws SQLException {
 			return rs.getDouble(colName);
@@ -29,7 +29,7 @@ public enum GetterItem {
 			return rs.getString(colName);
 		}
 	},
-	BOOLEAN(Boolean.class) {
+	BOOLEAN(Boolean.TYPE, Boolean.class) {
 		@Override
 		Object executeGet(ResultSet rs, String colName) throws SQLException {
 			return rs.getBoolean(colName);
@@ -42,21 +42,20 @@ public enum GetterItem {
 		}
 	};
 
-	private Class<?> type;
+	private Class<?>[] types;
 
-	private GetterItem(Class<?> type) {
-		this.type = type;
+	private GetterItem(Class<?>... types) {
+		this.types = types;
 	}
 
 	abstract Object executeGet(ResultSet rs, String colName)
 			throws SQLException;
 
-	public Class<?> getType() {
-		return type;
+	public Class<?>[] getTypes() {
+		return types;
 	}
 
-	public void setType(Class<?> type) {
-		this.type = type;
+	public void setType(Class<?>[] types) {
+		this.types = types;
 	}
-
 }

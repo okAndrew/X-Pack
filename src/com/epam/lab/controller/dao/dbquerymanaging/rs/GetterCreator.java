@@ -18,9 +18,11 @@ public class GetterCreator {
 	public GetterItem findByType(Class<?> type) {
 		GetterItem result = null;
 		for (GetterItem getter : getters) {
-			if (type.equals(getter.getType())) {
-				result = getter;
-				break;
+			for (Class<?> t : getter.getTypes()) {
+				if (type.equals(t)) {
+					result = getter;
+					break;
+				}
 			}
 		}
 		return result;

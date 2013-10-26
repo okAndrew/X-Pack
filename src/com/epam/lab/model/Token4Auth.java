@@ -10,7 +10,7 @@ import com.epam.lab.controller.annotations.TableColumn;
 import com.google.gson.annotations.Expose;
 
 @XmlRootElement
-public class Token4Upload {
+public class Token4Auth {
 	@TableColumn("id")
 	private long id;
 

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -20,14 +21,16 @@ import com.epam.lab.controller.exceptions.FileTooLargeException;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.exceptions.notfound.TokenNotFoundException;
 import com.epam.lab.controller.exceptions.notfound.UserNotFoundException;
+import com.epam.lab.controller.services.file.UserFileService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.file.UserFileUploader;
-import com.epam.lab.controller.services.token4upload.Token4UploadService;
-import com.epam.lab.controller.services.token4upload.Token4UploadServiceImpl;
+import com.epam.lab.controller.services.token4auth.Token4AuthService;
+import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
 import com.epam.lab.model.UserFile;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
-@Path("file")
+@Path("files")
 public class FilesWebService {
 
 	private static Logger logger = Logger.getLogger(FilesWebService.class);
@@ -37,20 +40,47 @@ public class FilesWebService {
 	private static final String ERROR_UPLOADING = "Error uploading";
 
 	@POST
-	@Path("upload/{token}/{idFolder}")
+	@Path("upload/{idFolder}/{token}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
 	public JSONArray uploadFile(@PathParam("token") String token,
 			@PathParam("idFolder") String idFolderStr,
 			FormDataMultiPart multiPart) {
 		long idFolder = Long.valueOf(idFolderStr);
-		String message = verifyUploadRequest(token, idFolder);
+		String message = verifyAccessRequest(token, idFolder);
 		if (message != null) {
 			JSONObject jsonError = buildJsonError(message);
 			return new JSONArray().put(jsonError);
 		}
 		JSONArray resultArray = uploadFiles(multiPart, idFolder);
 		return resultArray;
+	}
+
+	@GET
+	@Path("getfrom/{token}/{idfolder}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public JSONArray getByIdFolder(@PathParam("token") String token,
+			@PathParam("idfolder") int idFolder) {
+		JSONArray resultArray = null;
+		String message = verifyAccessRequest(token, idFolder);
+		if (message != null) {
+			JSONObject jsonError = buildJsonError(message);
+			return new JSONArray().put(jsonError);
+		} else {
+			resultArray = getFiles(idFolder);
+		}
+		return resultArray;
+	}
+
+	private JSONArray getFiles(long idFolder) {
+		UserFileService fileService = new UserFileServiceImpl();
+		List<UserFile> listFiles = fileService.getByFolderId(idFolder);
+		JSONArray jsonArray = new JSONArray();
+		for (UserFile userFile : listFiles) {
+			JSONObject jsonFile = toJson(userFile);
+			jsonArray.put(jsonFile);
+		}
+		return jsonArray;
 	}
 
 	private JSONArray uploadFiles(FormDataMultiPart multiPart, long idFolder) {
@@ -92,9 +122,9 @@ public class FilesWebService {
 		return jsonObject;
 	}
 
-	private String verifyUploadRequest(String token, long idFolder) {
+	private String verifyAccessRequest(String token, long idFolder) {
 		String message = null;
-		Token4UploadService service = new Token4UploadServiceImpl();
+		Token4AuthService service = new Token4AuthServiceImpl();
 		boolean itUserFolder = false;
 		try {
 			itUserFolder = service.verifyAccessToFolder(token, idFolder);
@@ -128,7 +158,9 @@ public class FilesWebService {
 		JSONObject jsonOb = new JSONObject();
 		try {
 			jsonOb.put("fileName", userFile.getNameIncome());
-			jsonOb.put("url", userFile.getId());
+			jsonOb.put("url",
+					"http://localhost:8080/dreamhost/download?fileid="
+							+ userFile.getId());
 			jsonOb.put("idFolder", userFile.getIdFolder());
 			jsonOb.put("size", userFile.getSize());
 			jsonOb.put("changeDate", userFile.getDate());

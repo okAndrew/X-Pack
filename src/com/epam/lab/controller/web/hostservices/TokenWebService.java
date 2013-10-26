@@ -14,11 +14,11 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.epam.lab.controller.services.token4upload.Token4UploadService;
-import com.epam.lab.controller.services.token4upload.Token4UploadServiceImpl;
+import com.epam.lab.controller.services.token4auth.Token4AuthService;
+import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
-import com.epam.lab.model.Token4Upload;
+import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,9 +32,9 @@ public class TokenWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String createToken4Download(@PathParam("email") String email,
-			@PathParam("password") String password, Token4Upload tokenData) {
+			@PathParam("password") String password, Token4Auth tokenData) {
 		User user = getUser(email, password);
-		Token4Upload createdToken = null;
+		Token4Auth createdToken = null;
 		String response = null;
 		if (user != null) {
 			createdToken = createToken(tokenData, user);
@@ -69,9 +69,9 @@ public class TokenWebService {
 		return Response.status(200).build();
 	}
 
-	private Token4Upload createToken(Token4Upload tokenData, User user) {
-		Token4UploadService service = new Token4UploadServiceImpl();
-		Token4Upload createdToken = null;
+	private Token4Auth createToken(Token4Auth tokenData, User user) {
+		Token4AuthService service = new Token4AuthServiceImpl();
+		Token4Auth createdToken = null;
 		createdToken = service.createToken(user.getId(),
 				tokenData.getLiveTime());
 		return createdToken;
@@ -84,7 +84,7 @@ public class TokenWebService {
 		return user;
 	}
 
-	private String createResponse(Token4Upload createdToken) {
+	private String createResponse(Token4Auth createdToken) {
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
 				.create();
 		return gson.toJson(createdToken);

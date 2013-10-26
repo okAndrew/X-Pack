@@ -9,13 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jettison.json.JSONObject;
+
 import com.epam.lab.controller.services.file.TypesService;
 import com.epam.lab.controller.services.sessionhistory.SessionHistoryServiceImpl;
+import com.epam.lab.controller.services.sessionstatistics.SessionStatisticsServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.DiskSpaceUtil;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.web.listeners.UserOnlineListener;
 import com.epam.lab.model.SessionHistory;
+import com.epam.lab.model.SessionStatistics;
 import com.epam.lab.model.User;
 
 public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
@@ -34,6 +38,7 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
 			getLoggedUsers(request, response);
 			getAllUsers(request, response);
 			getOnlineUsers(request, response);
+			getAllSessionStatistics(request, response);
 			page = "WEB-INF/jsp/admin/statistics/users.jsp";
 		}
 		return page;
@@ -46,6 +51,21 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
 		list = service.getAll();
 		long countAllUsers = list.size();
 		request.setAttribute("countAllUsers", countAllUsers);
+
+	}
+
+	private void getAllSessionStatistics(HttpServletRequest request,
+			HttpServletResponse response) {
+		SessionStatisticsServiceImpl statisticsServiceImpl = new SessionStatisticsServiceImpl();
+		List<SessionStatistics> list = new ArrayList<SessionStatistics>();
+		list = statisticsServiceImpl.getAll();
+		JSONObject JSONobject = statisticsServiceImpl.toJson(list);
+		response.setContentType("text/html");
+		try {
+			response.getWriter().write(JSONobject.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 

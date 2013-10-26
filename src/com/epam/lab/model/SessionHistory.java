@@ -9,7 +9,7 @@ public class SessionHistory {
 	private long id;
 
 	@TableColumn("user_id")
-	private long userid;
+	private Long userid;
 
 	@TableColumn("startdate")
 	private Timestamp startdate;
@@ -38,11 +38,11 @@ public class SessionHistory {
 		return this;
 	}
 
-	public long getUserid() {
+	public Long getUserid() {
 		return userid;
 	}
 
-	public SessionHistory setUserid(long userid) {
+	public SessionHistory setUserid(Long userid) {
 		this.userid = userid;
 		return this;
 	}
@@ -71,6 +71,5 @@ public class SessionHistory {
 				+ ", startdate=" + startdate + ", enddate=" + enddate
 				+ ", sessIdTomcat=" + sessIdTomcat + "]";
 	}
-
 
 }

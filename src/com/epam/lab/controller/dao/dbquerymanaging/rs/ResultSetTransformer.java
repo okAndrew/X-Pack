@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.annotations.TableColumn;
 import com.epam.lab.controller.exceptions.NoSuchDAOObjectException;
+import com.epam.lab.controller.exceptions.NoSuchDAOTypeException;
 
 public class ResultSetTransformer<T> {
 	private Logger logger = Logger.getLogger(this.getClass());
@@ -27,16 +28,24 @@ public class ResultSetTransformer<T> {
 		// reflection magic
 		Field[] fields = type.getDeclaredFields();
 		T result = createInstance();
+		RSManager rsManager = new RSManager();
 		for (Field field : fields) {
 			Annotation[] anns = field.getDeclaredAnnotations();
 			TableColumn tColumn = findTableColumnAnn(anns);
 			if (tColumn != null) {
 				String colName = tColumn.value();
-				Object atr = rs.getObject(colName);
+				Object value = null;
+				try {
+					value = rsManager.getObject(rs, colName, field.getType());
+				} catch (NoSuchDAOTypeException e) {
+					e.printStackTrace();
+					logger.error(e);
+				}
 				field.setAccessible(true);
 				try {
-					field.set(result, atr);
+					field.set(result, value);
 				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
 					logger.error(e);
 				}
 			}

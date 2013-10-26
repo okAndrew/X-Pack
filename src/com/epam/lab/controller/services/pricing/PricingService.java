@@ -49,37 +49,76 @@ public class PricingService {
 		tariffServise = new TariffServiseImpl();
 		userService = new UserServiceImpl();
 		paymentService = new PaymentServiceImpl();
-		Timestamp curTime = TimeStampManager.getCurrentTime();
-		Timestamp timeEnd = TimeStampManager.getCurrentTime();
-		TimeStampManager.addNumberOfMonth(timeEnd, months);
 		
 		user = userService.get(userId);
 		Tariff curTariff = tariffServise.get(user.getIdTariff());
 		Tariff newTariff = tariffServise.get(tariffId);
-		Payment curPayment = paymentService.getCurrentPayment(user.getId());
 		
-		if (curTariff != null && curTariff.getId() == newTariff.getId()) {
-			continueCurrentTariff(months);
+		if (paymentService.getAllPayByUserId(user.getId()) != null) {
+			if (curTariff != null && curTariff.getId() == newTariff.getId()) {
+				continueCurrentTariff(months, curTariff);
+			}
+			if (curTariff.getPrice() < newTariff.getPrice()) {
+				newHigherTariff(months, curTariff, newTariff);
+			}
+		} else {
+			createFirstuserPayment(newTariff, months);
 		}
 	}
 	
-	private void continueCurrentTariff(int months) {
-		Tariff tariff = new TariffServiseImpl().get(user.getIdTariff());
+	private void continueCurrentTariff(int months, Tariff tariff) {
 		List<Payment> payments = new PaymentServiceImpl().getAvailableUserPays(user.getId());
 		Timestamp timeStart = payments.get(payments.size() - 1).getDateEnd();
 		Timestamp timeEnd = TimeStampManager.addNumberOfMonth((Timestamp)timeStart.clone(), months);
 		double price = tariff.getPrice() * months;
 		
-		Payment payment = new Payment();
-		payment.setUser(user.getId());
-		payment.setTariff(tariff.getId());
-		payment.setDateCreated(timeStart);
-		payment.setDateEnd(timeEnd);
-		payment.setPrice(price);
-		payment.setAvailable(true);
-		payment.setStatus(true);
+		Payment payment = createPayment(user.getId(), tariff.getId(), timeStart, timeEnd, price, true, true);
 		
 		new PaymentServiceImpl().insert(payment);
+	}
+	
+	private void newHigherTariff(int months, Tariff curTariff, Tariff newTariff) {
+		String sqlUpdateUser = "UPDATE users SET id_tariff = ? WHERE id = ?";
+		String sqlUpdatePayment = "UPDATE payments SET date_end = ?, available = 0 WHERE available = 1 AND user = ?";
+		String sqlCreatePayment = "INSERT INTO payments(user, tariff, date_created, date_end, price, payments.status, payments.available) VALUES(?, ?, ?, ?, ?, ?, ?);";
+		paymentService = new PaymentServiceImpl();
+		
+		months--;
+		double price = 0;
+		do {
+			months++;
+			price += newTariff.getPrice() * months - savedCash();
+		} while (price <= 0);
+		
+		Timestamp timeStart = TimeStampManager.getCurrentTime();
+		Timestamp timeEnd = TimeStampManager.addNumberOfMonth((Timestamp)timeStart.clone(), months);
+		
+		Object[] argUpdateUser = {newTariff.getId(), user.getId()};
+		Object[] argUpdatePayment = {timeStart, user.getId()};
+		Object[] argCreatePayment = {user.getId(), newTariff.getId(), timeStart, timeEnd, price, 1, 1};
+		
+		String[] sql = {sqlUpdateUser, sqlUpdatePayment, sqlCreatePayment};
+		Object[][] args = {argUpdateUser, argUpdatePayment, argCreatePayment};
+		
+		new PaymentDAOImpl().pay(sql, args);
+	}
+	
+	private void createFirstuserPayment(Tariff tariff, int months) {
+		String sqlUpdateUser = "UPDATE users SET id_tariff = ? WHERE id = ?";
+		String sqlCreatePayment = "INSERT INTO payments(user, tariff, date_created, date_end, price, payments.status, payments.available) VALUES(?, ?, ?, ?, ?, ?, ?);";
+		
+		Timestamp timeStart = TimeStampManager.getCurrentTime();
+		Timestamp timeEnd = TimeStampManager.addNumberOfMonth((Timestamp)timeStart.clone(), months);
+		
+		double price = tariff.getPrice() * months;
+		
+		Object[] argUpdateUser = {timeStart, user.getId()};
+		Object[] argCreatePayment = {user.getId(), tariff.getId(), timeStart, timeEnd, price, 1, 1};
+		
+		String[] sql = {sqlUpdateUser, sqlCreatePayment};
+		Object[][] args = {argUpdateUser, argCreatePayment};
+		
+		new PaymentDAOImpl().pay(sql, args);
 	}
 	
 	private double savedCash() {
@@ -97,6 +136,19 @@ public class PricingService {
 		}
 		
 		return savedCash;
+	}
+	
+	private Payment createPayment(long userId, long tariffId, Timestamp timeStart, Timestamp timeEnd, double price, boolean status, boolean available) {
+		Payment payment = new Payment();
+		payment.setUser(user.getId());
+		payment.setTariff(tariffId);
+		payment.setDateCreated(timeStart);
+		payment.setDateEnd(timeEnd);
+		payment.setPrice(price);
+		payment.setStatus(status);
+		payment.setAvailable(available);
+		
+		return payment;
 	}
 	
 }

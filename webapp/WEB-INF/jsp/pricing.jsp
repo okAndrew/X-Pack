@@ -56,12 +56,7 @@ $("#form_pay_submit").click( function() {
 									<c:if test="${tariff.price > 0}">
 										<c:choose>
 											<c:when test="${tariff.price < currentTariff.price}">
-												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})" disabled="disabled">
-												<c:choose>
-													<c:when test="${daysLeft > 0}">${daysLeft} days left</c:when>
-													<c:otherwise>${tariff.price}$</c:otherwise>
-												</c:choose>
-												</a>
+												<a class="btn btn-success pull-right" disabled="disabled">${tariff.price}$</a>
 											</c:when>
 											<c:when test="${tariff.price == currentTariff.price}">
 												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})">

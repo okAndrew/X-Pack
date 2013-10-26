@@ -33,51 +33,8 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 		return new PaymentDAOImpl().getCurrentPayment(userId);
 	}
 	
-
-//	public void pay(long tariffId, int months, long userId) {
-//		PaymentDAOImpl paymentDAO = new PaymentDAOImpl();
-//		UserServiceImpl userService = new UserServiceImpl();
-//		TariffServiseImpl tariffService = new TariffServiseImpl();
-//		Timestamp time = TimeStampManager.getCurrentTime();
-//		
-//		Tariff newTariff = tariffService.get(tariffId);
-//		User user = userService.get(userId);
-//		Payment payment = getCurrentPayment(user.getId());
-//		
-//		if (payment != null) {
-//			
-//			int daysBetween = TimeStampManager.daysBetween(payment.getDateCreated(), payment.getDateEnd());
-//			int daysLeft = TimeStampManager.daysBetween(TimeStampManager.getCurrentTime(), payment.getDateEnd());
-//			double savedCash = Math.round((payment.getPrice() / daysBetween * daysLeft) * 100.0) / 100.0;
-//			
-//			Timestamp dateEnd = TimeStampManager.getCurrentTime();
-//			TimeStampManager.addNumberOfMonth(dateEnd, months);
-//			double price = newTariff.getPrice() * months - savedCash;
-//			
-//			payment.setDateEnd(time);
-//			payment.setAvailable(false);
-//			paymentDAO.update(payment);
-//			Payment newPayment = createPayment(user.getId(), newTariff.getId(), time, dateEnd, price, true, true);
-//			user.setIdTariff(newTariff.getId());
-//			userService.update(user);
-//		}
-//	}
+	public List<Payment> getAvailableUserPays(long userId) {
+		return new PaymentDAOImpl().getAvailableUserPays(userId);
+	}
 	
-//	private Payment createPayment(long userId, long tariffId, Timestamp dateCreated, Timestamp dateEnded, double price, boolean status, boolean available) {
-//		PaymentDAOImpl paymentDAO = new PaymentDAOImpl();
-//		Payment payment = new Payment();
-//		
-//		payment.setUser(userId);
-//		payment.setTariff(tariffId);
-//		payment.setDateCreated(dateCreated);
-//		payment.setDateEnd(dateEnded);
-//		payment.setPrice(price);
-//		payment.setStatus(status);
-//		payment.setAvailable(available);
-//		
-//		paymentDAO.insert(payment);
-//		
-//		return payment;
-//	}
-
 }

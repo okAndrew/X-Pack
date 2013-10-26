@@ -96,15 +96,22 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	@Override
 	public Payment getCurrentPayment(long userId) {
-		String sql = "SELECT * FROM payments WHERE user = ? AND date_created < curtime() AND date_end > curtime() and available = 1";
+		String sql = "SELECT * FROM payments WHERE user = ? AND date_created < curtime() AND date_end > curtime() and available = 1 ORDER BY date_created DESC";
 		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql,
 				userId);
 		return result;
 	}
 
 	@Override
-	public boolean pay(String[] sqls, Object[][] args) {
-		return queryExecutor.executeTransaction(sqls, args);
+	public boolean pay(String[] sql, Object[][] args) {
+		return queryExecutor.executeTransaction(sql, args);
+	}
+
+	@Override
+	public List<Payment> getAvailableUserPays(long userId) {
+		String sql = "SELECT * FROM payments WHERE available = 1 AND user = ? ORDER BY date_created ASC;";
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class, sql, userId);
+		return resultList;
 	}
 	
 }

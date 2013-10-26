@@ -35,7 +35,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		user.setEmail(email);
 		user.setLogin(login);
 		user.setPassword(password);
-		user.setIdTariff(1);
+		user.setIdTariff(6);
 		user.setCapacity(0);
 		user.setRole(Role.USER);
 		user.setIsBanned(false);

@@ -16,19 +16,19 @@ import com.epam.lab.controller.services.pricing.PricingService;
 public class CreatePaymentServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String PRICING_JSP = "pricing";
+	private static final String USERPAGE_JSP = "userpage";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PRICING_JSP);
 		HttpSession session = request.getSession(false);
-		
+		RequestDispatcher reqDispatcher = request.getRequestDispatcher(USERPAGE_JSP);
 		long userId = Long.valueOf(session.getAttribute("userid").toString());
 		int months = Integer.valueOf(request.getParameter("months"));
 		long tariffId = Long.valueOf(request.getParameter("tariffId"));
 		
 		new PricingService().pay(userId, tariffId, months);
 		
-		requestDispatcher.forward(request, response);
+		
+		reqDispatcher.forward(request, response);
 	}
 }

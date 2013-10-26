@@ -11,6 +11,16 @@
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/myspace.css" rel="stylesheet" />
 <link href="res/css/treeshow.css" rel="stylesheet" />
+<link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
+<style type="text/css">
+.dropzone {
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+	min-height: 150px;
+}
+</style>
+<script src="res/js/dropzone.min.js"></script>
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
@@ -38,7 +48,11 @@
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>
 	<jsp:include page="myspace/modelcreatefolder.jsp"></jsp:include>
-	<jsp:include page="myspace/modalupload.jsp"></jsp:include>
+	<form action="upload" class="dropzone">
+		<div class="fallback">
+			<input name="file" type="file" multiple />
+		</div>
+	</form>
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">

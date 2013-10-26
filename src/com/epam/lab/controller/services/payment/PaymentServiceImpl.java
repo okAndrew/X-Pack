@@ -37,4 +37,8 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 		return new PaymentDAOImpl().getAvailableUserPays(userId);
 	}
 	
+	public void deactivateOverdueTariff() {
+		new PaymentDAOImpl().deactivateOverdueTariff();
+	}
+	
 }

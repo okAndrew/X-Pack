@@ -66,6 +66,10 @@ public class PricingService {
 		}
 	}
 	
+	public void deactivateOverdueTariff() {
+		
+	}
+	
 	private void continueCurrentTariff(int months, Tariff tariff) {
 		List<Payment> payments = new PaymentServiceImpl().getAvailableUserPays(user.getId());
 		Timestamp timeStart = payments.get(payments.size() - 1).getDateEnd();

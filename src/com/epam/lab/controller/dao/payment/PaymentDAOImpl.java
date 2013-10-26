@@ -113,5 +113,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 		List<Payment> resultList = queryExecutor.executeQuery(Payment.class, sql, userId);
 		return resultList;
 	}
+
+	@Override
+	public void deactivateOverdueTariff() {
+		String sql = "UPDATE payments SET available = 0 WHERE date_end < curtime();";
+		queryExecutor.executeUpdate(sql);
+	}
 	
 }

@@ -10,6 +10,8 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.services.payment.PaymentServiceImpl;
+
 public class AppServletContextListener implements ServletContextListener {
 	
 	private ScheduledExecutorService scheduler;
@@ -25,12 +27,14 @@ public class AppServletContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		System.out.println("ServletContextListener started");
 		scheduler = Executors.newSingleThreadScheduledExecutor();
-	    scheduler.scheduleAtFixedRate(new CleanDBTask(), 0, 1, TimeUnit.MINUTES);
+	    scheduler.scheduleAtFixedRate(new CleanDBTask(), 0, 5, TimeUnit.SECONDS);
 	}
 	
 	public class CleanDBTask extends TimerTask {
 	    public void run() {
+	    	System.out.println("delete payment");
+	    	new PaymentServiceImpl().deactivateOverdueTariff();
 	    }
 	}
-
+	
 }

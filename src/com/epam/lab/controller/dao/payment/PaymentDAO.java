@@ -27,4 +27,6 @@ public interface PaymentDAO extends GenericDAO<Payment> {
 	
 	List<Payment> getAvailableUserPays(long userId);
 	
+	void deactivateOverdueTariff();
+	
 }

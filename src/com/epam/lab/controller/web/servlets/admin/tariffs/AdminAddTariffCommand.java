@@ -14,13 +14,16 @@ public class AdminAddTariffCommand implements AdminTariffsPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
+		String message = null;
 		TariffServiseImpl servise = new TariffServiseImpl();
 		String name = request.getParameter("name");
 		String maxCapacity = request.getParameter("maxCapacity");
-		String price  = request.getParameter("price");
+		String price = request.getParameter("price");
 		String position = request.getParameter("position");
 		String description = request.getParameter("description");
-		servise.addTariff(name, maxCapacity, price, position, description);
+		message = servise.addTariff(name, maxCapacity, price, position,
+				description);
+		request.setAttribute("message", message);
 		page = "adminTariffsPage";
 		return page;
 	}

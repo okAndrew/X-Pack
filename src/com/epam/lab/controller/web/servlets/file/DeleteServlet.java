@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.user.UserServiceImpl;
 
@@ -18,8 +17,6 @@ public class DeleteServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("userid");
 		if (request.getParameter("deletesingle")!=null) {
 			UserServiceImpl service = new UserServiceImpl();
 			String[] fileId = { request.getParameter("fileid") };

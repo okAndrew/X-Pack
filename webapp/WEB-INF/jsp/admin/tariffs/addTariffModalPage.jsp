@@ -38,7 +38,7 @@
 										<tr>
 											<td><fmt:message key="Max_Capacity" bundle="${lang}" /></td>
 											<td><input type="text" name="maxCapacity"
-												class="form-control midle" placeholder="Max Capacity" /></td>
+												class="form-control midle" placeholder="Max Capacity(MB)" /></td>
 										</tr>
 
 										<tr>

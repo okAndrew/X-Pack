@@ -7,12 +7,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.file.TypesService;
 import com.epam.lab.controller.services.sessionhistory.SessionHistoryServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.utils.DiskSpaceUtil;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.web.listeners.UserOnlineListener;
 import com.epam.lab.model.SessionHistory;
@@ -23,19 +20,13 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String page = null;
-		HttpSession session = request.getSession(false);
-		if (session == null) {
-			page = "signin";
-		} else {
-			getAllVisitorsByLastDay(request, response);
-			getAllVisitorsByLastWeek(request, response);
-			getAllVisitorsByLastMonth(request, response);
-			getLoggedUsers(request, response);
-			getAllUsers(request, response);
-			getOnlineUsers(request, response);
-			page = "WEB-INF/jsp/admin/statistics/users.jsp";
-		}
+		getAllVisitorsByLastDay(request, response);
+		getAllVisitorsByLastWeek(request, response);
+		getAllVisitorsByLastMonth(request, response);
+		getLoggedUsers(request, response);
+		getAllUsers(request, response);
+		getOnlineUsers(request, response);
+		String page = "WEB-INF/jsp/admin/statistics/adminStatisticsPage.jsp";
 		return page;
 	}
 

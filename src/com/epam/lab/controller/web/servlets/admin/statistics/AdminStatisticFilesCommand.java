@@ -10,16 +10,15 @@ import javax.servlet.http.HttpSession;
 import com.epam.lab.controller.services.file.TypesService;
 import com.epam.lab.controller.utils.DiskSpaceUtil;
 
-public class AdminStatisticFilesCommand implements AdminStatisticPageCommand{
+public class AdminStatisticFilesCommand implements AdminStatisticPageCommand {
 
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String page = null;
 		getFreeSpace(request, response);
 		getTotalSpace(request, response);
 		getTypeFilesGroup(request, response);
-		page = "WEB-INF/jsp/admin/statistics/files.jsp";
+		String page = "WEB-INF/jsp/admin/statistics/adminStatisticsPage.jsp";
 		return page;
 	}
 

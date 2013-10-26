@@ -13,6 +13,7 @@ import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 
 @WebServlet("/adminTariffsPage")
 public class AdminTariffsPageServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 	private static String ADMIN_TARIFFS_PAGE = "WEB-INF/jsp/admin/tariffs/adminTariffsPage.jsp";
 
@@ -23,7 +24,7 @@ public class AdminTariffsPageServlet extends HttpServlet {
 		dispatcher = request.getRequestDispatcher(ADMIN_TARIFFS_PAGE);
 		dispatcher.forward(request, response);
 	}
-	
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null;

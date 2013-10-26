@@ -16,7 +16,7 @@ public class AdminGetDebugLogsCommand implements AdminLogsPageCommand {
 		String page = null;
 		LogServiceImpl service = new LogServiceImpl();
 		request.setAttribute("logs", service.getDebugLogs());
-		page = "WEB-INF/jsp/admin/log/logsList.jsp";
+		page = "WEB-INF/jsp/admin/log/tableLogs.jsp";
 		return page;
 	}
 

@@ -16,6 +16,13 @@
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
 
+<script type="text/javascript" src="res/js/jquery-latest.js"></script>
+
+<script type="text/javascript" src="res/js/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="res/js/jquery.tablesorter.filer.js"></script>
+<script type="text/javascript" src="res/js/jquery.tablesorter.pager.js"></script>
+
+
 <script>
 	function loadXMLDoc(action) {
 		var xmlhttp;
@@ -27,6 +34,7 @@
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				document.getElementById("dynamicArea").innerHTML = xmlhttp.responseText;
+				ready();
 			}
 		}
 		xmlhttp.open("GET", "adminLogsEmployeeController?action="
@@ -44,9 +52,29 @@
 	}
 </script>
 
+<script type="text/javascript">
+	$("tablesorter").ready(function() {
+		$("#tablesorter").tablesorter({
+			headers : {
+				0 : {
+					sorter : false
+				},
+			},
+			widthFixed : true,
+		}).tablesorterPager({
+			container : $("#pager"),
+			positionFixed : false
+		}).tablesorterFilter({
+			filterContainer : $("#filter"),
+			filterColumns : [ 1, 2, 3, 4, 5, 6 ],
+			filterCaseSensitive : false
+		});
+	});
+</script>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/styleTable.css" type="text/css" />
 
 <style type="text/css">
 .Container {
@@ -104,22 +132,8 @@
 
 				</ul>
 
-				<!-- Table -->
-				<table class="table zebra-striped table-hover">
-					<thead>
-						<tr>
-							<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
-									key="All" bundle="${lang}" /></th>
-							<th><fmt:message key="Id" bundle="${lang}" /></th>
-							<th><fmt:message key="Date" bundle="${lang}" /></th>
-							<th><fmt:message key="Logger" bundle="${lang}" /></th>
-							<th><fmt:message key="Level" bundle="${lang}" /></th>
-							<th><fmt:message key="Message" bundle="${lang}" /></th>
-						</tr>
-					</thead>
-					<tbody id="dynamicArea"><jsp:include page="logsList.jsp"></jsp:include></tbody>
+				<div id="dynamicArea"><jsp:include page="tableLogs.jsp"></jsp:include></div>
 
-				</table>
 			</div>
 		</div>
 	</div>

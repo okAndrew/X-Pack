@@ -27,9 +27,8 @@ public class UserControllerServlet extends HttpServlet {
 			request.getRequestDispatcher(USER_PAGE_SERVLET).forward(request,
 					response);
 		} else if (request.getParameter("download") != null) {
-//			request.getRequestDispatcher(DOWNLOAD_SERVLET).forward(request,
-//					response);
-			response.sendRedirect((DOWNLOAD_SERVLET));
+			request.getRequestDispatcher(DOWNLOAD_SERVLET).forward(request,
+					response);
 		} else if (request.getParameter("delete") != null) {
 			request.getRequestDispatcher(DELETE_SERVLET).forward(request,
 					response);

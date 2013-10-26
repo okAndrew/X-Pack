@@ -17,7 +17,7 @@ public class SessionStatisticsDAOImpl implements SessionStatisticsDAO {
 
 	@Override
 	public List<SessionStatistics> getAll() {
-		String sql = "SELECT count(*) as count, date(startdate) as day FROM session_history group by date(startdate)";
+		String sql = "SELECT count(*) as count, timestamp(startdate) as day FROM session_history group by date(startdate)";
 		List<SessionStatistics> resultList = queryExecutor.executeQuery(SessionStatistics.class, sql);
 		return resultList;
 	}

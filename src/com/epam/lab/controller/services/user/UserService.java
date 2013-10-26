@@ -13,4 +13,6 @@ public interface UserService extends AbstractService<User> {
 	void activateUsers(String[] usersId);
 	
 	void banedUsers(String[] usersId);
+	
+	void cancelBanUsers(String[] usersId);
 }

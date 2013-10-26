@@ -3,66 +3,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div class="navbar navbar-fixed-top navbar-inverse">
-	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
-	<c:if test="${sessionScope.sessLocale == null}">
-		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
-	</c:if>
-	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="homepage">DreamHost</a>
-		</div>
-		<div class="collapse navbar-collapse">
+<nav class="navbar navbar-inverse" role="navigation">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse"
+			data-target=".navbar-ex1-collapse">
+			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			<span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#">Dreamhost</a>
+	</div>
 
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse navbar-ex1-collapse">
+		<ul class="nav navbar-nav">
 			<c:if test="${sessionScope.userid != null}">
 				<ul class="nav navbar-nav">
-
-					<li class=""><a href="userpage"><fmt:message
-								key="My_space" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminUsersPage"><fmt:message
-								key="Users" bundle="${lang}" /></a></li>
-					<li class=""><a href="#"><fmt:message key="Files"
-								bundle="${lang}" /></a></li>
-					<li class=""><a href="adminTariffsPage"><fmt:message
-								key="Tariffs" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminStatisticsPage"><fmt:message
-								key="Statistics" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminLogsPage"><fmt:message
-								key="Logger" bundle="${lang}" /></a></li>
-
+					<li class=""><a href="adminUserInfo"><fmt:message key="Info" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminUserFiles"><fmt:message key="Files" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminUserPayments"><fmt:message key="Payments" bundle="${lang}" /></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="active"><a href="adminPage"><fmt:message
-								key="To_main_menu" bundle="${lang}" /></a></li>
+					<li class="active"><a href="adminUsersPage"><fmt:message key="To_main_menu" bundle="${lang}" /></a></li>
 				</ul>
 			</c:if>
-
-			<div class="navbar-form navbar-right">
-				<c:if test="${sessionScope.userid == null}">
-					<div class="form-group">
-						<a href="signin" class="btn btn-success"><fmt:message
-								key="signin" bundle="${lang}" /></a>
-					</div>
-				</c:if>
-
-				<c:if test="${sessionScope.userid != null}">
-					<div class="form-group">
-						<a href="signout" class="btn btn-success"> <fmt:message
-								key="signout" bundle="${lang}" />
-						</a>
-					</div>
-				</c:if>
-
-				<a href="locale?language=en_US"><img
-					src="res/img/flags/United-States-Flag-icon.png"></a> <a
-					href="locale?language=uk_UA"><img
-					src="res/img/flags/Ukraine-Flag-icon.png"></a> <a
-					href="locale?language=fr_FR"><img
-					src="res/img/flags/France-Flag-icon.png"></a> <a
-					href="locale?language=de_DE"><img
-					src="res/img/flags/Germany-Flag-icon.png"></a>
-			</div>
-		</div>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="userpage">Back</a></li>
+		</ul>
 	</div>
-</div>
+	<!-- /.navbar-collapse -->
+</nav>

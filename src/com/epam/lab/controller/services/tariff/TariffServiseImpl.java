@@ -5,10 +5,7 @@ import java.util.List;
 import com.epam.lab.controller.dao.tariff.TariffDAO;
 import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
-import com.epam.lab.controller.services.payment.PaymentServiceImpl;
-import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.Tariff;
-import com.epam.lab.model.User;
 
 public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		TariffServise {
@@ -29,27 +26,27 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		tariffDao.insert(tariff);
 	}
 
-	public int changeTariff(long userId, long tariffId) {
-		int result = 0;
-		User user = new UserServiceImpl().get(userId);
-		TariffServiseImpl tariffServise = new TariffServiseImpl();
-		Tariff tariff = tariffServise.get(tariffId);
-		Tariff userTariff = tariffServise.get(user.getIdTariff());
-
-		if (userTariff.getPosition() < tariff.getPosition()) {
-			new PaymentServiceImpl().createPayment(user, tariff);
-			result = 1;
-		}
-
-		return result;
-	}
+//	public int changeTariff(long userId, long tariffId) {
+//		int result = 0;
+//		User user = new UserServiceImpl().get(userId);
+//		TariffServiseImpl tariffServise = new TariffServiseImpl();
+//		Tariff tariff = tariffServise.get(tariffId);
+//		Tariff userTariff = tariffServise.get(user.getIdTariff());
+//
+//		if (userTariff.getPosition() < tariff.getPosition()) {
+//			new PaymentServiceImpl().createPayment(user, tariff);
+//			result = 1;
+//		}
+//
+//		return result;
+//	}
 
 	@Override
 	public int updateTariff(String id, String name, String maxCapacity,
 			String price, String position, String description) {
 		Tariff tariff = new Tariff();
 		tariff.setId(Long.parseLong(id)).setName(name)
-				.setMaxCapacity(Integer.parseInt(maxCapacity))
+				.setMaxCapacity(Integer.parseInt(maxCapacity)*1024*1024)
 				.setPrice(Double.parseDouble(price))
 				.setPosition(Integer.parseInt(position))
 				.setDescription(description);
@@ -57,30 +54,18 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	}
 
 	@Override
-	public String deteteTariffs(String[] checkTariffs) {
-		String errorMesage = null;
-		if (checkTariffs == null){
-			errorMesage = "Please check the tariffs you want to delete!!!";
-		} else {
+	public void deteteTariffs(String[] checkTariffs) {
 			for(int i=0; i<checkTariffs.length; i++){
 				tariffDao.delete(Long.parseLong(checkTariffs[i]));
 			}
 		}
-		return errorMesage;
-	}
 
 	@Override
-	public String activateTariffs(String[] checkTariffs) {
-		String errorMesage = null;
-		if (checkTariffs == null){
-			errorMesage = "Please check the tariffs you want to activate!!!";
-		} else {
+	public void activateTariffs(String[] checkTariffs) {
 			for(int i=0; i<checkTariffs.length; i++){
-				tariffDao.isActivate(Long.parseLong(checkTariffs[i]));
+				tariffDao.setIsDelete(false, Long.parseLong(checkTariffs[i]));
 			}
 		}
-		return errorMesage;
-	}
 	
 	 @Override
 	 public List<Tariff> getAvailableTariffs() {

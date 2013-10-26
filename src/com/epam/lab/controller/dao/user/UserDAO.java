@@ -7,8 +7,7 @@ public interface UserDAO extends GenericDAO<User> {
 
 	User getByEmail(String email);
 
-	int deaktivatedUserById(long id);
-
-	int activatedUserById(long id);
-
+	int setIsActivate(boolean state, long id);
+	
+	int setIsBanned(boolean state, long id);
 }

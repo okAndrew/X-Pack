@@ -82,13 +82,13 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		for (int i = 0; i < usersId.length; i++) {
 			fileService.deleteByUserId(Long.parseLong(usersId[i]));
 			folderService.deleteByUserId(Long.parseLong(usersId[i]));
-			userDaoImpl.deaktivatedUserById((Long.parseLong(usersId[i])));
+			userDaoImpl.delete((Long.parseLong(usersId[i])));
 		}
 	}
 
 	public int activateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.activatedUserById(user.getId());
+		int result = userDaoImpl.setIsActivate(true, user.getId());
 		return result;
 	}
 
@@ -96,22 +96,30 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	public void activateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		for (int i = 0; i < usersId.length; i++) {
-			userDaoImpl.activatedUserById(Long.parseLong(usersId[i]));
+			userDaoImpl.setIsActivate(true, Long.parseLong(usersId[i]));
+			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(),
+					"Activation", "You're activated!!!");
 		}
-	}
-
-	public int deactivateUser(User user) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.deaktivatedUserById(user.getId());
-		return result;
 	}
 
 	@Override
 	public void banedUsers(String[] usersId) {
-			for (int i = 0; i < usersId.length; i++) {
-				userDaoImpl.deaktivatedUserById(Long.parseLong(usersId[i]));
-			}
+		for (int i = 0; i < usersId.length; i++) {
+			userDaoImpl.setIsBanned(true, Long.parseLong(usersId[i]));
+			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(), "Ban",
+					"You're baned!!!");
 		}
+	}
+
+	@Override
+	public void cancelBanUsers(String[] usersId) {
+		for (int i = 0; i < usersId.length; i++) {
+			userDaoImpl.setIsBanned(false, Long.parseLong(usersId[i]));
+			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(),
+					"Cancel ban", "You're not baned!!!");
+		}
+
+	}
 
 	public void changeUserPassword(User user, String password) {
 		MD5Encrypter md5 = new MD5Encrypter();

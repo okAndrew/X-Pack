@@ -44,8 +44,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int delete(long id) {
-		String sql = "DELETE FROM users WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, id);
+		String sql = "UPDATE users SET is_activated=? WHERE id=?";
+		int result = queryExecutor.executeUpdate(sql, false, id);
 		return result;
 	}
 
@@ -56,17 +56,6 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
-	@Override
-	public int deaktivatedUserById(long id) {
-		String sql = "UPDATE users SET is_activated=? WHERE id=?";
-		return queryExecutor.executeUpdate(sql, false, id);
-	}
-
-	@Override
-	public int activatedUserById(long id) {
-		String sql = "UPDATE users SET is_banned=? WHERE id=?";
-		return queryExecutor.executeUpdate(sql, false, id);
-	}
 
 	public boolean checkEmailById(String email, long userId) {
 		String sql = "SELECT * FROM users WHERE email=? AND id!=?";
@@ -87,5 +76,18 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return false;
 	}
+
+	@Override
+	public int setIsActivate(boolean state, long id) {
+		String sql = "UPDATE users SET is_activated=? WHERE id=?";
+		return queryExecutor.executeUpdate(sql, state, id);
+	}
+
+	@Override
+	public int setIsBanned(boolean state, long id) {
+		String sql = "UPDATE users SET is_banned=? WHERE id=?";
+		return queryExecutor.executeUpdate(sql, state, id);
+	}
+
 
 }

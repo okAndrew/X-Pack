@@ -9,4 +9,6 @@ public interface TariffDAO extends GenericDAO<Tariff> {
 
 	List<Tariff> getAvailableTariffs();
 	
+	int setIsDelete(boolean state, long id);
+	
 }

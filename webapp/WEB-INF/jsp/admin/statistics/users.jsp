@@ -1,7 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!-- <div id="chart2" style="height: 400px; width: 300px;"></div> -->
+
+<div id="chart1" style="height: 350px; width: 700px;"></div>
+<button class="button-reset">Reset Zoom</button>
+<div id="example"></div>
+
 <body>
 	<div>
 		<table class="table zebra-striped table-hover">

@@ -22,6 +22,16 @@
 						<fmt:message key="Pricing" bundle="${lang}" /></a>
 					</li>
 				</c:if>
+				<c:if test="${sessionScope.userRole == 'ADMIN'}">
+					<li class=""><a href="adminUsersPage"><fmt:message
+								key="Users" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminTariffsPage"><fmt:message
+								key="Tariffs" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminStatisticsPage"><fmt:message
+								key="Statistics" bundle="${lang}" /></a></li>
+					<li class=""><a href="adminLogsPage"><fmt:message
+								key="Logger" bundle="${lang}" /></a></li>
+				</c:if>
 				<li class="dropdown" id="menu_about">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="About" bundle="${lang}" /> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -63,12 +73,7 @@
 				<a href="locale?language=en_US"><img
 					src="res/img/flags/United-States-Flag-icon.png"></a> <a
 					href="locale?language=uk_UA"><img
-					src="res/img/flags/Ukraine-Flag-icon.png"></a> <a
-					href="locale?language=fr_FR"><img
-					src="res/img/flags/France-Flag-icon.png"></a> <a
-					href="locale?language=de_DE"><img
-					src="res/img/flags/Germany-Flag-icon.png"></a>
-
+					src="res/img/flags/Ukraine-Flag-icon.png"></a> 
 			</div>
 		</div>
 	</div>

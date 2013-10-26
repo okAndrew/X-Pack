@@ -11,13 +11,15 @@ public class AdminDeleteUsersCommand implements AdminUsersPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String page = null;
-		String message = null;
-		String[] chekedUsers = request.getParameterValues("checkUser");
-		UserServiceImpl service = new UserServiceImpl();
-		message = service.deleteUsers(chekedUsers);
-		request.setAttribute("message", message);
-		page = "adminUsersPage";
+		if (request.getParameterValues("checkUser").length == 0) {
+			request.setAttribute("message", "Please check users!!!");
+			page = "adminUsersPage";
+			return page;
+		} else {
+			UserServiceImpl service = new UserServiceImpl();
+			service.deleteUsers(request.getParameterValues("checkUser"));
+			page = "adminUsersPage";
+		}
 		return page;
 	}
-
 }

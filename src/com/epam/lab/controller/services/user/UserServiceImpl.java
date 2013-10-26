@@ -24,6 +24,8 @@ import com.epam.lab.model.User;
 
 public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		UserService {
+
+	private UserDAOImpl userDaoImpl = new UserDAOImpl();
 	static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	public UserServiceImpl() {
@@ -73,54 +75,50 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		}
 	}
 
-	public String deleteUsers(String[] usersId) {
-		String errorMessage = null;
-		if (usersId == null) {
-			errorMessage = "Please check the users you want to delete!!!";
-		} else {
-			for (int i = 0; i < usersId.length; i++) {
-				delete(Long.parseLong(usersId[i]));
-			}
+	@Override
+	public void deleteUsers(String[] usersId) {
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
+		FolderServiceImpl folderService = new FolderServiceImpl();
+		for (int i = 0; i < usersId.length; i++) {
+			fileService.deleteByUserId(Long.parseLong(usersId[i]));
+			folderService.deleteByUserId(Long.parseLong(usersId[i]));
+			userDaoImpl.delete((Long.parseLong(usersId[i])));
 		}
-		return errorMessage;
 	}
 
 	public int activateUser(User user) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.activatedUserById(user.getId());
+		int result = userDaoImpl.setIsActivate(true, user.getId());
 		return result;
 	}
 
-	public int deactivateUser(User user) {
+	@Override
+	public void activateUsers(String[] usersId) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		int result = userDaoImpl.deaktivatedUserById(user.getId());
-		return result;
+		for (int i = 0; i < usersId.length; i++) {
+			userDaoImpl.setIsActivate(true, Long.parseLong(usersId[i]));
+			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(),
+					"Activation", "You're activated!!!");
+		}
 	}
 
-	public String deactivateUsers(String[] usersId) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		String errorMessage = null;
-		if (usersId == null) {
-			errorMessage = "Please check the users you want to deactivate!!!";
-		} else {
-			for (int i = 0; i < usersId.length; i++) {
-				userDaoImpl.deaktivatedUserById(Long.parseLong(usersId[i]));
-			}
+	@Override
+	public void banedUsers(String[] usersId) {
+		for (int i = 0; i < usersId.length; i++) {
+			userDaoImpl.setIsBanned(true, Long.parseLong(usersId[i]));
+			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(), "Ban",
+					"You're baned!!!");
 		}
-		return errorMessage;
 	}
 
-	public String activateUsers(String[] usersId) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		String errorMessage = null;
-		if (usersId == null) {
-			errorMessage = "Please check the users you want to activate!!!";
-		} else {
-			for (int i = 0; i < usersId.length; i++) {
-				userDaoImpl.activatedUserById(Long.parseLong(usersId[i]));
-			}
+	@Override
+	public void cancelBanUsers(String[] usersId) {
+		for (int i = 0; i < usersId.length; i++) {
+			userDaoImpl.setIsBanned(false, Long.parseLong(usersId[i]));
+			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(),
+					"Cancel ban", "You're not baned!!!");
 		}
-		return errorMessage;
+
 	}
 
 	public void changeUserPassword(User user, String password) {

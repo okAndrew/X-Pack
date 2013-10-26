@@ -8,18 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 
-public class AdminDeleteTariffsCommand implements AdminTariffsPageCommand{
+public class AdminDeleteTariffsCommand implements AdminTariffsPageCommand {
 
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String message = null;
 		String page = null;
-		String[] checkTariffs = request.getParameterValues("checkTariff");
-		TariffServiseImpl service = new TariffServiseImpl();
-		message = service.deteteTariffs(checkTariffs);
-		request.setAttribute("message", message);
-		page = "adminTariffsPage";
+		if (request.getParameterValues("checkTariff").length == 0) {
+			request.setAttribute("message", "Please check tariffs!!!");
+			page = "adminTariffsPage";
+			return page;
+		} else {
+			TariffServiseImpl service = new TariffServiseImpl();
+			service.deteteTariffs(request.getParameterValues("checkTariff"));
+			page = "adminTariffsPage";
+		}
 		return page;
 	}
 

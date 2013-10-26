@@ -9,9 +9,9 @@ public interface TariffServise extends AbstractService<Tariff> {
 
 	int updateTariff(String id, String name, String maxCapacity, String price, String position, String description);
 	
-	String deteteTariffs(String[] checkTariffs);
+	void deteteTariffs(String[] checkTariffs);
 	
-	String activateTariffs(String[] checkTariffs);
+	void activateTariffs(String[] checkTariffs);
 
 	List<Tariff> getAvailableTariffs();
 }

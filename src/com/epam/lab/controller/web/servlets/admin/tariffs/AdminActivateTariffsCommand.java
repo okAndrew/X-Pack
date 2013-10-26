@@ -13,13 +13,16 @@ public class AdminActivateTariffsCommand implements AdminTariffsPageCommand{
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String message = null;
 		String page = null;
-		String[] checkTariffs = request.getParameterValues("checkTariff");
-		TariffServiseImpl service = new TariffServiseImpl();
-		message = service.activateTariffs(checkTariffs);
-		request.setAttribute("message", message);
-		page = "adminTariffsPage";
+		if (request.getParameterValues("checkTariff").length == 0){
+			page = "adminTariffsPage";
+			request.setAttribute("message", "Please catch tariffs!!!");
+			return page;
+		} else {
+			TariffServiseImpl service = new TariffServiseImpl();
+			service.activateTariffs(request.getParameterValues("checkTariff"));
+			page = "adminTariffsPage";
+		}
 		return page;
 	}
 

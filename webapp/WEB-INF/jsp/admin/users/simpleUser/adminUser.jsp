@@ -21,9 +21,15 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+
+
+
 </head>
 <body>
+	<jsp:include page="../../../menu.jsp"></jsp:include>	
+	
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
+
 	<div class="user-info">
 		<!-- Panel -->
 		<div class="panel panel-default">

@@ -8,15 +8,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Statistics</title>
+<script src="res/js/bootstrap.js"></script>
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="../src/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="res/js/NatalyaWillReplaceIt/jquery.min.js"></script>
 <script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
-<script type="text/javascript"
-	src="res/js/jqplot.canvasTextRenderer.min.js"></script>
-<script type="text/javascript"
-	src="res/js/jqplot.canvasAxisLabelRenderer.min.js"></script>
-<script src="res/js/bootstrap.js"></script>
-<link href="res/css/jquery.jqplot.css" rel="stylesheet" />
+<script type="text/javascript" src="res/js/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="res/js/jqplot.cursor.min.js"></script>
+
 <script>
 	function loadXMLDoc(action) {
 		var xmlhttp;
@@ -29,6 +29,7 @@
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				document.getElementById("dynamicArea").innerHTML = xmlhttp.responseText;
 				plotGist();
+				Hello();
 			}
 		}
 		xmlhttp.open("GET", "adminStatisticEmployeeController?action="
@@ -37,8 +38,8 @@
 	}
 
 	function plotGist() {
-		var free = 458;
-		var employed = 570 - free;
+		var free = '${freeSpace}';
+		var employed = '${totalSpace}'-free;
 		line1 = [ [ "Free space " + free + "GB", free ],
 				[ "Employed space" + employed + "GB", employed ] ];
 		$.jqplot("example", [ line1 ], {
@@ -63,7 +64,6 @@
 					shadowDepth : 5,
 				}
 			},
-
 			legend : {
 				show : true,
 				location : 'e',
@@ -71,29 +71,62 @@
 			}
 		});
 	};
-	
+
 	function Hello() {
-		$.jqplot("chart2", [ [ 3, 7, 9, 1, 4, 6, 8, 2, 5 ] ], {
-			title : 'Plot With Options',
-			axesDefaults : {
-				labelRenderer : $.jqplot.CanvasAxisLabelRenderer
-			},
+		var map = {
+				'2013-10-14' : 1,
+				'2013-10-20' : 2,
+				'2013-10-24' : 3, 
+				'2013-10-25' : 3, 
+				'2013-10-26' : 5,
+				'2013-11-14' : 1,
+				'2013-11-20' : 2,
+				'2013-11-24' : 3, 
+				'2013-11-25' : 3, 
+				'2013-11-26' : 5,
+				'2013-12-24' : 3, 
+				'2013-12-25' : 3, 
+				'2013-12-26' : 5 
+			}, goog1 = [];
+
+			for ( var property in map) {
+				goog1.push([ property, map[property] ]);
+			}
+		var plot1 = $.jqplot('chart1', [ goog1 ], {
+			title : 'Visitors:',
+			series : [ {
+				label : 'Google, Inc.',
+				neighborThreshold : -1
+			} ],
 			axes : {
 				xaxis : {
-					label : "X Axis",
-					pad : 0
+					renderer : $.jqplot.DateAxisRenderer,
+					min : 'October 1, 2013',
+					tickInterval : '1 months',
+					tickOptions : {
+						formatString : '%Y/%#m/%#d'
+					}
 				},
-				yaxis : {
-					label : "Y Axis"
-				}
+				
+			},
+			cursor : {
+				show : true,
+				zoom : true,
+				showTooltip : false
 			}
+		});
+
+		$('.button-reset').click(function() {
+			plot1.resetZoom()
 		});
 	};
 </script>
 
+
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+<link href="res/css/jquery.jqplot.min.css" rel="stylesheet" />
 
 <style type="text/css">
 .Container {
@@ -102,10 +135,20 @@
 	margin: auto;
 }
 </style>
+<style type="text/css">
+.button-reset {
+	margin: 30px;
+	margin-left: 90px;
+}
+</style>
 </head>
 
 <body>
-	<jsp:include page="../menu/menuAdmin.jsp"></jsp:include>
+
+	<div class="code prettyprint">
+		<pre class="code prettyprint brush: js"></pre>
+	</div>
+	<jsp:include page="../../menu.jsp"></jsp:include>
 
 	<div class="Container">
 		<!-- Panel -->
@@ -131,7 +174,8 @@
 						</button></li>
 
 				</ul>
-				<h1>${freeSpace}</h1>
+				<h1 hidden="false">'${freeSpace}'</h1>
+				<h1 hidden="false">'${totalSpace}'</h1>
 				<div id="dynamicArea"></div>
 			</div>
 		</div>

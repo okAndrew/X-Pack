@@ -254,4 +254,11 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		in.close();
 	}
 
+	@Override
+	public int deleteByUserId(long userId) {
+		FileDAOImpl fileDao = new FileDAOImpl();
+		int result = fileDao.deleteByUserId(userId);
+		return result;
+	}
+
 }

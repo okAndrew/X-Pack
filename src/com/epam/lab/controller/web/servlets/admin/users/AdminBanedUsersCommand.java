@@ -11,12 +11,15 @@ public class AdminBanedUsersCommand implements AdminUsersPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String page = null;
-		String message = null;
-		String[] chekedUsers = request.getParameterValues("checkUser");
-		UserServiceImpl service = new UserServiceImpl();
-		message = service.deactivateUsers(chekedUsers);
-		request.setAttribute("message", message);
-		page = "adminUsersPage";
+		if (request.getParameterValues("checkUser").length == 0) {
+			request.setAttribute("message", "Please check users!!!");
+			page = "adminUsersPage";
+			return page;
+		} else {
+			UserServiceImpl service = new UserServiceImpl();
+			service.banedUsers(request.getParameterValues("checkUser"));
+			page = "adminUsersPage";
+		}
 		return page;
 	}
 }

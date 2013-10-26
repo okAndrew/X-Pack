@@ -74,4 +74,11 @@ public class FolderDAOImpl implements FolderDAO {
 		return result;
 	}
 
+	@Override
+	public int deleteByUserId(long userId) {
+		String sql = "DELETE FROM dreamhost.folders WHERE id_user=? AND id_upper NOT LIKE 0";
+		int result = queryExecutor.executeUpdate(sql, userId);
+		return result;
+	}
+
 }

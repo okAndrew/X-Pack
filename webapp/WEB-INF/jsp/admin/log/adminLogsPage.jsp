@@ -58,7 +58,7 @@
 </head>
 
 <body>
-	<jsp:include page="../menu/menuAdmin.jsp"></jsp:include>
+	<jsp:include page="../../menu.jsp"></jsp:include>
 
 	<div class="Container">
 		<!-- Panel -->

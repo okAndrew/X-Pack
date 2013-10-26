@@ -5,5 +5,14 @@ import com.epam.lab.controller.services.AbstractService;
 import com.epam.lab.model.User;
 
 public interface UserService extends AbstractService<User> {
-	public User getUserByFolderId(long idFolder) throws FolderNotFoundException;
+	
+	User getUserByFolderId(long idFolder) throws FolderNotFoundException;
+	
+	void deleteUsers(String[] usersId);
+	
+	void activateUsers(String[] usersId);
+	
+	void banedUsers(String[] usersId);
+	
+	void cancelBanUsers(String[] usersId);
 }

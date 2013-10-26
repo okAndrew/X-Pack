@@ -1,0 +1,81 @@
+@font-face {
+	font-family: 'SWCrawlBody';
+	src: url('../fonts/SWCrawlBody.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	background: #000;
+	color: #fcdf2b;
+	font-family: SWCrawlBody;
+	font-size: 3.5em;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+#intro {
+	color: #4eb6d6;
+	width: 800px;
+	height: 300px;
+	position: absolute;
+	font-weight: lighter;
+	top: 50%;
+	left: 50%;
+	font-size: 1em;
+	margin-left: -400px;
+	margin-top: -150px;
+	display: none;
+}
+
+#theend {
+	width: 600px;
+	height: 100px;
+	position: absolute;
+	font-size: 2em;
+	text-align: center;
+	top: 50%;
+	left: 50%;
+	margin-left: -300px;
+	margin-top: -50px;
+	display: none;
+}
+
+#logodiv {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -250px;
+	margin-left: -650px;
+	display: none;
+}
+
+#crawl {
+	width: 1000px;
+	margin: auto;
+	-webkit-perspective: 800px;
+	-webkit-perspective-origin: center 350px;
+	-moz-perspective: 800px;
+	-moz-perspective-origin: center 350px;
+}
+
+#text {
+	display: none;
+	margin: auto;
+	width: 600px;
+	text-align: justify;
+	-webkit-transform: rotateX(55deg) translateY(800px) translateZ(300px);
+	-webkit-backface-visibility: visible;
+	-moz-transform: rotateX(55deg) translateY(800px) translateZ(300px);
+	-moz-backface-visibility: visible;
+}
+
+#text h2 {
+	text-align: center
+}
+
+#bg {
+	background: url(../img/errorSW/background.png);
+	display: none;
+}

@@ -75,8 +75,8 @@
 									<td>${user.capacity}</td>
 									<td>${user.idTariff}</td>
 									<td>${user.role}</td>
-									<td>${user.isBanned}</td>
 									<td>${user.isActivated}</td>
+									<td>${user.isBanned}</td>
 									<td><a href="adminUser?userid=${user.id}"><fmt:message
 												key="View_more" bundle="${lang}" />...</a></td>
 								</tr>

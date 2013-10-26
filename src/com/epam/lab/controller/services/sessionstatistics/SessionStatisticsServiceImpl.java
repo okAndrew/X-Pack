@@ -1,10 +1,10 @@
 package com.epam.lab.controller.services.sessionstatistics;
 
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 
 import com.epam.lab.controller.dao.sessionstatistics.SessionStatisticsDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -20,17 +20,22 @@ public class SessionStatisticsServiceImpl extends
 
 	static Logger logger = Logger.getLogger(SessionStatisticsServiceImpl.class);
 
-	public JSONObject toJson(List<SessionStatistics> sessionStatisticsList) {
-		JSONObject jsonOb = new JSONObject();
-		try {
-			for (SessionStatistics sessionStatistics : sessionStatisticsList) {
-				jsonOb.put(sessionStatistics.getDay().toString(),
-						sessionStatistics.getCount());
+	public String toJson(List<SessionStatistics> sessionStatisticsList) {
+		StringBuilder resultData = new StringBuilder();
+		resultData.append("[[");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Iterator<SessionStatistics> iterator = sessionStatisticsList.iterator();
+		while (iterator.hasNext()) {
+			SessionStatistics statistics = iterator.next();
+			StringBuilder pointSB = new StringBuilder();
+			pointSB.append("[\"").append(sdf.format(statistics.getDay()))
+					.append("\",").append(statistics.getCount()).append("]");
+			resultData.append(pointSB.toString());
+			if (iterator.hasNext()) {
+				resultData.append(",");
 			}
-
-		} catch (JSONException e) {
-			logger.error(e);
 		}
-		return jsonOb;
+		resultData.append("]]");
+		return resultData.toString();
 	}
 }

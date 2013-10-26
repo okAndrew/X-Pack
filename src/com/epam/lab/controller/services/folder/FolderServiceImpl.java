@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.epam.lab.controller.dao.file.FileDAOImpl;
+import com.epam.lab.controller.dao.folder.FolderDAO;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -19,9 +20,24 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		FolderService {
 	private static final String ROOT_NAME = "root";
 	private static final String SEPARATOR = "/";
+	private FolderDAO folderDAO = (FolderDAO) dao;
 
 	public FolderServiceImpl() {
 		super(new FolderDAOImpl());
+	}
+
+	public Folder createFolder(String folderName, long userId, long upperId) {
+		Folder folder = new Folder();
+		Timestamp currentTS = new Timestamp(new Date().getTime());
+		folder.setDate(currentTS).setIdUpper(upperId).setIdUser(userId)
+				.setName(folderName).setSize(0);
+		Folder resultFolder = folderDAO
+				.getByUpperIdAndName(upperId, folderName);
+		if (resultFolder == null) { // if folder have not found
+			dao.insert(resultFolder);
+			resultFolder = folderDAO.getByUpperIdAndName(upperId, folderName);
+		}
+		return resultFolder;
 	}
 
 	public Folder getRoot(long userId) {
@@ -34,15 +50,11 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 	}
 
 	public List<Folder> get(long userId, long upperId) {
-		List<Folder> folders = null;
-		FolderDAOImpl foldersdaoimpl = new FolderDAOImpl();
-		folders = foldersdaoimpl.getByUpperId(upperId);
-		return folders;
+		return folderDAO.getByUpperId(upperId);
 	}
 
 	public List<Folder> getAll(long userId) {
-		FolderDAOImpl dao = new FolderDAOImpl();
-		return dao.getAll(userId);
+		return folderDAO.getAll(userId);
 	}
 
 	public List<Folder> getSearched(long userId, String text) {
@@ -159,16 +171,6 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 			Folder createdFolder = createFolder(folderName, userId, upperId);
 			return create(pathList, userId, createdFolder.getId());
 		}
-	}
-
-	public Folder createFolder(String folderName, long userId, long upperId) {
-		Folder folder = new Folder();
-		Timestamp currentTS = new Timestamp(new Date().getTime());
-		folder.setDate(currentTS).setIdUpper(upperId).setIdUser(userId)
-				.setName(folderName).setSize(0);
-		FolderDAOImpl dao = new FolderDAOImpl();
-		dao.insert(folder);
-		return dao.getByUpperIdAndName(upperId, folderName);
 	}
 
 	private boolean isFolderExist(List<String> pathList, long userId,

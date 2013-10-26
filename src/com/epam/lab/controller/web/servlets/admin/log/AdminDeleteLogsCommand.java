@@ -14,13 +14,15 @@ public class AdminDeleteLogsCommand implements AdminLogsPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
-		String message = null;
-		String[] checkLogs = request.getParameterValues("checkLog");
-		LogServiceImpl service = new LogServiceImpl();
-		message = service.deleteLogs(checkLogs);
-		request.setAttribute("message", message);
-		page = "adminLogsPage";
+		if (request.getParameterValues("checkLog") == null) {
+			request.setAttribute("message", "Please check logs!!!");
+			page = "adminLogsPage";
+			return page;
+		} else {
+			LogServiceImpl service = new LogServiceImpl();
+			service.deleteLogs(request.getParameterValues("checkLog"));
+			page = "adminLogsPage";
+		}
 		return page;
 	}
-
 }

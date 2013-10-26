@@ -14,7 +14,7 @@ public class AdminDeleteTariffsCommand implements AdminTariffsPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
-		if (request.getParameterValues("checkTariff").length == 0) {
+		if (request.getParameterValues("checkTariff") == null) {
 			request.setAttribute("message", "Please check tariffs!!!");
 			page = "adminTariffsPage";
 			return page;

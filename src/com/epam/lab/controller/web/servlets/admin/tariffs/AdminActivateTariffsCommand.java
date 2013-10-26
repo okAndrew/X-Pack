@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 
-public class AdminActivateTariffsCommand implements AdminTariffsPageCommand{
+public class AdminActivateTariffsCommand implements AdminTariffsPageCommand {
 
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
-		if (request.getParameterValues("checkTariff").length == 0){
+		if (request.getParameterValues("checkTariff") == null) {
 			page = "adminTariffsPage";
-			request.setAttribute("message", "Please catch tariffs!!!");
+			request.setAttribute("message", "Please check tariffs!!!");
 			return page;
 		} else {
 			TariffServiseImpl service = new TariffServiseImpl();

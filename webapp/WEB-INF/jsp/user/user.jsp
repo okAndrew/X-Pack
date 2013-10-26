@@ -11,7 +11,7 @@
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/myspace.css" rel="stylesheet" />
 <link href="res/css/treeshow.css" rel="stylesheet" />
-<link href="res/css/dropzone/basic.css" rel="stylesheet" />
+<link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
 <style type="text/css">
 .dropzone {
 	margin-left: auto;
@@ -20,7 +20,7 @@
 	min-height: 150px;
 }
 </style>
-<script src="res/js/dropzone.js"></script>
+<script src="res/js/dropzone.min.js"></script>
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>

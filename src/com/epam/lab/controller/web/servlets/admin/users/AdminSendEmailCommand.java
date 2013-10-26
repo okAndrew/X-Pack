@@ -11,12 +11,15 @@ public class AdminSendEmailCommand implements AdminUsersPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String page = null;
-		String[] chekedUsers = request.getParameterValues("checkUser");
-		String message = null;
-		UserServiceImpl service = new UserServiceImpl();
-		message = service.sendUsersEmail(chekedUsers);
-		request.setAttribute("message", message);
-		page = "adminUsersPage";
+		if (request.getParameterValues("checkUser") == null) {
+			request.setAttribute("message", "Please check users!!!");
+			page = "adminUsersPage";
+			return page;
+		} else {
+			UserServiceImpl service = new UserServiceImpl();
+			service.sendUsersEmail(request.getParameterValues("checkUser"));
+			page = "adminUsersPage";
+		}
 		return page;
 	}
 }

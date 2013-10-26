@@ -16,7 +16,7 @@ public class AdminGetWarningLogsCommand implements AdminLogsPageCommand {
 		String page = null;
 		LogServiceImpl service = new LogServiceImpl();
 		request.setAttribute("logs", service.getWarningLogs());
-		page = "WEB-INF/jsp/admin/log/logsList.jsp";
+		page = "WEB-INF/jsp/admin/log/tableLogs.jsp";
 		return page;
 	}
 

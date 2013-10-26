@@ -18,8 +18,9 @@
 <script type="text/javascript" src="res/js/jqplot.cursor.min.js"></script>
 
 <script>
+var xmlhttp;
 	function loadXMLDoc(action) {
-		var xmlhttp;
+		
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();
 		} else {// code for IE6, IE5
@@ -28,6 +29,8 @@
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				document.getElementById("dynamicArea").innerHTML = xmlhttp.responseText;
+				xmlhttp.onreadystatechange=hello2;
+				
 				plotGist();
 				Hello();
 			}
@@ -35,6 +38,9 @@
 		xmlhttp.open("GET", "adminStatisticEmployeeController?action="
 				+ action.value, true);
 		xmlhttp.send();
+	}
+	function hello2(){
+		var hello = eval('('+xmlhttp.responseText+')');
 	}
 
 	function plotGist() {
@@ -73,7 +79,24 @@
 	};
 
 	function Hello() {
-		var map = eval('('+xMLHttpRequest.responseText+')'), goog1 = [];
+		
+		
+		
+			  var map = {
+				         '2013-10-14' : 1,
+				          '2013-10-20' : 2,
+				          '2013-10-24' : 3, 
+				          '2013-10-25' : 3, 
+				          '2013-10-26' : 5,
+				          '2013-11-14' : 1,
+				         '2013-11-20' : 2,
+				          '2013-11-24' : 3, 
+				          '2013-11-25' : 3, 
+				          '2013-11-26' : 5,
+				        '2013-12-24' : 3, 
+				         '2013-12-25' : 3, 
+				         '2013-12-26' : 5 
+				        }, goog1 = [];
 
 			for ( var property in map) {
 				goog1.push([ property, map[property] ]);
@@ -158,6 +181,11 @@
 							class="btn btn-default" value="server">
 							<fmt:message key="Server" bundle="${lang}" />
 						</button></li>
+						<li><button type="submit" onclick="adminStatisticUsersGraph"
+							class="btn btn-default" value="server1">
+							<fmt:message key="Server1" bundle="${lang}" />
+						</button></li>
+						
 
 				</ul>
 				<h1 hidden="false">'${freeSpace}'</h1>

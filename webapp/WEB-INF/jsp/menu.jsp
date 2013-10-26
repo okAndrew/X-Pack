@@ -73,12 +73,7 @@
 				<a href="locale?language=en_US"><img
 					src="res/img/flags/United-States-Flag-icon.png"></a> <a
 					href="locale?language=uk_UA"><img
-					src="res/img/flags/Ukraine-Flag-icon.png"></a> <a
-					href="locale?language=fr_FR"><img
-					src="res/img/flags/France-Flag-icon.png"></a> <a
-					href="locale?language=de_DE"><img
-					src="res/img/flags/Germany-Flag-icon.png"></a>
-
+					src="res/img/flags/Ukraine-Flag-icon.png"></a> 
 			</div>
 		</div>
 	</div>

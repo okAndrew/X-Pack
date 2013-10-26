@@ -45,8 +45,8 @@ public class PaymentDAOImpl implements PaymentDAO {
 	@Override
 	public List<Payment> getPayByUserId(long id) {
 		String sql = "SELECT * FROM payments WHERE user=?";
-		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
-				sql, id);
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class, sql, id);
+		
 		return resultList;
 	}
 
@@ -54,16 +54,16 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public List<Payment> getPayByPeriod(long userId, Timestamp startDate,
 			Timestamp endDate) {
 		String sql = "SELECT * FROM payments WHERE user=? AND date_created BETWEEN ? AND ?;";
-		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
-				sql, userId, startDate, endDate);
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class, sql, userId, startDate, endDate);
+		
 		return resultList;
 	}
 
 	@Override
 	public Payment getByUserTime(long user, Timestamp time) {
 		String sql = "SELECT * FROM payments WHERE user = ? AND date_created = ?";
-		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql,
-				user, time);
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql, user, time);
+		
 		return result;
 	}
 
@@ -78,14 +78,14 @@ public class PaymentDAOImpl implements PaymentDAO {
 	@Override
 	public int disableEndedPayments() {
 		String sql = "UPDATE payments SET available = 0 WHERE date_end < CURRENT_TIMESTAMP() AND available = 1";
+		
 		return queryExecutor.executeUpdate(sql);
 	}
 
 	@Override
 	public boolean canDisableUser(long id) {
 		String sql = "SELECT * FROM payments WHERE date_end > CURRENT_TIMESTAMP() AND available = 1 AND user = ?";
-		List<Payment> resultList = queryExecutor.executeQuery(Payment.class,
-				sql, id);
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class, sql, id);
 
 		if (resultList != null) {
 			return false;
@@ -97,13 +97,14 @@ public class PaymentDAOImpl implements PaymentDAO {
 	@Override
 	public Payment getCurrentPayment(long userId) {
 		String sql = "SELECT * FROM payments WHERE user = ? AND date_created < curtime() AND date_end > curtime() and available = 1 ORDER BY date_created DESC";
-		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql,
-				userId);
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql, userId);
+		
 		return result;
 	}
 
 	@Override
-	public boolean pay(String[] sql, Object[][] args) {
+	public boolean executeTransaction(String[] sql, Object[][] args) {
+		
 		return queryExecutor.executeTransaction(sql, args);
 	}
 
@@ -111,13 +112,23 @@ public class PaymentDAOImpl implements PaymentDAO {
 	public List<Payment> getAvailableUserPays(long userId) {
 		String sql = "SELECT * FROM payments WHERE available = 1 AND user = ? ORDER BY date_created ASC;";
 		List<Payment> resultList = queryExecutor.executeQuery(Payment.class, sql, userId);
+		
+		return resultList;
+	}
+	
+	public List<Payment> getAvailableEndedPays() {
+		String sql = "SELECT * FROM payments WHERE available = 1 AND date_end < curtime() ORDER BY date_created ASC;";
+		List<Payment> resultList = queryExecutor.executeQuery(Payment.class, sql);
+		
 		return resultList;
 	}
 
 	@Override
-	public void deactivateOverdueTariff() {
-		String sql = "UPDATE payments SET available = 0 WHERE date_end < curtime();";
-		queryExecutor.executeUpdate(sql);
+	public Payment getLastUserPayment(long userId) {
+		String sql = "SELECT * FROM payments WHERE user = ? AND available = 0 ORDER BY date_created DESC LIMIT 1";
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql, userId);
+		
+		return result;
 	}
 	
 }

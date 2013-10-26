@@ -104,7 +104,7 @@ public class PricingService {
 		String[] sql = {sqlUpdateUser, sqlUpdatePayment, sqlCreatePayment};
 		Object[][] args = {argUpdateUser, argUpdatePayment, argCreatePayment};
 		
-		new PaymentDAOImpl().pay(sql, args);
+		new PaymentDAOImpl().executeTransaction(sql, args);
 	}
 	
 	private void createFirstuserPayment(Tariff tariff, int months) {
@@ -122,7 +122,7 @@ public class PricingService {
 		String[] sql = {sqlUpdateUser, sqlCreatePayment};
 		Object[][] args = {argUpdateUser, argCreatePayment};
 		
-		new PaymentDAOImpl().pay(sql, args);
+		new PaymentDAOImpl().executeTransaction(sql, args);
 	}
 	
 	private double savedCash() {

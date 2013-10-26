@@ -57,7 +57,7 @@ public class FilesWebService {
 	}
 
 	@GET
-	@Path("getfrom/{token}/{idfolder}")
+	@Path("getfrom/{idfolder}/{token}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public JSONArray getByIdFolder(@PathParam("token") String token,
 			@PathParam("idfolder") int idFolder) {

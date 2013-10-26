@@ -27,16 +27,17 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 	}
 
 	public Folder createFolder(String folderName, long userId, long upperId) {
+		Folder resultFolder = folderDAO
+				.getByUpperIdAndName(upperId, folderName);
+		if (resultFolder != null) { // if folder has exist
+			return resultFolder;
+		}
 		Folder folder = new Folder();
 		Timestamp currentTS = new Timestamp(new Date().getTime());
 		folder.setDate(currentTS).setIdUpper(upperId).setIdUser(userId)
 				.setName(folderName).setSize(0);
-		Folder resultFolder = folderDAO
-				.getByUpperIdAndName(upperId, folderName);
-		if (resultFolder == null) { // if folder have not found
-			dao.insert(resultFolder);
-			resultFolder = folderDAO.getByUpperIdAndName(upperId, folderName);
-		}
+		dao.insert(folder);
+		resultFolder = folderDAO.getByUpperIdAndName(upperId, folderName);
 		return resultFolder;
 	}
 

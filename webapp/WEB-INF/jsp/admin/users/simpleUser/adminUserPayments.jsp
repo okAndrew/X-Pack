@@ -26,7 +26,9 @@ body {
 </style>
 </head>
 <body>
+	<jsp:include page="../../../menu.jsp"></jsp:include>
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
+
 	<div class="payments-admin-user">
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
@@ -94,7 +96,7 @@ body {
 	</div>
 	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
 	<script src="res/js/bootstrap-datepicker.js"></script>
-	
+
 	<script>
 		var nowTemp = new Date();
 		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp

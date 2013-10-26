@@ -38,8 +38,8 @@
 	}
 
 	function plotGist() {
-		var free = 750;
-		var employed = 570 - free;
+		var free = '${freeSpace}';
+		var employed = '${totalSpace}'-free;
 		line1 = [ [ "Free space " + free + "GB", free ],
 				[ "Employed space" + employed + "GB", employed ] ];
 		$.jqplot("example", [ line1 ], {
@@ -174,6 +174,8 @@
 						</button></li>
 
 				</ul>
+				<h1 hidden="false">'${freeSpace}'</h1>
+				<h1 hidden="false">'${totalSpace}'</h1>
 				<div id="dynamicArea"></div>
 			</div>
 		</div>

@@ -15,11 +15,11 @@ import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.exceptions.notfound.TokenNotFoundException;
 import com.epam.lab.controller.exceptions.notfound.UserNotFoundException;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.controller.services.token4upload.Token4UploadService;
-import com.epam.lab.controller.services.token4upload.Token4UploadServiceImpl;
+import com.epam.lab.controller.services.token4auth.Token4AuthService;
+import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.Folder;
-import com.epam.lab.model.Token4Upload;
+import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.User;
 
 @Path("folder")
@@ -43,7 +43,7 @@ public class FolderWebService {
 			}
 		}
 
-		Token4Upload tokenData = new Token4UploadServiceImpl()
+		Token4Auth tokenData = new Token4AuthServiceImpl()
 				.getByToken(token);
 		User user = new UserServiceImpl().get(tokenData	.getIdUser());
 		Folder createdFolder = new FolderServiceImpl().createFolder(
@@ -66,7 +66,7 @@ public class FolderWebService {
 
 	private String verifyAccessFolderRequest(String token, long idFolder) {
 		String message = null;
-		Token4UploadService service = new Token4UploadServiceImpl();
+		Token4AuthService service = new Token4AuthServiceImpl();
 		boolean itUserFolder = false;
 		try {
 			itUserFolder = service.verifyAccessToFolder(token, idFolder);

@@ -25,8 +25,6 @@
 				<c:if test="${sessionScope.userRole == 'ADMIN'}">
 					<li class=""><a href="adminUsersPage"><fmt:message
 								key="Users" bundle="${lang}" /></a></li>
-					<li class=""><a href="#"><fmt:message key="Files"
-								bundle="${lang}" /></a></li>
 					<li class=""><a href="adminTariffsPage"><fmt:message
 								key="Tariffs" bundle="${lang}" /></a></li>
 					<li class=""><a href="adminStatisticsPage"><fmt:message

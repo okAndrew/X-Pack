@@ -3,8 +3,6 @@ package com.epam.lab.controller.dao;
 
 import java.util.List;
 
-import com.epam.lab.model.Tariff;
-
 public interface GenericDAO<T> {
 	
 	public T get(long id);

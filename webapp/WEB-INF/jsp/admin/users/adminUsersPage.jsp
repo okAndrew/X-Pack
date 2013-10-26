@@ -33,7 +33,6 @@
 <body>
 	<jsp:include page="../../menu.jsp"></jsp:include>
 	<jsp:include page="addUserModalPage.jsp"></jsp:include>
-	<jsp:include page="noDeleteUsersModal.jsp"></jsp:include>
 
 	<div class="Container">
 		<div class="panel panel-default">
@@ -53,6 +52,8 @@
 								name="action" value="delete">
 								<fmt:message key="Delete" bundle="${lang}" />
 							</button></li>
+						<li><button type="submit" class="btn btn-default"
+								name="action" value="restore">Restore</button></li>
 						<li><button type="submit" class="btn btn-default"
 								name="action" value="activated">
 								<fmt:message key="Activate" bundle="${lang}" />
@@ -75,11 +76,7 @@
 							<h5>${message}</h5>
 						</div>
 					</c:if>
-					
-					<c:if test="${noDeletedUsers != null}">
-						<script>$('#noDeleteUsersModal').modal('show')</script>
-					</c:if>
-					
+
 					<jsp:include page="tableUsers.jsp"></jsp:include>
 				</form>
 

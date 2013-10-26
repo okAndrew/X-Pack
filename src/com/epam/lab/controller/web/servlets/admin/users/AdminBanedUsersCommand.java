@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.utils.CheckListUtil;
 
 public class AdminBanedUsersCommand implements AdminUsersPageCommand {
 
@@ -12,8 +11,7 @@ public class AdminBanedUsersCommand implements AdminUsersPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String page = null;
-		CheckListUtil checkUtil = new CheckListUtil();
-		if (!checkUtil.check(request.getParameterValues("checkUser"))) {
+		if (request.getParameterValues("checkUser").length == 0) {
 			request.setAttribute("message", "Please check users!!!");
 			page = "adminUsersPage";
 			return page;

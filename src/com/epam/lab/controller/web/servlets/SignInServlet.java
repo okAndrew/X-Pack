@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.services.SignInService;
-import com.epam.lab.model.Role;
 import com.epam.lab.model.User;
 
 @WebServlet("/signin")
@@ -22,7 +21,6 @@ public class SignInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SIGNIN_JSP = "WEB-INF/jsp/signin.jsp";
 	private static final String USER_PAGE = "userpage";
-	private static final String ADMIN_HOME = "adminUsersPage";
 	static Logger logger = Logger.getLogger(SignInServlet.class);
 
 	public SignInServlet() {
@@ -53,12 +51,7 @@ public class SignInServlet extends HttpServlet {
 				session.setAttribute("userid", user.getId());
 				session.setAttribute("userRole", user.getRole());
 				session.setAttribute("userLogin", user.getLogin());
-
-				if (user.getRole().equals(Role.USER)) {
-					response.sendRedirect(USER_PAGE);
-				} else if (user.getRole().equals(Role.ADMIN)) {
-					response.sendRedirect(ADMIN_HOME);
-				}
+				response.sendRedirect(USER_PAGE);
 			} else {
 				request.setAttribute("message",
 						"You is not activated. Please check you email");

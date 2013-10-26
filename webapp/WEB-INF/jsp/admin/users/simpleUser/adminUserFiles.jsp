@@ -37,6 +37,7 @@
 
 </head>
 <body>
+	<jsp:include page="../../../menu.jsp"></jsp:include>
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
 
 	<div class="files-admin-user">

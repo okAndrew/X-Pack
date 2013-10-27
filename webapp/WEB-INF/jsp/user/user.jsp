@@ -78,11 +78,21 @@
 	<jsp:include page="myspace/modeledit.jsp"></jsp:include>
 	<jsp:include page="myspace/modeldelete.jsp"></jsp:include>
 	<jsp:include page="myspace/modelmove.jsp"></jsp:include>
-	<form action="upload" class="dropzone">
-		<div class="fallback">
-			<input name="file" type="file" multiple />
-		</div>
-	</form>
+
+	<c:choose>
+		<c:when test="${isbanned }">
+			<div class="alert alert-danger">
+				<fmt:message key="You_are_banned" bundle="${lang}" />
+			</div>
+		</c:when>
+		<c:otherwise>
+			<form action="upload" class="dropzone">
+				<div class="fallback">
+					<input name="file" type="file" multiple />
+				</div>
+			</form>
+		</c:otherwise>
+	</c:choose>
 	<form action="usercontroller" method="post">
 		<div class="container">
 			<div class="panel panel-default main">

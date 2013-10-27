@@ -119,11 +119,12 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return result;
 	}
 
-	public boolean check(long folderId, String name) {
+	public boolean check(long folderId, long fileId, String name) {
 		FileDAOImpl dao = new FileDAOImpl();
+		String fullNewNameIncome = name + getExtention(fileId);
 		List<UserFile> files = dao.getAllByFolderId(folderId);
 		for (UserFile file : files) {
-			if (file.getNameIncome().equals(name)) {
+			if (file.getNameIncome().equals(fullNewNameIncome)) {
 				return true;
 			}
 		}
@@ -137,21 +138,20 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	// return dao.get(file.getId()).getId();
 	// }
 
-	public void movefile(long fileidmove, long folderidtarget) {
+	public void moveFile(long fileIdMove, long folderIdTarget) {
 		FileDAOImpl dao = new FileDAOImpl();
-		UserFile file = dao.get(fileidmove);
+		UserFile file = dao.get(fileIdMove);
 		FolderServiceImpl service = new FolderServiceImpl();
 		service.updateSize(file.getIdFolder(), -file.getSize());
-		file.setIdFolder(folderidtarget);
-		service.updateSize(folderidtarget, file.getSize());
+		file.setIdFolder(folderIdTarget);
+		service.updateSize(folderIdTarget, file.getSize());
 		dao.update(file);
 	}
 
 	public UserFile rename(long fileId, String newNameIncome) {
 		FileDAOImpl dao = new FileDAOImpl();
 		UserFile file = dao.get(fileId);
-		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
-		String extention = file.getNameIncome().substring(lastPointIndex);
+		String extention = getExtention(fileId);
 		file.setNameIncome(newNameIncome + extention);
 		dao.update(file);
 		return dao.get(file.getId());
@@ -261,4 +261,11 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return result;
 	}
 
+	private String getExtention(long fileId) {
+		FileDAOImpl dao = new FileDAOImpl();
+		UserFile file = dao.get(fileId);
+		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
+		String extention = file.getNameIncome().substring(lastPointIndex);
+		return extention;
+	}
 }

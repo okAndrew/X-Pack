@@ -21,41 +21,34 @@ public class EditServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		request.setCharacterEncoding("UTF-8");
-		String folderName = request.getParameter("foldername");
-		String fileName = request.getParameter("filename");
-		if (fileName != null && !fileName.equals("")) {
+		String name = request.getParameter("editname");
+		if (name!=null && name.equals("")) {
+			request.getRequestDispatcher(USER_PAGE).forward(request, response);
+		} else if (request.getParameter("fileid") != null && !request.getParameter("fileid").equals("")) {
 			long fileId = Long.parseLong(request.getParameter("fileid"));
 			long folderId = (long) session.getAttribute("folderid");
 			UserFileServiceImpl service = new UserFileServiceImpl();
-			if (service.check(folderId, fileName)) {
-				request.setAttribute("message", "File exists");
+			if (service.check(folderId, fileId, name)) {
 				request.getRequestDispatcher(USER_PAGE).forward(request,
 						response);
 			} else {
-				service.rename(fileId, fileName);
+				service.rename(fileId, name);
 				response.sendRedirect(USER_PAGE);
 			}
-		} else if (folderName != null && !folderName.equals("")) {
+		} else if (request.getParameter("folderid") != null && !request.getParameter("folderid").equals("")) {
 			long userId = (long) session.getAttribute("userid");
 			long upperId = (long) session.getAttribute("folderid");
 			long folderId = Long.parseLong(request.getParameter("folderid"));
 			FolderServiceImpl service = new FolderServiceImpl();
-			
-			if (service.check(folderName, userId, upperId)) {
-				request.setAttribute("message", "Folder exists");
+			if (service.check(name, userId, upperId)) {
 				request.getRequestDispatcher(USER_PAGE).forward(request,
 						response);
 			} else {
 				Folder folder = service.get(folderId);
-				folder.setName(folderName);
+				folder.setName(name);
 				service.update(folder);
 				response.sendRedirect(USER_PAGE);
 			}
-		} else {
-			request.setAttribute("message",
-					"Please, enter name, before editing");
-			request.getRequestDispatcher(USER_PAGE).forward(request, response);
 		}
-
 	}
 }

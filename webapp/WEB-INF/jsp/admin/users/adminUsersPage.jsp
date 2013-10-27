@@ -33,6 +33,11 @@
 <body>
 	<jsp:include page="../../menu.jsp"></jsp:include>
 	<jsp:include page="addUserModalPage.jsp"></jsp:include>
+	<c:if test="${messageAddUser != null}">
+		<script>
+			$('#addUserModal').modal('show')
+		</script>
+	</c:if>
 
 	<div class="Container">
 		<div class="panel panel-default">
@@ -40,7 +45,6 @@
 			<div class="panel-heading">
 				<fmt:message key="Users" bundle="${lang}" />
 			</div>
-
 			<div class="panel-body">
 				<form action="employeeControllerUsers" method="post">
 					<ul class="nav nav-pills">
@@ -76,10 +80,8 @@
 							<h5>${message}</h5>
 						</div>
 					</c:if>
-
 					<jsp:include page="tableUsers.jsp"></jsp:include>
 				</form>
-
 			</div>
 		</div>
 	</div>

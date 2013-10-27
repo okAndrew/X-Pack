@@ -25,7 +25,7 @@ public class AdminAddUserCommand implements AdminUsersPageCommand {
 			page = "adminUsersPage";
 			logger.info("user by email" + email + "add to databases");
 		} else {
-			request.setAttribute("message", errorMessage);
+			request.setAttribute("messageAddUser", errorMessage);
 			page = "adminUsersPage";
 			logger.error("user by email" + email + "had error to create acount, becouse" + errorMessage);
 		}

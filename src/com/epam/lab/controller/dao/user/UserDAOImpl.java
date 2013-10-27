@@ -34,10 +34,10 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int update(User user) {
 		String sql = "UPDATE users SET login=?, email=?, password=?, id_tariff=?, capacity=?, is_activated=?, is_banned = ?, id_role=? WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, user.getLogin(), user
-				.getEmail(), user.getPassword(), user.getIdTariff(), user
-				.getCapacity(), user.getIsActivated(), user.getIsBanned(), user.getRole()
-				.getNumber(), user.getId());
+		int result = queryExecutor.executeUpdate(sql, user.getLogin(),
+				user.getEmail(), user.getPassword(), user.getIdTariff(),
+				user.getCapacity(), user.getIsActivated(), user.getIsBanned(),
+				user.getRole().getNumber(), user.getId());
 
 		return result;
 	}
@@ -56,6 +56,12 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	@Override
+	public User getByLogin(String login) {
+		String sql = "SELECT * FROM users WHERE login=?";
+		User result = queryExecutor.executeQuerySingle(User.class, sql, login);
+		return result;
+	}
 
 	public boolean checkEmailById(String email, long userId) {
 		String sql = "SELECT * FROM users WHERE email=? AND id!=?";

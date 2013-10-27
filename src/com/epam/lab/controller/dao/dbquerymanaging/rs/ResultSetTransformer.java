@@ -23,8 +23,7 @@ public class ResultSetTransformer<T> {
 		this.type = cls;
 	}
 
-	public T createObject(ResultSet rs) throws SQLException,
-			NoSuchDAOObjectException {
+	public T createObject(ResultSet rs) throws NoSuchDAOObjectException {
 		// reflection magic
 		Field[] fields = type.getDeclaredFields();
 		T result = createInstance();
@@ -40,6 +39,9 @@ public class ResultSetTransformer<T> {
 				} catch (NoSuchDAOTypeException e) {
 					e.printStackTrace();
 					logger.error(e);
+				} catch (SQLException e) {
+					// quietly skip
+					System.out.println(e.getMessage());
 				}
 				field.setAccessible(true);
 				try {

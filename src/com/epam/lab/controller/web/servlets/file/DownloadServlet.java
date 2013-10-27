@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSessionEvent;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.user.DownloadService;
@@ -47,12 +48,14 @@ public class DownloadServlet extends HttpServlet {
 			file = new File(filePath);
 			fileName = f.getNameIncome();
 		}
+		
+		String userId = request.getSession(false).getAttribute("userid").toString();
 		response.setHeader("Content-Disposition", "attachment; filename="
 				+ URLEncoder.encode(fileName, "UTF-8"));
 		response.setContentType("application/octet-stream; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentLength((int) file.length());
 		ServletOutputStream os = response.getOutputStream();
-		downloadService.download(file, os);
+		downloadService.download(file, os, userId);
 	}
 }

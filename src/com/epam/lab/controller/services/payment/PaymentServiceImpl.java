@@ -37,4 +37,12 @@ public class PaymentServiceImpl extends AbstractServiceImpl<Payment> implements
 		return new PaymentDAOImpl().getAvailableUserPays(userId);
 	}
 	
+	public List<Payment> getAvailableEndedPayments() {
+		return new PaymentDAOImpl().getAvailableEndedPays();
+	}
+	
+	public Payment getLastUserPayment(long userId) {
+		return new PaymentDAOImpl().getLastUserPayment(userId);
+	}
+	
 }

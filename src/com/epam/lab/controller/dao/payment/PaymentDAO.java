@@ -23,8 +23,10 @@ public interface PaymentDAO extends GenericDAO<Payment> {
 	
 	Payment getCurrentPayment(long userId);
 	
-	boolean pay(String[] sqls, Object[][] args);
+	boolean executeTransaction(String[] sqls, Object[][] args);
 	
 	List<Payment> getAvailableUserPays(long userId);
+	
+	Payment getLastUserPayment(long userId);
 	
 }

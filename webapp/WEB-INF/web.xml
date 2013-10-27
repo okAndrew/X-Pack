@@ -29,6 +29,10 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 	<error-page>
+		<error-code>404</error-code>
 		<location>/error</location>
 	</error-page>
+	<listener>
+		<listener-class>com.epam.lab.controller.web.servlets.security.AppServletContextListener</listener-class>
+	</listener>
 </web-app>

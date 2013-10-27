@@ -13,14 +13,17 @@ import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.Payment;
 import com.epam.lab.model.Role;
 import com.epam.lab.model.Token;
 import com.epam.lab.model.User;
+import com.epam.lab.model.UserFile;
 
 public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		UserService {
@@ -58,20 +61,59 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		return new UserDAOImpl().getByEmail(email);
 	}
 
-	public void deleteFilesAndFolders(String[] filesId, String[] foldersId) {
+	public void deleteFilesAndFolders(long[] filesId, long[] foldersId) {
 		FolderServiceImpl folderService = new FolderServiceImpl();
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
-		if (filesId != null && filesId[0] != null && !filesId[0].equals("")) {
+		
+		if (filesId != null && filesId.length > 0) {
 			for (int i = 0; i < filesId.length; i++) {
-				fileService.delete(Long.parseLong(filesId[i]));
+				fileService.delete(filesId[i]);
 			}
 		}
-		if (foldersId != null && foldersId[0] != null
-				&& !foldersId[0].equals("")) {
+		
+		if (foldersId != null && foldersId.length > 0) {
 			for (int i = 0; i < foldersId.length; i++) {
-				folderService.delete(Long.parseLong(foldersId[i]));
+				folderService.delete(foldersId[i]);
 			}
 		}
+	}
+	
+	public void deleteFilesAndFolders(String[] filesId, String[] foldersId) {
+		long[] files = new long[filesId.length];
+		long[] folders = new long[foldersId.length];
+		
+		for (int i = 0; i < filesId.length; i++) {
+			try {
+				files[i] = Long.valueOf(filesId[i]);
+			} catch (NumberFormatException e) {
+				logger.error(e);
+			}
+		}
+		
+		for (int i = 0; i < filesId.length; i++) {
+			try {
+				folders[i] = Long.valueOf(foldersId[i]);
+			} catch (NumberFormatException e) {
+				logger.error(e);
+			}
+		}
+		
+		deleteFilesAndFolders(files, folders);
+	}
+	
+	public void deleteFilesAndFolders(UserFile[] files, Folder[] folders) {
+		long[] filesId = new long[files.length];
+		long[] foldersId = new long[folders.length];
+		
+		for (int i = 0; i < files.length; i++) {
+			filesId[i] = files[i].getId();
+		}
+		
+		for (int i = 0; i < folders.length; i++) {
+			foldersId[i] = folders[i].getId();
+		}
+		
+		deleteFilesAndFolders(filesId, foldersId);
 	}
 
 	@Override
@@ -259,6 +301,49 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		}
 
 		return res;
+	}
+	
+	public void deactivateOverdue() {
+		UserServiceImpl userService = new UserServiceImpl();
+		PaymentServiceImpl paymentService = new PaymentServiceImpl();
+		
+		List<Payment> payments = paymentService.getAvailableEndedPayments();
+		for (int i = 0; i < payments.size(); i++) {
+			User tempUser = userService.get(payments.get(i).getUser());
+			List<Payment> tempPayments = paymentService.getAvailableUserPays(tempUser.getId());
+			if (tempPayments != null && tempPayments.get(0).getDateEnd().before(TimeStampManager.getCurrentTime())) {
+				tempUser.setIsBanned(true);
+				payments.get(i).setAvailable(false);
+				userService.update(tempUser);
+				paymentService.update(payments.get(i));
+			}
+		}
+	}
+	
+	public void setUsersForFree() {
+		UserDAOImpl userDAO = new UserDAOImpl();
+		PaymentServiceImpl paymentService = new PaymentServiceImpl();
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
+		FolderServiceImpl folderService = new FolderServiceImpl();
+		
+		List<User> users = userDAO.getBannedUsers();
+		
+		for (int i = 0; i < users.size(); i++) {
+			Payment payment = paymentService.getLastUserPayment(users.get(i).getId());
+			if (payment != null && TimeStampManager.addNumberOfMonth(payment.getDateEnd(), 1).before(TimeStampManager.getCurrentTime())) {
+				List<UserFile> files = fileService.getByUserId(users.get(i).getId());
+				List<Folder> folders = folderService.getAll(users.get(i).getId());
+				
+				deleteFilesAndFolders(
+					files.toArray(new UserFile[files.size()]),
+					folders.toArray(new Folder[folders.size()])
+				);
+				
+				users.get(i).setIdTariff(0);
+				users.get(i).setIsBanned(false);
+				update(users.get(i));
+			}
+		}
 	}
 
 }

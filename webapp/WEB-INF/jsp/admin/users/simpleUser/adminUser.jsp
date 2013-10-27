@@ -27,11 +27,11 @@
 <link href="res/css/signui.css" rel="stylesheet" />
 
 
-
 </head>
 <body>
-	<jsp:include page="../../../menu.jsp"></jsp:include>	
 	
+	<jsp:include page="../../../menu.jsp"></jsp:include>
+
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
 
 	<div class="user-info">
@@ -87,6 +87,11 @@
 			</form>
 		</div>
 		<jsp:include page="modalAdminUser.jsp"></jsp:include>
+		<c:if test="${message != null}">
+		<script>
+			$('#myModal').modal('show')
+		</script>
+	</c:if>
 	</div>
 
 </body>

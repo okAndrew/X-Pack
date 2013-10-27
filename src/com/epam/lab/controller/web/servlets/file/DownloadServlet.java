@@ -36,12 +36,14 @@ public class DownloadServlet extends HttpServlet {
 			file = new File(filePath);
 			fileName = f.getNameIncome();
 		}
+		
+		String userId = request.getParameter("userid");
 		response.setHeader("Content-Disposition", "attachment; filename="
 				+ URLEncoder.encode(fileName, "UTF-8"));
 		response.setContentType("application/octet-stream; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentLength((int) file.length());
 		ServletOutputStream os = response.getOutputStream();
-		downloadService.download(file, os);
+		downloadService.download(file, os, userId);
 	}
 }

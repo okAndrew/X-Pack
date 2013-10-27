@@ -27,6 +27,8 @@
 									key="Files" bundle="${lang}" /></a></li>
 						<li class=""><a href="adminUserPayments"><fmt:message
 									key="Payments" bundle="${lang}" /></a></li>
+						<li class=""><a href="adminUserActivity">Activity</a></li>
+						<li class=""><a href="adminUserTraffic">Traffic</a></li>
 					</ul>
 				</c:if>
 			</div>

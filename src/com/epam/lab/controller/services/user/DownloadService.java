@@ -17,10 +17,12 @@ public class DownloadService {
 		InputStream fis = new FileInputStream(file);
 		byte[] bufferData = new byte[1024];
 		int read = 0;
+		int size = 0;
 		while ((read = fis.read(bufferData)) != -1) {
 			os.write(bufferData, 0, read);
+			size += read;
 		}
-		createTrafficHistory(Long.parseLong(userId), read);
+		createTrafficHistory(Long.parseLong(userId), size);
 		os.flush();
 		os.close();
 		fis.close();

@@ -1,5 +1,6 @@
 package com.epam.lab.controller.dao.file;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.epam.lab.controller.dao.GenericDAO;
@@ -11,6 +12,8 @@ public interface FileDAO extends GenericDAO<UserFile> {
 	List<FilesTypesSize> getFilesGroupType();
 
 	UserFile getByName(String fName);
-	
+
 	int deleteByUserId(long userId);
+
+	UserFile getSizeUploadByDates(Timestamp dateStart, Timestamp dateEnd);
 }

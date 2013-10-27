@@ -14,4 +14,6 @@ public interface UserDAO extends GenericDAO<User> {
 	int setIsBanned(boolean state, long id);
 	
 	List<User> getBannedUsers();
+
+	User getByLogin(String login);
 }

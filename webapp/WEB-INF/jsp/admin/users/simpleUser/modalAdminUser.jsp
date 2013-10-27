@@ -12,6 +12,7 @@
 <link href="res/css/signui.css" rel="stylesheet" />
 <script type="text/javascript">
 	function validateForm() {
+		var p1 = document.forms["updateForm"]["userLogin"].value;
 		var email = document.forms["updateForm"]["userEmail"].value;
 		var atpos = email.indexOf("@");
 		var dotpos = email.lastIndexOf(".");
@@ -19,6 +20,10 @@
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
 			setMessage("Not a valid e-mail address", errorinfo);
 			return false;
+		}
+		if (p1 == "") {
+			setMessage("Fields cannot be empty", errorinfo);
+	  		return false;
 		}
 		
 		return true;
@@ -48,7 +53,7 @@
 						<!-- Static navbar -->
 						<div class="navbar navbar-default">
 							<div class="navbar-collapse collapse">
-								<form action="updateUser" name="updateForm" method="post">
+								<form action="updateUser" name="updateForm" method="post" onsubmit="return validateForm()">
 									<div id="errorinfo" class="alert alert-danger"
 										style="display: none;">
 										<c:if test="${message != null}">

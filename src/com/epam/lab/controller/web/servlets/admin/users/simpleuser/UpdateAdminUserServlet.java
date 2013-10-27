@@ -1,6 +1,7 @@
 package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,12 +50,12 @@ public class UpdateAdminUserServlet extends HttpServlet {
 						response);
 			} else {
 				request.setAttribute("message", "Login already exists");
-				dispatcher = request.getRequestDispatcher(ADMIN_USER_JSP);
+				dispatcher = request.getRequestDispatcher("adminUser?userid="+userId);
 				dispatcher.forward(request, response);
 			}
 		} else {
 			request.setAttribute("message", "Email already exists");
-			dispatcher = request.getRequestDispatcher(MODAL_ADMIN_USER_JSP);
+			dispatcher = request.getRequestDispatcher("adminUser?userid="+userId);
 			dispatcher.forward(request, response);
 		}
 

@@ -13,7 +13,6 @@
 <link href="res/css/signui.css" rel="stylesheet" />
 <script type="text/javascript">
 	function validateForm() {
-		var p1 = document.forms["form-signup"]["password"].value;
 		var email = document.forms["form-signup"]["email"].value;
 		var atpos = email.indexOf("@");
 		var dotpos = email.lastIndexOf(".");
@@ -21,11 +20,6 @@
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
 			setMessage("Not a valid e-mail address", errorinfo);
 			return false;
-		}
-		
-		if (p1 == "") {
-			setMessage("Fields cannot be empty", errorinfo);
-	  		return false;
 		}
 		
 		return true;
@@ -40,7 +34,7 @@
 <body>
 	<jsp:include page="menu.jsp"></jsp:include>
 	<div class="container">
-		<form action="signin" method="post" class="form-signin" name="form-signup" onsubmit="return validateForm()">
+		<form action="SendRestorePass" method="post" class="form-signin" name="form-signup" onsubmit="return validateForm()">
 			<h2 class="form-signin-heading"> <fmt:message key="Please_sign_in" bundle="${lang}" /> </h2>
 			<div id="errorinfo" class="alert alert-danger" style="display: none;">
 				<c:if test="${message != null}">
@@ -51,7 +45,6 @@
 				<div class="errorinfo">${message}</div>
 			</c:if>
 			<input id="emailInput" type="text" name="email"	class="form-control first" placeholder="Email" autofocus="autofocus">
-			<input id="passInput" type="password" name="password" class="form-control last" placeholder="Password">
 			<button class="btn btn-lg btn-primary btn-block" type="submit"> <fmt:message key="signin" bundle="${lang}" /> </button>
 			<a href="">Restore password</a>
 		</form>

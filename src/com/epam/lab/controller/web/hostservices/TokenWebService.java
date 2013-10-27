@@ -80,7 +80,7 @@ public class TokenWebService {
 	private User getUser(String email, String password) {
 		UserServiceImpl userService = new UserServiceImpl();
 		String encryptPass = new MD5Encrypter().encrypt(password);
-		User user = userService.getUser(email, encryptPass);
+		User user = userService.get(email, encryptPass);
 		return user;
 	}
 

@@ -2,16 +2,14 @@ package com.epam.lab.controller.services.traffichistory;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.epam.lab.controller.dao.traffichistory.TrafficHistoryDAOImpl;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.TrafficHistory;
 
-public class TrafficHistoryServiceImpl implements TrafficHistoryService{
+public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 
 	private TrafficHistoryDAOImpl traDaoImpl = new TrafficHistoryDAOImpl();
-	private static Logger logger = Logger.getLogger(TrafficHistoryServiceImpl.class);
-	
+
 	@Override
 	public TrafficHistory get(long id) {
 		return traDaoImpl.get(id);
@@ -37,4 +35,29 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService{
 		return traDaoImpl.delete(id);
 	}
 
+	@Override
+	public int getDownloadTrafficByLastMounth() {
+		TrafficHistory traffic = traDaoImpl.getDownloadTrafficByDates(
+				TimeStampManager.getStartOfMonth(TimeStampManager
+						.getCurrentTime()), TimeStampManager
+						.getEndOfMonth(TimeStampManager.getCurrentTime()));
+		return (traffic.getSize() / 1024 / 1024 / 1024);
+	}
+
+	@Override
+	public int getDownloadTrafficByLastWeek() {
+		TrafficHistory traffic = traDaoImpl.getDownloadTrafficByDates(
+				TimeStampManager.getStartOfWeek(TimeStampManager
+						.getCurrentTime()), TimeStampManager
+						.getEndOfWeek(TimeStampManager.getCurrentTime()));
+		return (traffic.getSize() / 1024 / 1024 / 1024);
+	}
+
+	@Override
+	public int getDownloadTrafficByLastDay() {
+		TrafficHistory traffic = traDaoImpl.getDownloadTrafficByDates(
+				TimeStampManager.getStartOfDay(TimeStampManager
+						.getCurrentTime()), TimeStampManager.getCurrentTime());
+		return (traffic.getSize() / 1024 / 1024 / 1024);
+	}
 }

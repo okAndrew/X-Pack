@@ -49,7 +49,7 @@ public class UpdateAdminUserServlet extends HttpServlet {
 						response);
 			} else {
 				request.setAttribute("message", "Login already exists");
-				dispatcher = request.getRequestDispatcher(MODAL_ADMIN_USER_JSP);
+				dispatcher = request.getRequestDispatcher(ADMIN_USER_JSP);
 				dispatcher.forward(request, response);
 			}
 		} else {

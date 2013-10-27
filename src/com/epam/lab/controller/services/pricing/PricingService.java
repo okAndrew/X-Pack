@@ -66,6 +66,10 @@ public class PricingService {
 		}
 	}
 	
+	public void deactivateOverdueTariff() {
+		
+	}
+	
 	private void continueCurrentTariff(int months, Tariff tariff) {
 		List<Payment> payments = new PaymentServiceImpl().getAvailableUserPays(user.getId());
 		Timestamp timeStart = payments.get(payments.size() - 1).getDateEnd();
@@ -100,7 +104,7 @@ public class PricingService {
 		String[] sql = {sqlUpdateUser, sqlUpdatePayment, sqlCreatePayment};
 		Object[][] args = {argUpdateUser, argUpdatePayment, argCreatePayment};
 		
-		new PaymentDAOImpl().pay(sql, args);
+		new PaymentDAOImpl().executeTransaction(sql, args);
 	}
 	
 	private void createFirstuserPayment(Tariff tariff, int months) {
@@ -118,7 +122,7 @@ public class PricingService {
 		String[] sql = {sqlUpdateUser, sqlCreatePayment};
 		Object[][] args = {argUpdateUser, argCreatePayment};
 		
-		new PaymentDAOImpl().pay(sql, args);
+		new PaymentDAOImpl().executeTransaction(sql, args);
 	}
 	
 	private double savedCash() {

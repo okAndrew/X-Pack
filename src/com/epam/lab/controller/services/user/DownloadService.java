@@ -27,7 +27,6 @@ public class DownloadService {
 	}
 	
 	private void createTrafficHistory(long userId, int read){
-		System.out.println("test");
 		TrafficHistory traffic = new TrafficHistory();
 		Timestamp date = TimeStampManager.getFormatCurrentTimeStamp();
 		traffic.setUserId(userId).setDate(date).setSize(read);

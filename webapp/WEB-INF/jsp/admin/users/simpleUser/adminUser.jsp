@@ -13,7 +13,11 @@
 <link rel="shortcut icon" href="images/favicon.png">
 
 <title>Dream Host</title>
-
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+	type="text/javascript"></script>
 <!-- Bootstrap core CSS -->
 
 <script src="res/js/bootstrap.js"></script>

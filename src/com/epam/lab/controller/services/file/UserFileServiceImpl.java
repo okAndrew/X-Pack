@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -267,5 +268,13 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
 		String extention = file.getNameIncome().substring(lastPointIndex);
 		return extention;
+	}
+
+	@Override
+	public long getDownloadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
+		FileDAOImpl fileDaoImpl = new FileDAOImpl();
+		UserFile file = new UserFile();
+		file = fileDaoImpl.getSizeUploadByDates(dataStart, dataEnd);
+		return file.getSize();
 	}
 }

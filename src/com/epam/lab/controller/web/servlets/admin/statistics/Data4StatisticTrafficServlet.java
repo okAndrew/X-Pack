@@ -14,16 +14,14 @@ import javax.ws.rs.core.MediaType;
 import com.epam.lab.controller.services.sessionstatistics.SessionStatisticsServiceImpl;
 import com.epam.lab.model.SessionStatistics;
 
-@WebServlet("/Data4Statistic")
-public class Data4StatisticServlet extends HttpServlet {
+@WebServlet("/Data4StatisticTraffic")
+public class Data4StatisticTrafficServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SessionStatisticsServiceImpl statisticsServiceImpl = new SessionStatisticsServiceImpl();
 		List<SessionStatistics> list = new ArrayList<SessionStatistics>();
-		list = statisticsServiceImpl.getAll();
-		System.out.println(list.indexOf(0));
+		list = statisticsServiceImpl.getAllDownloadStatistic();
 		String stringData = statisticsServiceImpl.toJson(list);
 		response.setContentType(MediaType.APPLICATION_JSON);
 		System.out.println(stringData.toString());
@@ -33,4 +31,6 @@ public class Data4StatisticServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
+
 }

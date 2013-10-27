@@ -3,12 +3,14 @@ package com.epam.lab.controller.services.traffichistory;
 import java.util.List;
 
 import com.epam.lab.controller.dao.traffichistory.TrafficHistoryDAOImpl;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.TrafficHistory;
 
 public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 
 	private TrafficHistoryDAOImpl traDaoImpl = new TrafficHistoryDAOImpl();
+	private UserFileServiceImpl fileServiceImpl = new UserFileServiceImpl();
 
 	@Override
 	public TrafficHistory get(long id) {
@@ -36,28 +38,55 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 	}
 
 	@Override
-	public int getDownloadTrafficByLastMounth() {
+	public double getDownloadTrafficByLastMounth() {
 		TrafficHistory traffic = traDaoImpl.getDownloadTrafficByDates(
 				TimeStampManager.getStartOfMonth(TimeStampManager
 						.getCurrentTime()), TimeStampManager
 						.getEndOfMonth(TimeStampManager.getCurrentTime()));
-		return (traffic.getSize() / 1024 / 1024 / 1024);
+		return (traffic.getSize() / 1024 / 1024);
 	}
 
 	@Override
-	public int getDownloadTrafficByLastWeek() {
+	public double getDownloadTrafficByLastWeek() {
 		TrafficHistory traffic = traDaoImpl.getDownloadTrafficByDates(
 				TimeStampManager.getStartOfWeek(TimeStampManager
 						.getCurrentTime()), TimeStampManager
 						.getEndOfWeek(TimeStampManager.getCurrentTime()));
-		return (traffic.getSize() / 1024 / 1024 / 1024);
+		return (traffic.getSize() / 1024 / 1024);
 	}
 
 	@Override
-	public int getDownloadTrafficByLastDay() {
+	public double getDownloadTrafficByLastDay() {
 		TrafficHistory traffic = traDaoImpl.getDownloadTrafficByDates(
 				TimeStampManager.getStartOfDay(TimeStampManager
 						.getCurrentTime()), TimeStampManager.getCurrentTime());
-		return (traffic.getSize() / 1024 / 1024 / 1024);
+		return (traffic.getSize() / 1024 / 1024);
+	}
+
+	@Override
+	public double getUploadTrafficByLastMounth() {
+		Long size = fileServiceImpl.getDownloadTrafficByDates(TimeStampManager
+				.getStartOfMonth(TimeStampManager.getCurrentTime()),
+				TimeStampManager.getEndOfMonth(TimeStampManager
+						.getCurrentTime()));
+		return (size / 1024 / 1024);
+	}
+
+	@Override
+	public double getUploadTrafficByLastWeek() {
+		Long size = fileServiceImpl
+				.getDownloadTrafficByDates(TimeStampManager
+						.getStartOfWeek(TimeStampManager.getCurrentTime()),
+						TimeStampManager.getEndOfWeek(TimeStampManager
+								.getCurrentTime()));
+		return (size / 1024 / 1024);
+	}
+
+	@Override
+	public double getUploadTrafficByLastDay() {
+		Long size = fileServiceImpl.getDownloadTrafficByDates(TimeStampManager
+				.getStartOfDay(TimeStampManager.getCurrentTime()),
+				TimeStampManager.getCurrentTime());
+		return (size / 1024 / 1024);
 	}
 }

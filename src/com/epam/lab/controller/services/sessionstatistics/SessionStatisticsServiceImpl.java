@@ -38,4 +38,16 @@ public class SessionStatisticsServiceImpl extends
 		resultData.append("]]");
 		return resultData.toString();
 	}
+
+	@Override
+	public List<SessionStatistics> getAllDownloadStatistic() {
+		SessionStatisticsDAOImpl statisticsDaoImpl = new SessionStatisticsDAOImpl();
+		return statisticsDaoImpl.getAllDownloadStatistic();
+	}
+
+	@Override
+	public List<SessionStatistics> getAllDownloadStatisticByUserId(long id) {
+		SessionStatisticsDAOImpl statisticsDaoImpl = new SessionStatisticsDAOImpl();
+		return statisticsDaoImpl.getAllDownloadStatisticByUserId(id);
+	}
 }

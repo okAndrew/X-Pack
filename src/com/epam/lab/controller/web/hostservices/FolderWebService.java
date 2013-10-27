@@ -1,6 +1,7 @@
 package com.epam.lab.controller.web.hostservices;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -32,26 +33,67 @@ public class FolderWebService {
 	@Path("create/{token}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONObject createFolder(@PathParam("token") String token, Folder folder) {
-		String message = verifyAccessFolderRequest(token, folder.getIdUpper());
+	public JSONObject createFolder(@PathParam("token") String token,
+			Folder folder) {
+		JSONObject response = null;
+		String message = verifyRequest(token, folder.getIdUpper());
 		if (message != null) {
+			response = buildJsonError(message);
+		} else {
+			User user = null;
 			try {
-				return new JSONObject().put("error", message);
-			} catch (JSONException e) {
+				user = getUserByToken(token);
+			} catch (TokenNotFoundException e) {
 				logger.error(e);
 				return null;
 			}
+			Folder createdFolder = new FolderServiceImpl().createFolder(
+					folder.getName(), user.getId(), folder.getIdUpper());
+			response = folderToJson(createdFolder);
 		}
-
-		Token4Auth tokenData = new Token4AuthServiceImpl()
-				.getByToken(token);
-		User user = new UserServiceImpl().get(tokenData	.getIdUser());
-		Folder createdFolder = new FolderServiceImpl().createFolder(
-				folder.getName(), user.getId(), folder.getIdUpper());
-		return toJson(createdFolder);
+		return response;
 	}
 
-	private JSONObject toJson(Folder folder) {
+	@GET
+	@Path("getroot/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public JSONObject getRootFolder(@PathParam("token") String token) {
+		String message = null;
+		User user = null;
+		Folder root = null;
+		try {
+			user = getUserByToken(token);
+			root = getRootByUser(user);
+			if (root == null)
+				throw new FolderNotFoundException();
+		} catch (TokenNotFoundException e) {
+			logger.warn(e);
+			message = TOKEN_NOT_FOUND;
+		} catch (FolderNotFoundException e) {
+			logger.error(e);
+			message = TOKEN_NOT_FOUND;
+		}
+		JSONObject response = null;
+		if (message != null) {
+			response = buildJsonError(message);
+		} else {
+			response = folderToJson(root);
+		}
+		return response;
+	}
+
+	private JSONObject buildJsonError(String mes) {
+		JSONObject jsonOb = new JSONObject();
+		try {
+			jsonOb.put("error", mes);
+		} catch (JSONException e) {
+			logger.error(e);
+		}
+		return jsonOb;
+	}
+
+	private JSONObject folderToJson(Folder folder) {
 		JSONObject jsonOb = new JSONObject();
 		try {
 			jsonOb.put("id", folder.getId());
@@ -64,7 +106,21 @@ public class FolderWebService {
 		return jsonOb;
 	}
 
-	private String verifyAccessFolderRequest(String token, long idFolder) {
+	private Folder getRootByUser(User user) {
+		Folder root = new FolderServiceImpl().getRoot(user.getId());
+		return root;
+	}
+
+	private User getUserByToken(String token) throws TokenNotFoundException {
+		Token4Auth tokenData = new Token4AuthServiceImpl().getByToken(token);
+		if (tokenData == null) {
+			throw new TokenNotFoundException();
+		}
+		User user = new UserServiceImpl().get(tokenData.getIdUser());
+		return user;
+	}
+
+	private String verifyRequest(String token, long idFolder) {
 		String message = null;
 		Token4AuthService service = new Token4AuthServiceImpl();
 		boolean itUserFolder = false;

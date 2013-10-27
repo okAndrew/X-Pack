@@ -52,7 +52,7 @@ public class MoveServlet extends HttpServlet {
 						.getParameter("fileidmove"));
 				long folderidtarget = Long.parseLong(request
 						.getParameter("folderidtarget"));
-				fileservice.movefile(fileidmove, folderidtarget);
+				fileservice.moveFile(fileidmove, folderidtarget);
 				response.sendRedirect(USER_PAGE);
 			}
 		}

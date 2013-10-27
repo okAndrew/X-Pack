@@ -346,4 +346,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		}
 	}
 
+	public boolean isBanned(long userId) {
+		return userDaoImpl.get(userId).getIsBanned();
+	}
 }

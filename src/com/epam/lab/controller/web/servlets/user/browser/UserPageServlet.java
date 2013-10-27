@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 
@@ -34,6 +35,7 @@ public class UserPageServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		FolderServiceImpl folderService = new FolderServiceImpl();
+		UserServiceImpl userService = new UserServiceImpl();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("userid");
 		long folderId;
@@ -48,11 +50,13 @@ public class UserPageServlet extends HttpServlet {
 		List<Folder> allFolders = folderService.getAll(userId);
 		List<UserFile> files = fileService.getByFolderId(folderId);
 		List<Folder> folderPath = folderService.getFolderPath(folderId);
+		boolean isBanned = userService.isBanned(userId);
 		request.setAttribute("allFolders", allFolders);
 		request.setAttribute("folders", folders);
 		request.setAttribute("files", files);
 		request.setAttribute("currentFolder", currentFolder);
 		request.setAttribute("folderpath", folderPath);
+		request.setAttribute("isbanned", isBanned);
 		request.getRequestDispatcher(USER_JSP).forward(request, response);
 	}
 }

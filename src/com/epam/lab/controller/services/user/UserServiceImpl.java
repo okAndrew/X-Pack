@@ -358,4 +358,22 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	public boolean isBanned(long userId) {
 		return userDaoImpl.get(userId).getIsBanned();
 	}
+
+	public void moveFilesAndFolders(String[] moveAble, long idTarget, long userId) {
+		for (String move : moveAble) {
+			String type = move.split("-")[0];
+			long id = Long.parseLong(move.split("-")[1]);
+			if (type.equals("file")) {
+				UserFileServiceImpl fileService = new UserFileServiceImpl();
+				if (fileService.isUsersFile(id, userId)) {
+					fileService.moveFile(id, idTarget);
+				}
+			} else if (type.equals("folder")) {
+				FolderServiceImpl folderService = new FolderServiceImpl();
+				if (folderService.isUsersFolder(id, userId)) {
+					folderService.movefolder(id, idTarget);
+				}
+			}
+		}
+	}
 }

@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <div id="example"></div>
 
 <table class="table zebra-striped table-hover">
@@ -21,15 +20,15 @@
 		</c:forEach>
 	</tbody>
 </table>
-
+<link href="res/css/jquery.jqplot.css" rel="stylesheet" />
 <script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(
 			function plotGist() {
-				var free = '${freeSpace}';
-				var employed = '${totalSpace}' - free;
+				var free = ${freeSpace};
+				var employed = ${totalSpace} - free;
 				line1 = [ [ "Free space " + free + "GB", free ],
 						[ "Employed space" + employed + "GB", employed ] ];
 				$.jqplot("example", [ line1 ], {

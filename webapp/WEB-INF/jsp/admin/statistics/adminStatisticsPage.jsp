@@ -44,15 +44,15 @@
 			<div class="panel-body">
 				<ul class="nav nav-pills">
 					<li><a href="adminStatisticsPage?page=users"
-						class="btn btn-default""> <fmt:message key="Users"
+						class="btn btn-default"> <fmt:message key="Users"
 								bundle="${lang}" />
 					</a></li>
 					<li><a href="adminStatisticsPage?page=files"
-						class="btn btn-default""> <fmt:message key="Files"
+						class="btn btn-default"> <fmt:message key="Files"
 								bundle="${lang}" />
 					</a></li>
 					<li><a href="adminStatisticsPage?page=server"
-						class="btn btn-default""> <fmt:message key="Server"
+						class="btn btn-default"> <fmt:message key="Server"
 								bundle="${lang}" />
 					</a></li>
 				</ul>

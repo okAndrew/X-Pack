@@ -58,7 +58,7 @@ function initTeamPage() {
 				+ colors[n].c + "'><div class='panel-body'>";
 		var img = "<img class='avatar' src='" + team[i].photo + "'/>";
 		var name = "<h1>" + team[i].name + "</h1>";
-		var about = "<p>" + team[i].about + n + "</p>";
+		var about = "<p>" + team[i].about + "</p>";
 		var end = "</div></div></div>";
 		$('#row').append(start + img + name + about + end);
 	}

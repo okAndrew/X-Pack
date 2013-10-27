@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
-	xmlns:web_1="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID" version="3.0">
-	<display-name>dreamhost</display-name>
-	<welcome-file-list>
-		<welcome-file>homepage</welcome-file>
-	</welcome-file-list>
-	<servlet>
-		<servlet-name>HostService</servlet-name>
-		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-		<init-param>
-			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>com.epam.lab.controller.web.hostservices</param-value>
-		</init-param>
-		<init-param>
-			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-			<param-value>true</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HostService</servlet-name>
-		<url-pattern>/host/*</url-pattern>
-	</servlet-mapping>
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/error</location>
-	</error-page>
-</web-app>
+<web_1:web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xmlns:web_1="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>dreamhost</display-name>
+  <web_1:welcome-file-list>
+    <web_1:welcome-file>homepage</web_1:welcome-file>
+  </web_1:welcome-file-list>
+  <web_1:servlet>
+    <web_1:servlet-name>HostService</web_1:servlet-name>
+    <web_1:servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</web_1:servlet-class>
+    <web_1:init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>com.epam.lab.controller.web.hostservices</param-value>
+    </web_1:init-param>
+    <web_1:init-param>
+      <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+      <param-value>true</param-value>
+    </web_1:init-param>
+    <web_1:load-on-startup>1</web_1:load-on-startup>
+  </web_1:servlet>
+  <web_1:servlet-mapping>
+    <web_1:servlet-name>HostService</web_1:servlet-name>
+    <web_1:url-pattern>/host/*</web_1:url-pattern>
+  </web_1:servlet-mapping>
+  <web_1:session-config>
+    <web_1:session-timeout>30</web_1:session-timeout>
+  </web_1:session-config>
+  <web_1:error-page>
+    <web_1:error-code>404</web_1:error-code>
+    <web_1:location>/error</web_1:location>
+  </web_1:error-page>
+  <web_1:listener>
+    <listener-class>com.epam.lab.controller.web.servlets.security.AppServletContextListener</listener-class>
+  </web_1:listener>
+</web_1:web-app>

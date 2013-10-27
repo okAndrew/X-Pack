@@ -17,7 +17,7 @@ public class SignInService {
 		if (checkParam(email, password)) {
 			UserServiceImpl userService = new UserServiceImpl();
 			MD5Encrypter md5 = new MD5Encrypter();
-			user = userService.getUser(email, md5.encrypt(password));
+			user = userService.get(email, md5.encrypt(password));
 		}
 		
 		return user;

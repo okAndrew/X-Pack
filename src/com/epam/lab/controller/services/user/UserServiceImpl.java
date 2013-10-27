@@ -47,7 +47,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		insert(user);
 	}
 
-	public User getUser(String email, String password) {
+	public User get(String email, String password) {
 		User user = null;
 		user = new UserDAOImpl().getByEmail(email);
 		if (user != null && user.getPassword().equals(password)) {
@@ -57,31 +57,30 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		}
 	}
 
-	public User getUserByEmail(String email) {
+	public User get(String email) {
 		return new UserDAOImpl().getByEmail(email);
 	}
 
 	public void deleteFilesAndFolders(long[] filesId, long[] foldersId) {
 		FolderServiceImpl folderService = new FolderServiceImpl();
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
-		
+
 		if (filesId != null && filesId.length > 0) {
 			for (int i = 0; i < filesId.length; i++) {
 				fileService.delete(filesId[i]);
 			}
 		}
-		
+
 		if (foldersId != null && foldersId.length > 0) {
 			for (int i = 0; i < foldersId.length; i++) {
 				folderService.delete(foldersId[i]);
 			}
 		}
 	}
-	
+
 	public void deleteFilesAndFolders(String[] filesId, String[] foldersId) {
 		long[] files = new long[filesId.length];
 		long[] folders = new long[foldersId.length];
-		
 		for (int i = 0; i < filesId.length; i++) {
 			try {
 				files[i] = Long.valueOf(filesId[i]);
@@ -89,30 +88,33 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				logger.error(e);
 			}
 		}
-		
-		for (int i = 0; i < filesId.length; i++) {
-			try {
-				folders[i] = Long.valueOf(foldersId[i]);
-			} catch (NumberFormatException e) {
-				logger.error(e);
+
+		if (foldersId.length == 1 && foldersId[0].equals("")) {
+			folders = null;
+		} else
+			for (int i = 0; i < foldersId.length; i++) {
+				try {
+					folders[i] = Long.valueOf(foldersId[i]);
+				} catch (NumberFormatException e) {
+					logger.error(e);
+				}
 			}
-		}
-		
+
 		deleteFilesAndFolders(files, folders);
 	}
-	
+
 	public void deleteFilesAndFolders(UserFile[] files, Folder[] folders) {
 		long[] filesId = new long[files.length];
 		long[] foldersId = new long[folders.length];
-		
+
 		for (int i = 0; i < files.length; i++) {
 			filesId[i] = files[i].getId();
 		}
-		
+
 		for (int i = 0; i < folders.length; i++) {
 			foldersId[i] = folders[i].getId();
 		}
-		
+
 		deleteFilesAndFolders(filesId, foldersId);
 	}
 
@@ -189,7 +191,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public User changeUserLogin(String email, String login) {
-		User user = getUserByEmail(email);
+		User user = get(email);
 
 		if (user != null) {
 			Validator.USER_LOGIN.validate("asd");
@@ -242,7 +244,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 		if (Validator.USER_EMAIL.validate(oldEmail)
 				&& Validator.USER_EMAIL.validate(newEmail)) {
-			user = getUserByEmail(oldEmail);
+			user = get(oldEmail);
 			StringBuilder msg = new StringBuilder();
 			String head = "Activation";
 			String token = createToken(user);
@@ -284,7 +286,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				&& Validator.USER_EMAIL.validate(oldEmail)
 				&& Validator.USER_EMAIL.validate(newEmail)) {
 
-			User user = getUserByEmail(oldEmail);
+			User user = get(oldEmail);
 			Token tokenObj = tokenDAO.get(token);
 
 			if (tokenObj != null && tokenObj.getAvailable()
@@ -302,16 +304,19 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 		return res;
 	}
-	
+
 	public void deactivateOverdue() {
 		UserServiceImpl userService = new UserServiceImpl();
 		PaymentServiceImpl paymentService = new PaymentServiceImpl();
-		
+
 		List<Payment> payments = paymentService.getAvailableEndedPayments();
 		for (int i = 0; i < payments.size(); i++) {
 			User tempUser = userService.get(payments.get(i).getUser());
-			List<Payment> tempPayments = paymentService.getAvailableUserPays(tempUser.getId());
-			if (tempPayments != null && tempPayments.get(0).getDateEnd().before(TimeStampManager.getCurrentTime())) {
+			List<Payment> tempPayments = paymentService
+					.getAvailableUserPays(tempUser.getId());
+			if (tempPayments != null
+					&& tempPayments.get(0).getDateEnd()
+							.before(TimeStampManager.getCurrentTime())) {
 				tempUser.setIsBanned(true);
 				payments.get(i).setAvailable(false);
 				userService.update(tempUser);
@@ -319,26 +324,30 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 			}
 		}
 	}
-	
+
 	public void setUsersForFree() {
 		UserDAOImpl userDAO = new UserDAOImpl();
 		PaymentServiceImpl paymentService = new PaymentServiceImpl();
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		FolderServiceImpl folderService = new FolderServiceImpl();
-		
+
 		List<User> users = userDAO.getBannedUsers();
-		
+
 		for (int i = 0; i < users.size(); i++) {
-			Payment payment = paymentService.getLastUserPayment(users.get(i).getId());
-			if (payment != null && TimeStampManager.addNumberOfMonth(payment.getDateEnd(), 1).before(TimeStampManager.getCurrentTime())) {
-				List<UserFile> files = fileService.getByUserId(users.get(i).getId());
-				List<Folder> folders = folderService.getAll(users.get(i).getId());
-				
+			Payment payment = paymentService.getLastUserPayment(users.get(i)
+					.getId());
+			if (payment != null
+					&& TimeStampManager.addNumberOfMonth(payment.getDateEnd(),
+							1).before(TimeStampManager.getCurrentTime())) {
+				List<UserFile> files = fileService.getByUserId(users.get(i)
+						.getId());
+				List<Folder> folders = folderService.getAll(users.get(i)
+						.getId());
+
 				deleteFilesAndFolders(
-					files.toArray(new UserFile[files.size()]),
-					folders.toArray(new Folder[folders.size()])
-				);
-				
+						files.toArray(new UserFile[files.size()]),
+						folders.toArray(new Folder[folders.size()]));
+
 				users.get(i).setIdTariff(0);
 				users.get(i).setIsBanned(false);
 				update(users.get(i));
@@ -348,5 +357,23 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 	public boolean isBanned(long userId) {
 		return userDaoImpl.get(userId).getIsBanned();
+	}
+
+	public void moveFilesAndFolders(String[] moveAble, long idTarget, long userId) {
+		for (String move : moveAble) {
+			String type = move.split("-")[0];
+			long id = Long.parseLong(move.split("-")[1]);
+			if (type.equals("file")) {
+				UserFileServiceImpl fileService = new UserFileServiceImpl();
+				if (fileService.isUsersFile(id, userId)) {
+					fileService.moveFile(id, idTarget);
+				}
+			} else if (type.equals("folder")) {
+				FolderServiceImpl folderService = new FolderServiceImpl();
+				if (folderService.isUsersFolder(id, userId)) {
+					folderService.movefolder(id, idTarget);
+				}
+			}
+		}
 	}
 }

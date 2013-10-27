@@ -268,4 +268,14 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		String extention = file.getNameIncome().substring(lastPointIndex);
 		return extention;
 	}
+
+	public boolean isUsersFile(long id, long userId) {
+		FileDAOImpl dao = new FileDAOImpl();
+		UserFile file = dao.get(id);
+		if (file.getIdUser() == userId) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

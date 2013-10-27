@@ -54,16 +54,18 @@ public class RegistrationService {
 
 		if (result == null) {
 			if (checkEmail(email) == null) {
+
 				if (checkLogin(login) == null) {
 					MD5Encrypter md5 = new MD5Encrypter();
 					UserServiceImpl userService = new UserServiceImpl();
 					userService.addUser(login, email, md5.encrypt(password));
-					User user = userService.getUserByEmail(email);
+					User user = userService.get(email);
 					createRootFolder(user);
 					sendActivations(user);
 				} else {
 					result = "User with this login is alredy registered";
 				}
+
 			} else {
 				result = "User with this email is alredy registered";
 			}

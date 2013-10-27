@@ -60,4 +60,28 @@ public class SessionStatisticsDAOImpl implements SessionStatisticsDAO {
 		return 0;
 	}
 
+	@Override
+	public List<SessionStatistics> getAllDownloadStatistic() {
+		String sql = "SELECT COALESCE(sum(size),0) as count, timestamp(selected_date) as day FROM traffic_history " +
+    "right join (select * from (select adddate('2013-01-01',t4*1000 + t3*100 + t2*10 + t1*1) selected_date " +
+    "from (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1, " + 
+    "(select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2, " +
+    "(select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3, " +
+    "(select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v) as dates on selected_date=date(date) " +
+    "where selected_date between '2013-09-01' and  CURRENT_DATE() group by selected_date";
+		return queryExecutor.executeQuery(SessionStatistics.class, sql);
+	}
+
+	@Override
+	public List<SessionStatistics> getAllDownloadStatisticByUserId(long id) {
+		String sql = "SELECT COALESCE(sum(size),0) as trafficsum, timestamp(selected_date) as day FROM traffic_history" +
+			    "right join (select * from (select adddate('2013-01-01',t4*1000 + t3*100 + t2*10 + t1*1) selected_date" +
+			    "from (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1," +
+			    "(select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2," +
+			    "(select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3," +
+			    "(select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v) as dates on selected_date=date(date)" +
+			    "where selected_date between '2013-09-01' and  CURRENT_DATE() AND (id is null or user_id=?) group by selected_date";
+		return queryExecutor.executeQuery(SessionStatistics.class, sql, id);
+	}
+
 }

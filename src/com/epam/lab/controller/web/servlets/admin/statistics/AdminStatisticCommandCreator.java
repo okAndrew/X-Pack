@@ -19,6 +19,7 @@ public class AdminStatisticCommandCreator {
 	private AdminStatisticCommandCreator() {
 		commands.put("users", new AdminStatisticUsersCommand());
 		commands.put("files", new AdminStatisticFilesCommand());
+		commands.put("server", new AdminStatisticServerCommand());
 	}
 
 	public AdminStatisticPageCommand parseCommand(HttpServletRequest request) {

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -269,6 +270,16 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return extention;
 	}
 
+
+	@Override
+	public long getDownloadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
+		FileDAOImpl fileDaoImpl = new FileDAOImpl();
+		UserFile file = new UserFile();
+		file = fileDaoImpl.getSizeUploadByDates(dataStart, dataEnd);
+		return file.getSize();
+	}
+
+
 	public boolean isUsersFile(long id, long userId) {
 		FileDAOImpl dao = new FileDAOImpl();
 		UserFile file = dao.get(id);
@@ -279,3 +290,4 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		}
 	}
 }
+

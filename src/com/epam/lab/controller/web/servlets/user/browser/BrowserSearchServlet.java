@@ -21,7 +21,7 @@ public class BrowserSearchServlet extends HttpServlet {
 	private static final String SEARCH_JSP = "WEB-INF/jsp/user/search.jsp";
 	private static final String USER_PAGE = "userpage";
 
-	protected void doPost(HttpServletRequest request,
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("userid");

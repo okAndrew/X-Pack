@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.dao.sessionhistory.SessionHistoryDAOImpl;
 import com.epam.lab.controller.dao.sessionstatistics.SessionStatisticsDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
+import com.epam.lab.model.SessionHistory;
 import com.epam.lab.model.SessionStatistics;
 
 public class SessionStatisticsServiceImpl extends
@@ -40,6 +42,7 @@ public class SessionStatisticsServiceImpl extends
 	}
 
 	@Override
+
 	public List<SessionStatistics> getAllDownloadStatistic() {
 		SessionStatisticsDAOImpl statisticsDaoImpl = new SessionStatisticsDAOImpl();
 		return statisticsDaoImpl.getAllDownloadStatistic();
@@ -49,5 +52,13 @@ public class SessionStatisticsServiceImpl extends
 	public List<SessionStatistics> getAllDownloadStatisticByUserId(long id) {
 		SessionStatisticsDAOImpl statisticsDaoImpl = new SessionStatisticsDAOImpl();
 		return statisticsDaoImpl.getAllDownloadStatisticByUserId(id);
+	}
+
+	public List<SessionStatistics> getAllByUserId(long userid) {
+		SessionStatisticsDAOImpl sessStatistics = new SessionStatisticsDAOImpl();
+		List<SessionStatistics> sessionStatisticsList = sessStatistics
+				.getAllByUserId(userid);
+		return sessionStatisticsList;
+
 	}
 }

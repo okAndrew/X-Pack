@@ -7,7 +7,12 @@ import com.epam.lab.model.SessionStatistics;
 
 public interface SessionStatisticsService extends AbstractService<SessionStatistics> {
 
+
 	List<SessionStatistics> getAllDownloadStatistic();
 	
 	List<SessionStatistics> getAllDownloadStatisticByUserId(long id);
+
+	List<SessionStatistics> getAllByUserId(long userid);
+
+
 }

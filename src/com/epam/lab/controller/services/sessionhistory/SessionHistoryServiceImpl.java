@@ -61,5 +61,17 @@ public class SessionHistoryServiceImpl extends
 		List<SessionHistory> sessionhistory = sessdaoimpl.getAllVisitorsByDate(startDate, endtDate);
 		return sessionhistory;
 	}
+	
+	public long getVisitsPerDayByUserId(long userId){
+		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
+		List<SessionHistory> sessionhistory = sessdaoimpl.getVisitsPerDayByUserId(userId);
+		return sessionhistory.size();
+		
+	}
+	public Timestamp getAvarageTimeSessionByUserId(long userId){
+		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
+		Timestamp avarageTime = sessdaoimpl.getAvarageTimeSessionByUserId(userId);
+		return avarageTime;
+	}
 
 }

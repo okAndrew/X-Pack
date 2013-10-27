@@ -8,6 +8,9 @@ import com.epam.lab.model.SessionStatistics;
 public interface SessionStatisticsDAO extends GenericDAO<SessionStatistics> {
 
 	List<SessionStatistics> getAllDownloadStatistic();
-	
+
 	List<SessionStatistics> getAllDownloadStatisticByUserId(long id);
+
+	List<SessionStatistics> getAllByUserId(long userid);
+
 }

@@ -91,4 +91,22 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 		return resultList;
 	}
 
+	@Override
+	public List<SessionHistory> getVisitsPerDayByUserId(long userId) {
+		String sql = "SELECT * FROM session_history WHERE user_id IS NOT NULL AND startdate BETWEEN ? AND ? ";
+		List<SessionHistory> resultList = queryExecutor.executeQuery(
+				SessionHistory.class, sql, userId);
+		return resultList;
+
+	}
+
+	@Override
+	public Timestamp getAvarageTimeSessionByUserId(long userId) {
+		String sql = "SELECT * FROM session_history WHERE user_id IS NOT NULL AND startdate BETWEEN ? AND ? ";
+		List<SessionHistory> resultList = queryExecutor.executeQuery(
+				SessionHistory.class, sql, userId);
+		return null;
+
+	}
+
 }

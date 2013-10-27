@@ -213,4 +213,14 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		int result = folderDao.deleteByUserId(userId);
 		return result;
 	}
+
+	public boolean isUsersFolder(long id, long userId) {
+		FolderDAOImpl dao = new FolderDAOImpl();
+		Folder folder = dao.get(id);
+		if (folder.getIdUser() == userId) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

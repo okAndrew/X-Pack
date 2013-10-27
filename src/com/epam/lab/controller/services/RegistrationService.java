@@ -47,7 +47,7 @@ public class RegistrationService {
 				MD5Encrypter md5 = new MD5Encrypter();
 				UserServiceImpl userService = new UserServiceImpl();
 				userService.addUser(login, email, md5.encrypt(password));
-				User user = userService.getUserByEmail(email);
+				User user = userService.get(email);
 				createRootFolder(user);
 				sendActivations(user);
 			} else {

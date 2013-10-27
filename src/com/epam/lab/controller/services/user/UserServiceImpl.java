@@ -47,7 +47,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		insert(user);
 	}
 
-	public User getUser(String email, String password) {
+	public User get(String email, String password) {
 		User user = null;
 		user = new UserDAOImpl().getByEmail(email);
 		if (user != null && user.getPassword().equals(password)) {
@@ -57,7 +57,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		}
 	}
 
-	public User getUserByEmail(String email) {
+	public User get(String email) {
 		return new UserDAOImpl().getByEmail(email);
 	}
 
@@ -191,7 +191,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public User changeUserLogin(String email, String login) {
-		User user = getUserByEmail(email);
+		User user = get(email);
 
 		if (user != null) {
 			Validator.USER_LOGIN.validate("asd");
@@ -244,7 +244,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 		if (Validator.USER_EMAIL.validate(oldEmail)
 				&& Validator.USER_EMAIL.validate(newEmail)) {
-			user = getUserByEmail(oldEmail);
+			user = get(oldEmail);
 			StringBuilder msg = new StringBuilder();
 			String head = "Activation";
 			String token = createToken(user);
@@ -286,7 +286,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				&& Validator.USER_EMAIL.validate(oldEmail)
 				&& Validator.USER_EMAIL.validate(newEmail)) {
 
-			User user = getUserByEmail(oldEmail);
+			User user = get(oldEmail);
 			Token tokenObj = tokenDAO.get(token);
 
 			if (tokenObj != null && tokenObj.getAvailable()

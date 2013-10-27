@@ -10,8 +10,7 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/team.css" rel="stylesheet" />
-<link href='http://fonts.googleapis.com/css?family=Lobster'
-	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>

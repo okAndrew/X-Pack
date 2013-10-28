@@ -19,7 +19,7 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div id="settingsErrorDiv" class="alert alert-danger"
-					style="display: none;">
+					style="display:none;">
 					<c:if test="${message != null}">
 						${message}
 					</c:if>
@@ -63,7 +63,7 @@
 					</div>
 				</form>
 				<c:if test="${editEmailError != null}">
-					<div class="alert alert-danger">
+					<div class="alert alert-danger" >
 						<p>${editEmailError}</p>
 					</div>
 				</c:if>

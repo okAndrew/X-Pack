@@ -53,7 +53,7 @@
 			<input id="emailInput" type="text" name="email"	class="form-control first" placeholder="Email" autofocus="autofocus">
 			<input id="passInput" type="password" name="password" class="form-control last" placeholder="Password">
 			<button class="btn btn-lg btn-primary btn-block" type="submit"> <fmt:message key="signin" bundle="${lang}" /> </button>
-			<a href="">Restore password</a>
+			<a href="SendRestorePass">Restore password</a>
 		</form>
 	</div>
 </body>

@@ -44,9 +44,8 @@
 			<c:if test="${message != null}">
 				<div class="errorinfo">${message}</div>
 			</c:if>
-			<input id="emailInput" type="text" name="email"	class="form-control first" placeholder="Email" autofocus="autofocus">
-			<button class="btn btn-lg btn-primary btn-block" type="submit"> <fmt:message key="signin" bundle="${lang}" /> </button>
-			<a href="">Restore password</a>
+			<input id="emailInput" type="text" name="email"	class="form-control first last" placeholder="Email" autofocus="autofocus">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
 		</form>
 	</div>
 </body>

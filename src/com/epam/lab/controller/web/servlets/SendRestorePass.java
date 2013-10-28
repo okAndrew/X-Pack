@@ -39,5 +39,8 @@ public class SendRestorePass extends HttpServlet {
 		requestDispatcher.forward(request, response);
 	}
 		
-	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher(RESTORE_JSP);
+		requestDispatcher.forward(request, response);
+	}
 }

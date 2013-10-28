@@ -21,12 +21,11 @@ public class SendRestorePassMail {
 			TokenDAOImpl tokenDAO = new TokenDAOImpl();
 			Timestamp curTime = TimeStampManager.getCurrentTime();
 			String tokenStr = new MD5Encrypter().encrypt(user.getEmail() + curTime);
-			String mail = "" + tokenStr;
+			String mail = "http://localhost:8080/dreamhost/RestorePassword?token=" + tokenStr;
 			
 			Token token = new Token();
 			token.setDate(curTime);
 			token.setIdUser(user.getId());
-			token.setAvailable(true);
 			token.setToken(tokenStr);
 			tokenDAO.insert(token);
 			

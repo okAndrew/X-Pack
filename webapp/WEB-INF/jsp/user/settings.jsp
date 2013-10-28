@@ -14,8 +14,14 @@
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/settings.js"></script>
+<script src="res/js/utils.js"></script>
 </head>
 <body onload="test();">
+	<script type="text/javascript">
+		for (var i = 0; i < 100; i += 1024) {
+			bytesToSize(i * 1024);
+		}
+	</script>
 	<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 	<jsp:include page="settings/modalemail.jsp"></jsp:include>
 	<jsp:include page="settings/modalpassword.jsp"></jsp:include>

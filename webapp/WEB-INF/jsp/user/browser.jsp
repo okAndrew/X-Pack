@@ -97,13 +97,18 @@
 								class="glyphicon glyphicon-play"></span>
 							</a>
 						</div>
-					</c:if>
-					<c:if test='${ file.type.equals("VIDEO") }'>
+					</c:if> <c:if test='${ file.type.equals("VIDEO") }'>
 						<div class="btn-group">
 							<a data-toggle="modal" role="button" href="#VideoModal"
 								onclick="setVideoSrc(${file.id})"> <span
 								class="glyphicon glyphicon-play"></span>
 							</a>
+						</div>
+					</c:if> <c:if test='${ file.type.equals("AUDIO") }'>
+						<div class="btn-group">
+							<audio controls>
+								<source src="download?fileid=${file.id}" type="audio/mpeg">
+							</audio>
 						</div>
 					</c:if>
 				</td>

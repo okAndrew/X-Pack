@@ -25,7 +25,7 @@
 	function loadBrowserContent() {
 		$.ajax({
 			type : "GET",
-			url : 'BrowserContent',
+			url : 'adminBrowserContent',
 			success : function(data) {
 				$("#browser").html(data);
 			},
@@ -38,7 +38,7 @@
 	function searchFiles() {
 		$.ajax({
 			type : "GET",
-			url : 'search?searchtext=' + $("#searchinput").val(),
+			url : 'adminsearch?searchtext=' + $("#searchinput").val(),
 			success : function(data) {
 				$("#browser").html(data);
 			},
@@ -53,24 +53,19 @@
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
-	<jsp:include page="../../../user/myspace/modelcreatefolder.jsp"></jsp:include>
-	<jsp:include page="../../../user/myspace/modeledit.jsp"></jsp:include>
-	<jsp:include page="../../../user/myspace/modeldelete.jsp"></jsp:include>
-	<jsp:include page="../../../user/myspace/modelmove.jsp"></jsp:include>
-	<jsp:include page="../../../user/myspace/modelimage.jsp"></jsp:include>
-	<jsp:include page="../../../user/myspace/modelvideo.jsp"></jsp:include>
+	<jsp:include page="myspaceAdminUser/modeldelete.jsp"></jsp:include>
+	<jsp:include page="myspaceAdminUser/modelimage.jsp"></jsp:include>
+	<jsp:include page="myspaceAdminUser/modelvideo.jsp"></jsp:include>
 	
 	
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
-				<form action="usercontroller" method="post">
+				<form action="adminUsercontroller" method="post">
 					<nav class="navbar navbar-default controlmenu" role="navigation">
 						<div class="collapse navbar-collapse controlmenu">
 							<div class="btn-group">
-								<a href="#createFolderModal" data-toggle="modal" role="button"
-									class="btn btn-default"><fmt:message key="Create_folder"
-										bundle="${lang}" /></a>
+								
 								<button type="submit" name="download" class="btn btn-default"
 									disabled="disabled" id="download">
 									<fmt:message key="Download" bundle="${lang}" />
@@ -98,7 +93,7 @@
 						</div>
 					</nav>
 					<div id="browser">
-						<jsp:include page="../../../user/browser.jsp"></jsp:include>
+						<jsp:include page="myspaceAdminUser/adminbrowser.jsp"></jsp:include>
 					</div>
 				</form>
 			</div>

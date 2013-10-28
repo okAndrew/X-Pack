@@ -7,24 +7,49 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DreamHost(Administrator) | TrafficUser</title>
+<title>DreamHost(Administrator) | Users</title>
 
-<script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+	type="text/javascript"></script>
+<script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
 
-<link href="res/css/bootstrap.css" rel="stylesheet" />
-<link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/signui.css" rel="stylesheet" />
-<link href="res/css/jquery.jqplot.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 
 <style type="text/css">
-.Container {
-	padding-top: 70px;
-	max-width: 1200px;
-	margin: auto;
+div.alert {
+	width: auto;
+	margin-top: 15px;
 }
-</style>
-<style type="text/css">
+
+form {
+	
+}
+
+span.glyphicon.glyphicon-sort {
+	font-size: 8pt;
+	text-align: center;
+}
+
+table thead tr th {
+	cursor: pointer;
+}
+
+.blue {
+	color: #428BCA;
+}
+
+table {
+	margin-top: 20px;
+}
+
+table th,table td {
+	overflow: hidden;
+}
 .button-reset {
 	margin: 30px;
 	margin-left: 90px;
@@ -33,18 +58,11 @@
 
 
 </head>
-
 <body>
-
 	<jsp:include page="../../../menu.jsp"></jsp:include>
-	<jsp:include page="adminUserHeader.jsp"></jsp:include>
-	<div class="Container">
-		<!-- Panel -->
-		<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				Traffic
-			</div>
+	
+	<div class="container">
+		<div class="panel panel-default main">
 			<div class="panel-body">
 				<div class="col-xs-6">
 					<div id="chart1" style="height: 350px; width: 550px;"></div>
@@ -189,7 +207,5 @@
 							});
 						});
 	</script>
-
-
 </body>
 </html>

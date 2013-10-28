@@ -52,7 +52,6 @@
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
-	<jsp:include page="adminUserHeader.jsp"></jsp:include>
 	<jsp:include page="myspaceAdminUser/modeldelete.jsp"></jsp:include>
 	<jsp:include page="myspaceAdminUser/modelimage.jsp"></jsp:include>
 	<jsp:include page="myspaceAdminUser/modelvideo.jsp"></jsp:include>

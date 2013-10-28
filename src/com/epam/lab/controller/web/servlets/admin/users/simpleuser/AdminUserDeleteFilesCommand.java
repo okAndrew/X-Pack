@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 
-public class AdminUserDeleteFilesCommand implements AdminUserPageCommand {
+public class AdminUserDeleteFilesCommand implements AdminSimpleUserPageCommand {
 
 	@Override
 	public String execute(HttpServletRequest request,

@@ -1,109 +1,139 @@
-<%@page import="com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="shortcut icon" href="images/favicon.png">
 
-<title>Dream Host</title>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>DreamHost(Administrator) | Users</title>
+
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
-<link href="res/css/bootstrap.css" rel="stylesheet" />
-<link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/signui.css" rel="stylesheet" />
-<link href="res/css/datepicker.css" rel="stylesheet" />
-<style>
-body {
-	padding-top: 40px;
+<script type="text/javascript" src="res/js/utils.js"></script>
+
+<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
+
+<style type="text/css">
+div.alert {
+	width: auto;
+	margin-top: 15px;
+}
+
+form {
+	
+}
+
+span.glyphicon.glyphicon-sort {
+	font-size: 8pt;
+	text-align: center;
+}
+
+table thead tr th {
+	cursor: pointer;
+}
+
+.blue {
+	color: #428BCA;
+}
+
+table {
+	margin-top: 20px;
+}
+
+table th,table td {
+	overflow: hidden;
 }
 </style>
+
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
-	<jsp:include page="adminUserHeader.jsp"></jsp:include>
-
-	<div class="payments-admin-user">
-		<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<fmt:message key="Payments" bundle="${lang}" />
-			</div>
-			<c:choose>
-				<c:when test="${listPayments.size()>0}">
-					<form action="paymentsByDate" method="post" name="paybyDate">
-						<div class="panel-body">
-							<div class="well">
-								<div class="input">
-									<div class="input-append date">
-										<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-											name="startDate" id="dpd1"
-											placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
-										<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-											name="endDate"
-											placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
-											id="dpd2">
-										<button type="submit" class="btn btn-default">
-											<fmt:message key="Show_payments_for_period" bundle="${lang}" />
-										</button>
+	<c:if test="${message != null}">
+		<script>
+			$('#myModal').modal('show')
+		</script>
+	</c:if>
+	<div class="container">
+		<div class="panel panel-default main">
+			<div class="panel-body">
+				<c:choose>
+					<c:when test="${listPayments.size()>0}">
+						<form action="paymentsByDate" method="post" name="paybyDate">
+							<div class="panel-body">
+								<div>
+									<div class="input">
+										<div class="input-append date">
+											<input data-date-format="yyyy-mm-dd" type="text"
+												class="span2" name="startDate" id="dpd1"
+												placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
+											<input data-date-format="yyyy-mm-dd" type="text"
+												class="span2" name="endDate"
+												placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
+												id="dpd2">
+											<button type="submit" class="btn btn-default">
+												<fmt:message key="Show_payments_for_period" bundle="${lang}" />
+											</button>
+										</div>
 									</div>
 								</div>
+								<c:if test="${notFullList}">
+									<div class="well">
+									
+										<a href="adminUserPayments"><fmt:message
+												key="Back_to_all_payments" bundle="${lang}" /></a>
+									</div>
+								</c:if>
+								<c:if test="${message != null}">
+									<div class="alert alert-danger">${message}</div>
+								</c:if>
+								<c:if test="${messagePeriod != null}">
+									<div>${messagePeriod}</div>
+								</c:if>
 							</div>
-							<c:if test="${notFullList}">
-								<div class="well">
-									<a href="adminUserPayments"><fmt:message key="Back_to_all_payments"
-											bundle="${lang}" /></a>
-								</div>
-							</c:if>
-							<c:if test="${message != null}">
-								<div class="alert alert-danger">${message}</div>
-							</c:if>
-							<c:if test="${messagePeriod != null}">
-								<div>${messagePeriod}</div>
-							</c:if>
-						</div>
-						<c:set var="headerRef" value="${header}" />
+							<c:set var="headerRef" value="${header}" />
 
-						<table class="table table-condensed">
-							<thead>
-								<tr>
-									<th><fmt:message key="Payment_id" bundle="${lang}" /></th>
-									<th><fmt:message key="Tariff" bundle="${lang}" /></th>
-									<th><fmt:message key="DateCreated" bundle="${lang}" /></th>
-									<th><fmt:message key="DateEnd" bundle="${lang}" /></th>
-									<th><fmt:message key="Price" bundle="${lang}" /></th>
-									<th><fmt:message key="Status" bundle="${lang}" /></th>
-									<th><fmt:message key="Avaliable" bundle="${lang}" /></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${listPayments}" var="payment">
+							<table class="table table-condensed">
+								<thead>
 									<tr>
-										<td>${payment.id}</td>
-										<td>${payment.tariff}</td>
-										<td><fmt:formatDate value="${payment.dateCreated}" /></td>
-										<td><fmt:formatDate value="${payment.dateEnd}" /></td>
-										<td>${payment.price}</td>
-										<td>${payment.status}</td>
-										<td>${payment.available}</td>
+										<th><fmt:message key="Payment_id" bundle="${lang}" /></th>
+										<th><fmt:message key="Tariff" bundle="${lang}" /></th>
+										<th><fmt:message key="DateCreated" bundle="${lang}" /></th>
+										<th><fmt:message key="DateEnd" bundle="${lang}" /></th>
+										<th><fmt:message key="Price" bundle="${lang}" /></th>
+										<th><fmt:message key="Status" bundle="${lang}" /></th>
+										<th><fmt:message key="Avaliable" bundle="${lang}" /></th>
 									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</form>
-				</c:when>
-				<c:otherwise>
-					<div class="well">
-						<fmt:message key="There_is_no_payments_yet" bundle="${lang}" />
-					</div>
-				</c:otherwise>
-			</c:choose>
+								</thead>
+								<tbody>
+									<c:forEach items="${listPayments}" var="payment">
+										<tr>
+											<td>${payment.id}</td>
+											<td>${payment.tariff}</td>
+											<td><fmt:formatDate value="${payment.dateCreated}" /></td>
+											<td><fmt:formatDate value="${payment.dateEnd}" /></td>
+											<td>${payment.price}</td>
+											<td>${payment.status}</td>
+											<td>${payment.available}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</form>
+					</c:when>
+					<c:otherwise>
+						<div class="well">
+							<fmt:message key="There_is_no_payments_yet" bundle="${lang}" />
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>
@@ -138,5 +168,7 @@ body {
 			checkout.hide();
 		}).data('datepicker');
 	</script>
+
+
 </body>
 </html>

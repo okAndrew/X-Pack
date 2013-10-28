@@ -18,22 +18,22 @@ public class AdminUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-			doPost(request, response);
+		doPost(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		long userId = 0;
 		HttpSession session = request.getSession(false);
-
-		long userId = Long.parseLong(request.getParameter("userid"));
-		session.setAttribute("adminUserid", userId);
-
+		if (session.getAttribute("adminUserid") != null) {
+			userId = (long) session.getAttribute("adminUserid");
+		} else {
+			userId = Long.parseLong(request.getParameter("userid"));
+			session.setAttribute("adminUserid", userId);
+		}
 		UserServiceImpl userService = new UserServiceImpl();
 		User user = userService.get(userId);
-
 		request.setAttribute("user", user);
-
 		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);
 	}
 

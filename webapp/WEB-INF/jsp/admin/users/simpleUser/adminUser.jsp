@@ -81,30 +81,10 @@ table th,table td {
 		</script>
 	</c:if>
 	<div class="container">
+			<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<form action="adminSimpleEmployeeController">
-					<div class="btn-group">
-						<button type="submit" class="btn btn-default" name="action"
-							value="adminUserInfo">
-							<fmt:message key="Info" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="adminUserFiles">Files</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="adminUserPayments">
-							<fmt:message key="Payments" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="adminUserActivity">
-							<fmt:message key="Activity" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="adminUserTraffic">
-							<fmt:message key="Traffic" bundle="${lang}" />
-						</button>
-					</div>
-
 					<table class="table zebra-striped table-hover table-condensed"
 						id="tablesorter">
 						<tbody class="avoid-sort">

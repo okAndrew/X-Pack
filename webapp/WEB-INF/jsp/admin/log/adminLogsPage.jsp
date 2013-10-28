@@ -73,7 +73,7 @@
 </script>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/signui.css" rel="stylesheet" />
+<script type="text/javascript" src="res/js/utils.js"></script>
 <link rel="stylesheet" href="res/css/styleTable.css" type="text/css" />
 
 <style type="text/css">

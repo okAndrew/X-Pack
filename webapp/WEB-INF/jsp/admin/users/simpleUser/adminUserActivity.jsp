@@ -50,6 +50,7 @@ table {
 table th,table td {
 	overflow: hidden;
 }
+
 .button-reset {
 	margin: 30px;
 	margin-left: 90px;
@@ -57,7 +58,7 @@ table th,table td {
 </style>
 <style type="text/css">
 .Statisticstable {
-margin-top: 120px;
+	margin-top: 120px;
 	float: right;
 	height: 350px;
 	width: 350px;
@@ -75,8 +76,8 @@ margin-top: 120px;
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
-	
 	<div class="container">
+		<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<div class="row-fluid">
@@ -91,7 +92,7 @@ margin-top: 120px;
 									<tr>
 										<td><fmt:message key="Average_time_of_sessions"
 												bundle="${lang}" /></td>
-										<td>${avarageSession}</td>
+										<td>${avarageSession}n/a</td>
 									</tr>
 									<tr>
 										<td><fmt:message key="Average_number_visits_per_day"

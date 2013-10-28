@@ -50,6 +50,7 @@ table {
 table th,table td {
 	overflow: hidden;
 }
+
 .button-reset {
 	margin: 30px;
 	margin-left: 90px;
@@ -60,8 +61,8 @@ table th,table td {
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
-	
 	<div class="container">
+		<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<div class="col-xs-6">
@@ -93,7 +94,7 @@ table th,table td {
 							<tr>
 								<td>Upload last week</td>
 								<td><script>document.write(bytesToSize(${uploadUserLastWeek}));</script></td>
-								
+
 							</tr>
 							<tr>
 								<td>Download last day</td>

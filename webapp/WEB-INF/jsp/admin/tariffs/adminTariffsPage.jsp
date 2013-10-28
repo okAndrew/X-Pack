@@ -19,8 +19,7 @@
 
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/signui.css" rel="stylesheet" />
-
+<script type="text/javascript" src="res/js/utils.js"></script>
 <style type="text/css">
 .Container {
 	padding-top: 70px;

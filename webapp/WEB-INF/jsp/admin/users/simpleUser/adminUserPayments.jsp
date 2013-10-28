@@ -55,12 +55,14 @@ table th,table td {
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
+
 	<c:if test="${message != null}">
 		<script>
 			$('#myModal').modal('show')
 		</script>
 	</c:if>
 	<div class="container">
+		<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<c:choose>
@@ -85,7 +87,7 @@ table th,table td {
 								</div>
 								<c:if test="${notFullList}">
 									<div class="well">
-									
+
 										<a href="adminUserPayments"><fmt:message
 												key="Back_to_all_payments" bundle="${lang}" /></a>
 									</div>

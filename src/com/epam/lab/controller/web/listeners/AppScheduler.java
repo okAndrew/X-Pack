@@ -1,0 +1,63 @@
+package com.epam.lab.controller.web.listeners;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
+
+import org.apache.log4j.Logger;
+
+import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
+
+@WebListener()
+public class AppScheduler implements ServletContextListener {
+
+	private ScheduledExecutorService scheduler;
+	static Logger logger = Logger.getLogger(AppScheduler.class);
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		System.out.println("ServletContextListener destroyed");
+
+	}
+
+	@Override
+	public void contextInitialized(ServletContextEvent arg0) {
+		System.out.println("ServletContextListener started");
+		scheduler = Executors.newSingleThreadScheduledExecutor();
+		scheduler.scheduleWithFixedDelay(new setUsersForFree(), 0, 5,
+				TimeUnit.SECONDS);
+		scheduler.scheduleWithFixedDelay(new deactivateOverdues(), 0, 5,
+				TimeUnit.SECONDS);
+		scheduler.scheduleWithFixedDelay(new deleteNoActiveTokens4Auth(), 0,
+				60, TimeUnit.MINUTES);
+	}
+
+	private class setUsersForFree implements Runnable {
+		public void run() {
+			logger.debug("setUsersForFree");
+			new UserServiceImpl().setUsersForFree();
+		}
+	}
+
+	private class deactivateOverdues implements Runnable {
+		public void run() {
+			logger.debug("deactivateOverdues");
+			new UserServiceImpl().deactivateOverdue();
+		}
+	}
+
+	private class deleteNoActiveTokens4Auth implements Runnable {
+		public void run() {
+			int numDeletedTokens = new Token4AuthServiceImpl()
+					.deleteNotActiveTokens();
+			logger.debug("Deleted no active tokens for authentication: "
+					+ numDeletedTokens);
+
+		}
+	}
+}

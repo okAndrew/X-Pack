@@ -79,19 +79,20 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public void deleteFilesAndFolders(String[] filesId, String[] foldersId) {
-		long[] files = new long[filesId.length];
-		long[] folders = new long[foldersId.length];
-		for (int i = 0; i < filesId.length; i++) {
-			try {
-				files[i] = Long.valueOf(filesId[i]);
-			} catch (NumberFormatException e) {
-				logger.error(e);
+		long[] files = null;
+		long[] folders = null;
+		if(filesId !=null){
+			files = new long[filesId.length];
+			for (int i = 0; i < filesId.length; i++) {
+				try {
+					files[i] = Long.valueOf(filesId[i]);
+				} catch (NumberFormatException e) {
+					logger.error(e);
+				}
 			}
 		}
-
-		if (foldersId.length == 1 && foldersId[0].equals("")) {
-			folders = null;
-		} else
+		if(foldersId !=null && !foldersId[0].equals("")){
+			folders = new long[foldersId.length];
 			for (int i = 0; i < foldersId.length; i++) {
 				try {
 					folders[i] = Long.valueOf(foldersId[i]);
@@ -99,7 +100,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 					logger.error(e);
 				}
 			}
-
+		}
 		deleteFilesAndFolders(files, folders);
 	}
 

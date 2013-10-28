@@ -56,7 +56,9 @@
 	<jsp:include page="myspace/modeledit.jsp"></jsp:include>
 	<jsp:include page="myspace/modeldelete.jsp"></jsp:include>
 	<jsp:include page="myspace/modelmove.jsp"></jsp:include>
-
+	<jsp:include page="myspace/modelimage.jsp"></jsp:include>
+	<jsp:include page="myspace/modelvideo.jsp"></jsp:include>
+	
 	<c:choose>
 		<c:when test="${isbanned }">
 			<div class="alert alert-danger">

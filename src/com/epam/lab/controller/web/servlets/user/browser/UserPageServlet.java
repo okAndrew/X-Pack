@@ -33,6 +33,7 @@ public class UserPageServlet extends HttpServlet {
 		long userId = (long) session.getAttribute("userid");
 		boolean isBanned = userService.isBanned(userId);
 		request.setAttribute("isbanned", isBanned);
+		request.setAttribute("parent", "userpage");
 		request.getRequestDispatcher("BrowserContent").include(request,
 				response);
 		request.getRequestDispatcher(USER_JSP).forward(request, response);

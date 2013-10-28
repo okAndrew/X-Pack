@@ -90,7 +90,14 @@
 							onclick="set('fileidmove', ${file.id})"> <span
 							class="glyphicon glyphicon-move"></span>
 						</a>
-					</div>
+					</div> <c:if test='${ file.type.equals("IMAGE") }'>
+						<div class="btn-group">
+							<a data-toggle="modal" role="button" href="#ImageModal"
+								onclick="setSRC(${file.id})"> <span
+								class="glyphicon glyphicon-play"></span>
+							</a>
+						</div>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
@@ -188,7 +195,7 @@ function move(moveable, idtargetFolder) {
 		document.getElementById('move').setAttribute('disabled', 'disabled');
 	}
 
-	function getCheckboxes(source) {
-
+	function setSRC(id) {
+		document.getElementById("img").src = "download?fileid=" + id;
 	}
 </script>

@@ -10,5 +10,8 @@ public interface TrafficHistoryDAO extends GenericDAO<TrafficHistory> {
 
 	TrafficHistory getDownloadTrafficByDates(Timestamp dateStart,
 			Timestamp dateEnd);
+	
+	TrafficHistory getDownloadTrafficUserByDates(Timestamp dateStart,
+			Timestamp dateEnd, long userId);
 
 }

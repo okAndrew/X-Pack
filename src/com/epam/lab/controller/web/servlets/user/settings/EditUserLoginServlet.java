@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.epam.lab.controller.services.RegistrationService;
 import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.model.User;
 
 @WebServlet("/EditUserLoginServlet")
 public class EditUserLoginServlet extends HttpServlet {
@@ -24,18 +26,30 @@ public class EditUserLoginServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher(SETTINGS_JSP);
 		String message = null;
+		HttpSession session = request.getSession(true);
 		String login = request.getParameter("login");
 		String email = request.getParameter("email");
 
-		boolean edit = new UserServiceImpl().editLogin(email, login);
-
-		if (edit) {
-			HttpSession session = request.getSession(false);
-			session.setAttribute("userLogin", login);
+		UserServiceImpl userservice = new UserServiceImpl();
+		RegistrationService registrationService = new RegistrationService();
+		User userIndb = registrationService.checkLogin(login);
+		boolean userHasLogin = userservice.ckeckLoginById(login,
+				(long) session.getAttribute("userid"));
+		if (userHasLogin) {
+			if (userIndb == null) {
+				boolean edit = new UserServiceImpl().editLogin(email, login);
+				if (edit) {
+					session.setAttribute("userLogin", login);
+				} else {
+					message = "Error";
+				}
+			} else {
+				message = "You already have that login";
+			}
 		} else {
-			message = "Error";
+			message = "User with this login is already registered";
 		}
-		
+
 		request.setAttribute("editLoginError", message);
 		dispatcher.forward(request, response);
 	}

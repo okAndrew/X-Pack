@@ -23,7 +23,7 @@
 
 <style type="text/css">
 .Container {
-	padding-top: 70px;
+	padding-top: 50px;
 	max-width: 1200px;
 	margin: auto;
 }

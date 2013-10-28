@@ -98,6 +98,14 @@
 							</a>
 						</div>
 					</c:if>
+					<c:if test='${ file.type.equals("VIDEO") }'>
+						<div class="btn-group">
+							<a data-toggle="modal" role="button" href="#VideoModal"
+								onclick="setVideoSrc(${file.id})"> <span
+								class="glyphicon glyphicon-play"></span>
+							</a>
+						</div>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
@@ -197,5 +205,9 @@ function move(moveable, idtargetFolder) {
 
 	function setSRC(id) {
 		document.getElementById("img").src = "download?fileid=" + id;
+	}
+
+	function setVideoSrc(id) {
+		document.getElementById("video").src = "download?fileid=" + id;
 	}
 </script>

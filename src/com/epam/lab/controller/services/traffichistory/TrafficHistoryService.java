@@ -16,4 +16,16 @@ public interface TrafficHistoryService extends AbstractService<TrafficHistory> {
 	double getUploadTrafficByLastWeek();
 
 	double getUploadTrafficByLastDay();
+
+	double getDownloadTrafficUserByLastMounth(long userId);
+
+	double getDownloadTrafficUserByLastWeek(long userId);
+
+	double getDownloadTrafficUserByLastDay(long userId);
+
+	double getUploadTrafficUserByLastMounth(long userId);
+
+	double getUploadTrafficUserByLastWeek(long userId);
+
+	double getUploadTrafficUserByLastDay(long userId);
 }

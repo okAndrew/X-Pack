@@ -42,6 +42,18 @@ public class SessionStatisticsServiceImpl extends
 	}
 
 	@Override
+
+	public List<SessionStatistics> getAllDownloadStatistic() {
+		SessionStatisticsDAOImpl statisticsDaoImpl = new SessionStatisticsDAOImpl();
+		return statisticsDaoImpl.getAllDownloadStatistic();
+	}
+
+	@Override
+	public List<SessionStatistics> getAllDownloadStatisticByUserId(long id) {
+		SessionStatisticsDAOImpl statisticsDaoImpl = new SessionStatisticsDAOImpl();
+		return statisticsDaoImpl.getAllDownloadStatisticByUserId(id);
+	}
+
 	public List<SessionStatistics> getAllByUserId(long userid) {
 		SessionStatisticsDAOImpl sessStatistics = new SessionStatisticsDAOImpl();
 		List<SessionStatistics> sessionStatisticsList = sessStatistics

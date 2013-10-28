@@ -1,5 +1,6 @@
 package com.epam.lab.controller.services.file;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.epam.lab.controller.services.AbstractService;
@@ -10,4 +11,7 @@ public interface UserFileService extends AbstractService<UserFile> {
 	List<UserFile> getByFolderId(long folderId);
 
 	int deleteByUserId(long userId);
+
+	long getDownloadTrafficByDates(Timestamp dataStart, Timestamp dataEnd);
+
 }

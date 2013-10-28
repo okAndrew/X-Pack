@@ -1,5 +1,6 @@
 package com.epam.lab.controller.dao.file;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
@@ -86,5 +87,12 @@ public class FileDAOImpl implements FileDAO {
 		String sql = "DELETE FROM files WHERE id_user=?";
 		int result = queryExecutor.executeUpdate(sql, userId);
 		return result;
+	}
+
+	@Override
+	public UserFile getSizeUploadByDates(Timestamp dateStart, Timestamp dateEnd) {
+		String sql = "SELECT SUM(size) AS size FROM files WHERE date BETWEEN ? AND ?";
+		return queryExecutor.executeQuerySingle(UserFile.class, sql, dateStart,
+				dateEnd);
 	}
 }

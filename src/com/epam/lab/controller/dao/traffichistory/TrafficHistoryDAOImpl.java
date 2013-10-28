@@ -1,5 +1,6 @@
 package com.epam.lab.controller.dao.traffichistory;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
@@ -37,5 +38,12 @@ public class TrafficHistoryDAOImpl implements TrafficHistoryDAO {
 	public int delete(long id) {
 		String sql = "DELETE FROM traffic_history WHERE id=?";
 		return queryExecutor.executeUpdate(sql, id);
+	}
+
+	@Override
+	public TrafficHistory getDownloadTrafficByDates(Timestamp dateStart,
+			Timestamp dateEnd) {
+		String sql = "SELECT SUM(`size`) AS size FROM traffic_history WHERE date BETWEEN ? AND ?";
+		return queryExecutor.executeQuerySingle(TrafficHistory.class, sql, dateStart, dateEnd);
 	}
 }

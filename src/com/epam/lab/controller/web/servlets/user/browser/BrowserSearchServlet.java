@@ -12,30 +12,41 @@ import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.UserFile;
 
 @WebServlet("/search")
 public class BrowserSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SEARCH_JSP = "WEB-INF/jsp/user/search.jsp";
+	private static final String BROWSER_JSP = "WEB-INF/jsp/user/browser.jsp";
 	private static final String USER_PAGE = "userpage";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("userid");
-		if (request.getParameter("searchtext") != null) {
-			String text = request.getParameter("searchtext");
-			List<UserFile> files = new UserFileServiceImpl().getSearchedFiles(userId, text);
-			List<Folder> folders = new FolderServiceImpl().getSearched(
-					userId, text);
+		String searchText = request.getParameter("searchtext");
+		if (searchText != null) {
+			FolderServiceImpl folderService = new FolderServiceImpl();
+			List<UserFile> files = new UserFileServiceImpl().getSearchedFiles(
+					userId, searchText);
+			List<Folder> folders = folderService
+					.getSearched(userId, searchText);
 			request.setAttribute("files", files);
 			request.setAttribute("folders", folders);
-			request.getRequestDispatcher(SEARCH_JSP).forward(request, response);
+
+			// additional params
+			long folderId = folderService.getRoot(userId).getId();
+			session.setAttribute("folderid", folderId);
+			Folder currentFolder = folderService.get(folderId);
+			List<Folder> folderPath = folderService.getFolderPath(folderId);
+			request.setAttribute("currentFolder", currentFolder);
+			request.setAttribute("folderpath", folderPath);
+
+			request.getRequestDispatcher(BROWSER_JSP)
+					.include(request, response);
 		} else {
 			response.sendRedirect(USER_PAGE);
 		}
 	}
-
 }

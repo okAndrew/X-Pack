@@ -35,6 +35,19 @@
 			}
 		});
 	}
+	function searchFiles() {
+		$.ajax({
+			type : "GET",
+			url : 'search?searchtext=' + $("#searchinput").val(),
+			success : function(data) {
+				$("#browser").html(data);
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert('xhr.status ' + xhr.status + '   thrownError:'
+						+ thrownError);
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -80,6 +93,17 @@
 									name="search" class="btn btn-default" id="search">
 									<fmt:message key="Search" bundle="${lang}" />
 								</button>
+							</div>
+							<div class="btn-toolbar pull-right">
+								<div class="input-group" style="width: 300px;">
+									<input type="text" onkeyup="searchFiles()" class="form-control"
+										id="searchinput"> <span class="input-group-btn">
+										<button onclick="searchFiles()" type="button"
+											class="btn btn-default">
+											<fmt:message key="Search" bundle="${lang}" />
+										</button>
+									</span>
+								</div>
 							</div>
 						</div>
 					</nav>

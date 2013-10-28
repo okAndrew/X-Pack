@@ -62,6 +62,8 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		List<Folder> folders = getAll(userId);
 		List<Folder> result = new ArrayList<Folder>();
 		for (Folder folder : folders) {
+			if (folder.getIdUpper() == 0)
+				continue;
 			if (folder.getName().contains(text)) {
 				result.add(folder);
 			}

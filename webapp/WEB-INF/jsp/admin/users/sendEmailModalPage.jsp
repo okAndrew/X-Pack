@@ -24,6 +24,7 @@
 			<div class="modal-body">
 				<div class="container">
 					<!-- Static navbar -->
+					<%String[] checkUser = request.getParameterValues("checkUser");%>
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
 							<form action="employeeControllerUsers" method="post">

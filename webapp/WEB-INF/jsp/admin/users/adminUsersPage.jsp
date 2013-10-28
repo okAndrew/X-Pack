@@ -87,7 +87,7 @@ table th, table td {
 						<button type="submit" class="btn btn-default" name="action" value="restore">Restore</button>
 						<button type="submit" class="btn btn-default" name="action" value="activated"> <fmt:message key="Activate" bundle="${lang}" /> </button>
 						<button type="submit" class="btn btn-default" name="action" value="baned"> <fmt:message key="Ban" bundle="${lang}" /> </button>
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#sendEmailModal"> <fmt:message key="Send_email" bundle="${lang}" /> </button>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#sendEmailModal?checkUser=checkUser"> <fmt:message key="Send_email" bundle="${lang}" /> </button>
 					</div>
 					<div class="alert alert-warning">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>

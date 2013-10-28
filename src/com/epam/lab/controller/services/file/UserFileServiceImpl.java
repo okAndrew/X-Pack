@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -30,7 +32,20 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final Logger logger = Logger
 			.getLogger(UserFileServiceImpl.class);
 	private static long count;
-	public static final String ROOT_PATH = "C:/files/";
+
+	private static final Properties PROP = new Properties();
+	static {
+		try {
+			InputStream is = UserFileServiceImpl.class.getResourceAsStream("path.properties");
+			PROP.load(is);
+		} catch (IOException e) {
+			logger.error(e);
+			e.printStackTrace();
+		}
+	}
+
+	public static final String ROOT_PATH = PROP.getProperty("rootPath");
+
 	public static final int MAX_FILES = 999;
 
 	/*
@@ -270,7 +285,6 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return extention;
 	}
 
-
 	@Override
 	public long getDownloadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
 		FileDAOImpl fileDaoImpl = new FileDAOImpl();
@@ -278,7 +292,6 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		file = fileDaoImpl.getSizeUploadByDates(dataStart, dataEnd);
 		return file.getSize();
 	}
-
 
 	public boolean isUsersFile(long id, long userId) {
 		FileDAOImpl dao = new FileDAOImpl();
@@ -290,4 +303,3 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		}
 	}
 }
-

@@ -10,12 +10,14 @@
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
 			</div>
-			<div class="modal-body">
-			<video width="320" height="240" controls>
-	  <source src="download?fileid=184" type="video/mp4" id="video">
-	</video>
+			<div class="modal-body">			
+				<div class="flowplayer">
+					<video>
+						<source type="${videoType }" src="${videoSRC }"></source>
+					</video>
+				</div>
 			</div>
-			
+
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<fmt:message key="Close" bundle="${lang}" />

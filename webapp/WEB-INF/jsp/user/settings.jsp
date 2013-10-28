@@ -15,7 +15,7 @@
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/settings.js"></script>
 </head>
-<body onload="test();">
+<body>
 	<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 	<jsp:include page="settings/modalemail.jsp"></jsp:include>
 	<jsp:include page="settings/modalpassword.jsp"></jsp:include>

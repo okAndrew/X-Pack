@@ -30,7 +30,7 @@
 						<div class="navbar-collapse collapse">
 							<form action="employeeControllerUsers" method="post">
 								<div id="errorinfo" class="alert alert-danger"
-									style="${(messageAddUser != null) ? 'block' : 'none'}">
+									style="${(messageAddUser != null) ? 'none' : 'none'}">
 									<c:if test="${messageAddUser != null}">
 											${messageAddUser}
 									</c:if>

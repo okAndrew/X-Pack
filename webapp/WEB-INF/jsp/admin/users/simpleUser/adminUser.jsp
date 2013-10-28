@@ -29,7 +29,7 @@
 
 </head>
 <body>
-	
+
 	<jsp:include page="../../../menu.jsp"></jsp:include>
 
 	<jsp:include page="adminUserHeader.jsp"></jsp:include>
@@ -73,6 +73,10 @@
 								<td>${user.isActivated}</td>
 							</tr>
 							<tr>
+								<td><fmt:message key="Banned" bundle="${lang}" /></td>
+								<td>${user.isBanned}</td>
+							</tr>
+							<tr>
 								<td><fmt:message key="Role" bundle="${lang}" /></td>
 								<td>${user.role}</td>
 							</tr>
@@ -88,10 +92,10 @@
 		</div>
 		<jsp:include page="modalAdminUser.jsp"></jsp:include>
 		<c:if test="${message != null}">
-		<script>
-			$('#myModal').modal('show')
-		</script>
-	</c:if>
+			<script>
+				$('#myModal').modal('show')
+			</script>
+		</c:if>
 	</div>
 
 </body>

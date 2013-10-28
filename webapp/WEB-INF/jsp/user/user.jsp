@@ -35,6 +35,19 @@
 			}
 		});
 	}
+	function searchFiles() {
+		$.ajax({
+			type : "GET",
+			url : 'search?searchtext=' + $("#searchinput").val(),
+			success : function(data) {
+				$("#browser").html(data);
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert('xhr.status ' + xhr.status + '   thrownError:'
+						+ thrownError);
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -43,7 +56,9 @@
 	<jsp:include page="myspace/modeledit.jsp"></jsp:include>
 	<jsp:include page="myspace/modeldelete.jsp"></jsp:include>
 	<jsp:include page="myspace/modelmove.jsp"></jsp:include>
-
+	<jsp:include page="myspace/modelimage.jsp"></jsp:include>
+	<jsp:include page="myspace/modelvideo.jsp"></jsp:include>
+	
 	<c:choose>
 		<c:when test="${isbanned }">
 			<div class="alert alert-danger">
@@ -80,6 +95,17 @@
 									name="search" class="btn btn-default" id="search">
 									<fmt:message key="Search" bundle="${lang}" />
 								</button>
+							</div>
+							<div class="btn-toolbar pull-right">
+								<div class="input-group" style="width: 300px;">
+									<input type="text" onkeyup="searchFiles()" class="form-control"
+										id="searchinput"> <span class="input-group-btn">
+										<button onclick="searchFiles()" type="button"
+											class="btn btn-default">
+											<fmt:message key="Search" bundle="${lang}" />
+										</button>
+									</span>
+								</div>
 							</div>
 						</div>
 					</nav>

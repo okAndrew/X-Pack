@@ -52,17 +52,14 @@
 					<div class="container">
 						<!-- Static navbar -->
 						<div class="navbar navbar-default">
-							<div class="navbar-collapse collapse">
-								<form action="updateUser" name="updateForm" method="post" onsubmit="return validateForm()">
-									<div id="errorinfo" class="alert alert-danger"
-										style="display: none;">
+							<div>
+								<form action="updateUser" name="updateForm" method="post"
+									onsubmit="return validateForm()">
+									<div id="errorinfo" class="alert alert-danger"style="display:${(message != null) ? 'block' : 'none'}">
 										<c:if test="${message != null}">
-					${message}
-				</c:if>
+											${message}
+										</c:if>
 									</div>
-									<c:if test="${message != null}">
-										<div class="errorinfo">${message}</div>
-									</c:if>
 									<table class="table">
 										<tbody>
 											<tr>
@@ -104,6 +101,12 @@
 													value="${user.isActivated}" autofocus="autofocus"></td>
 											</tr>
 											<tr>
+												<td><fmt:message key="Banned" bundle="${lang}" /></td>
+												<td><input type="text" name="userBanned"
+													id="userBanned" class="form-control last"
+													value="${user.isBanned}" autofocus="autofocus"></td>
+											</tr>
+											<tr>
 												<td><fmt:message key="Role" bundle="${lang}" /></td>
 												<td><input type="text" name="userRole" id="userRole"
 													class="form-control last" value="${user.role}"
@@ -112,7 +115,6 @@
 
 										</tbody>
 									</table>
-
 									<button type="submit" class="btn btn-primary ">
 										<fmt:message key="Save_changes" bundle="${lang}" />
 									</button>
@@ -126,16 +128,11 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">
 						<fmt:message key="Close" bundle="${lang}" />
-
 					</button>
-
 				</div>
 			</div>
-			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal -->
 </body>
 </html>
 

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.UserFile;
 
@@ -33,7 +32,6 @@ public class BrowserContentServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		FolderServiceImpl folderService = new FolderServiceImpl();
-		UserServiceImpl userService = new UserServiceImpl();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("userid");
 		long folderId;
@@ -45,16 +43,14 @@ public class BrowserContentServlet extends HttpServlet {
 		}
 		Folder currentFolder = folderService.get(folderId);
 		List<Folder> folders = folderService.get(userId, folderId);
-		List<Folder> allFolders = folderService.getAll(userId);
 		List<UserFile> files = fileService.getByFolderId(folderId);
 		List<Folder> folderPath = folderService.getFolderPath(folderId);
-		boolean isBanned = userService.isBanned(userId);
-		request.setAttribute("allFolders", allFolders);
 		request.setAttribute("folders", folders);
 		request.setAttribute("files", files);
 		request.setAttribute("currentFolder", currentFolder);
 		request.setAttribute("folderpath", folderPath);
-		request.setAttribute("isbanned", isBanned);
-		request.getRequestDispatcher(BROWSER_JSP).forward(request, response);
+		if (request.getAttribute("parent") == null)
+			request.getRequestDispatcher(BROWSER_JSP)
+					.include(request, response);
 	}
 }

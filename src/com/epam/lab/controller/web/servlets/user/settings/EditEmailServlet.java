@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.epam.lab.controller.services.RegistrationService;
 import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.model.User;
 
 @WebServlet("/EditEmailServlet")
 public class EditEmailServlet extends HttpServlet {
@@ -19,15 +22,30 @@ public class EditEmailServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher(SETTINGS_JSP);
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher(SETTINGS_JSP);
 		String message = null;
+		HttpSession session = request.getSession(true);
 		String oldEmail = request.getParameter("oldEmail");
 		String newEmail = request.getParameter("newEmail");
 
-		boolean edit = new UserServiceImpl().tryEditEmail(oldEmail, newEmail);
-
-		if (!edit) {
-			message = "Error";
+		UserServiceImpl userservice = new UserServiceImpl();
+		RegistrationService registrationService = new RegistrationService();
+		User user = registrationService.checkEmail(newEmail);
+		boolean userIndb = userservice.checkEmailById(newEmail,
+				(long) session.getAttribute("userid"));
+		if (userIndb) {
+			if (user == null) {
+				boolean edit = new UserServiceImpl().tryEditEmail(oldEmail,
+						newEmail);
+				if (!edit) {
+					message = "Error";
+				}
+			} else {
+				message = "You already have that email";
+			}
+		} else {
+			message = "User with this email is already registered";
 		}
 
 		request.setAttribute("editEmailError", message);

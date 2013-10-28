@@ -22,6 +22,7 @@ public class AdminUserTrafficServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
 		setDataDownload(request, response, userId);
+		setDataUpload(request, response, userId);
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher(ADMIN_USER_TRAFFIC);
 		dispatcher.forward(request, response);
@@ -44,4 +45,12 @@ public class AdminUserTrafficServlet extends HttpServlet {
 		request.setAttribute("downlUserLastMonth", traffisService.getDownloadTrafficUserByLastMounth(userId));
 	}
 	
+	private void setDataUpload(HttpServletRequest request,
+			HttpServletResponse response, long userId){
+		TrafficHistoryServiceImpl traffisService = new TrafficHistoryServiceImpl();
+		request.setAttribute("uploadUserLastDay",traffisService.getUploadTrafficUserByLastDay(userId));
+		request.setAttribute("uploadUserLastWeek", traffisService.getUploadTrafficUserByLastWeek(userId));
+		request.setAttribute("uploadUserLastMonth", traffisService.getUploadTrafficUserByLastMounth(userId));
+	
+	}
 }

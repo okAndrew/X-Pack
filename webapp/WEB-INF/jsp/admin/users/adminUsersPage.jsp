@@ -68,6 +68,8 @@ table th, table td {
 <body>
 	<jsp:include page="../../menu.jsp"></jsp:include>
 	<jsp:include page="addUserModalPage.jsp"></jsp:include>
+	<jsp:include page="sendEmailModalPage.jsp"></jsp:include>
+	
 	<c:if test="${messageAddUser != null}">
 		<script>
 			$('#addUserModal').modal('show');
@@ -85,7 +87,7 @@ table th, table td {
 						<button type="submit" class="btn btn-default" name="action" value="restore">Restore</button>
 						<button type="submit" class="btn btn-default" name="action" value="activated"> <fmt:message key="Activate" bundle="${lang}" /> </button>
 						<button type="submit" class="btn btn-default" name="action" value="baned"> <fmt:message key="Ban" bundle="${lang}" /> </button>
-						<button type="submit" class="btn btn-default" name="action" value="sendEmailUsers"> <fmt:message key="Send_email" bundle="${lang}" /> </button>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#sendEmailModal"> <fmt:message key="Send_email" bundle="${lang}" /> </button>
 					</div>
 					<div class="alert alert-warning">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -155,8 +157,8 @@ table th, table td {
 								name="action" value="baned">
 								<fmt:message key="Ban" bundle="${lang}" />
 							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="sendEmailUsers">
+						<li><button type="button" class="btn btn-default"
+								data-toggle="modal" data-target="#SendEmailModal">
 								<fmt:message key="Send_email" bundle="${lang}" />
 							</button></li>
 						<li><input id="filter" type="text" class="form-control"

@@ -81,7 +81,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	public void deleteFilesAndFolders(String[] filesId, String[] foldersId) {
 		long[] files = null;
 		long[] folders = null;
-		if(filesId !=null){
+		if (filesId != null) {
 			files = new long[filesId.length];
 			for (int i = 0; i < filesId.length; i++) {
 				try {
@@ -91,7 +91,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				}
 			}
 		}
-		if(foldersId !=null && !foldersId[0].equals("")){
+		if (foldersId != null && !foldersId[0].equals("")) {
 			folders = new long[foldersId.length];
 			for (int i = 0; i < foldersId.length; i++) {
 				try {
@@ -174,21 +174,15 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		userDaoImpl.update(user);
 	}
 
-	public String sendUsersEmail(String[] usersId) {
+	public void sendUsersEmail(String[] usersId, String subject, String message) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
-		String errorMessage = null;
 		List<User> users = new ArrayList<User>();
-		if (usersId == null) {
-			errorMessage = "Please check the users you want to send email!!!";
-		} else {
-			for (int i = 0; i < usersId.length; i++) {
-				users.add(userDaoImpl.get(Long.parseLong(usersId[i])));
-			}
-			for (User iter : users) {
-				MailSender.send(iter.getEmail(), "dreamhost", "test message");
-			}
+		for (int i = 0; i < usersId.length; i++) {
+			users.add(userDaoImpl.get(Long.parseLong(usersId[i])));
 		}
-		return errorMessage;
+		for (User iter : users) {
+			MailSender.send(iter.getEmail(), subject, message);
+		}
 	}
 
 	public User changeUserLogin(String email, String login) {
@@ -360,7 +354,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		return userDaoImpl.get(userId).getIsBanned();
 	}
 
-	public void moveFilesAndFolders(String[] moveAble, long idTarget, long userId) {
+	public void moveFilesAndFolders(String[] moveAble, long idTarget,
+			long userId) {
 		for (String move : moveAble) {
 			String type = move.split("-")[0];
 			long id = Long.parseLong(move.split("-")[1]);

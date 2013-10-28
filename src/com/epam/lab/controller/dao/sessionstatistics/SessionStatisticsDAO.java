@@ -14,7 +14,6 @@ public interface SessionStatisticsDAO extends GenericDAO<SessionStatistics> {
 	List<SessionStatistics> getAllUploadStatistic();
 
 	List<SessionStatistics> getAllUploadStatisticByUserId(long id);
-
 	
 	List<SessionStatistics> getAllByUserId(long userid);
 

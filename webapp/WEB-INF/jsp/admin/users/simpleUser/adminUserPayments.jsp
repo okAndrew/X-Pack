@@ -35,63 +35,75 @@ body {
 			<div class="panel-heading">
 				<fmt:message key="Payments" bundle="${lang}" />
 			</div>
-			<form action="paymentsByDate" method="post" name="paybyDate">
-				<div class="panel-body">
-					<div class="well">
-						<div class="input">
-							<div class="input-append date">
-								<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-									name="startDate" id="dpd1"
-									placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
-								<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-									name="endDate"
-									placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
-									id="dpd2">
-								<button type="submit" class="btn btn-default">
-									<fmt:message key="Show_payments_for_period" bundle="${lang}" />
-								</button>
+			<c:choose>
+				<c:when test="${listPayments.size()>0}">
+					<form action="paymentsByDate" method="post" name="paybyDate">
+						<div class="panel-body">
+							<div class="well">
+								<div class="input">
+									<div class="input-append date">
+										<input data-date-format="yyyy-mm-dd" type="text" class="span2"
+											name="startDate" id="dpd1"
+											placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
+										<input data-date-format="yyyy-mm-dd" type="text" class="span2"
+											name="endDate"
+											placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
+											id="dpd2">
+										<button type="submit" class="btn btn-default">
+											<fmt:message key="Show_payments_for_period" bundle="${lang}" />
+										</button>
+									</div>
+								</div>
 							</div>
+							<c:if test="${notFullList}">
+								<div class="well">
+									<a href="adminUserPayments"><fmt:message key="Back_to_all_payments"
+											bundle="${lang}" /></a>
+								</div>
+							</c:if>
+							<c:if test="${message != null}">
+								<div class="alert alert-danger">${message}</div>
+							</c:if>
+							<c:if test="${messagePeriod != null}">
+								<div>${messagePeriod}</div>
+							</c:if>
 						</div>
+						<c:set var="headerRef" value="${header}" />
+
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th><fmt:message key="Payment_id" bundle="${lang}" /></th>
+									<th><fmt:message key="Tariff" bundle="${lang}" /></th>
+									<th><fmt:message key="DateCreated" bundle="${lang}" /></th>
+									<th><fmt:message key="DateEnd" bundle="${lang}" /></th>
+									<th><fmt:message key="Price" bundle="${lang}" /></th>
+									<th><fmt:message key="Status" bundle="${lang}" /></th>
+									<th><fmt:message key="Avaliable" bundle="${lang}" /></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${listPayments}" var="payment">
+									<tr>
+										<td>${payment.id}</td>
+										<td>${payment.tariff}</td>
+										<td><fmt:formatDate value="${payment.dateCreated}" /></td>
+										<td><fmt:formatDate value="${payment.dateEnd}" /></td>
+										<td>${payment.price}</td>
+										<td>${payment.status}</td>
+										<td>${payment.available}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</form>
+				</c:when>
+				<c:otherwise>
+					<div class="well">
+						<fmt:message key="There_is_no_payments_yet" bundle="${lang}" />
 					</div>
-					<c:if test="${message != null}">
-						<div class="errorinfo">${message}</div>
-					</c:if>
-					<c:if test="${messagePeriod != null}">
-						<div class="info">${messagePeriod}</div>
-					</c:if>
-				</div>
-				<c:set var="headerRef" value="${header}" />
-				<c:if test="${notFullList}">
-					<a href="adminUserPayments"><fmt:message key="AllPayments"
-							bundle="${lang}" /></a>
-				</c:if>
-				<table class="table table-condensed">
-					<thead>
-						<tr>
-							<th><fmt:message key="Payment_id" bundle="${lang}" /></th>
-							<th><fmt:message key="Tariff" bundle="${lang}" /></th>
-							<th><fmt:message key="DateCreated" bundle="${lang}" /></th>
-							<th><fmt:message key="DateEnd" bundle="${lang}" /></th>
-							<th><fmt:message key="Price" bundle="${lang}" /></th>
-							<th><fmt:message key="Status" bundle="${lang}" /></th>
-							<th><fmt:message key="Avaliable" bundle="${lang}" /></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${listPayments}" var="payment">
-							<tr>
-								<td>${payment.id}</td>
-								<td>${payment.tariff}</td>
-								<td><fmt:formatDate value="${payment.dateCreated}" /></td>
-								<td><fmt:formatDate value="${payment.dateEnd}" /></td>
-								<td>${payment.price}</td>
-								<td>${payment.status}</td>
-								<td>${payment.available}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</form>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.7.min.js"></script>

@@ -29,16 +29,14 @@ public class AdminUserFilesServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		UserServiceImpl userService = new UserServiceImpl();
 		HttpSession session = request.getSession(false);
-		
 		UserFileServiceImpl fileServiceImpl = new UserFileServiceImpl();
 		long userId = (long) session.getAttribute("adminUserid");
 		List<UserFile> list = fileServiceImpl.getByUserId(userId);
 		request.setAttribute("filelist", list);
-
 		request.setAttribute("parent", "adminUserFiles");
-		request.getRequestDispatcher(ADMIN_USER_FILES_JSP).forward(request, response);
+		request.getRequestDispatcher(ADMIN_USER_FILES_JSP).forward(request,
+				response);
 	}
 
 }

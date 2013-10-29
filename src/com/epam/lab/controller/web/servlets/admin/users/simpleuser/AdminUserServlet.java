@@ -33,7 +33,7 @@ public class AdminUserServlet extends HttpServlet {
 		}
 		UserServiceImpl userService = new UserServiceImpl();
 		User user = userService.get(userId);
-		request.setAttribute("user", user);
+		request.setAttribute("adminUser", user);
 		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);
 	}
 

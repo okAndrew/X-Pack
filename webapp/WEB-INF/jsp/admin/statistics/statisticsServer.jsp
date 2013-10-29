@@ -5,12 +5,12 @@
 
 <div class="col-xs-6">
 <div id="chart1" style="height: 350px; width: 550px;"></div>
-<button class="button-reset">Reset Zoom</button>
+<button class="button-reset1">Reset Zoom</button>
 </div>
 
 <div class="col-xs-6">
 <div id="chart2" style="height: 350px; width: 550px;"></div>
-<button class="button-reset">Reset Zoom</button>
+<button class="button-reset2">Reset Zoom</button>
 </div>
 
 
@@ -83,14 +83,14 @@
 				};
 
 				// The url for our json data
-				var jsonurl = "Data4StatisticTrafficDownload";
-				var jsonurl2 = "Data4StatisticTrafficUpload";
+				var jsonurlD = "Data4StatisticTrafficDownload";
+				var jsonurlU = "Data4StatisticTrafficUpload";
 
-				var plot1 = $.jqplot('chart1', jsonurl,{
+				var plot1 = $.jqplot('chart1', jsonurlD,{
 					title : "Load server(Download)",
 					dataRenderer : ajaxDataRenderer,
 					dataRendererOptions : {
-						unusedOptionalUrl : jsonurl
+						unusedOptionalUrl : jsonurlD
 					},
 					axes : {
 						xaxis : {
@@ -110,15 +110,15 @@
 					cursor : {
 						show : true,
 						zoom : true,
-						showTooltip : false
+						showTooltip : false,
 					}
 				});
 				
-				var plot1 = $.jqplot('chart2', jsonurl2,{
+				var plot2 = $.jqplot('chart2', jsonurlU,{
 					title : "Load server(Upload)",
 					dataRenderer : ajaxDataRenderer,
 					dataRendererOptions : {
-						unusedOptionalUrl : jsonurl2
+						unusedOptionalUrl : jsonurlU
 					},
 					axes : {
 						xaxis : {
@@ -129,7 +129,7 @@
 							min : 'October 1, 2013',
 							tickOptions : {
 								formatString : '%b %#d, %y'
-							}
+							},
 						}
 					},
 					axesDefault : {
@@ -138,12 +138,16 @@
 					cursor : {
 						show : true,
 						zoom : true,
-						showTooltip : false
+						showTooltip : false,
 					}
 				});
 				
-				$('.button-reset').click(function() {
-					plot1.resetZoom()
+				$('.button-reset1').click(function() {
+					plot1.resetZoom();
+				});
+				
+				$('.button-reset2').click(function() {
+					plot2.resetZoom();
 				});
 			});
 </script>

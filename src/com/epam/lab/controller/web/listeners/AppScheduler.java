@@ -29,8 +29,8 @@ public class AppScheduler implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		System.out.println("ServletContextListener started");
 		scheduler = Executors.newSingleThreadScheduledExecutor();
-		scheduler.scheduleWithFixedDelay(new setUsersForFree(), 0, 5, TimeUnit.SECONDS);
-		scheduler.scheduleWithFixedDelay(new deactivateOverdues(), 0, 5, TimeUnit.SECONDS);
+		scheduler.scheduleWithFixedDelay(new setUsersForFree(), 0, 5, TimeUnit.MINUTES);
+		scheduler.scheduleWithFixedDelay(new deactivateOverdues(), 0, 15, TimeUnit.MINUTES);
 		scheduler.scheduleWithFixedDelay(new deleteNoActiveTokens4Auth(), 0, 60, TimeUnit.MINUTES);
 	}
 

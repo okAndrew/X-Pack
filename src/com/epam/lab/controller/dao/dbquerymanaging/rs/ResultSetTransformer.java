@@ -40,8 +40,7 @@ public class ResultSetTransformer<T> {
 					e.printStackTrace();
 					logger.error(e);
 				} catch (SQLException e) {
-					// quietly skip
-					System.out.println(e.getMessage());
+					// NOP. Quietly skip.
 				}
 				field.setAccessible(true);
 				try {

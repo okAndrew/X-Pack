@@ -106,6 +106,12 @@
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
+					<c:when test="${ file.type.equals('VIDEO') }">
+						<a data-toggle="modal" role="button" href="#videoModal"
+							onclick="loadVideoContent(${file.id})"> <span
+							class="glyphicon glyphicon-play"></span>
+						</a>
+					</c:when>
 					<c:otherwise>
 						<img title="${file.nameIncome}"
 							src="http://download.easyicon.net/png/30357/128/" height="70px">
@@ -235,10 +241,6 @@ function move(moveable, idtargetFolder) {
 
 	function setSRC(id) {
 		document.getElementById("img").src = "download?fileid=" + id;
-	}
-
-	function setVideoSrc(id) {
-		document.getElementById("video").src = "download?fileid=" + id;
 	}
 </script>
 

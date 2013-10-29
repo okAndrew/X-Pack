@@ -91,7 +91,7 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 		return resultList;
 	}
 
-	@Override
+	@Override//wrong method
 	public List<SessionHistory> getVisitsPerDayByUserId(long userId) {
 		String sql = "SELECT * FROM session_history WHERE user_id IS NOT NULL AND startdate BETWEEN ? AND ? ";
 		List<SessionHistory> resultList = queryExecutor.executeQuery(
@@ -102,9 +102,9 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 
 	@Override
 	public Timestamp getAvarageTimeSessionByUserId(long userId) {
-		String sql = "SELECT * FROM session_history WHERE user_id IS NOT NULL AND startdate BETWEEN ? AND ? ";
-		List<SessionHistory> resultList = queryExecutor.executeQuery(
-				SessionHistory.class, sql, userId);
+//		String sql = "select avg(to_seconds(enddate) - to_seconds(startdate))a from session_history where user_id = ? and enddate is not null;";
+//		long resultList = queryExecutor.executeQuery(
+//				SessionHistory.class, sql, userId);
 		return null;
 
 	}

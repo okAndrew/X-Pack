@@ -81,9 +81,11 @@ table th,table td {
 		</script>
 	</c:if>
 	<div class="container">
-			<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
+		
 			<div class="panel-body">
+			
+			<jsp:include page="adminUserHeader.jsp"></jsp:include>
 				<form action="adminSimpleEmployeeController">
 					<table class="table zebra-striped table-hover table-condensed"
 						id="tablesorter">

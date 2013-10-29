@@ -31,12 +31,13 @@ public class AdminUserFilesServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		UserServiceImpl userService = new UserServiceImpl();
 		HttpSession session = request.getSession(false);
+		
+		UserFileServiceImpl fileServiceImpl = new UserFileServiceImpl();
 		long userId = (long) session.getAttribute("adminUserid");
-		boolean isBanned = userService.isBanned(userId);
-		request.setAttribute("isbanned", isBanned);
+		List<UserFile> list = fileServiceImpl.getByUserId(userId);
+		request.setAttribute("filelist", list);
+
 		request.setAttribute("parent", "adminUserFiles");
-		request.getRequestDispatcher("adminBrowserContent").include(request,
-				response);
 		request.getRequestDispatcher(ADMIN_USER_FILES_JSP).forward(request, response);
 	}
 

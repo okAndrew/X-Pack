@@ -9,15 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "locale", urlPatterns = { "/locale" })
+import sun.util.locale.LocaleUtils;
+
+@WebServlet("/locale")
 public class LocaleServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String HOMEPAGE_JSP = "WEB-INF/index.jsp";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		String lang = request.getParameter("language");
 		session.setAttribute("sessLocale", request.getParameter("language"));
 		response.sendRedirect(request.getHeader("referer"));
 	}

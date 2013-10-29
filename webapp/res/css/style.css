@@ -5,25 +5,11 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
-.admin-user-header{
-	padding: 20px 1px 1px 1px;
-}
-.user-info {
-	padding-top: 20px;
-	max-width: 800px;
-	margin: auto;
-}
-.files-admin-user
-{
-	padding-top: 70px;
-	max-width: 1200px;
-	margin: auto;
-}
-.payments-admin-user{
-	padding-top: 70px;
-	max-width: 1000px;
-	margin: auto;
-}
+
 div .panel.panel-default.main {
 	margin-top: 20px;
+}
+
+div .panel.panel-default.bottom {
+	margin-bottom: 20px;
 }

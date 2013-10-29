@@ -87,7 +87,7 @@ table th, table td {
 						<button type="submit" class="btn btn-default" name="action" value="baned"> <fmt:message key="Ban" bundle="${lang}" /> </button>
 						<button type="submit" class="btn btn-default" name="action" value="sendEmailUsers"> <fmt:message key="Send_email" bundle="${lang}" /> </button>
 					</div>
-					<div class="alert alert-warning">
+					<div class="alert alert-warning" >
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 						<h4>Warning</h4>
 						<h5>Message</h5>
@@ -131,48 +131,5 @@ table th, table td {
 		</div>
 	</div>
 	
-	
-	<div class="container">
-		<div class="panel panel-default main">
-			<div class="panel-body">
-				<form action="employeeControllerUsers" method="post">
-					<ul class="nav nav-pills">
-						<li><button type="button" class="btn btn-default"
-								data-toggle="modal" data-target="#addUserModal">
-								<fmt:message key="Add" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="delete">
-								<fmt:message key="Delete" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="restore">Restore</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="activated">
-								<fmt:message key="Activate" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="baned">
-								<fmt:message key="Ban" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="sendEmailUsers">
-								<fmt:message key="Send_email" bundle="${lang}" />
-							</button></li>
-						<li><input id="filter" type="text" class="form-control"
-							placeholder="Search"></li>
-					</ul>
-					<c:if test="${message != null}">
-						<div class="alert alert-block">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h4>Warning!</h4>
-							<h5>${message}</h5>
-						</div>
-					</c:if>
-					<jsp:include page="tableUsers.jsp"></jsp:include>
-				</form>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

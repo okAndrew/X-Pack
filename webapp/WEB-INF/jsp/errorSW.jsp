@@ -90,12 +90,10 @@
 			<h2>EPISODE 404</h2>
 			<h2>NO HOPE</h2>
 			<p>Go back to the DreamHost home page.</p>
-			<p>During the battle, Rebel spies managed to steal secret plans
-				to the Empire's ultimate weapon, the Death Star, an armored space
-				station with enough power to destroy an entire planet.</p>
-			<p>Pursued by the Empire's sinister agents, Princess Leia races
-				home aboard her starship, custodian of the stolen plans that can
-				save her people and restore freedom to the galaxy....</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi.
+				Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin.
+				Pellentesque tristique elementum felis eu fermentum. Maecenas eu.</p>
 		</div>
 	</div>
 	<div id="theend">THE END</div>

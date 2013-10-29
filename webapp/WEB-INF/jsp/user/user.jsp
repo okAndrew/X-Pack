@@ -11,7 +11,7 @@
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/myspace.css" rel="stylesheet" />
 <link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
-
+<link rel="stylesheet" href="//releases.flowplayer.org/5.4.3/skin/minimalist.css">
 
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -20,7 +20,6 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="res/js/dropzone.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
-
 <script type="text/javascript">
 	$(document).ready(function() {
 		Dropzone.options.myAwesomeDropzone = {
@@ -46,9 +45,13 @@
 		});
 	}
 	function searchFiles() {
+		var searchText = $("#searchinput").val();
+		if(searchText.length == 0){
+			loadBrowserContent();
+		}else{
 		$.ajax({
 			type : "GET",
-			url : 'search?searchtext=' + $("#searchinput").val(),
+			url : 'search?searchtext=' + searchText,
 			success : function(data) {
 				$("#browser").html(data);
 			},
@@ -57,6 +60,7 @@
 						+ thrownError);
 			}
 		});
+		}
 	}
 </script>
 </head>

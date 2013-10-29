@@ -1,6 +1,7 @@
 package com.epam.lab.controller.web.servlets.user.browser;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,12 +33,13 @@ public class BrowserSearchServlet extends HttpServlet {
 					userId, searchText);
 			List<Folder> folders = folderService
 					.getSearched(userId, searchText);
+			removeCurentDirFromResponse(request, folders);
 			request.setAttribute("files", files);
 			request.setAttribute("folders", folders);
 
 			// additional params
-			long folderId = folderService.getRoot(userId).getId();
-			session.setAttribute("folderid", folderId);
+			long folderId = (long) request.getSession()
+					.getAttribute("folderid");
 			Folder currentFolder = folderService.get(folderId);
 			List<Folder> folderPath = folderService.getFolderPath(folderId);
 			request.setAttribute("currentFolder", currentFolder);
@@ -47,6 +49,20 @@ public class BrowserSearchServlet extends HttpServlet {
 					.include(request, response);
 		} else {
 			response.sendRedirect(USER_PAGE);
+		}
+	}
+
+	private void removeCurentDirFromResponse(HttpServletRequest request,
+			List<Folder> folders) {
+		Long idCurFolder = (Long) request.getSession().getAttribute("folderid");
+		if (idCurFolder == null)
+			return;
+		Iterator<Folder> iterator = folders.iterator();
+		while (iterator.hasNext()) {
+			if (iterator.next().getId() == idCurFolder) {
+				iterator.remove();
+				break;
+			}
 		}
 	}
 }

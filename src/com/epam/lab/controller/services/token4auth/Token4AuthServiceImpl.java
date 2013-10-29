@@ -76,7 +76,12 @@ public class Token4AuthServiceImpl extends AbstractServiceImpl<Token4Auth>
 			throw new UserNotFoundException();
 		}
 		FolderService folderService = new FolderServiceImpl();
-		Folder folder = folderService.get(idFolder);
+		Folder folder = null;
+		if (idFolder == 0) {
+			folder = folderService.getRoot(user.getId());
+		} else {
+			folder = folderService.get(idFolder);
+		}
 		if (folder == null) {
 			throw new FolderNotFoundException();
 		}

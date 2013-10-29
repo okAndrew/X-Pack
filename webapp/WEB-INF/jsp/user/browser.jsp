@@ -71,7 +71,7 @@
 	</c:if>
 	<!-- folders -->
 	<c:forEach items="${folders}" var="folder">
-		<div class="cell draggable droppable">
+		<div class="cell draggable droppable" name="folder-${folder.id}" id="${folder.id}">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${folder.id}" title="${folder.name}"><img
 					src="http://www.whatthetech.com/blog/wp-content/uploads/2010/08/leopard-folder.png"
@@ -108,7 +108,7 @@
 	</c:forEach>
 	<!-- files -->
 	<c:forEach items="${files}" var="file">
-		<div class="cell draggable">
+		<div class="cell draggable" name="file-${file.id}">
 			<div class="thumb">
 				<c:choose>
 					<c:when test="${ file.type.equals('IMAGE') }">

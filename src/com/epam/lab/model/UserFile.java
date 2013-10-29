@@ -3,14 +3,18 @@ package com.epam.lab.model;
 import java.sql.Timestamp;
 
 import com.epam.lab.controller.annotations.TableColumn;
+import com.google.gson.annotations.Expose;
 
 public class UserFile {
+	@Expose
 	@TableColumn("id")
 	private long id;
-
+	
+	@Expose
 	@TableColumn("id_folder")
 	private long idFolder;
-
+	
+	@Expose
 	@TableColumn("name_income")
 	private String nameIncome;
 
@@ -22,7 +26,8 @@ public class UserFile {
 
 	@TableColumn("type")
 	private String type;
-
+	
+	@Expose
 	@TableColumn("size")
 	private long size;
 

@@ -16,4 +16,6 @@ public interface FileDAO extends GenericDAO<UserFile> {
 	int deleteByUserId(long userId);
 
 	UserFile getSizeUploadByDates(Timestamp dateStart, Timestamp dateEnd);
+	
+	UserFile getSizeUploadUserByDates(Timestamp dateStart, Timestamp dateEnd, long userId);
 }

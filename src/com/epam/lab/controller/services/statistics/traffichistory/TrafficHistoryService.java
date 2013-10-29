@@ -1,4 +1,4 @@
-package com.epam.lab.controller.services.traffichistory;
+package com.epam.lab.controller.services.statistics.traffichistory;
 
 import com.epam.lab.controller.services.AbstractService;
 import com.epam.lab.model.TrafficHistory;

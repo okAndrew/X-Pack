@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<script type="text/javascript" src="res/js/utils.js"></script>
 
 <div class="col-xs-6">
 <div id="chart1" style="height: 350px; width: 550px;"></div>
@@ -18,27 +19,27 @@
 		<tbody>
 			<tr>
 				<td>Download last mounth</td>
-				<td>${downlLastMounts}</td>
+				<td><script>document.write(bytesToSize(${downlLastMounts}));</script></td>
 			</tr>
 			<tr>
 				<td>Upload last mounts</td>
-				<td>${uploadLastMounts}</td>
+				<td><script>document.write(bytesToSize(${uploadLastMounts}));</script></td>
 			</tr>
 			<tr>
 				<td>Download last week</td>
-				<td>${downlLastWeek}</td>
+				<td><script>document.write(bytesToSize(${downlLastWeek}));</script></td>
 			</tr>
 			<tr>
 				<td>Upload last week</td>
-				<td>${uploadLastWeek}</td>
+				<td><script>document.write(bytesToSize(${uploadLastWeek}));</script></td>
 			</tr>
 			<tr>
 				<td>Download last day</td>
-				<td>${downlLastDay}</td>
+				<td><script>document.write(bytesToSize(${downlLastDay}));</script></td>
 			</tr>
 			<tr>
 				<td>Upload last day</td>
-				<td>${uploadLastDay}</td>
+				<td><script>document.write(bytesToSize(${uploadLastDay}));</script></td>
 			</tr>
 		</tbody>
 	</table>
@@ -82,7 +83,7 @@
 				};
 
 				// The url for our json data
-				var jsonurl = "Data4StatisticTraffic";
+				var jsonurl = "Data4StatisticTrafficDownload";
 				var jsonurl2 = "Data4StatisticTrafficUpload";
 
 				var plot1 = $.jqplot('chart1', jsonurl,{

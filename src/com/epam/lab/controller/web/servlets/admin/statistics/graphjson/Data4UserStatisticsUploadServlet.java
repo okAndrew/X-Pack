@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.statistictraffic;
+package com.epam.lab.controller.web.servlets.admin.statistics.graphjson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
-import com.epam.lab.controller.services.sessionstatistics.SessionStatisticsServiceImpl;
-import com.epam.lab.model.SessionStatistics;
+import com.epam.lab.controller.services.statistics.StatisticsServiceImpl;
+import com.epam.lab.model.Statistics;
 
 @WebServlet("/Data4UserStatisticsUpload")
 public class Data4UserStatisticsUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		SessionStatisticsServiceImpl statisticsServiceImpl = new SessionStatisticsServiceImpl();
-		List<SessionStatistics> list = new ArrayList<SessionStatistics>();
+		StatisticsServiceImpl statisticsServiceImpl = new StatisticsServiceImpl();
+		List<Statistics> list = new ArrayList<Statistics>();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
 		System.out.println(userId);

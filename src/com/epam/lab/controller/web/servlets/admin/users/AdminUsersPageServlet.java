@@ -20,12 +20,19 @@ public class AdminUsersPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		getUsers(request, response);
+		if (request.getParameter("message") != null){
+			request.setAttribute("message", null);
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
 		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		getUsers(request, response);
+		if (request.getParameter("message") != null){
+			request.setAttribute("message", null);
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
 		dispatcher.forward(request, response);
 	}

@@ -83,7 +83,7 @@ table th,table td {
 							</tr>
 							<tr>
 								<td>Upload last month</td>
-								<td><script>document.write(bytesToSize(${uploadUserLastMonts}));</script></td>
+								<td><script>document.write(bytesToSize(${uploadUserLastMonth}));</script></td>
 							</tr>
 							<tr>
 								<td>Download last week</td>

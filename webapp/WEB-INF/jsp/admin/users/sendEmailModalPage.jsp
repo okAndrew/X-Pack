@@ -11,9 +11,9 @@
 <script type="text/javascript" src="res/js/modal.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <link href="res/css/style.css" rel="stylesheet" />
-
 <div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
+
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -23,11 +23,9 @@
 			</div>
 			<div class="modal-body">
 				<div class="container">
-					<!-- Static navbar -->
-					<%String[] checkUser = request.getParameterValues("checkUser");%>
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-							<form action="employeeControllerUsers" method="post">
+
 								<table class="table">
 									<tbody>
 										<tr>
@@ -43,10 +41,10 @@
 									</tbody>
 								</table>
 								<button type="submit" class="btn btn-primary" name="action"
-									value="sendEmailUsers">
-									Send
-								</button>
-							</form>
+									value="sendEmailUsers">Send</button>
+								<div id="inputs">
+									<input type="email" name="emails">
+								</div>
 						</div>
 						<!--/.nav-collapse -->
 					</div>

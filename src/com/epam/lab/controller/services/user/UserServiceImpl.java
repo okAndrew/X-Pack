@@ -174,10 +174,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 	}
 
-	public void changeUserPassword(User user, String password) {
+	public void changeUserPassword(long userId, String password) {
 		MD5Encrypter md5 = new MD5Encrypter();
 		String md5Pass = md5.encrypt(password);
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
+		User user = get(userId);
 
 		user.setPassword(md5Pass);
 		userDaoImpl.update(user);

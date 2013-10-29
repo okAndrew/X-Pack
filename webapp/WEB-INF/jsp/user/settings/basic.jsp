@@ -11,7 +11,11 @@
 		</p>
 		<p>
 			<fmt:message key="Free_space" bundle="${lang}" />
-			: <strong>${tariff.maxCapacity - user.capacity}</strong>
+			: <strong>
+			<script type="text/javascript">
+				document.write(bytesToSize(${tariff.maxCapacity - user.capacity}));
+			</script>
+			</strong>
 		</p>
 		<h3>
 			<fmt:message key="Edit_profile" bundle="${lang}" />

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSessionListener;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.services.sessionhistory.SessionHistoryServiceImpl;
+import com.epam.lab.controller.services.statistics.sessionhistory.SessionHistoryServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.SessionHistory;
 

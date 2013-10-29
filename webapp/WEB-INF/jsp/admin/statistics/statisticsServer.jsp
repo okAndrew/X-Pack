@@ -83,7 +83,7 @@
 				};
 
 				// The url for our json data
-				var jsonurl = "Data4StatisticTraffic";
+				var jsonurl = "Data4StatisticTrafficDownload";
 				var jsonurl2 = "Data4StatisticTrafficUpload";
 
 				var plot1 = $.jqplot('chart1', jsonurl,{

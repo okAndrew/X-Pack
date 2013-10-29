@@ -16,4 +16,9 @@ public interface UserDAO extends GenericDAO<User> {
 	List<User> getBannedUsers();
 
 	User getByLogin(String login);
+	
+	List<User> getBySQL(String sql);
+	
+	long getCount();
+	
 }

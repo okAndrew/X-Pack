@@ -52,20 +52,19 @@
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
-	<jsp:include page="adminUserHeader.jsp"></jsp:include>
 	<jsp:include page="myspaceAdminUser/modeldelete.jsp"></jsp:include>
 	<jsp:include page="myspaceAdminUser/modelimage.jsp"></jsp:include>
 	<jsp:include page="myspaceAdminUser/modelvideo.jsp"></jsp:include>
-	
-	
+
 	<div class="container">
+		<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<form action="adminUsercontroller" method="post">
 					<nav class="navbar navbar-default controlmenu" role="navigation">
 						<div class="collapse navbar-collapse controlmenu">
 							<div class="btn-group">
-								
+
 								<button type="submit" name="download" class="btn btn-default"
 									disabled="disabled" id="download">
 									<fmt:message key="Download" bundle="${lang}" />

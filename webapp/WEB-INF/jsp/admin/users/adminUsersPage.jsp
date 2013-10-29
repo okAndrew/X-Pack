@@ -52,45 +52,11 @@ table th,table td {
 }
 </style>
 
-<script type="text/javascript">
-	$("tablesorter").ready(function() {
-		$("#tablesorter").tablesorter({
-			headers : {
-				0 : {
-					sorter : false
-				},
-				10 : {
-					sorter : false
-				}
-			},
-			widthFixed : true,
-			})
-		.tablesorterPager({container: $("#pager"), positionFixed: false}).
-		tablesorterFilter({ filterContainer: $("#filter"),
-            filterColumns: [1, 2, 3, 4, 5, 6],
-            filterCaseSensitive: false
-        });
-	});
-	
-// 	function forwardEmails(){
-// 	//	$('<input type="email" name="emails" value="'+$('checkUser').val()+'">').appendTo("#inputs");
-// 		$('#sendEmailModal').modal('show');
-// 	};
-</script>
-
-<script type="text/javascript">
-function forwardEmails(){
-//		$('<input type="text" name="emails" value="'+$('checkUser').val()+'">').appendTo("#inputs");
-		$('#sendEmailModal').modal('show');
-	};
-
-</script>
 </head>
 
 <body>
 	<jsp:include page="../../menu.jsp"></jsp:include>
 	<jsp:include page="addUserModalPage.jsp"></jsp:include>
-	
 	<c:if test="${messageAddUser != null}">
 		<script>
 			$('#addUserModal').modal('show');
@@ -101,6 +67,13 @@ function forwardEmails(){
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
+				<c:if test="${message != null}">
+					<div class="alert alert-warning">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<h4>Warning</h4>
+						<h5>Message</h5>
+					</div>
+				</c:if>
 				<form action="employeeControllerUsers" method="post">
 					<jsp:include page="sendEmailModalPage.jsp"></jsp:include>
 					<div class="btn-group">
@@ -122,16 +95,12 @@ function forwardEmails(){
 							value="baned">
 							<fmt:message key="Ban" bundle="${lang}" />
 						</button>
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#sendEmailModal">
+						<button type="submit" class="btn btn-default" data-toggle="modal"
+							data-target="#sendEmailModal">
 							<fmt:message key="Send_email" bundle="${lang}" />
 						</button>
-					
 					</div>
-					<div class="alert alert-warning">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h4>Warning</h4>
-						<h5>Message</h5>
-					</div>
+
 					<table class="table zebra-striped table-hover table-condensed"
 						id="tablesorter">
 						<thead>
@@ -169,54 +138,10 @@ function forwardEmails(){
 							</c:forEach>
 						</tbody>
 					</table>
-
 				</form>
 			</div>
 		</div>
 	</div>
 
-
-	<div class="container">
-		<div class="panel panel-default main">
-			<div class="panel-body">
-				<form action="employeeControllerUsers" method="post">
-					<ul class="nav nav-pills">
-						<li><button type="button" class="btn btn-default"
-								data-toggle="modal" data-target="#addUserModal">
-								<fmt:message key="Add" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="delete">
-								<fmt:message key="Delete" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="restore">Restore</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="activated">
-								<fmt:message key="Activate" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="baned">
-								<fmt:message key="Ban" bundle="${lang}" />
-							</button></li>
-						<li><button type="button" class="btn btn-default"
-								data-toggle="modal" data-target="#SendEmailModal">
-								<fmt:message key="Send_email" bundle="${lang}" />
-							</button></li>
-						<li><input id="filter" type="text" class="form-control"
-							placeholder="Search"></li>
-					</ul>
-					<c:if test="${message != null}">
-						<div class="alert alert-block">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h4>Warning!</h4>
-							<h5>${message}</h5>
-						</div>
-					</c:if>
-					<jsp:include page="tableUsers.jsp"></jsp:include>
-				</form>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

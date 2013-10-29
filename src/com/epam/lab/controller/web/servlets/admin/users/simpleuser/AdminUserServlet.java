@@ -25,7 +25,7 @@ public class AdminUserServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		long userId = 0;
 		HttpSession session = request.getSession(false);
-		if (session.getAttribute("adminUserid") != null) {
+		if (request.getParameter("userid") == null) {
 			userId = (long) session.getAttribute("adminUserid");
 		} else {
 			userId = Long.parseLong(request.getParameter("userid"));

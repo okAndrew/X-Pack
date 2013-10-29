@@ -92,35 +92,35 @@ table th,table td {
 						<tbody class="avoid-sort">
 							<tr>
 								<td><fmt:message key="User_id" bundle="${lang}" /></td>
-								<td>${user.id}</td>
+								<td>${adminUser.id}</td>
 							</tr>
 							<tr>
 								<td><fmt:message key="User_login" bundle="${lang}" /></td>
-								<td>${user.login}</td>
+								<td>${adminUser.login}</td>
 							</tr>
 							<tr>
 								<td><fmt:message key="Email" bundle="${lang}" /></td>
-								<td>${user.email}</td>
+								<td>${adminUser.email}</td>
 							</tr>
 							<tr>
 								<td><fmt:message key="Tariff" bundle="${lang}" /></td>
-								<td>${user.idTariff}</td>
+								<td>${adminUser.idTariff}</td>
 							</tr>
 							<tr>
 								<td><fmt:message key="Capacity" bundle="${lang}" /></td>
-								<td>${user.capacity}</td>
+								<td>${adminUser.capacity}</td>
 							</tr>
 							<tr>
 								<td><fmt:message key="Activation" bundle="${lang}" /></td>
-								<td>${user.isActivated}</td>
+								<td>${adminUser.isActivated}</td>
 							</tr>
 							<tr>
 								<td><fmt:message key="Banned" bundle="${lang}" /></td>
-								<td>${user.isBanned}</td>
+								<td>${adminUser.isBanned}</td>
 							</tr>
 							<tr>
 								<td><fmt:message key="Role" bundle="${lang}" /></td>
-								<td>${user.role}</td>
+								<td>${adminUser.role}</td>
 							</tr>
 						</tbody>
 					</table>

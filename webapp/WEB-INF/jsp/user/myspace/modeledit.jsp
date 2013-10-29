@@ -17,7 +17,8 @@
 				<div class="modal-body">
 					<input type="hidden" id="fileidedit" name="fileid"> <input
 						type="hidden" id="folderidedit" name="folderid"> <input
-						type="text" name="editname" placeholder="name">
+						class="form-control" type="text" name="editname"
+						placeholder="name">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">

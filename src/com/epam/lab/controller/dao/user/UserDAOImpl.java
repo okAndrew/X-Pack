@@ -3,6 +3,7 @@ package com.epam.lab.controller.dao.user;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.model.Counter;
 import com.epam.lab.model.User;
 
 public class UserDAOImpl implements UserDAO {
@@ -14,12 +15,24 @@ public class UserDAOImpl implements UserDAO {
 		User result = queryExecutor.executeQuerySingle(User.class, sql, id);
 		return result;
 	}
+	
+	@Override
+	public long getCount() {
+		String sql = "SELECT COUNT(id) AS countUsers FROM users";
+		Counter counter = new DBQueryExecutor<Counter>().executeQuerySingle(Counter.class, sql);
+		return counter.getCountUsers();
+	}
 
 	@Override
 	public List<User> getAll() {
 		String sql = "SELECT * FROM users";
 		List<User> resultList = queryExecutor.executeQuery(User.class, sql);
 		return resultList;
+	}
+	
+	@Override
+	public List<User> getBySQL(String sql) {
+		return queryExecutor.executeQuery(User.class, sql);
 	}
 
 	@Override

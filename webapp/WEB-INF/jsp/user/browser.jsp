@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <ol class="breadcrumb">
 	<c:forEach items="${folderpath}" var="folder">
@@ -8,114 +9,136 @@
 	</c:forEach>
 </ol>
 
-<table class="table zebra-striped table-hover table-condensed">
-	<thead>
-		<tr>
-			<th style="width: 30px;"><input type="checkbox"
-				onClick="toggle(this); checkboxesStatus(this)" /></th>
-			<th style="width: 100%;"><fmt:message key="Name"
-					bundle="${lang}" /></th>
+<style>
+#gallery {
+	float: left;
+	width: 100%;
+	border: 0px solid gray;
+	font-size: 10px;
+	border: 0px solid gray;
+}
 
-		</tr>
-	</thead>
-	<tbody>
-		<c:if test="${currentFolder.idUpper!=0}">
-			<tr class="droppable" id="${currentFolder.idUpper}">
-				<td></td>
-				<td colspan="7"><a
-					href="userfoldernav?folderid=${currentFolder.idUpper}"
-					style="font-size: 20px;"><span
-						class="glyphicon glyphicon-chevron-up"> Go to upper</span></a></td>
-				<td></td>
-			</tr>
-		</c:if>
-		<c:forEach items="${folders}" var="folder">
-			<tr class="draggable droppable" id="${folder.id}"
-				name="folder-${folder.id}">
-				<td><input type="checkbox" name="folders" value="${folder.id}"
-					onclick="checkboxesStatus(this)" /></td>
-				<td><span class="glyphicon glyphicon-folder-open"></span><a
-					href="userfoldernav?folderid=${folder.id}" class=""><b>
-							${folder.name}</b></a></td>
-				<td><fmt:formatDate value="${folder.date}" /></td>
-				<td><c:out value="${folder.size}" /></td>
-				<td><c:out value="folder" /></td>
-				<td>
-					<div class="btn-group">
-						<a data-toggle="modal" role="button" href="#EditModal"
-							onclick="set('folderidedit', ${folder.id})"> <span
-							class="glyphicon glyphicon-pencil"></span>
+.cell {
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	margin: 0px 8px 15px 8px;
+	padding: 10px 0px 10px 10px;
+	float: left;
+	width: 350px;
+	border: 1px solid #EEEEEE;
+	background: #FBFBF8;
+	line-height: 100%;
+	height: 95px;
+	position: relative;
+}
+
+.thumb {
+	text-decoration: none;
+	float: left;
+	margin-right: 6px;
+}
+
+.cell-desc {
+	height: 90px;
+	width: 160px;
+	float: left;
+}
+</style>
+
+<div id="gallery">
+	<!-- upper -->
+	<c:if test="${currentFolder.idUpper!=0}">
+		<div class="cell droppable" id="${currentFolder.idUpper}">
+			<div class="thumb">
+				<a href="userfoldernav?folderid=${currentFolder.idUpper}"
+					title="${currentFolder.name}"><img
+					src="http://icons.iconarchive.com/icons/icojam/blue-bits/64/arrow-up-icon.png"
+					height="70px"> <span class="glyphicon glyphicon-chevron-up"></span></a>
+			</div>
+			<div class="cell-desc">
+				<h4>
+					<a href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
+				</h4>
+				<h6>${folder.date}</h6>
+				<h5>${folder.size}</h5>
+			</div>
+		</div>
+	</c:if>
+	<!-- folders -->
+	<c:forEach items="${folders}" var="folder">
+		<div class="cell draggable droppable">
+			<div class="thumb">
+				<a href="userfoldernav?folderid=${folder.id}" title="${folder.name}"><img
+					src="http://www.whatthetech.com/blog/wp-content/uploads/2010/08/leopard-folder.png"
+					height="70px"></a>
+			</div>
+			<div class="cell-desc">
+				<h5>
+					<a href="userfoldernav?folderid=${folder.id}">${folder.name}</a> <a
+						data-toggle="modal" role="button" href="#EditModal"
+						onclick="set('folderidedit', ${folder.id})"> <span
+						class="glyphicon glyphicon-pencil"></span>
+					</a>
+				</h5>
+				<h6>${folder.date}</h6>
+				<h6>${folder.size}</h6>
+			</div>
+			<div class="btn-group">
+				<h5>
+					<a data-toggle="modal" role="button" href="#DeleteModal"
+						onclick="set('folderiddelete', ${folder.id})"> <span
+						class="glyphicon glyphicon-trash"></span>
+					</a><a data-toggle="modal" href="#EditModal"> <span
+						class="glyphicon glyphicon-info-sign"></span>
+					</a>
+				</h5>
+			</div>
+		</div>
+	</c:forEach>
+	<!-- files -->
+	<c:forEach items="${files}" var="file">
+		<div class="cell draggable">
+			<div class="thumb">
+				<c:choose>
+					<c:when test="${ file.type.equals('IMAGE') }">
+						<a data-toggle="modal" role="button" href="#ImageModal"
+							onclick="setSRC(${file.id})"> <span
+							class="glyphicon glyphicon-play"></span>
 						</a>
-					</div>
-					<div class="btn-group">
-						<a data-toggle="modal" role="button" href="#DeleteModal"
-							onclick="set('folderiddelete', ${folder.id})"> <span
-							class="glyphicon glyphicon-trash"></span>
-						</a>
-					</div>
-					<div class="btn-group">
-						<a data-toggle="modal" role="button" href="#MoveModal"
-							onclick="set('folderidmove', ${folder.id})"> <span
-							class="glyphicon glyphicon-move"></span>
-						</a>
-					</div>
-				</td>
-			</tr>
-		</c:forEach>
-		<c:forEach items="${files}" var="file">
-			<tr class="draggable" name="file-${file.id}">
-				<td><label class="checkbox-inline"><input
-						type="checkbox" name="files" value="${file.id}"
-						onclick="checkboxesStatus(this)" /></label></td>
-				<td><span class="glyphicon glyphicon-file"></span><a
-					href="download?fileid=${file.id}">${file.nameIncome}</a></td>
-				<td><fmt:formatDate value="${file.date}" /></td>
-				<td><c:out value="${file.size}" /></td>
-				<td><c:out value="${file.type}" /></td>
-				<td>
-					<div class="btn-group">
-						<a data-toggle="modal" role="button" href="#EditModal"
-							onclick="set('fileidedit', ${file.id})"> <span
-							class="glyphicon glyphicon-pencil"></span>
-						</a>
-					</div>
-					<div class="btn-group">
-						<a data-toggle="modal" role="button" href="#DeleteModal"
-							onclick="set('fileiddelete', ${file.id})"> <span
-							class="glyphicon glyphicon-trash"></span>
-						</a>
-					</div>
-					<div class="btn-group">
-						<a data-toggle="modal" role="button" href="#MoveModal"
-							onclick="set('fileidmove', ${file.id})"> <span
-							class="glyphicon glyphicon-move"></span>
-						</a>
-					</div> <c:if test='${ file.type.equals("IMAGE") }'>
-						<div class="btn-group">
-							<a data-toggle="modal" role="button" href="#ImageModal"
-								onclick="setSRC(${file.id})"> <span
-								class="glyphicon glyphicon-play"></span>
-							</a>
-						</div>
-					</c:if> <c:if test='${ file.type.equals("VIDEO") }'>
-						<div class="btn-group">
-							<a data-toggle="modal" role="button" href="#VideoModal"
-								onclick="setVideoSrc(${file.id})"> <span
-								class="glyphicon glyphicon-play"></span>
-							</a>
-						</div>
-					</c:if> <c:if test='${ file.type.equals("AUDIO") }'>
-						<div class="btn-group">
-							<audio controls>
-								<source src="download?fileid=${file.id}" type="audio/mpeg">
-							</audio>
-						</div>
-					</c:if>
-				</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
+					</c:when>
+					<c:otherwise>
+						<img title="${file.nameIncome}"
+							src="http://download.easyicon.net/png/30357/128/" height="70px">
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div class="cell-desc">
+				<h5>
+					<a href="">${file.nameIncome}</a> <a data-toggle="modal"
+						role="button" href="#EditModal"
+						onclick="set('folderidedit', ${folder.id})"> <span
+						class="glyphicon glyphicon-pencil"></span>
+					</a>
+				</h5>
+				<h6>${file.date}</h6>
+				<h6>${file.size}</h6>
+			</div>
+			<div class="btn-group">
+				<h5>
+					<a data-toggle="modal" href="#DeleteModal"
+						onclick="set('fileiddelete', ${file.id})"> <span
+						class="glyphicon glyphicon-trash"></span>
+					</a> <a href="download?fileid=${file.id}"> <span
+						class="glyphicon glyphicon-download"></span>
+					</a> <a data-toggle="modal" href="#EditModal"
+						onclick="set('fileiddelete', ${file.id})"> <span
+						class="glyphicon glyphicon-info-sign"></span>
+					</a>
+				</h5>
+			</div>
+		</div>
+	</c:forEach>
+</div>
 
 <style type="text/css">
 .dropzone {
@@ -137,7 +160,9 @@
 <script>
 $(function() {
 	$(".draggable").draggable({
-		revert : "invalid"
+		revert : "invalid",
+		scroll: true,
+		delay: 10,
 	});
 
 	$(".droppable").droppable({
@@ -216,3 +241,65 @@ function move(moveable, idtargetFolder) {
 		document.getElementById("video").src = "download?fileid=" + id;
 	}
 </script>
+
+<script type="text/javascript"
+	src="res/js/contextMenu/jquery.themeswitcher.min.js"></script>
+<script src="res/js/contextMenu/jquery.ui-contextmenu.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#switcher").themeswitcher({
+		imgpath : "res/img/contextMenu/",
+		loadTheme : "dot-luv"
+	});
+});
+var CLIPBOARD = "";
+$(function(){
+	$("#menu-container").contextmenu({
+		delegate: ".hasmenu",
+		menu: "#options",
+//        position: {my: "left top", at: "left bottom"},
+		position: function(event, ui){
+			return {my: "left top", at: "left bottom", of: ui.target};
+		},
+		preventSelect: true,
+		taphold: true,
+		show: { effect: "fold", duration: "slow"},
+		hide: { effect: "explode", duration: "slow" },
+		focus: function(event, ui) {
+			var menuId = ui.item.find(">a").attr("href");
+			$("#info").text("focus " + menuId);
+			console.log("focus", ui.item);
+		},
+		blur: function(event, ui) {
+			$("#info").text("");
+			console.log("blur", ui.item);
+		},
+		beforeOpen: function(event, ui) {
+//			$("#container").contextmenu("replaceMenu", "#options2");
+//			$("#container").contextmenu("replaceMenu", [{title: "aaa"}, {title: "bbb"}]);
+		},
+		open: function(event, ui) {
+//          alert("open on " + ui.target.text());
+		},
+		select: function(event, ui) {
+			alert("select " + ui.cmd + " on " + ui.target.text());
+		}
+	});
+
+});
+</script>
+
+<ul id="options" style="display: none;">
+	<li><a href="#action1"><span
+			class="ui-icon custom-icon-firefox"></span>Action 1</a>
+	<li><a href="#action2"><span class="ui-icon ui-icon-heart"></span>Action
+			2</a>
+	<li class="ui-state-disabled"><a href="#action3">Action 3</a>
+	<li>----
+	<li><a>Extra</a>
+		<ul>
+			<li><a href="#action4">sub4</a>
+			<li><a href="#action5">sub5</a>
+		</ul>
+</ul>

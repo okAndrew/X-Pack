@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.model.User;
 
 @WebServlet("/ChangePasswordServlet")
 public class ChangePasswordServlet extends HttpServlet {
@@ -24,10 +23,10 @@ public class ChangePasswordServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		
 		String password = request.getParameter("password");
-		User user = (User) session.getAttribute("user");
+		Long userId = Long.valueOf(session.getAttribute("userid").toString());
 		
 		UserServiceImpl userService = new UserServiceImpl();
-		userService.changeUserPassword(user, password);
+		userService.changeUserPassword(userId, password);
 		
 		requestDispatcher.forward(request, response);
 	}

@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import com.epam.lab.controller.exceptions.FileTooLargeException;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.file.UserFileUploader;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
@@ -32,9 +33,12 @@ public class UploadServlet extends HttpServlet {
 			try {
 				HttpSession session = request.getSession(false);
 				long folderId = (long) session.getAttribute("folderid");
+				long userId = (long) session.getAttribute("userid");
 				ServletFileUpload upload = new ServletFileUpload(
 						new DiskFileItemFactory());
 				upload.setHeaderEncoding("UTF-8");
+				UserServiceImpl service = new UserServiceImpl();
+				upload.setSizeMax(service.getFreeSize(userId));
 				List<FileItem> items = upload.parseRequest(request);
 				UserFileUploader uploader = new UserFileUploader();
 				uploader.uploadFiles(items, folderId);

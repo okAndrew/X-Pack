@@ -38,7 +38,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	public UserServiceImpl() {
 		super(new UserDAOImpl());
 	}
-	
+
 	public long getCount() {
 		return userDaoImpl.getCount();
 	}
@@ -54,7 +54,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		user.setIsBanned(false);
 		insert(user);
 	}
-	
+
 	public List<User> getBySQL(String sql) {
 		return userDaoImpl.getBySQL(sql);
 	}
@@ -132,10 +132,13 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	@Override
-	public void deleteUsers(String[] usersId) {
+	public void deleteUsers(String[] usersId, Long idAdmin) {
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		FolderServiceImpl folderService = new FolderServiceImpl();
 		for (int i = 0; i < usersId.length; i++) {
+			if (Long.parseLong(usersId[i]) == idAdmin) {
+				continue;
+			}
 			fileService.deleteByUserId(Long.parseLong(usersId[i]));
 			folderService.deleteByUserId(Long.parseLong(usersId[i]));
 			userDaoImpl.delete((Long.parseLong(usersId[i])));
@@ -149,9 +152,12 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	@Override
-	public void activateUsers(String[] usersId) {
+	public void activateUsers(String[] usersId, Long idAdmin) {
 		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		for (int i = 0; i < usersId.length; i++) {
+			if (Long.parseLong(usersId[i]) == idAdmin) {
+				continue;
+			}
 			userDaoImpl.setIsActivate(true, Long.parseLong(usersId[i]));
 			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(),
 					"Activation", "You're activated!!!");
@@ -159,8 +165,12 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	@Override
-	public void banedUsers(String[] usersId) {
+	public void banedUsers(String[] usersId, Long idAdmin) {
+		System.out.println(idAdmin);
 		for (int i = 0; i < usersId.length; i++) {
+			if (Long.parseLong(usersId[i]) == idAdmin) {
+				continue;
+			}
 			userDaoImpl.setIsBanned(true, Long.parseLong(usersId[i]));
 			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(), "Ban",
 					"You're baned!!!");
@@ -168,8 +178,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	@Override
-	public void cancelBanUsers(String[] usersId) {
+	public void cancelBanUsers(String[] usersId, Long idAdmin) {
 		for (int i = 0; i < usersId.length; i++) {
+			if (Long.parseLong(usersId[i]) == idAdmin) {
+				continue;
+			}
 			userDaoImpl.setIsBanned(false, Long.parseLong(usersId[i]));
 			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(),
 					"Cancel ban", "You're not baned!!!");
@@ -385,30 +398,31 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 			}
 		}
 	}
-	
-	public List<User> getByParam(String page, String count, String orderBy, String sop) {
+
+	public List<User> getByParam(String page, String count, String orderBy,
+			String sop) {
 		UserDAOImpl userDAO = new UserDAOImpl();
 		int p = getPage(page);
 		int c = getCount(count);
 		String order = getOrderBy(orderBy);
 		String sort = getSort(sop);
-		
+
 		StringBuilder sql = new StringBuilder();
-		
+
 		sql.append("SELECT * FROM ").append("users ");
 		sql.append(" ORDER BY ").append(order);
 		sql.append(" ").append(sort);
 		sql.append(" LIMIT ").append(c);
-		sql.append(" OFFSET ").append(p*c);
-		
+		sql.append(" OFFSET ").append(p * c);
+
 		System.out.println(sql.toString());
-		
+
 		return userDAO.getBySQL(sql.toString());
 	}
-	
+
 	private int getPage(String page) {
 		int p = 0;
-		
+
 		if (page != null) {
 			try {
 				p = Integer.valueOf(page);
@@ -417,13 +431,13 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				p = 0;
 			}
 		}
-		
+
 		return p;
 	}
-	
+
 	private int getCount(String count) {
 		int c = 10;
-		
+
 		if (count != null) {
 			try {
 				c = Integer.valueOf(count);
@@ -432,18 +446,19 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				c = 10;
 			}
 		}
-		
+
 		return c;
 	}
-	
+
 	private String getOrderBy(String orderBy) {
 		String order = null;
 		Field[] fields = User.class.getDeclaredFields();
-		
+
 		if (orderBy != null) {
 			for (int i = 0; i < fields.length; i++) {
 				if (fields[i].isAnnotationPresent(TableColumn.class)) {
-					TableColumn annotation = fields[i].getAnnotation(TableColumn.class);
+					TableColumn annotation = fields[i]
+							.getAnnotation(TableColumn.class);
 					if (annotation.value().equals(orderBy)) {
 						order = annotation.value();
 						break;
@@ -453,13 +468,13 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		} else {
 			order = "id";
 		}
-		
+
 		return order;
 	}
-	
+
 	private String getSort(String sop) {
 		String sort = "asc";
-		
+
 		if (sop != null) {
 			if (sop.toLowerCase().equals("asc")) {
 				sort = "asc";
@@ -470,13 +485,14 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 		return sort;
 	}
-	public long getFreeSize(long userId){
+
+	public long getFreeSize(long userId) {
 		UserDAOImpl dao = new UserDAOImpl();
 		User user = dao.get(userId);
 		TariffDAOImpl tariffDao = new TariffDAOImpl();
 		Tariff tarriff = tariffDao.get(user.getIdTariff());
 		long freeSize = tarriff.getMaxCapacity() - user.getCapacity();
 		return freeSize;
-		
+
 	}
 }

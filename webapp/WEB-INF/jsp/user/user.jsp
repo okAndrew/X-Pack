@@ -22,6 +22,16 @@
 <script src="res/js/bootstrap.js"></script>
 
 <script type="text/javascript">
+	$(document).ready(function() {
+		Dropzone.options.myAwesomeDropzone = {
+			maxFilesize : 1000,
+			init : function() {
+				this.on("complete", function(file) {
+					loadBrowserContent();
+				});
+			}
+		}
+	})
 	function loadBrowserContent() {
 		$.ajax({
 			type : "GET",
@@ -55,10 +65,9 @@
 	<jsp:include page="myspace/modelcreatefolder.jsp"></jsp:include>
 	<jsp:include page="myspace/modeledit.jsp"></jsp:include>
 	<jsp:include page="myspace/modeldelete.jsp"></jsp:include>
-	<jsp:include page="myspace/modelmove.jsp"></jsp:include>
 	<jsp:include page="myspace/modelimage.jsp"></jsp:include>
 	<jsp:include page="myspace/modelvideo.jsp"></jsp:include>
-	
+
 	<c:choose>
 		<c:when test="${isbanned }">
 			<div class="alert alert-danger">
@@ -66,7 +75,7 @@
 			</div>
 		</c:when>
 		<c:otherwise>
-			<form action="upload" class="dropzone">
+			<form id="my-awesome-dropzone" action="upload" class="dropzone">
 				<div class="fallback">
 					<input name="file" type="file" multiple />
 				</div>

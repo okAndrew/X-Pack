@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
+import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
 import com.epam.lab.controller.dao.token.TokenDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
@@ -22,6 +23,7 @@ import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.Payment;
 import com.epam.lab.model.Role;
+import com.epam.lab.model.Tariff;
 import com.epam.lab.model.Token;
 import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
@@ -464,5 +466,13 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 		return sort;
 	}
-	
+	public long getFreeSize(long userId){
+		UserDAOImpl dao = new UserDAOImpl();
+		User user = dao.get(userId);
+		TariffDAOImpl tariffDao = new TariffDAOImpl();
+		Tariff tarriff = tariffDao.get(user.getIdTariff());
+		long freeSize = tarriff.getMaxCapacity() - user.getCapacity();
+		return freeSize;
+		
+	}
 }

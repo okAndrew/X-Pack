@@ -16,6 +16,7 @@
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
+<script type="text/javascript" src="res/js/utils.js"></script>
 
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
@@ -57,9 +58,17 @@ table th,table td {
 <script type="text/javascript" src="res/js/utils.js"></script>
 <link rel="stylesheet" href="res/css/styleTable.css" type="text/css" />
 
+<script type="text/javascript">
+ var page = checkPage("${param.page}");
+ var perPage = checkCount("${param.count}");
+ var orderBy = checkOrderBy("${param.orderby}");
+ var sort = checkSort("${param.sop}");
+ var pageCount = Math.ceil(parseInt("${usersCount}") / perPage);
+</script>
+
 </head>
 
-<body>
+<body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
 
 	<div class="container">
@@ -107,6 +116,26 @@ table th,table td {
 						<jsp:include page="tableLogs.jsp"></jsp:include>
 					</div>
 				</form>
+				<div class="paginator-main">
+					<div class="page-pages">
+						<ul id="paginator" class="pagination">
+						</ul>
+					</div>
+					<div class="page-option">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default">Rows</button>
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a onclick="changePerPage(10);">10</a></li>
+								<li><a onclick="changePerPage(20);">20</a></li>
+								<li><a onclick="changePerPage(50);">50</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -15,29 +15,15 @@
 		<tr>
 			<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
 					key="All" bundle="${lang}" /></th>
-			<th><fmt:message key="Id" bundle="${lang}" /></th>
-			<th><fmt:message key="Date" bundle="${lang}" /></th>
-			<th><fmt:message key="Logger" bundle="${lang}" /></th>
-			<th><fmt:message key="Level" bundle="${lang}" /></th>
-			<th><fmt:message key="Message" bundle="${lang}" /></th>
+			<th onclick="changeOrderBy('id');"><fmt:message key="Id" bundle="${lang}" /></th>
+			<th onclick="changeOrderBy('date_time');"><fmt:message key="Date" bundle="${lang}" /></th>
+			<th onclick="changeOrderBy('logger');"><fmt:message key="Logger" bundle="${lang}" /></th>
+			<th onclick="changeOrderBy('lvl');"><fmt:message key="Level" bundle="${lang}" /></th>
+			<th onclick="changeOrderBy('msg');"><fmt:message key="Message" bundle="${lang}" /></th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="log" items="${logs}">
-			<c:choose>
-				<c:when test="${log.level == 'ERROR'}">
-					<tr class="danger">
-				</c:when>
-				<c:when test="${log.level == 'WARNING'}">
-					<tr class="warning">
-				</c:when>
-				<c:when test="${log.level == 'DEBUG'}">
-					<tr class="success">
-				</c:when>
-				<c:otherwise>
-					<tr class="active">
-				</c:otherwise>
-			</c:choose>
 			<td><input type="checkbox" name="checkLog" value="${log.id}"></td>
 			<td>${log.id}</td>
 			<td>${log.datetime}</td>

@@ -1,5 +1,6 @@
 package com.epam.lab.controller.services.user;
 
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,10 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	public UserServiceImpl() {
 		super(new UserDAOImpl());
 	}
+	
+	public long getCount() {
+		return userDaoImpl.getCount();
+	}
 
 	public void addUser(String login, String email, String password) {
 		User user = new User();
@@ -45,6 +50,10 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		user.setRole(Role.USER);
 		user.setIsBanned(false);
 		insert(user);
+	}
+	
+	public List<User> getBySQL(String sql) {
+		return userDaoImpl.getBySQL(sql);
 	}
 
 	public User get(String email, String password) {
@@ -376,4 +385,83 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 			}
 		}
 	}
+	
+	public List<User> getByParam(String page, String count, String orderBy, String sop) {
+		UserDAOImpl userDAO = new UserDAOImpl();
+		int p = getPage(page);
+		int c = getCount(count);
+		String order = getOrderBy(orderBy);
+		String sort = getSort(sop);
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("SELECT * FROM ").append("users ");
+		sql.append(" ORDER BY ").append(order);
+		sql.append(" ").append(sort);
+		sql.append(" LIMIT ").append(c);
+		sql.append(" OFFSET ").append(p*c);
+		
+		return userDAO.getBySQL(sql.toString());
+	}
+	
+	private int getPage(String page) {
+		int p = 0;
+		
+		if (page != null) {
+			try {
+				p = Integer.valueOf(page);
+			} catch (NumberFormatException e) {
+				logger.error(e);
+				p = 0;
+			}
+		}
+		
+		return p;
+	}
+	
+	private int getCount(String count) {
+		int c = 10;
+		
+		if (count != null) {
+			try {
+				c = Integer.valueOf(count);
+			} catch (NumberFormatException e) {
+				logger.error(e);
+				c = 10;
+			}
+		}
+		
+		return c;
+	}
+	
+	private String getOrderBy(String orderBy) {
+		String order = null;
+		Field[] fields = User.class.getDeclaredFields();
+		
+		for (int i = 0; i < fields.length; i++) {
+			if (fields[i].getName().equals(orderBy)) {
+				order = orderBy;
+				break;
+			}
+		}
+		
+		if (order == null) {
+			order = "id";
+		}
+		
+		return order;
+	}
+	
+	private String getSort(String sop) {
+		String sort = null;
+		
+		if (sop == null || !sop.toLowerCase().equals("asc") || !sop.toLowerCase().equals("desc")) {
+			sort = "asc";
+		} else {
+			sort = sop;
+		}
+
+		return sort;
+	}
+	
 }

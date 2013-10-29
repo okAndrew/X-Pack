@@ -14,6 +14,7 @@
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/settings.js"></script>
+<script src="res/js/utils.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>

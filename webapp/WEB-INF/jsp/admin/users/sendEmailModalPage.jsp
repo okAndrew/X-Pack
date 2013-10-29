@@ -11,6 +11,7 @@
 <script type="text/javascript" src="res/js/modal.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <link href="res/css/style.css" rel="stylesheet" />
+
 <div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 

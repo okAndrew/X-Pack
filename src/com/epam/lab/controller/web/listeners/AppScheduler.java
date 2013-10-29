@@ -29,18 +29,15 @@ public class AppScheduler implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent arg0) {
 		System.out.println("ServletContextListener started");
 		scheduler = Executors.newSingleThreadScheduledExecutor();
-		scheduler.scheduleWithFixedDelay(new setUsersForFree(), 0, 5,
-				TimeUnit.SECONDS);
-		scheduler.scheduleWithFixedDelay(new deactivateOverdues(), 0, 5,
-				TimeUnit.SECONDS);
-		scheduler.scheduleWithFixedDelay(new deleteNoActiveTokens4Auth(), 0,
-				60, TimeUnit.MINUTES);
+		scheduler.scheduleWithFixedDelay(new setUsersForFree(), 0, 5, TimeUnit.SECONDS);
+		scheduler.scheduleWithFixedDelay(new deactivateOverdues(), 0, 5, TimeUnit.SECONDS);
+		scheduler.scheduleWithFixedDelay(new deleteNoActiveTokens4Auth(), 0, 60, TimeUnit.MINUTES);
 	}
 
 	private class setUsersForFree implements Runnable {
 		public void run() {
-			logger.debug("setUsersForFree");
 			new UserServiceImpl().setUsersForFree();
+			logger.debug("setUsersForFree");
 		}
 	}
 
@@ -53,11 +50,8 @@ public class AppScheduler implements ServletContextListener {
 
 	private class deleteNoActiveTokens4Auth implements Runnable {
 		public void run() {
-			int numDeletedTokens = new Token4AuthServiceImpl()
-					.deleteNotActiveTokens();
-			logger.debug("Deleted no active tokens for authentication: "
-					+ numDeletedTokens);
-
+			int numDeletedTokens = new Token4AuthServiceImpl().deleteNotActiveTokens();
+			logger.debug("Deleted no active tokens for authentication: " + numDeletedTokens);
 		}
 	}
 }

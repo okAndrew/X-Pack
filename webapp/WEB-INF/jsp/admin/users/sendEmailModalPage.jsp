@@ -27,31 +27,28 @@
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
 
-								<table class="table">
-									<tbody>
-										<tr>
-											<td>Subject</td>
-											<td><input type="text" name="subject"
-												class="form-control midle" placeholder="Subject" /></td>
-										</tr>
-										<tr>
-											<td>Message</td>
-											<td><input type="text" name="email"
-												class="form-control last" placeholder="Message" /></td>
-										</tr>
-									</tbody>
-								</table>
-								<button type="submit" class="btn btn-primary" name="action"
-									value="sendEmailUsers">Send</button>
-								<div id="inputs">
-									<input type="email" name="emails">
-								</div>
+							<table class="table">
+								<tbody>
+									<tr>
+										<td>Subject</td>
+										<td><input type="text" name="subject"
+											class="form-control midle" placeholder="Subject" /></td>
+									</tr>
+									<tr>
+										<td>Message</td>
+										<td><textarea class="form-control" rows="5" name="email"
+											class="form-control last" placeholder="Message"> </textarea></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 						<!--/.nav-collapse -->
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary" name="action"
+					value="sendEmailUsers">Send</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<fmt:message key="Close" bundle="${lang}" />
 				</button>

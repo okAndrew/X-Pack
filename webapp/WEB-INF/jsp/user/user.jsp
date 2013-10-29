@@ -46,9 +46,13 @@
 		});
 	}
 	function searchFiles() {
+		var searchText = $("#searchinput").val();
+		if(searchText.length == 0){
+			loadBrowserContent();
+		}else{
 		$.ajax({
 			type : "GET",
-			url : 'search?searchtext=' + $("#searchinput").val(),
+			url : 'search?searchtext=' + searchText,
 			success : function(data) {
 				$("#browser").html(data);
 			},
@@ -57,6 +61,7 @@
 						+ thrownError);
 			}
 		});
+		}
 	}
 </script>
 </head>

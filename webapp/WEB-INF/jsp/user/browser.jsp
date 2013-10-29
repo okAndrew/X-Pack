@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <ol class="breadcrumb">
 	<c:forEach items="${folderpath}" var="folder">
 		<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
@@ -42,6 +42,11 @@
 	height: 90px;
 	width: 160px;
 	float: left;
+	margin-right: 10px;
+}
+
+.hover-drop {
+	background: #8C97A1;
 }
 </style>
 
@@ -74,8 +79,14 @@
 			</div>
 			<div class="cell-desc">
 				<h5>
-					<a href="userfoldernav?folderid=${folder.id}">${folder.name}</a> <a
-						data-toggle="modal" role="button" href="#EditModal"
+					<a href="userfoldernav?folderid=${folder.id}"
+						title="${folder.name}"> <c:set var="formatName"
+							value="${folder.name}"></c:set> <c:if
+							test="${fn:length(folder.name) > 16}">
+							<c:set var="formatName"
+								value="${fn:substring(folder.name, 0, 13)}..."></c:set>
+						</c:if> <c:out value="${formatName}"></c:out>
+					</a> <a data-toggle="modal" role="button" href="#EditModal"
 						onclick="set('folderidedit', ${folder.id})"> <span
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
@@ -114,8 +125,13 @@
 			</div>
 			<div class="cell-desc">
 				<h5>
-					<a href="">${file.nameIncome}</a> <a data-toggle="modal"
-						role="button" href="#EditModal"
+					<a href="" title="${file.nameIncome}"> <c:set var="formatName"
+							value="${file.nameIncome}"></c:set> <c:if
+							test="${fn:length(file.nameIncome) > 16}">
+							<c:set var="formatName"
+								value="${fn:substring(file.nameIncome, 0, 13)}..."></c:set>
+						</c:if> <c:out value="${formatName}"></c:out>
+					</a> <a data-toggle="modal" role="button" href="#EditModal"
 						onclick="set('folderidedit', ${folder.id})"> <span
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
@@ -162,7 +178,14 @@ $(function() {
 	$(".draggable").draggable({
 		revert : "invalid",
 		scroll: true,
-		delay: 10,
+		distance: 20,
+		opacity: 0.9,
+		start: function(event, ui) {
+			$(this).css('z-index', 9999);
+		},
+		stop:function(event, ui) {
+			$(this).css('z-index', 1);
+		},
 	});
 
 	$(".droppable").droppable({
@@ -171,7 +194,8 @@ $(function() {
 			var idTargetFolder = $(this).attr("id");
 			move(idmove, idTargetFolder);
 			$(ui.draggable).remove();
-		}
+		},
+    	hoverClass: "hover-drop",
 	});
 });
 function move(moveable, idtargetFolder) {
@@ -241,65 +265,3 @@ function move(moveable, idtargetFolder) {
 		document.getElementById("video").src = "download?fileid=" + id;
 	}
 </script>
-
-<script type="text/javascript"
-	src="res/js/contextMenu/jquery.themeswitcher.min.js"></script>
-<script src="res/js/contextMenu/jquery.ui-contextmenu.js"
-	type="text/javascript"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#switcher").themeswitcher({
-		imgpath : "res/img/contextMenu/",
-		loadTheme : "dot-luv"
-	});
-});
-var CLIPBOARD = "";
-$(function(){
-	$("#menu-container").contextmenu({
-		delegate: ".hasmenu",
-		menu: "#options",
-//        position: {my: "left top", at: "left bottom"},
-		position: function(event, ui){
-			return {my: "left top", at: "left bottom", of: ui.target};
-		},
-		preventSelect: true,
-		taphold: true,
-		show: { effect: "fold", duration: "slow"},
-		hide: { effect: "explode", duration: "slow" },
-		focus: function(event, ui) {
-			var menuId = ui.item.find(">a").attr("href");
-			$("#info").text("focus " + menuId);
-			console.log("focus", ui.item);
-		},
-		blur: function(event, ui) {
-			$("#info").text("");
-			console.log("blur", ui.item);
-		},
-		beforeOpen: function(event, ui) {
-//			$("#container").contextmenu("replaceMenu", "#options2");
-//			$("#container").contextmenu("replaceMenu", [{title: "aaa"}, {title: "bbb"}]);
-		},
-		open: function(event, ui) {
-//          alert("open on " + ui.target.text());
-		},
-		select: function(event, ui) {
-			alert("select " + ui.cmd + " on " + ui.target.text());
-		}
-	});
-
-});
-</script>
-
-<ul id="options" style="display: none;">
-	<li><a href="#action1"><span
-			class="ui-icon custom-icon-firefox"></span>Action 1</a>
-	<li><a href="#action2"><span class="ui-icon ui-icon-heart"></span>Action
-			2</a>
-	<li class="ui-state-disabled"><a href="#action3">Action 3</a>
-	<li>----
-	<li><a>Extra</a>
-		<ul>
-			<li><a href="#action4">sub4</a>
-			<li><a href="#action5">sub5</a>
-		</ul>
-</ul>

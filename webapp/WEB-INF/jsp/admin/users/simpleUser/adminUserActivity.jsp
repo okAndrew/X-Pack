@@ -7,15 +7,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DreamHost(Administrator) | Statistics</title>
+<title>DreamHost(Administrator) | Users</title>
 
-<script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
+	type="text/javascript"></script>
+<script src="res/js/bootstrap.js"></script>
+<script type="text/javascript" src="res/js/utils.js"></script>
 
-<link href="res/css/bootstrap.css" rel="stylesheet" />
-<link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/signui.css" rel="stylesheet" />
-<link href="res/css/jquery.jqplot.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
+
 <style type="text/css">
+div.alert {
+	width: auto;
+	margin-top: 15px;
+}
+
+form {
+	
+}
+
+span.glyphicon.glyphicon-sort {
+	font-size: 8pt;
+	text-align: center;
+}
+
+table thead tr th {
+	cursor: pointer;
+}
+
+.blue {
+	color: #428BCA;
+}
+
+table {
+	margin-top: 20px;
+}
+
+table th,table td {
+	overflow: hidden;
+}
+
 .button-reset {
 	margin: 30px;
 	margin-left: 90px;
@@ -23,7 +58,7 @@
 </style>
 <style type="text/css">
 .Statisticstable {
-margin-top: 120px;
+	margin-top: 120px;
 	float: right;
 	height: 350px;
 	width: 350px;
@@ -37,20 +72,13 @@ margin-top: 120px;
 	margin: auto;
 }
 </style>
+
 </head>
 <body>
-	<div class="code prettyprint">
-		<pre class="code prettyprint brush: js"></pre>
-	</div>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
-	<jsp:include page="adminUserHeader.jsp"></jsp:include>
-	<div class="Container">
-		<!-- Panel -->
-		<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<fmt:message key="UserActivity" bundle="${lang}" />
-			</div>
+	<div class="container">
+		<jsp:include page="adminUserHeader.jsp"></jsp:include>
+		<div class="panel panel-default main">
 			<div class="panel-body">
 				<div class="row-fluid">
 					<div class="col-xs-7">
@@ -62,12 +90,12 @@ margin-top: 120px;
 							<table class="table zebra-striped table-hover">
 								<tbody>
 									<tr>
-										<td><fmt:message key="Avarage_time_of_sessions"
+										<td><fmt:message key="Average_time_of_sessions"
 												bundle="${lang}" /></td>
-										<td>${avarageSession}</td>
+										<td>${avarageSession}n/a</td>
 									</tr>
 									<tr>
-										<td><fmt:message key="Avarage_number_visits__by_day"
+										<td><fmt:message key="Average_number_visits_per_day"
 												bundle="${lang}" /></td>
 										<td>${visitsByUserId}</td>
 									</tr>

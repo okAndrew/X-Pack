@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<script type="text/javascript" src="res/js/utils.js"></script>
 <div id="example"></div>
 
 <table class="table zebra-striped table-hover">
@@ -7,7 +7,7 @@
 		<tr>
 			<td>#</td>
 			<td>Type</td>
-			<td>Size(MB)</td>
+			<td>Size</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,7 +15,7 @@
 			<tr>
 				<td></td>
 				<td>${type.type}</td>
-				<td>${type.size/1024/1024}</td>
+				<td><script>document.write(bytesToSize(${type.size}));</script></td>
 			</tr>
 		</c:forEach>
 	</tbody>

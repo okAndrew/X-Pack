@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.simpleuserpage;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -21,7 +21,6 @@ import com.epam.lab.model.Payment;
 @WebServlet("/paymentsByDate")
 public class PaymentsByDateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USER_PAYMENTS_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserPayments.jsp";
 
 	public PaymentsByDateServlet() {
 		super();
@@ -59,10 +58,8 @@ public class PaymentsByDateServlet extends HttpServlet {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-
 			List<Payment> list = psevrive.getPayByPeriod(userId, startDate,
 					endDate);
-
 			request.setAttribute("listPayments", list);
 			request.setAttribute("notFullList", true);
 			request.setAttribute(
@@ -70,13 +67,10 @@ public class PaymentsByDateServlet extends HttpServlet {
 					"Your payments for period: "
 							+ request.getParameter("startDate") + " - "
 							+ request.getParameter("endDate"));
-			request.getRequestDispatcher(ADMIN_USER_PAYMENTS_JSP).forward(
-					request, response);
-
 		} else {
 			request.setAttribute("message", "Please select period");
-			dispatcher = request.getRequestDispatcher("adminUserPayments");
-			dispatcher.forward(request, response);
 		}
+		dispatcher = request.getRequestDispatcher("adminUserPayments");
+		dispatcher.forward(request, response);
 	}
 }

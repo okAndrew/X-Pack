@@ -10,9 +10,12 @@ public interface SessionStatisticsService extends AbstractService<SessionStatist
 
 	List<SessionStatistics> getAllDownloadStatistic();
 	
-	List<SessionStatistics> getAllDownloadStatisticByUserId(long id);
+	List<SessionStatistics> getAllDownloadStatisticByUserId(long userId);
 
 	List<SessionStatistics> getAllByUserId(long userid);
-
+	
+	List<SessionStatistics> getAllUploadStatistic();
+	
+	List<SessionStatistics> getAllUploadStatisticByUserId(long userId);
 
 }

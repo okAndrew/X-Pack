@@ -43,7 +43,7 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 				TimeStampManager.getStartOfMonth(TimeStampManager
 						.getCurrentTime()), TimeStampManager
 						.getEndOfMonth(TimeStampManager.getCurrentTime()));
-		return (traffic.getSize() / 1024 / 1024);
+		return traffic.getSize();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 				TimeStampManager.getStartOfWeek(TimeStampManager
 						.getCurrentTime()), TimeStampManager
 						.getEndOfWeek(TimeStampManager.getCurrentTime()));
-		return (traffic.getSize() / 1024 / 1024);
+		return traffic.getSize();
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 		TrafficHistory traffic = traDaoImpl.getDownloadTrafficByDates(
 				TimeStampManager.getStartOfDay(TimeStampManager
 						.getCurrentTime()), TimeStampManager.getCurrentTime());
-		return (traffic.getSize() / 1024 / 1024);
+		return traffic.getSize();
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 				.getStartOfMonth(TimeStampManager.getCurrentTime()),
 				TimeStampManager.getEndOfMonth(TimeStampManager
 						.getCurrentTime()));
-		return (size / 1024 / 1024);
+		return size;
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 						.getStartOfWeek(TimeStampManager.getCurrentTime()),
 						TimeStampManager.getEndOfWeek(TimeStampManager
 								.getCurrentTime()));
-		return (size / 1024 / 1024);
+		return size;
 	}
 
 	@Override
@@ -87,6 +87,54 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 		Long size = fileServiceImpl.getDownloadTrafficByDates(TimeStampManager
 				.getStartOfDay(TimeStampManager.getCurrentTime()),
 				TimeStampManager.getCurrentTime());
-		return (size / 1024 / 1024);
+		return size;
 	}
+
+	@Override
+	public double getDownloadTrafficUserByLastMounth(long userId) {
+		TrafficHistory traffic = traDaoImpl.getDownloadTrafficUserByDates(
+				TimeStampManager.getStartOfMonth(TimeStampManager
+						.getCurrentTime()), TimeStampManager
+						.getEndOfMonth(TimeStampManager.getCurrentTime()),
+				userId);
+		return traffic.getSize();
+	}
+
+	@Override
+	public double getDownloadTrafficUserByLastWeek(long userId) {
+		TrafficHistory traffic = traDaoImpl.getDownloadTrafficUserByDates(
+				TimeStampManager.getStartOfWeek(TimeStampManager
+						.getCurrentTime()), TimeStampManager
+						.getEndOfWeek(TimeStampManager.getCurrentTime()),
+				userId);
+		return traffic.getSize();
+	}
+
+	@Override
+	public double getDownloadTrafficUserByLastDay(long userId) {
+		TrafficHistory traffic = traDaoImpl.getDownloadTrafficUserByDates(
+				TimeStampManager.getStartOfDay(TimeStampManager
+						.getCurrentTime()), TimeStampManager.getCurrentTime(),
+				userId);
+		return traffic.getSize();
+	}
+
+	@Override
+	public double getUploadTrafficUserByLastMounth(long userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getUploadTrafficUserByLastWeek(long userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getUploadTrafficUserByLastDay(long userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

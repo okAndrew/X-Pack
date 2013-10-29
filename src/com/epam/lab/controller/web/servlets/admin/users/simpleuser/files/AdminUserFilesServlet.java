@@ -1,7 +1,8 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.files;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.UserFile;
 import com.epam.lab.model.Folder;
 
@@ -26,27 +29,15 @@ public class AdminUserFilesServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		UserFileServiceImpl fileService = new UserFileServiceImpl();
-		FolderServiceImpl folderService = new FolderServiceImpl();
+		UserServiceImpl userService = new UserServiceImpl();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
-		long folderId;
-		if (session.getAttribute("folderid") == null) {
-			folderId = folderService.getRoot(userId).getId();
-			session.setAttribute("folderid", folderId);
-		} else {
-			folderId = (long) session.getAttribute("folderid");
-		}
-		Folder currentFolder = folderService.get(folderId);
-		List<Folder> folders = folderService.get(userId, folderId);
-		List<UserFile> files = fileService.getByFolderId(folderId);
-		request.setAttribute("folders", folders);
-		request.setAttribute("files", files);
-		request.setAttribute("currentFolder", currentFolder);
-
-		RequestDispatcher requestDispatcher = request
-				.getRequestDispatcher(ADMIN_USER_FILES_JSP);
-		requestDispatcher.forward(request, response);
+		boolean isBanned = userService.isBanned(userId);
+		request.setAttribute("isbanned", isBanned);
+		request.setAttribute("parent", "adminUserFiles");
+		request.getRequestDispatcher("adminBrowserContent").include(request,
+				response);
+		request.getRequestDispatcher(ADMIN_USER_FILES_JSP).forward(request, response);
 	}
 
 }

@@ -2,8 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
-<div id="chart1" style="height: 350px; width: 700px;"></div>
+<div class="col-xs-6">
+<div id="chart1" style="height: 350px; width: 550px;"></div>
 <button class="button-reset">Reset Zoom</button>
+</div>
+
+<div class="col-xs-6">
+<div id="chart2" style="height: 350px; width: 550px;"></div>
+<button class="button-reset">Reset Zoom</button>
+</div>
+
 
 <div>
 	<table class="table zebra-striped table-hover">
@@ -75,9 +83,10 @@
 
 				// The url for our json data
 				var jsonurl = "Data4StatisticTraffic";
+				var jsonurl2 = "Data4StatisticTrafficUpload";
 
-				var plot1 = $.jqplot('chart1', jsonurl, {
-					title : "Load server",
+				var plot1 = $.jqplot('chart1', jsonurl,{
+					title : "Load server(Download)",
 					dataRenderer : ajaxDataRenderer,
 					dataRendererOptions : {
 						unusedOptionalUrl : jsonurl
@@ -94,12 +103,44 @@
 							}
 						}
 					},
+					axesDefault : {
+						useSeriesColor : true
+					},
 					cursor : {
 						show : true,
 						zoom : true,
 						showTooltip : false
 					}
 				});
+				
+				var plot1 = $.jqplot('chart2', jsonurl2,{
+					title : "Load server(Upload)",
+					dataRenderer : ajaxDataRenderer,
+					dataRendererOptions : {
+						unusedOptionalUrl : jsonurl2
+					},
+					axes : {
+						xaxis : {
+							renderer : $.jqplot.DateAxisRenderer,
+							rendererOptions : {
+								tickRenderer : $.jqplot.CanvasAxisTickRenderer
+							},
+							min : 'October 1, 2013',
+							tickOptions : {
+								formatString : '%b %#d, %y'
+							}
+						}
+					},
+					axesDefault : {
+						useSeriesColor : true
+					},
+					cursor : {
+						show : true,
+						zoom : true,
+						showTooltip : false
+					}
+				});
+				
 				$('.button-reset').click(function() {
 					plot1.resetZoom()
 				});

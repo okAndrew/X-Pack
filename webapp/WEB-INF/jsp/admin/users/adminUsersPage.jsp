@@ -15,184 +15,16 @@
 	
 	<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 	<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-	<style type="text/css">
-		div.alert {
-			width: auto;
-			margin-top: 15px;
-		}
-		span.glyphicon.glyphicon-sort {
-			font-size: 8pt;
-			text-align: center;
-		}
-		table thead tr th {
-			cursor: pointer;
-		}
-		.blue {
-			color: #428BCA;
-		}
-		table {
-			margin-top: 20px;
-		}
-		table th, table td {
-			overflow: hidden;
-		}
-		.paginator-main {
-			width: auto;
-			float: left;
-		}
-		.paginator-main .page-pages {
-			width: auto;
-			float: left;
-		}
-		 .paginator-main .page-pages .pagination {
-			margin: 0px;
-			paddign: 0px;
-			padding-right: 10px;
-		}
-		.paginator-main .page-option{
-			width: auto;
-			float: left;
-		}
-	</style>
+	<link rel="stylesheet" href="res/css/adminuserpage.css" rel="stylesheet" />
 	
 	<script type="text/javascript">
 		var page = checkPage("${param.page}");
 		var perPage = checkCount("${param.count}");
 		var orderBy = checkOrderBy("${param.orderby}");
 		var sort = checkSort("${param.sop}");
-		
 		var pageCount = Math.ceil(parseInt("${usersCount}") / perPage);
-		
-		function checkPage(page) {
-			var temp = parseInt(page);
-			if (temp != NaN && temp >= 0) {
-				return temp;
-			}
-			
-			return 0;
-		}
-		
-		function changePerPage(param) {
-			perPage = checkCount(param);
-			window.location.href = generateLink(page);
-		}
-		
-		function checkCount(perPage) {
-			var temp = parseInt(perPage);
-			if (temp != NaN && temp > 0 && temp < 100) {
-				return temp;
-			}
-			
-			return 10;
-		}
-		
-		function checkOrderBy(orderBy) {
-			var temp = new String(orderBy).toLocaleLowerCase();
-			if (temp != "") {
-				return orderBy;
-			}
-			
-			return "id";
-		}
-		
-		function checkSort(sort) {
-			var temp = new String(sort).toLocaleLowerCase();
-			if (temp == "asc" || temp == "desc") {
-				return temp;
-			}
-			
-			return "asc";
-		}
-		
-		function changeSort(sort) {
-			var temp = new String(sort);
-			if (sort == "asc") {
-				temp = "desc";
-			} else {
-				temp = "asc";
-			}
-			
-			return temp;
-		}
-		
-		function changeOrderBy(order) {
-			sort = changeSort(sort);
-			orderBy = order;
-			window.location.href = generateLink(page);
-		}
-		
-		function render() {
-			var pageStart = page - 2;
-			var pageEnd = page + 2;
-			
-			if (pageStart < 0) {
-				pageStart = 0;
-			}
-			
-			if (pageEnd > pageCount - 1) {
-				pageEnd = pageCount - 1;
-			}
-			
-			if (page == 0) {
-				backward = "<li class='disabled'>";
-				step_backward = "<li class='disabled'>";
-			} else {
-				backward = "<li>";
-				step_backward = "<li>";
-			}
-			
-			backward += "<a href=" + generateLink(i) + "><span class='glyphicon glyphicon-backward'></span></a></li>";
-			$('#paginator').append(backward);
-			
-			step_backward += "<a href=" + generateLink(i) + "><span class='glyphicon glyphicon-step-backward'></span></a></li>";
-			$('#paginator').append(step_backward);
-			
-			for (var i = pageStart, j = i + 1; i <= pageEnd; i++, j++) {
-				if (page == i) {
-					link = "<li class='active'>";
-				} else {
-					link = "<li>";
-				}
-				link += "<a href=" + generateLink(i);
-				link += ">" + j + "</a></li>";
-
-				if (page == i) {
-					$('#paginator').append(link);
-				} else {
-					$('#paginator').append(link);
-				}
-			}
-			
-			if (page == pageCount - 1) {
-				forward = "<li class='disabled'>";
-				step_forward = "<li class='disabled'>";
-			} else {
-				forward = "<li>";
-				step_forward = "<li>";
-			}
-
-			step_forward += "<a href=" + generateLink(page + 1);
-			step_forward += "><span class='glyphicon glyphicon-step-forward'></span></a></li>";
-			$('#paginator').append(step_forward);
-			
-			
-			forward += "<a href=" + generateLink(pageCount - 1);
-			forward += " disable='disable'><span class='glyphicon glyphicon-forward'></span></a></li>";
-			$('#paginator').append(forward);
-		}
-		
-		function generateLink(p) {
-			var link = "http://localhost:8080/dreamhost/adminUsersPage?page=" + p;
-			link += "&count=" + perPage;
-			link += "&orderby=" + orderBy;
-			link += "&sop=" + sort;
-			
-			return link;
-		}
 	</script>
-	
 </head>
-
 <body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
 	<jsp:include page="addUserModalPage.jsp"></jsp:include>
@@ -205,7 +37,6 @@
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<form action="employeeControllerUsers" method="post">
-				<jsp:include page="sendEmailModalPage.jsp"></jsp:include>
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addUserModal"> <fmt:message key="Add" bundle="${lang}" /> </button>
 						<button type="submit" class="btn btn-default" name="action" value="delete">	<fmt:message key="Delete" bundle="${lang}" /> </button>
@@ -236,7 +67,7 @@
 								<th onclick="changeOrderBy('id_role');"> <fmt:message key="Type" bundle="${lang}" /> </th>
 								<th onclick="changeOrderBy('is_activated');"> <fmt:message key="Activated" bundle="${lang}" /> </th>
 								<th onclick="changeOrderBy('is_banned');"> Baned </th>
-								<th >${usersCount}</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody class="avoid-sort">

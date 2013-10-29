@@ -14,19 +14,18 @@ import com.epam.lab.controller.services.user.UserServiceImpl;
 @WebServlet("/move")
 public class MoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String USER_PAGE = "userpage";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("userid");
-		if (request.getParameter("idTarget")!=null && !request.getParameter("idTarget").equals("") && request.getParameterValues("moveable")!=null
-				&& !request.getParameterValues("moveable")[0].equals("")) {
-			long idTarget = Long.parseLong(request.getParameter("idTarget"));
-			String[] moveAble = request.getParameterValues("moveable");
+		String idTargetStr = request.getParameter("idTarget");
+		String[] moveables = request.getParameterValues("moveable");
+		if (idTargetStr != null && !idTargetStr.equals("") && moveables != null
+				&& !moveables[0].equals("")) {
+			long idTarget = Long.parseLong(idTargetStr);
 			UserServiceImpl service = new UserServiceImpl();
-			service.moveFilesAndFolders(moveAble, idTarget, userId);
+			service.moveFilesAndFolders(moveables, idTarget, userId);
 		}
-		response.sendRedirect(USER_PAGE);
 	}
 }

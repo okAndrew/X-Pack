@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epam.lab.controller.services.SelectService;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.User;
 
@@ -39,9 +40,9 @@ public class AdminUsersPageServlet extends HttpServlet {
 
 	private void getUsers(HttpServletRequest request, HttpServletResponse response) {
 		UserServiceImpl service = new UserServiceImpl();
-		List<User> users = service.getByParam(request.getParameter("page"), request.getParameter("count"), request.getParameter("orderby"), request.getParameter("sop"));
+		SelectService<User> selectService = new SelectService<User>();
+		List<User> users = selectService.getByParam(User.class, request.getParameter("page"), request.getParameter("count"), request.getParameter("orderby"), request.getParameter("sop"));
 		request.setAttribute("users", users);
-//		request.setAttribute("users", service.getAll());
 		request.setAttribute("usersCount", service.getCount());
 	}
 }

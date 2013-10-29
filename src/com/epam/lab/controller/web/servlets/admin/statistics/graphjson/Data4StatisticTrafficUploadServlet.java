@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.statistics;
+package com.epam.lab.controller.web.servlets.admin.statistics.graphjson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,19 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 
-import com.epam.lab.controller.services.sessionstatistics.SessionStatisticsServiceImpl;
-import com.epam.lab.model.SessionStatistics;
+import com.epam.lab.controller.services.statistics.StatisticsServiceImpl;
+import com.epam.lab.model.Statistics;
 
-@WebServlet("/Data4Statistic")
-public class Data4StatisticServlet extends HttpServlet {
+@WebServlet("/Data4StatisticTrafficUpload")
+public class Data4StatisticTrafficUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		SessionStatisticsServiceImpl statisticsServiceImpl = new SessionStatisticsServiceImpl();
-		List<SessionStatistics> list = new ArrayList<SessionStatistics>();
-		list = statisticsServiceImpl.getAll();
-		System.out.println(list.indexOf(0));
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		StatisticsServiceImpl statisticsServiceImpl = new StatisticsServiceImpl();
+		List<Statistics> list = new ArrayList<Statistics>();
+		list = statisticsServiceImpl.getAllUploadStatistic();
 		String stringData = statisticsServiceImpl.toJson(list);
 		response.setContentType(MediaType.APPLICATION_JSON);
 		System.out.println(stringData.toString());
@@ -33,4 +31,5 @@ public class Data4StatisticServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
 }

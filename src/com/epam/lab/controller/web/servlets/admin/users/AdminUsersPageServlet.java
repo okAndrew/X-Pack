@@ -20,12 +20,19 @@ public class AdminUsersPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		getUsers(request, response);
+		if (request.getParameter("message") != null){
+			request.setAttribute("message", null);
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
 		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		getUsers(request, response);
+		if (request.getParameter("message") != null){
+			request.setAttribute("message", null);
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
 		dispatcher.forward(request, response);
 	}
@@ -33,8 +40,8 @@ public class AdminUsersPageServlet extends HttpServlet {
 	private void getUsers(HttpServletRequest request, HttpServletResponse response) {
 		UserServiceImpl service = new UserServiceImpl();
 		List<User> users = service.getByParam(request.getParameter("page"), request.getParameter("count"), request.getParameter("orderby"), request.getParameter("sop"));
-//		request.setAttribute("users", users);
-		request.setAttribute("users", service.getAll());
+		request.setAttribute("users", users);
+//		request.setAttribute("users", service.getAll());
 		request.setAttribute("usersCount", service.getCount());
 	}
 }

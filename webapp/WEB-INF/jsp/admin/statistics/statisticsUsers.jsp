@@ -77,7 +77,7 @@
 				};
 
 				// The url for our json data
-				var jsonurl = "Data4Statistic";
+				var jsonurl = "Data4StatisticUsers";
 
 				var plot1 = $.jqplot('chart1', jsonurl, {
 					title : "Visitors",

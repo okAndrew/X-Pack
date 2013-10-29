@@ -1,0 +1,46 @@
+div.alert {
+	width: auto;
+	margin-top: 15px;
+}
+
+span.glyphicon.glyphicon-sort {
+	font-size: 8pt;
+	text-align: center;
+}
+
+table thead tr th {
+	cursor: pointer;
+}
+
+.blue {
+	color: #428BCA;
+}
+
+table {
+	margin-top: 20px;
+}
+
+table th,table td {
+	overflow: hidden;
+}
+
+.paginator-main {
+	width: auto;
+	float: left;
+}
+
+.paginator-main .page-pages {
+	width: auto;
+	float: left;
+}
+
+.paginator-main .page-pages .pagination {
+	margin: 0px;
+	paddign: 0px;
+	padding-right: 10px;
+}
+
+.paginator-main .page-option {
+	width: auto;
+	float: left;
+}

@@ -27,7 +27,7 @@
 			type : "GET",
 			url : 'adminBrowserContent',
 			success : function(data) {
-				$("#browser").html(data);
+				$("#adminbrowser").html(data);
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'
@@ -40,7 +40,7 @@
 			type : "GET",
 			url : 'adminsearch?searchtext=' + $("#searchinput").val(),
 			success : function(data) {
-				$("#browser").html(data);
+				$("#adminbrowser").html(data);
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'
@@ -57,9 +57,9 @@
 	<jsp:include page="myspaceAdminUser/modelvideo.jsp"></jsp:include>
 
 	<div class="container">
-		<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
 			<div class="panel-body">
+			<jsp:include page="adminUserHeader.jsp"></jsp:include>
 				<form action="adminUsercontroller" method="post">
 					<nav class="navbar navbar-default controlmenu" role="navigation">
 						<div class="collapse navbar-collapse controlmenu">
@@ -73,10 +73,7 @@
 									disabled="disabled" id="delete">
 									<fmt:message key="Delete" bundle="${lang}" />
 								</button>
-								<button type="button" onclick="loadBrowserContent()"
-									name="search" class="btn btn-default" id="search">
-									<fmt:message key="Search" bundle="${lang}" />
-								</button>
+								
 							</div>
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">
@@ -91,7 +88,7 @@
 							</div>
 						</div>
 					</nav>
-					<div id="browser">
+					<div id="adminbrowser">
 						<jsp:include page="myspaceAdminUser/adminbrowser.jsp"></jsp:include>
 					</div>
 				</form>

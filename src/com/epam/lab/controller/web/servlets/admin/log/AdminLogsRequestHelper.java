@@ -21,7 +21,8 @@ public class AdminLogsRequestHelper {
 	}
 
 	public AdminLogsPageCommand parseCommand(HttpServletRequest request) {
-		String action = request.getParameter("action");
+		String action = request.getParameter("page");
+//		String action = request.getParameter("action");
 		AdminLogsPageCommand command = commands.get(action);
 		return command;
 	}

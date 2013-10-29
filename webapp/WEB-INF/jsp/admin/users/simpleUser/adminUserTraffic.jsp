@@ -56,15 +56,13 @@ table th,table td {
 	margin-left: 90px;
 }
 </style>
-
-
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
 	<div class="container">
-		<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
 			<div class="panel-body">
+				<jsp:include page="adminUserHeader.jsp"></jsp:include>
 				<div class="col-xs-6">
 					<div id="chart1" style="height: 350px; width: 550px;"></div>
 					<button class="button-reset">Reset Zoom</button>
@@ -85,7 +83,7 @@ table th,table td {
 							</tr>
 							<tr>
 								<td>Upload last month</td>
-								<td><script>document.write(bytesToSize(${uploadUserLastMonts}));</script></td>
+								<td><script>document.write(bytesToSize(${uploadUserLastMonth}));</script></td>
 							</tr>
 							<tr>
 								<td>Download last week</td>

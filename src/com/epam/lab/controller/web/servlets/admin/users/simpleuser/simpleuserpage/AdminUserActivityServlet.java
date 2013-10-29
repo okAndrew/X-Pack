@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
-import com.epam.lab.controller.services.sessionhistory.SessionHistoryServiceImpl;
-import com.epam.lab.controller.services.sessionstatistics.SessionStatisticsServiceImpl;
+import com.epam.lab.controller.services.statistics.StatisticsServiceImpl;
+import com.epam.lab.controller.services.statistics.sessionhistory.SessionHistoryServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.SessionHistory;
-import com.epam.lab.model.SessionStatistics;
+import com.epam.lab.model.Statistics;
 
 @WebServlet("/adminUserActivity")
 public class AdminUserActivityServlet extends HttpServlet {

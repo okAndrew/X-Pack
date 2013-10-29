@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.sessionhistory.SessionHistoryServiceImpl;
+import com.epam.lab.controller.services.statistics.sessionhistory.SessionHistoryServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.web.listeners.UserOnlineListener;

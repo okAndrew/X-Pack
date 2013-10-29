@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.statistictraffic;
+package com.epam.lab.controller.web.servlets.admin.statistics.graphjson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,22 +9,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
-import com.epam.lab.controller.services.sessionstatistics.SessionStatisticsServiceImpl;
-import com.epam.lab.model.SessionStatistics;
+import com.epam.lab.controller.services.statistics.StatisticsServiceImpl;
+import com.epam.lab.model.Statistics;
 
-@WebServlet("/Data4UserTraffic")
-public class Data4UserTrafficServlet extends HttpServlet {
+@WebServlet("/Data4StatisticTrafficDownload")
+public class Data4StatisticTrafficDownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
- 
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		SessionStatisticsServiceImpl statisticsServiceImpl = new SessionStatisticsServiceImpl();
-		List<SessionStatistics> list = new ArrayList<SessionStatistics>();
-		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("adminUserid");
-		list = statisticsServiceImpl.getAllDownloadStatisticByUserId(userId);
+		StatisticsServiceImpl statisticsServiceImpl = new StatisticsServiceImpl();
+		List<Statistics> list = new ArrayList<Statistics>();
+		list = statisticsServiceImpl.getAllDownloadStatistic();
 		String stringData = statisticsServiceImpl.toJson(list);
 		response.setContentType(MediaType.APPLICATION_JSON);
 		System.out.println(stringData.toString());
@@ -35,7 +32,5 @@ public class Data4UserTrafficServlet extends HttpServlet {
 		}
 	}
 
-	}
 
-
-
+}

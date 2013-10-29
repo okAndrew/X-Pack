@@ -4,9 +4,13 @@
 
 <div class="navbar navbar-fixed-top navbar-inverse">
 	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
-	<c:if test="${sessionScope.sessLocale == null}">
+	<!--<c:if test="${sessionScope.sessLocale == null}">
 		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
 	</c:if>
+	<c:if test="${pageContext.request.locale=='de'}">
+	<fmt:setLocale value="de_DE" scope="session"/>
+	</c:if>-->
+	
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
 		<div class="navbar-header">
@@ -73,6 +77,8 @@
 				<a href="locale?language=en_US"><img
 					src="res/img/flags/United-States-Flag-icon.png"></a> <a
 					href="locale?language=uk_UA"><img
+					src="res/img/flags/Ukraine-Flag-icon.png"></a> <a
+					href="locale?language=de_DE"><img
 					src="res/img/flags/Ukraine-Flag-icon.png"></a> 
 			</div>
 		</div>

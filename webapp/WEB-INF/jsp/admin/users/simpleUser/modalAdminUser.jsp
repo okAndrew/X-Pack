@@ -64,49 +64,49 @@
 										<tr>
 											<td><fmt:message key="User_id" bundle="${lang}" /></td>
 											<td><input type="text" name="userIdHolder"
-												class="form-control first" value="${user.id}"
+												class="form-control first" value="${adminUser.id}"
 												autofocus="autofocus" readonly></td>
 										</tr>
 										<tr>
 											<td><fmt:message key="Login" bundle="${lang}" /></td>
 											<td><input type="text" name="userLogin"
-												class="form-control first" value="${user.login}"
+												class="form-control first" value="${adminUser.login}"
 												autofocus="autofocus"></td>
 										</tr>
 										<tr>
 											<td><fmt:message key="Email" bundle="${lang}" /></td>
 											<td><input type="text" name="userEmail" id="userEmail"
-												class="form-control first" value="${user.email}"
+												class="form-control first" value="${adminUser.email}"
 												autofocus="autofocus" /></td>
 										</tr>
 										<tr>
 											<td><fmt:message key="Tariff" bundle="${lang}" /></td>
 											<td><input type="text" name="userIdTariff"
-												class="form-control first" value="${user.idTariff}"
+												class="form-control first" value="${adminUser.idTariff}"
 												autofocus="autofocus" readonly></td>
 										</tr>
 										<tr>
 											<td><fmt:message key="Capacity" bundle="${lang}" /></td>
 											<td><input type="text" class="form-control first"
-												value="${user.capacity}" autofocus="autofocus" disabled></td>
+												value="${adminUser.capacity}" autofocus="autofocus" disabled></td>
 										</tr>
 
 										<tr>
 											<td><fmt:message key="Activation" bundle="${lang}" /></td>
 											<td><input type="text" name="userActivation"
 												id="userActivation" class="form-control last"
-												value="${user.isActivated}" autofocus="autofocus"></td>
+												value="${adminUser.isActivated}" autofocus="autofocus"></td>
 										</tr>
 										<tr>
 											<td><fmt:message key="Banned" bundle="${lang}" /></td>
 											<td><input type="text" name="userBanned" id="userBanned"
-												class="form-control last" value="${user.isBanned}"
+												class="form-control last" value="${adminUser.isBanned}"
 												autofocus="autofocus"></td>
 										</tr>
 										<tr>
 											<td><fmt:message key="Role" bundle="${lang}" /></td>
 											<td><input type="text" name="userRole" id="userRole"
-												class="form-control last" value="${user.role}"
+												class="form-control last" value="${adminUser.role}"
 												autofocus="autofocus"></td>
 										</tr>
 

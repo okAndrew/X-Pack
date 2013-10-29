@@ -286,7 +286,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	}
 
 	@Override
-	public long getDownloadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
+	public long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
 		FileDAOImpl fileDaoImpl = new FileDAOImpl();
 		UserFile file = new UserFile();
 		file = fileDaoImpl.getSizeUploadByDates(dataStart, dataEnd);
@@ -301,5 +301,14 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public long getUploadTrafficUserByDates(Timestamp dataStart,
+			Timestamp dataEnd, long userId) {
+		FileDAOImpl fileDaoImpl = new FileDAOImpl();
+		UserFile file = new UserFile();
+		file = fileDaoImpl.getSizeUploadUserByDates(dataStart, dataEnd, userId);
+		return file.getSize();
 	}
 }

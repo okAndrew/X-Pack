@@ -16,7 +16,7 @@ public class TrafficHistory {
 	private Timestamp date;
 
 	@TableColumn("size")
-	private int size;
+	private double size;
 
 	public long getId() {
 		return id;
@@ -45,7 +45,7 @@ public class TrafficHistory {
 		return this;
 	}
 
-	public int getSize() {
+	public double getSize() {
 		return size;
 	}
 

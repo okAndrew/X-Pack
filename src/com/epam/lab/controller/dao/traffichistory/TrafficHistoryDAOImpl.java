@@ -43,7 +43,7 @@ public class TrafficHistoryDAOImpl implements TrafficHistoryDAO {
 	@Override
 	public TrafficHistory getDownloadTrafficByDates(Timestamp dateStart,
 			Timestamp dateEnd) {
-		String sql = "SELECT SUM(`size`) AS size FROM traffic_history WHERE date BETWEEN ? AND ?";
+		String sql = "SELECT SUM(size) AS size FROM traffic_history WHERE date BETWEEN ? AND ?";
 		return queryExecutor.executeQuerySingle(TrafficHistory.class, sql, dateStart, dateEnd);
 	}
 

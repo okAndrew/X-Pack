@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 
-import com.epam.lab.controller.services.traffichistory.TrafficHistoryServiceImpl;
+import com.epam.lab.controller.services.statistics.traffichistory.TrafficHistoryServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.TrafficHistory;
 

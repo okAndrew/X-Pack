@@ -17,11 +17,13 @@ table thead tr th {
 }
 
 table {
-	margin-top: 20px;
+	overflow: hidden;
 }
 
-table th,table td {
-	text-overflow: ellipsis;
+tr td {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: hidden;
 }
 
 body {

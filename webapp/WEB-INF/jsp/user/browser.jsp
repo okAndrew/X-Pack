@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<script type="text/javascript" src="res/js/utils.js"></script>
+
 <ol class="breadcrumb">
 	<c:forEach items="${folderpath}" var="folder">
 		<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
@@ -70,7 +70,7 @@
 				<h4>${currentFolder.name}</h4>
 				<h5>
 					Total size:
-					<script>document.write(bytesToSize(${currentFolder.size}))</script>
+					<script>document.write(bytesToSize(${currentFolder.size}));</script>
 				</h5>
 			</div>
 		</div>
@@ -101,7 +101,7 @@
 					</a>
 				</h5>
 				<h5>
-					<script>document.write(bytesToSize(${folder.size}))</script>
+					<script>document.write(bytesToSize(${folder.size}));</script>
 				</h5>
 				<h6>
 					<fmt:formatDate type="date" value="${folder.date}" />
@@ -138,6 +138,12 @@
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
+					<c:when test="${ file.type.equals('AUDIO') }">
+						<a data-toggle="modal" role="button" href="#audioModal"
+							onclick="loadAudioContent(${file.id})"> <span
+							class="glyphicon glyphicon-play"></span>
+						</a>
+					</c:when>
 					<c:otherwise>
 						<img title="${file.nameIncome}"
 							src="http://download.easyicon.net/png/30357/128/" height="70px">
@@ -158,7 +164,7 @@
 				</h5>
 				<h5>
 					Size:
-					<script>document.write(bytesToSize(${file.size}))</script>
+					<script>document.write(bytesToSize(${file.size}));</script>
 				</h5>
 				<h6>
 					Created at:
@@ -202,6 +208,7 @@
 
 <script>
 $(function() {
+	
 	$(".draggable").draggable({
 		revert : "invalid",
 		scroll: true,
@@ -301,3 +308,5 @@ $('.cell').on('click',function(){
 		document.getElementById("img").src = "download?fileid=" + id;
 	}
 </script>
+
+

@@ -3,12 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<script type="text/javascript" src="res/js/utils.js"></script>
 <ol class="breadcrumb">
 	<c:forEach items="${folderpath}" var="folder">
 		<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
 	</c:forEach>
 </ol>
-
 <style>
 #gallery {
 	float: left;
@@ -28,8 +29,12 @@
 	border: 1px solid #EEEEEE;
 	background: #FBFBF8;
 	line-height: 100%;
-	height: 95px;
+	height: 100px;
 	position: relative;
+}
+
+.cell.checked {
+	background: silver;
 }
 
 .thumb {
@@ -42,6 +47,7 @@
 	height: 90px;
 	width: 160px;
 	float: left;
+	margin-left: 10px;
 	margin-right: 10px;
 }
 
@@ -56,22 +62,25 @@
 		<div class="cell droppable" id="${currentFolder.idUpper}">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${currentFolder.idUpper}"
-					title="${currentFolder.name}"><img
+					title="To up"><img
 					src="http://icons.iconarchive.com/icons/icojam/blue-bits/64/arrow-up-icon.png"
 					height="70px"> <span class="glyphicon glyphicon-chevron-up"></span></a>
 			</div>
 			<div class="cell-desc">
-				<h4>
-					<a href="userfoldernav?folderid=${folder.id}">${folder.name}</a>
-				</h4>
-				<h6>${folder.date}</h6>
-				<h5>${folder.size}</h5>
+				<h4>${currentFolder.name}</h4>
+				<h5>
+					Total size:
+					<script>document.write(bytesToSize(${currentFolder.size}))</script>
+				</h5>
 			</div>
 		</div>
 	</c:if>
 	<!-- folders -->
 	<c:forEach items="${folders}" var="folder">
-		<div class="cell draggable droppable" name="folder-${folder.id}" id="${folder.id}">
+		<div class="cell draggable droppable" name="folder-${folder.id}"
+			id="${folder.id}">
+			<input type="checkbox" name="folders" value="${folder.id}"
+				id="folder-${folder.id}" hidden="hidden">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${folder.id}" title="${folder.name}"><img
 					src="http://www.whatthetech.com/blog/wp-content/uploads/2010/08/leopard-folder.png"
@@ -91,8 +100,12 @@
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
-				<h6>${folder.date}</h6>
-				<h6>${folder.size}</h6>
+				<h5>
+					<script>document.write(bytesToSize(${folder.size}))</script>
+				</h5>
+				<h6>
+					<fmt:formatDate type="date" value="${folder.date}" />
+				</h6>
 			</div>
 			<div class="btn-group">
 				<h5>
@@ -109,6 +122,8 @@
 	<!-- files -->
 	<c:forEach items="${files}" var="file">
 		<div class="cell draggable" name="file-${file.id}">
+			<input type="checkbox" name="files" value="${file.id}"
+				id="file-${file.id}" hidden="hidden">
 			<div class="thumb">
 				<c:choose>
 					<c:when test="${ file.type.equals('IMAGE') }">
@@ -137,13 +152,19 @@
 							<c:set var="formatName"
 								value="${fn:substring(file.nameIncome, 0, 13)}..."></c:set>
 						</c:if> <c:out value="${formatName}"></c:out>
-					</a> <a data-toggle="modal" role="button" href="#EditModal"
-						onclick="set('folderidedit', ${folder.id})"> <span
+					</a> <a data-toggle="modal" role="button" href="#EditModal"> <span
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
-				<h6>${file.date}</h6>
-				<h6>${file.size}</h6>
+				<h5>
+					Size:
+					<script>document.write(bytesToSize(${file.size}))</script>
+				</h5>
+				<h6>
+					Created at:
+					<fmt:formatDate type="date" value="${file.date}" />
+				</h6>
+
 			</div>
 			<div class="btn-group">
 				<h5>
@@ -221,6 +242,20 @@ function move(moveable, idtargetFolder) {
 	});
 }
 
+$('.cell').on('click',function(){ 
+    var checkedCellName=$(this).attr('name');
+    var checkbox = $('#'+checkedCellName);
+    if(checkbox.is(':checked')){
+    	checkbox.prop('checked', false);
+    	$(this).removeClass('checked');
+    	
+    }else{
+    	checkbox.prop('checked', true);
+    	$(this).addClass('checked');
+    }
+    checkboxesStatus();
+});
+
 	function toggle(source) {
 		var checkboxes = document.getElementsByName('folders');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
@@ -238,29 +273,28 @@ function move(moveable, idtargetFolder) {
 	function getCurFolderId() {
 		document.getElementById("folderidmove").getAttribute("value");
 	}
-	function checkboxesStatus(source) {
+	function checkboxesStatus() {
 		var checkboxes = document.getElementsByName('folders');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {
-				document.getElementById('download').removeAttribute('disabled');
-				document.getElementById('delete').removeAttribute('disabled');
-				document.getElementById('move').removeAttribute('disabled');
+				$('#download').prop('disabled', false);
+		    	$('#delete').prop('disabled', false);
+		    	$('#move').prop('disabled', false);
 				return;
 			}
 		}
 		var checkboxes = document.getElementsByName('files');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {
-				document.getElementById('download').removeAttribute('disabled');
-				document.getElementById('delete').removeAttribute('disabled');
-				document.getElementById('move').removeAttribute('disabled');
+				$('#download').prop('disabled', false);
+		    	$('#delete').prop('disabled', false);
+		    	$('#move').prop('disabled', false);
 				return;
 			}
 		}
-		document.getElementById('download')
-				.setAttribute('disabled', 'disabled');
-		document.getElementById('delete').setAttribute('disabled', 'disabled');
-		document.getElementById('move').setAttribute('disabled', 'disabled');
+		$('#download').prop('disabled', true);
+    	$('#delete').prop('disabled', true);
+    	$('#move').prop('disabled', true);
 	}
 
 	function setSRC(id) {

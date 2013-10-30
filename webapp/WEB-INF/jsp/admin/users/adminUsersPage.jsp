@@ -9,7 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Users</title>
 
-<script	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
 
@@ -18,30 +19,30 @@
 <link rel="stylesheet" href="res/css/adminuserpage.css" rel="stylesheet" />
 
 <script type="text/javascript">
-		var page = checkPage("${param.page}");
-		var perPage = checkCount("${param.count}");
-		var orderBy = checkOrderBy("${param.orderby}");
-		var sort = checkSort("${param.sop}");
-		var pageCount = Math.ceil(parseInt("${usersCount}") / perPage);
-	</script>
+	var page = checkPage("${param.page}");
+	var perPage = checkCount("${param.count}");
+	var orderBy = checkOrderBy("${param.orderby}");
+	var sort = checkSort("${param.sop}");
+	var pageCount = Math.ceil(parseInt("${usersCount}") / perPage);
+</script>
+
 </head>
 <body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
 	<jsp:include page="addUserModalPage.jsp"></jsp:include>
+
 	<c:if test="${messageAddUser != null}">
 		<script>
 			$('#addUserModal').modal('show');
 		</script>
 	</c:if>
+
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<form action="employeeControllerUsers" method="post">
 					<div class="btn-group">
-						<button type="button" class="btn btn-default" data-toggle="modal"
-							data-target="#addUserModal">
-							<fmt:message key="Add" bundle="${lang}" />
-						</button>
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addUserModal"> <fmt:message key="Add" bundle="${lang}" /> </button>
 						<button type="submit" class="btn btn-default" name="action"
 							value="delete">
 							<fmt:message key="Delete" bundle="${lang}" />
@@ -81,8 +82,6 @@
 										key="Login" bundle="${lang}" /></th>
 								<th onclick="changeOrderBy('email');"><fmt:message
 										key="Email" bundle="${lang}" /></th>
-								<th onclick="changeOrderBy('password');"><fmt:message
-										key="Password" bundle="${lang}" /></th>
 								<th onclick="changeOrderBy('capacity');"><fmt:message
 										key="Capacity" bundle="${lang}" /></th>
 								<th onclick="changeOrderBy('id_tariff');"><fmt:message
@@ -103,7 +102,6 @@
 									<td>${user.id}</td>
 									<td>${user.login}</td>
 									<td>${user.email}</td>
-									<td>${user.password}</td>
 									<td><script>document.write(bytesToSize(${user.capacity}));</script></td>
 									<td>${user.idTariff}</td>
 									<td>${user.role}</td>
@@ -137,8 +135,6 @@
 						</div>
 					</div>
 				</div>
-
-
 			</div>
 		</div>
 	</div>

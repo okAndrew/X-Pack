@@ -18,8 +18,9 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	// rename to insert(Tariff tariff)
 	public String addTariff(String name, String maxCapacity, String price,
 			String position, String description) {
-		String message = checkParametersTariff(name, maxCapacity, price, position, description);
-		if (message == null){
+		String message = checkParametersTariff(name, maxCapacity, price,
+				position, description);
+		if (message == null) {
 			Tariff tariff = new Tariff();
 			tariff.setName(name)
 					.setMaxCapacity(Long.parseLong(maxCapacity) * 1024 * 1024)
@@ -94,6 +95,23 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 			}
 		}
 		return errorMessage;
+	}
+	
+	
+	//Locale methods
+	@Override
+	public List<Tariff> getAll(String language) {
+		return tariffDao.getAll(language);
+	}
+
+	@Override
+	public Tariff get(long id, String language) {
+		return tariffDao.get(id, language);
+	}
+	
+	@Override
+	public List<Tariff> getAvailableTariffs(String language) {
+		return tariffDao.getAvailableTariffs(language);
 	}
 
 }

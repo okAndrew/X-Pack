@@ -18,4 +18,10 @@ public interface TariffServise extends AbstractService<Tariff> {
 
 	String checkParametersTariff(String name, String maxCapacity, String price,
 			String position, String description);
+
+	Tariff get(long id, String language);
+
+	List<Tariff> getAll(String language);
+
+	List<Tariff> getAvailableTariffs(String language);
 }

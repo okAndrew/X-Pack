@@ -21,6 +21,7 @@ public class LocaleServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		String lang = request.getParameter("language");
 		session.setAttribute("sessLocale", request.getParameter("language"));
+		String s = request.getHeader("referer");
 		response.sendRedirect(request.getHeader("referer"));
 	}
 }

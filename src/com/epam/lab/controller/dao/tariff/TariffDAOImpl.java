@@ -11,20 +11,61 @@ public class TariffDAOImpl implements TariffDAO {
 
 	@Override
 	public Tariff get(long id) {
-		String sql = "select tt.text as description from tariffs t join text_translation tt "
-				+ "on t.description=tt.id join lanquages l on tt.lang=l.id "
-				+ "where l.locale='uk_UA' and t.id=?";
+		String sql = "select t.id,t.name,t.max_capacity,t.price, tt.text as description,"
+				+ "t.position, t.is_delete "
+				+ " from tariffs t join text_translation tt "
+				+ "on t.description=tt.id join languages l on tt.lang=l.id "
+				+ "where l.name='English' and t.id=?";
 		Tariff tariff = queryExecutor.executeQuerySingle(Tariff.class, sql, id);
+		return tariff;
+	}
+
+	@Override
+	public Tariff get(long id, String language) {
+		String sql = "select t.id,t.name,t.max_capacity,t.price, tt.text as description,"
+				+ "t.position, t.is_delete "
+				+ " from tariffs t join text_translation tt "
+				+ "on t.description=tt.id join languages l on tt.lang=l.id "
+				+ "where l.name=? and t.id=?";
+		Tariff tariff = queryExecutor.executeQuerySingle(Tariff.class, sql,
+				language, id);
 		return tariff;
 	}
 
 	@Override
 	public List<Tariff> getAll() {
 		String sql = "select t.id,t.name,t.max_capacity,t.price, tt.text as description,"
-				+ "t.position, t.is_delete from tariffs t join text_translation tt "
-				+ "on t.description=tt.id join lanquages l on tt.lang=l.id "
-				+ "where l.locale='uk_UA'";
+				+ "t.position, t.is_delete "
+				+ "from tariffs t "
+				+ "inner join text_translation tt on t.description=tt.id "
+				+ "inner join languages l on tt.lang=l.id "
+				+ "where l.name='English'";
 		List<Tariff> tariffs = queryExecutor.executeQuery(Tariff.class, sql);
+		return tariffs;
+	}
+
+	@Override
+	public List<Tariff> getAll(String language) {
+
+		String sql = "select * from(select t.id,t.name,t.max_capacity,t.price, tt.text as description,"
+				+ "t.position, t.is_delete "
+				+ "from tariffs t "
+				+ "inner join text_translation tt on t.description=tt.id "
+				+ "inner join languages l on tt.lang=l.id "
+				+ "where l.name=? "
+				+ "union "
+				+ "select t.id,t.name,t.max_capacity,t.price, tt.text as description,"
+				+ "t.position, t.is_delete "
+				+ "from tariffs t "
+				+ "inner join text_translation tt on t.description=tt.id "
+				+ "inner join languages l on tt.lang=l.id "
+				+ "where l.name='English' and not exists(	select * from tariffs t "
+				+ "inner join text_translation tt on t.description=tt.id "
+				+ "inner join languages l on tt.lang=l.id "
+				+ "where l.name=?)"
+				+ ")as v";
+		List<Tariff> tariffs = queryExecutor.executeQuery(Tariff.class, sql,
+				language, language);
 		return tariffs;
 	}
 
@@ -52,8 +93,20 @@ public class TariffDAOImpl implements TariffDAO {
 
 	@Override
 	public List<Tariff> getAvailableTariffs() {
-		String sql = "SELECT * FROM tariffs WHERE is_delete = 0 ORDER BY position ASC";
+		String sql = "SELECT t.id,t.name,t.max_capacity,t.price, tt.text as description,"
+				+ "t.position, t.is_delete FROM tariffs t join text_translation tt "
+				+ "on t.description=tt.id join languages l on tt.lang=l.id "
+				+ "WHERE l.name='English' and is_delete = 0 ORDER BY position ASC";
 		return queryExecutor.executeQuery(Tariff.class, sql);
+	}
+
+	@Override
+	public List<Tariff> getAvailableTariffs(String language) {
+		String sql = "SELECT t.id,t.name,t.max_capacity,t.price, tt.text as description,"
+				+ "t.position, t.is_delete FROM tariffs t join text_translation tt "
+				+ "on t.description=tt.id join languages l on tt.lang=l.id "
+				+ "WHERE l.name=? and is_delete = 0 ORDER BY position ASC";
+		return queryExecutor.executeQuery(Tariff.class, sql, language);
 	}
 
 	@Override

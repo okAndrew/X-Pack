@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.epam.lab.controller.services.language.LanguageServiceImpl;
 import com.epam.lab.controller.services.tariff.TariffServiseImpl;
+import com.epam.lab.model.Language;
 
 @WebServlet("/adminTariffsPage")
 public class AdminTariffsPageServlet extends HttpServlet {
@@ -35,7 +38,16 @@ public class AdminTariffsPageServlet extends HttpServlet {
 
 	private void getAllTariffs(HttpServletRequest request,
 			HttpServletResponse response) {
+		Language language = null;
+		LanguageServiceImpl impl = new LanguageServiceImpl();
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("sessLocale") == null) {
+			language = impl.getByLocale(request.getLocale().toString());
+		} else {
+			language = impl.getByLocale(session.getAttribute("sessLocale")
+					.toString());
+		}
 		TariffServiseImpl servise = new TariffServiseImpl();
-		request.setAttribute("tariffs", servise.getAll());
+		request.setAttribute("tariffs", servise.getAll(language.getName()));
 	}
 }

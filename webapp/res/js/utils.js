@@ -132,11 +132,11 @@ function render() {
 	}
 
 	if (window.page == window.pageCount - 1) {
-		forward = "<li class='disabled'><a><span class='glyphicon glyphicon-forward'></span></a></li>";
 		step_forward = "<li class='disabled'><a><span class='glyphicon glyphicon-step-forward'></span></a></li>";
+		forward = "<li class='disabled'><a><span class='glyphicon glyphicon-forward'></span></a></li>";
 	} else {
-		forward = "<li><a href='" + generateLink(pageCount - 1) + "'><span class='glyphicon glyphicon-forward'></span></a></li>";
 		step_forward = "<li><a href=" + generateLink(window.page + 1) + "'><span class='glyphicon glyphicon-step-forward'></span></a></li>";
+		forward = "<li><a href='" + generateLink(window.pageCount - 1) + "'><span class='glyphicon glyphicon-forward'></span></a></li>";
 	}
 	
 	$('#paginator').append(step_forward);
@@ -147,10 +147,14 @@ function render() {
  * 
  */
 function generateLink(p) {
-	var link = "http://localhost:8080/dreamhost/adminUsersPage?page=" + p;
-	link += "&count=" + window.perPage;
-	link += "&orderby=" + window.orderBy;
-	link += "&sop=" + window.sort;
+	var temp = "";
+	
+	if (p != null) {
+		temp += "http://localhost:8080/dreamhost/" + window.linkVar + "?page=" + p;
+		temp += "&count=" + window.perPage;
+		temp += "&orderby=" + window.orderBy;
+		temp += "&sop=" + window.sort;
+	}
 
-	return link;
+	return temp;
 }

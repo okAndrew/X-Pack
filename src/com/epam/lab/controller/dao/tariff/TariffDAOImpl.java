@@ -3,6 +3,7 @@ package com.epam.lab.controller.dao.tariff;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.model.Counter;
 import com.epam.lab.model.Tariff;
 
 public class TariffDAOImpl implements TariffDAO {
@@ -53,5 +54,13 @@ public class TariffDAOImpl implements TariffDAO {
 	public int setIsDelete(boolean state, long id) {
 		String sql = "UPDATE tariffs SET is_delete=? WHERE id=?";
 		return queryExecutor.executeUpdate(sql, state, id);
+	}
+
+	@Override
+	public long getCount() {
+		String sql = "SELECT COUNT(id) AS countTariffs FROM tariffs";
+		Counter counter = new DBQueryExecutor<Counter>().executeQuerySingle(
+				Counter.class, sql);
+		return counter.getCountTariffs();
 	}
 }

@@ -14,62 +14,11 @@
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
+<script src="res/js/utils.js"></script>
+
 <script type="text/javascript" src="res/js/utils.js"></script>
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-<style type="text/css">
-div.alert {
-	width: auto;
-	margin-top: 15px;
-}
-
-form {
-	
-}
-
-span.glyphicon.glyphicon-sort {
-	font-size: 8pt;
-	text-align: center;
-}
-
-table thead tr th {
-	cursor: pointer;
-}
-
-.blue {
-	color: #428BCA;
-}
-
-table {
-	margin-top: 20px;
-}
-
-table th,table td {
-	overflow: hidden;
-}
-</style>
-<script type="text/javascript">
-	$("tablesorter").ready(function() {
-		$("#tablesorter").tablesorter({
-			headers : {
-				0 : {
-					sorter : false
-				},
-				10 : {
-					sorter : false
-				}
-			},
-			widthFixed : true,
-		}).tablesorterPager({
-			container : $("#pager"),
-			positionFixed : false
-		}).tablesorterFilter({
-			filterContainer : $("#filter"),
-			filterColumns : [ 1, 2, 3, 4, 5, 6 ],
-			filterCaseSensitive : false
-		});
-	});
-</script>
 
 </head>
 <body>
@@ -108,7 +57,7 @@ table th,table td {
 							</tr>
 							<tr>
 								<td><fmt:message key="Capacity" bundle="${lang}" /></td>
-								<td>${adminUser.capacity}</td>
+								<td><script>document.write(bytesToSize(${adminUser.capacity}));</script></td>
 							</tr>
 							<tr>
 								<td><fmt:message key="Activation" bundle="${lang}" /></td>

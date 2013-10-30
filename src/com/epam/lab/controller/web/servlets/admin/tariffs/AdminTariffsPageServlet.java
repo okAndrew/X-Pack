@@ -1,6 +1,7 @@
 package com.epam.lab.controller.web.servlets.admin.tariffs;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epam.lab.controller.services.SelectService;
 import com.epam.lab.controller.services.tariff.TariffServiseImpl;
+import com.epam.lab.model.Tariff;
 
 @WebServlet("/adminTariffsPage")
 public class AdminTariffsPageServlet extends HttpServlet {
@@ -36,6 +39,11 @@ public class AdminTariffsPageServlet extends HttpServlet {
 	private void getAllTariffs(HttpServletRequest request,
 			HttpServletResponse response) {
 		TariffServiseImpl servise = new TariffServiseImpl();
-		request.setAttribute("tariffs", servise.getAll());
+		SelectService<Tariff> selectService = new SelectService<Tariff>();
+		List<Tariff> tariffs = selectService.getByParam(Tariff.class,
+				request.getParameter("page"), request.getParameter("count"),
+				request.getParameter("orderby"), request.getParameter("sop"));
+		request.setAttribute("tariffs", tariffs);
+		request.setAttribute("tariffsCount", servise.getCount());
 	}
 }

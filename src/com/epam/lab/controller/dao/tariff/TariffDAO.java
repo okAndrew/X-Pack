@@ -11,4 +11,5 @@ public interface TariffDAO extends GenericDAO<Tariff> {
 	
 	int setIsDelete(boolean state, long id);
 	
+	long getCount();
 }

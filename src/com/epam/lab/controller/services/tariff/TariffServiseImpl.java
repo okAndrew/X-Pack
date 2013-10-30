@@ -9,13 +9,13 @@ import com.epam.lab.model.Tariff;
 
 public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		TariffServise {
+	
 	private TariffDAO tariffDao = new TariffDAOImpl();
 
 	public TariffServiseImpl() {
 		super(new TariffDAOImpl());
 	}
 
-	// rename to insert(Tariff tariff)
 	public String addTariff(String name, String maxCapacity, String price,
 			String position, String description) {
 		String message = checkParametersTariff(name, maxCapacity, price, position, description);
@@ -94,6 +94,11 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 			}
 		}
 		return errorMessage;
+	}
+
+	@Override
+	public long getCount() {
+		return tariffDao.getCount();
 	}
 
 }

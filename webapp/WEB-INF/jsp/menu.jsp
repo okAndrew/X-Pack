@@ -70,13 +70,22 @@
 						</ul>
 					</div>
 				</c:if>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown">
+						Action <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="locale?language=en_US"><img
+								src="res/img/flags/United-States-Flag-icon.png"></a></li>
+						<li><a href="locale?language=uk_UA"><img
+								src="res/img/flags/Ukraine-Flag-icon.png"></a></li>
+						<li><a href="locale?language=de_DE"><img
+								src="res/img/flags/Ukraine-Flag-icon.png"></a></li>
 
-				<a href="locale?language=en_US"><img
-					src="res/img/flags/United-States-Flag-icon.png"></a> <a
-					href="locale?language=uk_UA"><img
-					src="res/img/flags/Ukraine-Flag-icon.png"></a> <a
-					href="locale?language=de_DE"><img
-					src="res/img/flags/Ukraine-Flag-icon.png"></a>
+					</ul>
+				</div>
+
 			</div>
 		</div>
 	</div>

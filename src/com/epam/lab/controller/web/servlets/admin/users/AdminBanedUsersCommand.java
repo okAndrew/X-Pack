@@ -2,7 +2,6 @@ package com.epam.lab.controller.web.servlets.admin.users;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.user.UserServiceImpl;
 
@@ -18,7 +17,8 @@ public class AdminBanedUsersCommand implements AdminUsersPageCommand {
 			return page;
 		} else {
 			UserServiceImpl service = new UserServiceImpl();
-			Long adminId = (Long) request.getSession(false).getAttribute("userid");
+			Long adminId = (Long) request.getSession(false).getAttribute(
+					"userid");
 			service.banedUsers(request.getParameterValues("checkUser"), adminId);
 			page = "adminUsersPage";
 		}

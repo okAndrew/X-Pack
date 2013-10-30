@@ -71,70 +71,10 @@
 							<h5>${message}</h5>
 						</div>
 					</c:if>
-
-					<table class="table zebra-striped table-hover table-condensed" id="tablesorter">
-						<thead>
-							<tr>
-								<th> <input type="checkbox" onClick="toggle(this)" /> </th>
-								<th onclick="changeOrderBy('id');"><fmt:message key="Id"
-										bundle="${lang}" /></th>
-								<th onclick="changeOrderBy('login');"><fmt:message
-										key="Login" bundle="${lang}" /></th>
-								<th onclick="changeOrderBy('email');"><fmt:message
-										key="Email" bundle="${lang}" /></th>
-								<th onclick="changeOrderBy('capacity');"><fmt:message
-										key="Capacity" bundle="${lang}" /></th>
-								<th onclick="changeOrderBy('id_tariff');"><fmt:message
-										key="Tariffs" bundle="${lang}" /></th>
-								<th onclick="changeOrderBy('id_role');"><fmt:message
-										key="Type" bundle="${lang}" /></th>
-								<th onclick="changeOrderBy('is_activated');"><fmt:message
-										key="Activated" bundle="${lang}" /></th>
-								<th onclick="changeOrderBy('is_banned');">Baned</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody class="avoid-sort">
-							<c:forEach var="user" items="${users}">
-								<tr>
-									<td class="{sorter: false}"><input type="checkbox"
-										name="checkUser" value="${user.id}"></td>
-									<td>${user.id}</td>
-									<td>${user.login}</td>
-									<td>${user.email}</td>
-									<td><script>document.write(bytesToSize(${user.capacity}));</script></td>
-									<td>${user.idTariff}</td>
-									<td>${user.role}</td>
-									<td>${user.isActivated}</td>
-									<td>${user.isBanned}</td>
-									<td><a href="adminUser?userid=${user.id}"> <span
-											class="glyphicon glyphicon-eye-open blue"></span></a></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					<jsp:include page="tableUsers.jsp"></jsp:include>
 					<jsp:include page="sendEmailModalPage.jsp"></jsp:include>
 				</form>
-				<div class="paginator-main">
-					<div class="page-pages">
-						<ul id="paginator" class="pagination">
-						</ul>
-					</div>
-					<div class="page-option">
-						<div class="btn-group">
-							<button type="button" class="btn btn-default">Rows</button>
-							<button type="button" class="btn btn-default dropdown-toggle"
-								data-toggle="dropdown">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a onclick="changePerPage(10);">10</a></li>
-								<li><a onclick="changePerPage(20);">20</a></li>
-								<li><a onclick="changePerPage(50);">50</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				<jsp:include page="../../paginator.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>

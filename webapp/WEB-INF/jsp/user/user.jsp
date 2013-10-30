@@ -63,6 +63,13 @@
 		}
 	}
 </script>
+<style type="text/css">
+img.img {
+	max-height: auto;
+	max-width: 538px;
+	margin-bottom: 3px; 
+}
+</style>
 </head>
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>

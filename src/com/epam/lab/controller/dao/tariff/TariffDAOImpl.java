@@ -3,6 +3,7 @@ package com.epam.lab.controller.dao.tariff;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.model.Counter;
 import com.epam.lab.model.Tariff;
 
 public class TariffDAOImpl implements TariffDAO {
@@ -114,4 +115,40 @@ public class TariffDAOImpl implements TariffDAO {
 		String sql = "UPDATE tariffs SET is_delete=? WHERE id=?";
 		return queryExecutor.executeUpdate(sql, state, id);
 	}
+
+	@Override
+	public long getCount() {
+		String sql = "SELECT COUNT(id) AS countTariffs FROM tariffs";
+		Counter counter = new DBQueryExecutor<Counter>().executeQuerySingle(
+				Counter.class, sql);
+		return counter.getCountTariffs();
+	}
+
+	@Override
+	public List<Tariff> getByParam(Integer page, Integer count, String orderBy,
+			String sop, String language) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select * from(select t.id,t.name,t.max_capacity,t.price, tt.text as description,");
+		sql.append("t.position, t.is_delete from tariffs t ");
+		sql.append("inner join text_translation tt on t.description=tt.id ");
+		sql.append("inner join languages l on tt.lang=l.id ");
+		sql.append("where l.name=? union ");
+		sql.append("select t.id,t.name,t.max_capacity,t.price, tt.text as description,");
+		sql.append("t.position, t.is_delete from tariffs t ");
+		sql.append("inner join text_translation tt on t.description=tt.id ");
+		sql.append("inner join languages l on tt.lang=l.id ");
+		sql.append("where l.name='English' and not exists(	select * from tariffs t ");
+		sql.append("inner join text_translation tt on t.description=tt.id ");
+		sql.append("inner join languages l on tt.lang=l.id ");
+		sql.append("where l.name=?))as v");
+		sql.append(" ORDER BY ").append(orderBy);
+		sql.append(" ").append(sop);
+		sql.append(" LIMIT ").append(count);
+		sql.append(" OFFSET ").append(page * count);
+
+		return queryExecutor.executeQuery(Tariff.class, sql.toString(),
+				language, language);
+	}
+
 }

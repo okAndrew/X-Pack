@@ -19,29 +19,36 @@ public class AdminUsersPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_USERS_PAGE_JSP = "WEB-INF/jsp/admin/users/adminUsersPage.jsp";
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		getUsers(request, response);
-		if (request.getParameter("message") != null){
+		if (request.getParameter("message") != null) {
 			request.setAttribute("message", null);
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		getUsers(request, response);
-		if (request.getParameter("message") != null){
+		if (request.getParameter("message") != null) {
 			request.setAttribute("message", null);
 		}
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
+
+		RequestDispatcher dispatcher = request
+				.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
 		dispatcher.forward(request, response);
 	}
 
-	private void getUsers(HttpServletRequest request, HttpServletResponse response) {
+	private void getUsers(HttpServletRequest request,
+			HttpServletResponse response) {
 		UserServiceImpl service = new UserServiceImpl();
 		SelectService<User> selectService = new SelectService<User>();
-		List<User> users = selectService.getByParam(User.class, request.getParameter("page"), request.getParameter("count"), request.getParameter("orderby"), request.getParameter("sop"));
+		List<User> users = selectService.getByParam(User.class,
+				request.getParameter("page"), request.getParameter("count"),
+				request.getParameter("orderby"), request.getParameter("sop"));
 		request.setAttribute("users", users);
 		request.setAttribute("usersCount", service.getCount());
 	}

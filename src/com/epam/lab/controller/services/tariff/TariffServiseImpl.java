@@ -1,21 +1,27 @@
 package com.epam.lab.controller.services.tariff;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.tariff.TariffDAO;
 import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
+import com.epam.lab.controller.services.SelectService;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.Tariff;
 
 public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		TariffServise {
+	static Logger logger = Logger.getLogger(TariffServiseImpl.class);
 	private TariffDAO tariffDao = new TariffDAOImpl();
 
 	public TariffServiseImpl() {
 		super(new TariffDAOImpl());
 	}
 
-	// rename to insert(Tariff tariff)
 	public String addTariff(String name, String maxCapacity, String price,
 			String position, String description) {
 		String message = checkParametersTariff(name, maxCapacity, price,
@@ -96,9 +102,8 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		}
 		return errorMessage;
 	}
-	
-	
-	//Locale methods
+
+	// Locale methods
 	@Override
 	public List<Tariff> getAll(String language) {
 		return tariffDao.getAll(language);
@@ -108,10 +113,36 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	public Tariff get(long id, String language) {
 		return tariffDao.get(id, language);
 	}
-	
+
 	@Override
 	public List<Tariff> getAvailableTariffs(String language) {
 		return tariffDao.getAvailableTariffs(language);
+	}
+
+	@Override
+	public long getCount() {
+		return tariffDao.getCount();
+	}
+
+	@Override
+	public List<Tariff> getByParam(String page, String count, String orderBy,
+			String sort, String language) {
+		SelectService<Tariff> s = new SelectService<Tariff>();
+		TariffDAOImpl daoImpl = new TariffDAOImpl();
+		Map<String, String> param = s.getParam(Tariff.class, page, count,
+				orderBy, sort);
+		int c, p;
+		try {
+			c = Integer.valueOf(param.get(count));
+			p = Integer.valueOf(param.get(page));
+		} catch (NumberFormatException e) {
+			logger.error(e);
+			c = 10;
+			p = 0;
+		}
+
+		return daoImpl.getByParam(p, c, param.get("order"), param.get("sort"),
+				language);
 	}
 
 }

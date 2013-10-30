@@ -20,42 +20,6 @@
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 
-<style type="text/css">
-div.alert {
-	width: auto;
-	margin-top: 15px;
-}
-
-form {
-	
-}
-
-span.glyphicon.glyphicon-sort {
-	font-size: 8pt;
-	text-align: center;
-}
-
-table thead tr th {
-	cursor: pointer;
-}
-
-.blue {
-	color: #428BCA;
-}
-
-table {
-	margin-top: 20px;
-}
-
-table th,table td {
-	overflow: hidden;
-}
-
-.button-reset {
-	margin: 30px;
-	margin-left: 90px;
-}
-</style>
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
@@ -65,12 +29,12 @@ table th,table td {
 				<jsp:include page="adminUserHeader.jsp"></jsp:include>
 				<div class="col-xs-6">
 					<div id="chart1" style="height: 350px; width: 550px;"></div>
-					<button class="button-reset">Reset Zoom</button>
+					<button class="button-reset1">Reset Zoom</button>
 				</div>
 
 				<div class="col-xs-6">
 					<div id="chart2" style="height: 350px; width: 550px;"></div>
-					<button class="button-reset">Reset Zoom</button>
+					<button class="button-reset2">Reset Zoom</button>
 				</div>
 
 
@@ -173,7 +137,7 @@ table th,table td {
 												}
 											});
 
-							var plot1 = $.jqplot('chart2', jsonurl2, {
+							var plot2 = $.jqplot('chart2', jsonurl2, {
 												title : "Load server(Upload)",
 												dataRenderer : ajaxDataRenderer,
 												dataRendererOptions : {
@@ -201,9 +165,13 @@ table th,table td {
 												}
 											});
 
-							$('.button-reset').click(function() {
-								plot1.resetZoom()
+							$('.button-reset1').click(function() {
+								plot1.resetZoom();
 							});
+							$('.button-reset2').click(function() {
+								plot2.resetZoom();
+							});
+							
 						});
 	</script>
 </body>

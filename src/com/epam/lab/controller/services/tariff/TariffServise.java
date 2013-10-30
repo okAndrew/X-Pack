@@ -24,4 +24,10 @@ public interface TariffServise extends AbstractService<Tariff> {
 	List<Tariff> getAll(String language);
 
 	List<Tariff> getAvailableTariffs(String language);
+
+	long getCount();
+
+	List<Tariff> getByParam(String page, String count, String orderBy,
+			String sop, String language);
+
 }

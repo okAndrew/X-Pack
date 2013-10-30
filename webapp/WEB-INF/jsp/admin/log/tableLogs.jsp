@@ -13,8 +13,6 @@
 <table id="tablesorter" class="table zebra-striped table-hover table-condensed">
 	<thead>
 		<tr>
-			<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
-					key="All" bundle="${lang}" /></th>
 			<th onclick="changeOrderBy('id');"><fmt:message key="Id" bundle="${lang}" /></th>
 			<th onclick="changeOrderBy('date_time');"><fmt:message key="Date" bundle="${lang}" /></th>
 			<th onclick="changeOrderBy('logger');"><fmt:message key="Logger" bundle="${lang}" /></th>
@@ -24,12 +22,13 @@
 	</thead>
 	<tbody>
 		<c:forEach var="log" items="${logs}">
-			<td><input type="checkbox" name="checkLog" value="${log.id}"></td>
+		<tr>
 			<td>${log.id}</td>
 			<td>${log.datetime}</td>
 			<td>${log.logger}</td>
 			<td>${log.level}</td>
 			<td>${log.message}</td>
+		</tr>
 		</c:forEach>
 	</tbody>
 </table>

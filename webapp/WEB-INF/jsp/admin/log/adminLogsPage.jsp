@@ -74,37 +74,6 @@ table th,table td {
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
-				<form action="adminLogsEmployeeController" method="post">
-					<div class="btn-group">
-						<button type="button" class="btn btn-default" name="action"
-							value="all">
-							<fmt:message key="All" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="error">
-							<fmt:message key="Error" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="warning">
-							<fmt:message key="Warning" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="info">
-							<fmt:message key="Info" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="debug">
-							<fmt:message key="Debug" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="delete">
-							<fmt:message key="Delete" bundle="${lang}" />
-						</button>
-						<button type="submit" class="btn btn-default" name="action"
-							value="clear">
-							<fmt:message key="Clear_history" bundle="${lang}" />
-						</button>
-					</div>
 					<c:if test="${message != null }">
 						<div class="alert alert-warning">
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -115,7 +84,6 @@ table th,table td {
 					<div>
 						<jsp:include page="tableLogs.jsp"></jsp:include>
 					</div>
-				</form>
 				<div class="paginator-main">
 					<div class="page-pages">
 						<ul id="paginator" class="pagination">

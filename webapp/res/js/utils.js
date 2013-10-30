@@ -103,22 +103,16 @@ function render() {
 	if (pageEnd > window.pageCount - 1) {
 		pageEnd = window.pageCount - 1;
 	}
-
+	
 	if (window.page == 0) {
-		backward = "<li class='disabled'>";
-		step_backward = "<li class='disabled'>";
+		backward = "<li class='disabled'><a><span class='glyphicon glyphicon-backward'></span></a></li>";
+		step_backward = "<li class='disabled'><a><span class='glyphicon glyphicon-step-backward'></span></a></li>";
 	} else {
-		backward = "<li>";
-		step_backward = "<li>";
+		backward = "<li><a href='" + generateLink(0) + "'><span class='glyphicon glyphicon-backward'></span></a></li>";
+		step_backward = "<li><a href='" + generateLink(window.page - 1) + "'><span class='glyphicon glyphicon-step-backward'></span></a></li>";
 	}
 
-	backward += "<a href=" + generateLink(0)
-			+ "><span class='glyphicon glyphicon-backward'></span></a></li>";
 	$('#paginator').append(backward);
-
-	step_backward += "<a href="
-			+ generateLink(window.page - 1)
-			+ "><span class='glyphicon glyphicon-step-backward'></span></a></li>";
 	$('#paginator').append(step_backward);
 
 	for ( var i = pageStart, j = i + 1; i <= pageEnd; i++, j++) {
@@ -138,19 +132,14 @@ function render() {
 	}
 
 	if (window.page == window.pageCount - 1) {
-		forward = "<li class='disabled'>";
-		step_forward = "<li class='disabled'>";
+		forward = "<li class='disabled'><a><span class='glyphicon glyphicon-forward'></span></a></li>";
+		step_forward = "<li class='disabled'><a><span class='glyphicon glyphicon-step-forward'></span></a></li>";
 	} else {
-		forward = "<li>";
-		step_forward = "<li>";
+		forward = "<li><a href='" + generateLink(pageCount - 1) + "'><span class='glyphicon glyphicon-forward'></span></a></li>";
+		step_forward = "<li><a href=" + generateLink(window.page + 1) + "'><span class='glyphicon glyphicon-step-forward'></span></a></li>";
 	}
-
-	step_forward += "<a href=" + generateLink(window.page + 1);
-	step_forward += "><span class='glyphicon glyphicon-step-forward'></span></a></li>";
+	
 	$('#paginator').append(step_forward);
-
-	forward += "<a href=" + generateLink(window.pageCount - 1);
-	forward += " disable='disable'><span class='glyphicon glyphicon-forward'></span></a></li>";
 	$('#paginator').append(forward);
 }
 

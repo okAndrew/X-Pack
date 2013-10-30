@@ -38,6 +38,7 @@ public class PricingService {
 				request.setAttribute("savedCash", Math.round(savedCash * 100.0) / 100.0);
 				request.setAttribute("daysLeft", daysLeft);
 			}
+			long s = user.getIdTariff();
 			request.setAttribute("currentTariff", tariffServise.get(user.getIdTariff()));
 		}
 		request.setAttribute("tariffs", new TariffServiseImpl().getAvailableTariffs());

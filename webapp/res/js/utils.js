@@ -112,12 +112,12 @@ function render() {
 		step_backward = "<li>";
 	}
 
-	backward += "<a href=" + generateLink(i)
+	backward += "<a href=" + generateLink(0)
 			+ "><span class='glyphicon glyphicon-backward'></span></a></li>";
 	$('#paginator').append(backward);
 
 	step_backward += "<a href="
-			+ generateLink(i)
+			+ generateLink(window.page - 1)
 			+ "><span class='glyphicon glyphicon-step-backward'></span></a></li>";
 	$('#paginator').append(step_backward);
 

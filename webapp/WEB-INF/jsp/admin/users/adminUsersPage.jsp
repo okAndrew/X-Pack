@@ -22,7 +22,7 @@
 		var perPage = checkCount("${param.count}");
 		var orderBy = checkOrderBy("${param.orderby}");
 		var sort = checkSort("${param.sop}");
-		var pageCount = Math.ceil(parseInt("${usersCount}") / window.perPage);
+		var pageCount = Math.ceil(parseInt("${usersCount}") / perPage);
 	</script>
 </head>
 <body onload="render();">

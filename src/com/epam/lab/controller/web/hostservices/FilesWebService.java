@@ -5,12 +5,14 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONArray;
@@ -26,6 +28,7 @@ import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.file.UserFileUploader;
 import com.epam.lab.controller.services.token4auth.Token4AuthService;
 import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
+import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.UserFile;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
@@ -70,6 +73,23 @@ public class FilesWebService {
 			resultArray = getFiles(idFolder);
 		}
 		return resultArray;
+	}
+
+	@DELETE
+	@Path("delete/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteFiles(@PathParam("token") String token,
+			List<UserFile> files) {
+		Token4AuthServiceImpl tokenService = new Token4AuthServiceImpl();
+		Token4Auth tokenData = tokenService.getByToken(token);
+		// tokenData
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
+		for (UserFile file : files) {
+			
+			fileService.delete(file.getId());
+		}
+		return Response.status(200).build();
 	}
 
 	private JSONArray getFiles(long idFolder) {

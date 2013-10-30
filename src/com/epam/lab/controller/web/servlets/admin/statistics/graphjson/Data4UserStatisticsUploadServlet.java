@@ -28,7 +28,6 @@ public class Data4UserStatisticsUploadServlet extends HttpServlet {
 		list = statisticsServiceImpl.getAllUploadStatisticByUserId(userId);
 		String stringData = statisticsServiceImpl.toJson(list);
 		response.setContentType(MediaType.APPLICATION_JSON);
-		System.out.println(stringData.toString());
 		try {
 			response.getWriter().write(stringData.toString());
 		} catch (IOException e) {

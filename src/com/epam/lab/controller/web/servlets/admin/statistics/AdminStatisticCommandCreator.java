@@ -7,14 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.web.servlets.admin.log.AdminLogsRequestHelper;
-
 public class AdminStatisticCommandCreator {
 
 	private static AdminStatisticCommandCreator instance = null;
 	private Map<String, AdminStatisticPageCommand> commands = new HashMap<String, AdminStatisticPageCommand>();
 	private static Logger logger = Logger
-			.getLogger(AdminLogsRequestHelper.class);
+			.getLogger(AdminStatisticCommandCreator.class);
 
 	private AdminStatisticCommandCreator() {
 		commands.put("users", new AdminStatisticUsersCommand());

@@ -20,34 +20,7 @@ public class LogServiceImpl extends AbstractServiceImpl<Log> implements
 	}
 
 	@Override
-	public List<Log> getErrorLogs() {
-		return logDAO.getErrorLogs();
-	}
-
-	@Override
-	public List<Log> getWarningLogs() {
-		return logDAO.getWarningLogs();
-	}
-
-	@Override
-	public List<Log> getInfoLogs() {
-		return logDAO.getInfoLogs();
-	}
-
-	@Override
-	public List<Log> getDebugLogs() {
-		return logDAO.getDebagLogs();
-	}
-
-	@Override
-	public void deleteLogs(String[] checkLogs) {
-		for (int i = 0; i < checkLogs.length; i++) {
-			logDAO.delete(Long.parseLong(checkLogs[i]));
-		}
-	}
-
-	@Override
-	public void clearTable() {
-		logDAO.clearTable();
+	public long getCount() {
+		return logDAO.getCount();
 	}
 }

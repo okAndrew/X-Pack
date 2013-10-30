@@ -71,6 +71,7 @@
 	<jsp:include page="myspace/modeldelete.jsp"></jsp:include>
 	<jsp:include page="myspace/modelimage.jsp"></jsp:include>
 	<jsp:include page="myspace/modelvideo.jsp"></jsp:include>
+	<jsp:include page="myspace/modelaudio.jsp"></jsp:include>
 
 	<c:choose>
 		<c:when test="${isbanned }">

@@ -138,6 +138,12 @@
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
+					<c:when test="${ file.type.equals('AUDIO') }">
+						<a data-toggle="modal" role="button" href="#audioModal"
+							onclick="loadAudioContent(${file.id})"> <span
+							class="glyphicon glyphicon-play"></span>
+						</a>
+					</c:when>
 					<c:otherwise>
 						<img title="${file.nameIncome}"
 							src="http://download.easyicon.net/png/30357/128/" height="70px">

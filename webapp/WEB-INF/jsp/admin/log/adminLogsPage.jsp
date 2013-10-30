@@ -16,54 +16,20 @@
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
-<script type="text/javascript" src="res/js/utils.js"></script>
 
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-
-<style type="text/css">
-div.alert {
-	width: auto;
-	margin-top: 15px;
-}
-
-form {
-	
-}
-
-span.glyphicon.glyphicon-sort {
-	font-size: 8pt;
-	text-align: center;
-}
-
-table thead tr th {
-	cursor: pointer;
-}
-
-.blue {
-	color: #428BCA;
-}
-
-table {
-	margin-top: 20px;
-}
-
-table th,table td {
-	overflow: hidden;
-}
-</style>
-
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <script type="text/javascript" src="res/js/utils.js"></script>
-<link rel="stylesheet" href="res/css/styleTable.css" type="text/css" />
 
 <script type="text/javascript">
  var page = checkPage("${param.page}");
  var perPage = checkCount("${param.count}");
  var orderBy = checkOrderBy("${param.orderby}");
  var sort = checkSort("${param.sop}");
- var pageCount = Math.ceil(parseInt("${usersCount}") / perPage);
+ var pageCount = Math.ceil(parseInt("${logsCount}") / perPage);
+ var linkVar = "adminLogsPage";
 </script>
 
 </head>

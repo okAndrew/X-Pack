@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.SelectService;
+import com.epam.lab.controller.services.log.LogServiceImpl;
 import com.epam.lab.model.Log;
 
 @WebServlet("/adminLogsPage")
@@ -38,6 +39,7 @@ public class AdminLoggingPageServlet extends HttpServlet {
 
 	private void selectLogs(HttpServletRequest request,
 			HttpServletResponse response) {
+		request.setAttribute("logsCount", new LogServiceImpl().getCount());
 		SelectService<Log> selectService = new SelectService<Log>();
 		List<Log> logs = selectService.getByParam(Log.class,
 				request.getParameter("page"), request.getParameter("count"),

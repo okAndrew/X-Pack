@@ -1,4 +1,4 @@
-package com.epam.lab.controller.services.traffichistory;
+package com.epam.lab.controller.services.statistics.traffichistory;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 
 	@Override
 	public double getUploadTrafficByLastMounth() {
-		Long size = fileServiceImpl.getDownloadTrafficByDates(TimeStampManager
+		Long size = fileServiceImpl.getUploadTrafficByDates(TimeStampManager
 				.getStartOfMonth(TimeStampManager.getCurrentTime()),
 				TimeStampManager.getEndOfMonth(TimeStampManager
 						.getCurrentTime()));
@@ -75,7 +75,7 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 	@Override
 	public double getUploadTrafficByLastWeek() {
 		Long size = fileServiceImpl
-				.getDownloadTrafficByDates(TimeStampManager
+				.getUploadTrafficByDates(TimeStampManager
 						.getStartOfWeek(TimeStampManager.getCurrentTime()),
 						TimeStampManager.getEndOfWeek(TimeStampManager
 								.getCurrentTime()));
@@ -84,7 +84,7 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 
 	@Override
 	public double getUploadTrafficByLastDay() {
-		Long size = fileServiceImpl.getDownloadTrafficByDates(TimeStampManager
+		Long size = fileServiceImpl.getUploadTrafficByDates(TimeStampManager
 				.getStartOfDay(TimeStampManager.getCurrentTime()),
 				TimeStampManager.getCurrentTime());
 		return size;
@@ -121,20 +121,29 @@ public class TrafficHistoryServiceImpl implements TrafficHistoryService {
 
 	@Override
 	public double getUploadTrafficUserByLastMounth(long userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		Long size = fileServiceImpl.getUploadTrafficUserByDates(TimeStampManager
+				.getStartOfMonth(TimeStampManager.getCurrentTime()),
+				TimeStampManager.getEndOfMonth(TimeStampManager
+						.getCurrentTime()), userId);
+		return size;
 	}
 
 	@Override
 	public double getUploadTrafficUserByLastWeek(long userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		Long size = fileServiceImpl
+				.getUploadTrafficUserByDates(TimeStampManager
+						.getStartOfWeek(TimeStampManager.getCurrentTime()),
+						TimeStampManager.getEndOfWeek(TimeStampManager
+								.getCurrentTime()), userId);
+		return size;
 	}
 
 	@Override
 	public double getUploadTrafficUserByLastDay(long userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		Long size = fileServiceImpl.getUploadTrafficUserByDates(TimeStampManager
+				.getStartOfDay(TimeStampManager.getCurrentTime()),
+				TimeStampManager.getCurrentTime(), userId);
+		return size;
 	}
 
 }

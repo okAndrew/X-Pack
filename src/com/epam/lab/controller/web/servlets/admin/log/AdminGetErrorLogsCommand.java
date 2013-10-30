@@ -16,7 +16,7 @@ public class AdminGetErrorLogsCommand implements AdminLogsPageCommand {
 		String page = null;
 		LogServiceImpl service = new LogServiceImpl();
 		request.setAttribute("logs", service.getErrorLogs());
-		page = "WEB-INF/jsp/admin/log/tableLogs.jsp";
+		page = "adminLogsPage";
 		return page;
 	}
 

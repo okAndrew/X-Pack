@@ -95,4 +95,11 @@ public class FileDAOImpl implements FileDAO {
 		return queryExecutor.executeQuerySingle(UserFile.class, sql, dateStart,
 				dateEnd);
 	}
+
+	@Override
+	public UserFile getSizeUploadUserByDates(Timestamp dateStart,
+			Timestamp dateEnd, long userId) {
+		String sql = "SELECT SUM(size) AS size FROM files WHERE id_user=? AND date BETWEEN ? AND ?";
+		return queryExecutor.executeQuerySingle(UserFile.class, sql, userId, dateStart, dateEnd);
+	}
 }

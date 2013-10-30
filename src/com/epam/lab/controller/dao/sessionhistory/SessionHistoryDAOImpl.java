@@ -1,14 +1,18 @@
 package com.epam.lab.controller.dao.sessionhistory;
 
+import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.controller.exceptions.NoSupportedActionException;
 import com.epam.lab.model.SessionHistory;
-import com.epam.lab.model.User;
-import java.sql.Timestamp;
 
 public class SessionHistoryDAOImpl implements SessionHistoryDAO {
+
 	private DBQueryExecutor<SessionHistory> queryExecutor = new DBQueryExecutor<SessionHistory>();
+	private static Logger logger = Logger.getLogger(SessionHistory.class);
 
 	@Override
 	public SessionHistory get(long id) {
@@ -61,7 +65,11 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
+		try {
+			throw new NoSupportedActionException("No support this method");
+		} catch (NoSupportedActionException e) {
+			logger.error("use no suropted method" + e);
+		}
 		return 0;
 	}
 
@@ -91,7 +99,7 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 		return resultList;
 	}
 
-	@Override
+	@Override//wrong method
 	public List<SessionHistory> getVisitsPerDayByUserId(long userId) {
 		String sql = "SELECT * FROM session_history WHERE user_id IS NOT NULL AND startdate BETWEEN ? AND ? ";
 		List<SessionHistory> resultList = queryExecutor.executeQuery(
@@ -102,9 +110,9 @@ public class SessionHistoryDAOImpl implements SessionHistoryDAO {
 
 	@Override
 	public Timestamp getAvarageTimeSessionByUserId(long userId) {
-		String sql = "SELECT * FROM session_history WHERE user_id IS NOT NULL AND startdate BETWEEN ? AND ? ";
-		List<SessionHistory> resultList = queryExecutor.executeQuery(
-				SessionHistory.class, sql, userId);
+//		String sql = "select avg(to_seconds(enddate) - to_seconds(startdate))a from session_history where user_id = ? and enddate is not null;";
+//		long resultList = queryExecutor.executeQuery(
+//				SessionHistory.class, sql, userId);
 		return null;
 
 	}

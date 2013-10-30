@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.traffichistory.TrafficHistoryServiceImpl;
+import com.epam.lab.controller.services.statistics.traffichistory.TrafficHistoryServiceImpl;
 
 public class AdminStatisticServerCommand implements AdminStatisticPageCommand{
 

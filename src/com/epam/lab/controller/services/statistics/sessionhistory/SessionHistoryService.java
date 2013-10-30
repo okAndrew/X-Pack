@@ -1,4 +1,4 @@
-package com.epam.lab.controller.services.sessionhistory;
+package com.epam.lab.controller.services.statistics.sessionhistory;
 
 import com.epam.lab.controller.services.AbstractService;
 import com.epam.lab.model.SessionHistory;

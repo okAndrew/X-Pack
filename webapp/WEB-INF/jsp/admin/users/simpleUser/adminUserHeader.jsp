@@ -76,7 +76,7 @@ table th,table td {
 	<jsp:include page="../../../menu.jsp"></jsp:include>
 	<jsp:include page="modalAdminUser.jsp"></jsp:include>
 	<div class="container">
-		<div class="panel panel-default main">
+		<div >
 			<div class="panel-body">
 				<form action="adminSimpleEmployeeController">
 					<div class="btn-group">

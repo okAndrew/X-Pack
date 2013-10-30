@@ -77,9 +77,9 @@ table th,table td {
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
 	<div class="container">
-		<jsp:include page="adminUserHeader.jsp"></jsp:include>
 		<div class="panel panel-default main">
 			<div class="panel-body">
+			<jsp:include page="adminUserHeader.jsp"></jsp:include>
 				<div class="row-fluid">
 					<div class="col-xs-7">
 						<div id="chart1"></div>

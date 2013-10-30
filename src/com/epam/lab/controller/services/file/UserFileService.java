@@ -12,6 +12,7 @@ public interface UserFileService extends AbstractService<UserFile> {
 
 	int deleteByUserId(long userId);
 
-	long getDownloadTrafficByDates(Timestamp dataStart, Timestamp dataEnd);
+	long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd);
 
+	long getUploadTrafficUserByDates(Timestamp dataStart, Timestamp dataEnd, long userId);
 }

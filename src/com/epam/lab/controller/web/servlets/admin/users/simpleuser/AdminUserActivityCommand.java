@@ -6,7 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.epam.lab.controller.services.sessionhistory.SessionHistoryServiceImpl;
+
+import com.epam.lab.controller.services.statistics.sessionhistory.SessionHistoryServiceImpl;
 
 public class AdminUserActivityCommand implements AdminSimpleUserPageCommand {
 

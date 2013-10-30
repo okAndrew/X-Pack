@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DreamHost(Administrator) | Logging</title>
+<title>DreamHost(Administrator) | Users</title>
 
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -15,6 +15,10 @@
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
+<script type="text/javascript" src="res/js/utils.js"></script>
+
+<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 
 <script type="text/javascript" src="res/js/jquery-latest.js"></script>
 
@@ -22,26 +26,37 @@
 <script type="text/javascript" src="res/js/jquery.tablesorter.filer.js"></script>
 <script type="text/javascript" src="res/js/jquery.tablesorter.pager.js"></script>
 
+<style type="text/css">
+div.alert {
+	width: auto;
+	margin-top: 15px;
+}
 
-<script>
-	function loadXMLDoc(action) {
-		var xmlhttp;
-		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp = new XMLHttpRequest();
-		} else {// code for IE6, IE5
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				document.getElementById("dynamicArea").innerHTML = xmlhttp.responseText;
-				ready();
-			}
-		}
-		xmlhttp.open("GET", "adminLogsEmployeeController?action="
-				+ action.value, true);
-		xmlhttp.send();
-	}
-</script>
+form {
+	
+}
+
+span.glyphicon.glyphicon-sort {
+	font-size: 8pt;
+	text-align: center;
+}
+
+table thead tr th {
+	cursor: pointer;
+}
+
+.blue {
+	color: #428BCA;
+}
+
+table {
+	margin-top: 20px;
+}
+
+table th,table td {
+	overflow: hidden;
+}
+</style>
 
 <script>
 	function toggle(source) {
@@ -59,6 +74,9 @@
 				0 : {
 					sorter : false
 				},
+				10 : {
+					sorter : false
+				}
 			},
 			widthFixed : true,
 		}).tablesorterPager({
@@ -76,64 +94,108 @@
 <script type="text/javascript" src="res/js/utils.js"></script>
 <link rel="stylesheet" href="res/css/styleTable.css" type="text/css" />
 
-<style type="text/css">
-.Container {
-	padding-top: 70px;
-	max-width: 1200px;
-	margin: auto;
-}
-</style>
 </head>
 
 <body>
 	<jsp:include page="../../menu.jsp"></jsp:include>
 
-	<div class="Container">
-		<!-- Panel -->
-		<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<fmt:message key="Log" bundle="${lang}" />
-			</div>
-
+	<div class="container">
+		<div class="panel panel-default main">
 			<div class="panel-body">
-				<ul class="nav nav-pills">
-					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="all">
+				<form action="adminLogsEmployeeController" method="post">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" name="action"
+							value="all">
 							<fmt:message key="All" bundle="${lang}" />
-						</button></li>
-					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="error">
+						</button>
+						<button type="submit" class="btn btn-default" name="action"
+							value="error">
 							<fmt:message key="Error" bundle="${lang}" />
-						</button></li>
-					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="warning">
+						</button>
+						<button type="submit" class="btn btn-default" name="action"
+							value="warning">
 							<fmt:message key="Warning" bundle="${lang}" />
-						</button></li>
-					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="info">
+						</button>
+						<button type="submit" class="btn btn-default" name="action"
+							value="info">
 							<fmt:message key="Info" bundle="${lang}" />
-						</button></li>
-					<li><button type="submit" onclick="loadXMLDoc(this)"
-							class="btn btn-default" value="debug">
+						</button>
+						<button type="submit" class="btn btn-default" name="action"
+							value="debug">
 							<fmt:message key="Debug" bundle="${lang}" />
-						</button></li>
-
-					<li><button type="button" class="btn btn-default"
-							data-target="adminLogsEmployeeController" name="action"
+						</button>
+						<button type="button" class="btn btn-default" name="action"
 							value="delete">
 							<fmt:message key="Delete" bundle="${lang}" />
-						</button></li>
-					<li><button type="button" class="btn btn-default"
-							data-target="adminLogsEmployeeController" name=action
+						</button>
+						<button type="button" class="btn btn-default" name="action"
 							value="clear">
 							<fmt:message key="Clear_history" bundle="${lang}" />
-						</button></li>
-
-				</ul>
-
-				<div id="dynamicArea"><jsp:include page="tableLogs.jsp"></jsp:include></div>
-
+						</button>
+					</div>
+					<div class="alert alert-warning">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<h4>Warning</h4>
+						<h5>Message</h5>
+					</div>
+					<!-- table -->
+					<table id="tablesorter" class="tablesorter">
+						<thead>
+							<tr>
+								<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
+										key="All" bundle="${lang}" /></th>
+								<th><fmt:message key="Id" bundle="${lang}" /></th>
+								<th><fmt:message key="Date" bundle="${lang}" /></th>
+								<th><fmt:message key="Logger" bundle="${lang}" /></th>
+								<th><fmt:message key="Level" bundle="${lang}" /></th>
+								<th><fmt:message key="Message" bundle="${lang}" /></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="log" items="${logs}">
+								<c:choose>
+									<c:when test="${log.level == 'ERROR'}">
+										<tr class="danger">
+									</c:when>
+									<c:when test="${log.level == 'WARNING'}">
+										<tr class="warning">
+									</c:when>
+									<c:when test="${log.level == 'DEBUG'}">
+										<tr class="success">
+									</c:when>
+									<c:otherwise>
+										<tr class="active">
+									</c:otherwise>
+								</c:choose>
+								<td><input type="checkbox" name="checkLog"
+									value="${log.id}"></td>
+								<td>${log.id}</td>
+								<td>${log.datetime}</td>
+								<td>${log.logger}</td>
+								<td>${log.level}</td>
+								<td>${log.message}</td>
+							</c:forEach>
+						</tbody>
+						<tfoot>
+							<tr id="pager" class="pager">
+								<td><img src="res/img/table/first.png" class="first" /> <img
+									src="res/img/table/prev.png" class="prev" /> <input
+									type="text" class="pagedisplay" /> <img
+									src="res/img/table/next.png" class="next" /> <img
+									src="res/img/table/last.png" class="last" /> <select
+									class="pagesize">
+										<option selected="selected" value="10">10</option>
+										<option value="20">20</option>
+										<option value="30">30</option>
+										<option value="40">40</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+								</select></td>
+							</tr>
+						</tfoot>
+					</table>
+					<!-- /table -->
+				</form>
 			</div>
 		</div>
 	</div>

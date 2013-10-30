@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
-import com.epam.lab.controller.services.sessionstatistics.SessionStatisticsServiceImpl;
-import com.epam.lab.model.SessionStatistics;
+import com.epam.lab.controller.services.statistics.StatisticsServiceImpl;
+import com.epam.lab.model.Statistics;
 
 @WebServlet("/adminUserActivityGraph")
 public class AdminUserActivityGraphServlet extends HttpServlet {
@@ -22,8 +22,8 @@ public class AdminUserActivityGraphServlet extends HttpServlet {
 	
  	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
- 		SessionStatisticsServiceImpl statisticsServiceImpl = new SessionStatisticsServiceImpl();
-		List<SessionStatistics> list = new ArrayList<SessionStatistics>();
+ 		StatisticsServiceImpl statisticsServiceImpl = new StatisticsServiceImpl();
+		List<Statistics> list = new ArrayList<Statistics>();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
 		list = statisticsServiceImpl.getAllByUserId(userId);

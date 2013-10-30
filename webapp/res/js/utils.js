@@ -147,10 +147,14 @@ function render() {
  * 
  */
 function generateLink(p) {
-	var link = "http://localhost:8080/dreamhost/adminUsersPage?page=" + p;
-	link += "&count=" + window.perPage;
-	link += "&orderby=" + window.orderBy;
-	link += "&sop=" + window.sort;
+	var temp = "";
+	
+	if (p != null) {
+		temp += "http://localhost:8080/dreamhost/" + window.linkVar + "?page=" + p;
+		temp += "&count=" + window.perPage;
+		temp += "&orderby=" + window.orderBy;
+		temp += "&sop=" + window.sort;
+	}
 
-	return link;
+	return temp;
 }

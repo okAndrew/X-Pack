@@ -24,6 +24,7 @@
 	var orderBy = checkOrderBy("${param.orderby}");
 	var sort = checkSort("${param.sop}");
 	var pageCount = Math.ceil(parseInt("${usersCount}") / perPage);
+	var linkVar = "adminUsersPage";
 </script>
 
 </head>

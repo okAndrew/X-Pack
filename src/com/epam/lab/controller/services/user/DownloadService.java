@@ -40,9 +40,9 @@ public class DownloadService {
 	private String ifRange;
 	private long ifRangeTime;
 
-	private long userId;
+	private Long userId;
 
-	public DownloadService(long userId, String ifNoneMatch,
+	public DownloadService(Long userId, String ifNoneMatch,
 			long ifModifiedSince, String ifMatch, long ifUnmodifiedSince,
 			String range, String ifRange, long ifRangeTime, long fileId) {
 		UserFile f = userFileService.get(fileId);
@@ -52,7 +52,7 @@ public class DownloadService {
 				range, ifRange, ifRangeTime);
 	}
 
-	public DownloadService(long userId, String ifNoneMatch,
+	public DownloadService(Long  userId, String ifNoneMatch,
 			long ifModifiedSince, String ifMatch, long ifUnmodifiedSince,
 			String range, String ifRange, long ifRangeTime, String[] filesIds,
 			String[] foldersIds) {
@@ -90,7 +90,7 @@ public class DownloadService {
 		return full;
 	}
 
-	private void init(long userId, String ifNoneMatch, long ifModifiedSince,
+	private void init(Long userId, String ifNoneMatch, long ifModifiedSince,
 			String ifMatch, long ifUnmodifiedSince, String range,
 			String ifRange, long ifRangeTime) {
 		this.userId = userId;

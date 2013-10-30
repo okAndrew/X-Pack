@@ -61,10 +61,10 @@ public class Token4AuthServiceImpl extends AbstractServiceImpl<Token4Auth>
 		return token;
 	}
 
-	public boolean verifyAccessToFolder(String token, long idFolder)
+	public Folder verifyAccessToFolder(String token, long idFolder)
 			throws TokenNotFoundException, UserNotFoundException,
 			FolderNotFoundException {
-		boolean result = false;
+		Folder resultFolder = null;
 		Token4AuthService token4UploadService = new Token4AuthServiceImpl();
 		Token4Auth tokenData = token4UploadService.getByToken(token);
 		if (tokenData == null || !tokenData.isActive()) {
@@ -76,18 +76,17 @@ public class Token4AuthServiceImpl extends AbstractServiceImpl<Token4Auth>
 			throw new UserNotFoundException();
 		}
 		FolderService folderService = new FolderServiceImpl();
-		Folder folder = null;
 		if (idFolder == 0) {
-			folder = folderService.getRoot(user.getId());
+			resultFolder = folderService.getRoot(user.getId());
 		} else {
-			folder = folderService.get(idFolder);
+			resultFolder = folderService.get(idFolder);
 		}
-		if (folder == null) {
+		if (resultFolder == null) {
 			throw new FolderNotFoundException();
 		}
-		if (folder.getIdUser() == user.getId()) {
-			result = true;
+		if (resultFolder.getIdUser() != user.getId()) {
+			resultFolder = null;
 		}
-		return result;
+		return resultFolder;
 	}
 }

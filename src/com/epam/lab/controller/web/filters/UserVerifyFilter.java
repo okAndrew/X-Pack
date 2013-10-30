@@ -15,8 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.epam.lab.model.Role;
 
-@WebFilter(urlPatterns = { "/delete", "/downloadfiles", "/download",
-		"/useredit", "/upload", "/createfolder", "/ChangePasswordServlet",
+@WebFilter(urlPatterns = { "/delete", "/downloadfiles",	"/useredit", "/upload", "/createfolder", "/ChangePasswordServlet",
 		"/search", "/userfoldernav", "/usercontroller", "/userpage",
 		"/EditEmailServlet", "/EditUserLoginServlet", "/settings", "/move",
 		"/CreatePaymentServlet", "/pricing"})

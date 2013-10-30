@@ -308,5 +308,5 @@ $('.cell').on('click',function(){
 		document.getElementById("img").src = "download?fileid=" + id;
 	}
 </script>
-
+<script src="res/js/utils.js"></script>
 

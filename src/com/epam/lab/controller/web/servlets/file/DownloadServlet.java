@@ -46,8 +46,12 @@ public class DownloadServlet extends HttpServlet {
 			HttpServletResponse response, boolean content)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("userid");
-
+		Long userId = null;
+		if (session != null) {
+			Object attrUserId = session.getAttribute("userid");
+			if (attrUserId != null)
+				userId = (Long) attrUserId;
+		}
 		String ifNoneMatch = request.getHeader("If-None-Match");
 		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		String ifMatch = request.getHeader("If-Match");

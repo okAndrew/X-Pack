@@ -8,4 +8,6 @@ public interface FolderService extends AbstractService<Folder> {
 	void updateSize(long idFolder, long size);
 	
 	int deleteByUserId(long userId);
+	
+	public Folder getRoot(long userId);
 }

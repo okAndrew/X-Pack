@@ -20,12 +20,6 @@
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 
-<script type="text/javascript" src="res/js/jquery-latest.js"></script>
-
-<script type="text/javascript" src="res/js/jquery.tablesorter.js"></script>
-<script type="text/javascript" src="res/js/jquery.tablesorter.filer.js"></script>
-<script type="text/javascript" src="res/js/jquery.tablesorter.pager.js"></script>
-
 <style type="text/css">
 div.alert {
 	width: auto;
@@ -58,37 +52,6 @@ table th,table td {
 }
 </style>
 
-<script>
-	function toggle(source) {
-		checkboxes = document.getElementsByName('checkLog');
-		for ( var i = 0, n = checkboxes.length; i < n; i++) {
-			checkboxes[i].checked = source.checked;
-		}
-	}
-</script>
-
-<script type="text/javascript">
-	$("tablesorter").ready(function() {
-		$("#tablesorter").tablesorter({
-			headers : {
-				0 : {
-					sorter : false
-				},
-				10 : {
-					sorter : false
-				}
-			},
-			widthFixed : true,
-		}).tablesorterPager({
-			container : $("#pager"),
-			positionFixed : false
-		}).tablesorterFilter({
-			filterContainer : $("#filter"),
-			filterColumns : [ 1, 2, 3, 4, 5, 6 ],
-			filterCaseSensitive : false
-		});
-	});
-</script>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <script type="text/javascript" src="res/js/utils.js"></script>
@@ -124,77 +87,25 @@ table th,table td {
 							value="debug">
 							<fmt:message key="Debug" bundle="${lang}" />
 						</button>
-						<button type="button" class="btn btn-default" name="action"
+						<button type="submit" class="btn btn-default" name="action"
 							value="delete">
 							<fmt:message key="Delete" bundle="${lang}" />
 						</button>
-						<button type="button" class="btn btn-default" name="action"
+						<button type="submit" class="btn btn-default" name="action"
 							value="clear">
 							<fmt:message key="Clear_history" bundle="${lang}" />
 						</button>
 					</div>
-					<div class="alert alert-warning">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h4>Warning</h4>
-						<h5>Message</h5>
+					<c:if test="${message != null }">
+						<div class="alert alert-warning">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<h4>Warning</h4>
+							<h5>${message}</h5>
+						</div>
+					</c:if>
+					<div>
+						<jsp:include page="tableLogs.jsp"></jsp:include>
 					</div>
-					<!-- table -->
-					<table id="tablesorter" class="tablesorter">
-						<thead>
-							<tr>
-								<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
-										key="All" bundle="${lang}" /></th>
-								<th><fmt:message key="Id" bundle="${lang}" /></th>
-								<th><fmt:message key="Date" bundle="${lang}" /></th>
-								<th><fmt:message key="Logger" bundle="${lang}" /></th>
-								<th><fmt:message key="Level" bundle="${lang}" /></th>
-								<th><fmt:message key="Message" bundle="${lang}" /></th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="log" items="${logs}">
-								<c:choose>
-									<c:when test="${log.level == 'ERROR'}">
-										<tr class="danger">
-									</c:when>
-									<c:when test="${log.level == 'WARNING'}">
-										<tr class="warning">
-									</c:when>
-									<c:when test="${log.level == 'DEBUG'}">
-										<tr class="success">
-									</c:when>
-									<c:otherwise>
-										<tr class="active">
-									</c:otherwise>
-								</c:choose>
-								<td><input type="checkbox" name="checkLog"
-									value="${log.id}"></td>
-								<td>${log.id}</td>
-								<td>${log.datetime}</td>
-								<td>${log.logger}</td>
-								<td>${log.level}</td>
-								<td>${log.message}</td>
-							</c:forEach>
-						</tbody>
-						<tfoot>
-							<tr id="pager" class="pager">
-								<td><img src="res/img/table/first.png" class="first" /> <img
-									src="res/img/table/prev.png" class="prev" /> <input
-									type="text" class="pagedisplay" /> <img
-									src="res/img/table/next.png" class="next" /> <img
-									src="res/img/table/last.png" class="last" /> <select
-									class="pagesize">
-										<option selected="selected" value="10">10</option>
-										<option value="20">20</option>
-										<option value="30">30</option>
-										<option value="40">40</option>
-										<option value="50">50</option>
-										<option value="100">100</option>
-								</select></td>
-							</tr>
-						</tfoot>
-					</table>
-					<!-- /table -->
 				</form>
 			</div>
 		</div>

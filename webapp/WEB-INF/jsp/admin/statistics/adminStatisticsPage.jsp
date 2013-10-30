@@ -58,9 +58,6 @@
 				<h1 hidden="false">'${totalSpace}'</h1>
 				<div id="dynamicArea" >
 					<c:choose>
-						<c:when test="${param.page == null}">
-							<jsp:include page="statisticsUsers.jsp"></jsp:include>
-						</c:when>
 						<c:when test="${param.page == 'users'}">
 							<jsp:include page="statisticsUsers.jsp"></jsp:include>
 						</c:when>

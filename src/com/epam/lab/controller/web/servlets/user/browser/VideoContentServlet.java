@@ -1,3 +1,4 @@
+
 package com.epam.lab.controller.web.servlets.user.browser;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class VideoContentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIDEO_CONTENT_JSP = "WEB-INF/jsp/user/myspace/videocontent.jsp";
-	private static final String DOWNLOAD_SERVLET = "fileservlet?fileid=";
+	private static final String DOWNLOAD_SERVLET = "download?fileid=";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

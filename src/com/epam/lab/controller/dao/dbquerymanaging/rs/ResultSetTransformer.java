@@ -42,6 +42,8 @@ public class ResultSetTransformer<T> {
 				} catch (SQLException e) {
 					// NOP. Quietly skip.
 				}
+				if (value == null)
+					continue;
 				field.setAccessible(true);
 				try {
 					field.set(result, value);

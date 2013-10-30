@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.annotations.TableColumn;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
 import com.epam.lab.controller.dao.token.TokenDAOImpl;
@@ -405,6 +406,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		sql.append(" LIMIT ").append(c);
 		sql.append(" OFFSET ").append(p*c);
 		
+		System.out.println(sql.toString());
+		
 		return userDAO.getBySQL(sql.toString());
 	}
 	
@@ -442,14 +445,17 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		String order = null;
 		Field[] fields = User.class.getDeclaredFields();
 		
-		for (int i = 0; i < fields.length; i++) {
-			if (fields[i].getName().equals(orderBy)) {
-				order = orderBy;
-				break;
+		if (orderBy != null) {
+			for (int i = 0; i < fields.length; i++) {
+				if (fields[i].isAnnotationPresent(TableColumn.class)) {
+					TableColumn annotation = fields[i].getAnnotation(TableColumn.class);
+					if (annotation.value().equals(orderBy)) {
+						order = annotation.value();
+						break;
+					}
+				}
 			}
-		}
-		
-		if (order == null) {
+		} else {
 			order = "id";
 		}
 		
@@ -457,12 +463,14 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 	
 	private String getSort(String sop) {
-		String sort = null;
+		String sort = "asc";
 		
-		if (sop == null || !sop.toLowerCase().equals("asc") || !sop.toLowerCase().equals("desc")) {
-			sort = "asc";
-		} else {
-			sort = sop;
+		if (sop != null) {
+			if (sop.toLowerCase().equals("asc")) {
+				sort = "asc";
+			} else if (sop.toLowerCase().equals("desc")) {
+				sort = "desc";
+			}
 		}
 
 		return sort;

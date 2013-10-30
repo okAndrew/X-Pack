@@ -40,16 +40,35 @@
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
-					<c:if test="${message != null }">
-						<div class="alert alert-warning">
-							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h4>Warning</h4>
-							<h5>${message}</h5>
-						</div>
-					</c:if>
-					<div>
-						<jsp:include page="tableLogs.jsp"></jsp:include>
+				<c:if test="${message != null }">
+					<div class="alert alert-warning">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<h4>Warning</h4>
+						<h5>${message}</h5>
 					</div>
+				</c:if>
+				<table class="table zebra-striped table-hover table-condensed" id="tablesorter">
+					<thead>
+						<tr>
+							<th onclick="changeOrderBy('id');"><fmt:message key="Id" bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('date_time');"><fmt:message key="Date" bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('logger');"><fmt:message key="Logger" bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('lvl');"><fmt:message key="Level" bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('msg');"><fmt:message key="Message" bundle="${lang}" /></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="log" items="${logs}">
+						<tr>
+							<td>${log.id}</td>
+							<td>${log.datetime}</td>
+							<td style="max-width: 400px;">${log.logger}</td>
+							<td>${log.level}</td>
+							<td style="max-width: 300px;">${log.message}</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 				<div class="paginator-main">
 					<div class="page-pages">
 						<ul id="paginator" class="pagination">

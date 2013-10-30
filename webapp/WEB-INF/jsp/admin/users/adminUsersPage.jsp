@@ -72,11 +72,10 @@
 						</div>
 					</c:if>
 
-					<table class="table zebra-striped table-hover table-condensed"
-						id="tablesorter">
+					<table class="table zebra-striped table-hover table-condensed" id="tablesorter">
 						<thead>
 							<tr>
-								<th><input type="checkbox" onClick="toggle(this)" /></th>
+								<th> <input type="checkbox" onClick="toggle(this)" /> </th>
 								<th onclick="changeOrderBy('id');"><fmt:message key="Id"
 										bundle="${lang}" /></th>
 								<th onclick="changeOrderBy('login');"><fmt:message

@@ -18,7 +18,7 @@ public class SelectService<T> {
 		DBQueryExecutor<T> dbQueryExecutor = new DBQueryExecutor<T>();
 		int p = getPage(page);
 		int c = getCount(count);
-		String order = getOrderBy(orderBy);
+		String order = getOrderBy(orderBy, type);
 		String sort = getSort(sop);
 
 		StringBuilder sql = new StringBuilder();
@@ -66,9 +66,9 @@ public class SelectService<T> {
 		return c;
 	}
 
-	private String getOrderBy(String orderBy) {
+	private String getOrderBy(String orderBy, Class type) {
 		String order = null;
-		Field[] fields = User.class.getDeclaredFields();
+		Field[] fields = type.getDeclaredFields();
 
 		if (orderBy != null) {
 			for (int i = 0; i < fields.length; i++) {

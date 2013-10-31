@@ -27,10 +27,17 @@
 	var linkVar = "adminUsersPage";
 </script>
 
+<script type="text/javascript">
+	$("#addNewUserSubmit").click(function() {
+		alert("test");
+		$("#addNewUser").submit();
+	});
+</script>
+
 </head>
 <body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
-	<jsp:include page="addUserModalPage.jsp"></jsp:include>
+	
 
 	<c:if test="${messageAddUser != null}">
 		<script>
@@ -72,6 +79,7 @@
 						</div>
 					</c:if>
 					<jsp:include page="tableUsers.jsp"></jsp:include>
+					<jsp:include page="addUserModalPage.jsp"></jsp:include>					
 					<jsp:include page="sendEmailModalPage.jsp"></jsp:include>
 				</form>
 				<jsp:include page="../../paginator.jsp"></jsp:include>

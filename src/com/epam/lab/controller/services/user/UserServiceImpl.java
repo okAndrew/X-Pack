@@ -31,8 +31,9 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		UserService {
 
 	private UserDAOImpl userDaoImpl = new UserDAOImpl();
+	private MailSender sender = new MailSender();
 	static Logger logger = Logger.getLogger(UserServiceImpl.class);
-
+	
 	public UserServiceImpl() {
 		super(new UserDAOImpl());
 	}
@@ -157,20 +158,19 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				continue;
 			}
 			userDaoImpl.setIsActivate(true, Long.parseLong(usersId[i]));
-			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(),
+			sender.send(get(Long.parseLong(usersId[i])).getEmail(),
 					"Activation", "You're activated!!!");
 		}
 	}
 
 	@Override
 	public void banedUsers(String[] usersId, Long idAdmin) {
-		System.out.println(idAdmin);
 		for (int i = 0; i < usersId.length; i++) {
 			if (Long.parseLong(usersId[i]) == idAdmin) {
 				continue;
 			}
 			userDaoImpl.setIsBanned(true, Long.parseLong(usersId[i]));
-			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(), "Ban",
+			sender.send(get(Long.parseLong(usersId[i])).getEmail(), "Ban",
 					"You're baned!!!");
 		}
 	}
@@ -182,7 +182,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				continue;
 			}
 			userDaoImpl.setIsBanned(false, Long.parseLong(usersId[i]));
-			MailSender.send(get(Long.parseLong(usersId[i])).getEmail(),
+			sender.send(get(Long.parseLong(usersId[i])).getEmail(),
 					"Cancel ban", "You're not baned!!!");
 		}
 
@@ -205,7 +205,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 			users.add(userDaoImpl.get(Long.parseLong(usersId[i])));
 		}
 		for (User iter : users) {
-			MailSender.send(iter.getEmail(), subject, message);
+			sender.send(iter.getEmail(), subject, message);
 		}
 	}
 
@@ -260,7 +260,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	public boolean tryEditEmail(String oldEmail, String newEmail) {
 		boolean res = false;
 		User user = null;
-
+		
 		if (Validator.USER_EMAIL.validate(oldEmail)
 				&& Validator.USER_EMAIL.validate(newEmail)) {
 			user = get(oldEmail);
@@ -273,7 +273,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 			msg.append("&newEmail=").append(newEmail);
 			msg.append("&token=").append(token);
 
-			MailSender.send(user.getEmail(), head, msg.toString());
+			sender.send(user.getEmail(), head, msg.toString());
 			res = true;
 		}
 

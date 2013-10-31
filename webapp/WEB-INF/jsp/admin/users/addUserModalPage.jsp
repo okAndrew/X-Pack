@@ -28,59 +28,54 @@
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-							<form action="employeeControllerUsers" method="post">
+							<c:if test="${messageAddUser != null}">
 								<div id="errorinfo" class="alert alert-danger"
 									style="${(messageAddUser != null) ? 'none' : 'none'}">
-									<c:if test="${messageAddUser != null}">
-											${messageAddUser}
-									</c:if>
-								</div>
-								<table class="table">
-									<tbody>
-										<tr>
-											<td><fmt:message key="Login" bundle="${lang}" /></td>
-											<td><input type="text" name="login"
-												class="form-control first" placeholder="Login"
-												autofocus="autofocus" /></td>
-										</tr>
+									${messageAddUser}</div>
+							</c:if>
+							<table class="table">
+								<tbody>
+									<tr>
+										<td><fmt:message key="Login" bundle="${lang}" /></td>
+										<td><input type="text" name="login"
+											class="form-control first" placeholder="Login"
+											autofocus="autofocus" /></td>
+									</tr>
 
-										<tr>
-											<td><fmt:message key="Email" bundle="${lang}" /></td>
-											<td><input type="email" name="email"
-												class="form-control midle" placeholder="Email" /></td>
-										</tr>
+									<tr>
+										<td><fmt:message key="Email" bundle="${lang}" /></td>
+										<td><input type="email" name="email"
+											class="form-control midle" placeholder="Email" /></td>
+									</tr>
 
-										<tr>
-											<td><fmt:message key="Password" bundle="${lang}" /></td>
-											<td><input type="password" name="password"
-												class="form-control midle" placeholder="Password" /></td>
-										</tr>
+									<tr>
+										<td><fmt:message key="Password" bundle="${lang}" /></td>
+										<td><input type="password" name="password"
+											class="form-control midle" placeholder="Password" /></td>
+									</tr>
 
-										<tr>
-											<td><fmt:message key="Repeat_password" bundle="${lang}" /></td>
-											<td><input type="password" name="passwordVerify"
-												class="form-control last" placeholder="Password" /></td>
-										</tr>
-									</tbody>
-								</table>
-								<button type="submit" class="btn btn-primary" name="action"
-									value="add">
-									<fmt:message key="Add_new_user" bundle="${lang}" />
-								</button>
-							</form>
+									<tr>
+										<td><fmt:message key="Repeat_password" bundle="${lang}" /></td>
+										<td><input type="password" name="passwordVerify"
+											class="form-control last" placeholder="Password" /></td>
+									</tr>
+								</tbody>
+							</table>
+
 						</div>
 						<!--/.nav-collapse -->
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary" name="action"
+					value="add">
+					<fmt:message key="Add_new_user" bundle="${lang}" />
+				</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<fmt:message key="Close" bundle="${lang}" />
 				</button>
 			</div>
 		</div>
-		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->

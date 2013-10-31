@@ -54,7 +54,7 @@ public class SearchServiceImpl implements SearchService {
 		List<UserFile> files = fileService.getByFolderId(folderId);
 		List<UserFile> result = new ArrayList<UserFile>();
 		for (UserFile file : files) {
-			if (file.getName().contains(searched)) {
+			if (file.getNameIncome().contains(searched)) {
 				result.add(file);
 			}
 		}

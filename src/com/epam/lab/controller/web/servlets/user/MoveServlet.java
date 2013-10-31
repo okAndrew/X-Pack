@@ -20,7 +20,7 @@ public class MoveServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("userid");
 		String idTargetStr = request.getParameter("idTarget");
-		String[] moveables = request.getParameterValues("moveable");
+		String[] moveables = request.getParameterValues("moveable[]");
 		if (idTargetStr != null && !idTargetStr.equals("") && moveables != null
 				&& !moveables[0].equals("")) {
 			long idTarget = Long.parseLong(idTargetStr);

@@ -12,19 +12,19 @@
 <link href="res/css/myspace.css" rel="stylesheet" />
 <link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
 <link rel="stylesheet"
-	href="//releases.flowplayer.org/5.4.3/skin/minimalist.css">
+	href="res/css/minimalist.css">
 
 <link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	href="res/css/jquery-ui.css" />
+<script src="res/js/jquery-1.10.2.min.js"></script>
+<script src="res/js/jquery-ui.js"></script>
 <script src="res/js/dropzone.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/utils.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		Dropzone.options.myAwesomeDropzone = {
+				parallelUploads: 2,
 			maxFilesize : 1000,
 			init : function() {
 				this.on("complete", function(file) {

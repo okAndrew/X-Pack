@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
@@ -53,6 +53,22 @@
 
 .hover-drop {
 	background: #8C97A1;
+}
+</style>
+<style type="text/css">
+.dropzone {
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+	min-height: 150px;
+}
+
+.draggable {
+	float: left;
+}
+
+.droppable {
+	float: left;
 }
 </style>
 <div id="gallery">
@@ -187,22 +203,7 @@
 		</div>
 	</c:forEach>
 </div>
-<style type="text/css">
-.dropzone {
-	margin-left: auto;
-	margin-right: auto;
-	width: 85%;
-	min-height: 150px;
-}
 
-.draggable {
-	float: left;
-}
-
-.droppable {
-	float: left;
-}
-</style>
 
 <script>
 $('.check').click(function(){
@@ -223,20 +224,30 @@ $(function() {
 		scroll: true,
 		distance: 20,
 		opacity: 0.9,
-		start: function(event, ui) {
-			$(this).css('z-index', 9999);
-		},
-		stop:function(event, ui) {
-			$(this).css('z-index', 1);
-		},
+		helper: function(){
+			var selected = $('#gallery input:checked').parents('.draggable');
+		    if (selected.length === 0) {
+		      	selected = $(this);
+		    }
+		    var container = $('<div/>').attr('class', 'dropable');
+		    container.append(selected.clone()).css('z-index', 9999);
+		    return container; 
+		}
 	});
 
 	$(".droppable").droppable({
+		tolerance: 'pointer',
 		drop : function(event, ui) {
-			var idmove = ui.draggable.attr('name');
+			var moveable = [];
+			$(ui.helper.children()).each(function(){
+				moveable.push($(this).attr('name'));
+			});
 			var idTargetFolder = $(this).attr("id");
-			move(idmove, idTargetFolder);
-			$(ui.draggable).remove();
+			move(moveable, idTargetFolder);
+			$('#gallery input:checked').parents('.draggable').each(function(){
+				if($(this).attr('id') != idTargetFolder)
+					$(this).remove();
+			});
 		},
     	hoverClass: "hover-drop",
 	});
@@ -246,7 +257,7 @@ function move(moveable, idtargetFolder) {
 		type : "POST",
 		url : 'move',
 		data : {
-			'moveable' : moveable,
+			'moveable[]' : moveable,
 			'idTarget' : idtargetFolder
 		},
 		success : function(data) {

@@ -390,7 +390,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 				}
 			} else if (type.equals("folder")) {
 				FolderServiceImpl folderService = new FolderServiceImpl();
-				if (folderService.isUsersFolder(id, userId)) {
+				if (folderService.isUsersFolder(id, userId) && id != idTarget) {
 					folderService.movefolder(id, idTarget);
 				}
 			}

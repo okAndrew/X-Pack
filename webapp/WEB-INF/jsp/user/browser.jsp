@@ -1,14 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<ol class="breadcrumb">
-	<c:forEach items="${folderpath}" var="folder">
-		<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
-	</c:forEach>
-</ol>
+<c:if test="${search==null || !search}">
+	<ol class="breadcrumb">
+		<c:forEach items="${folderpath}" var="folder">
+			<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
+		</c:forEach>
+	</ol>
+</c:if>
 <style>
 #gallery {
 	float: left;
@@ -56,8 +58,12 @@
 }
 </style>
 <div id="gallery">
+	<c:if
+		test="${search!=null && search && search_no_result!=null && search_no_result}">
+		<p>Your search returned no results</p>
+	</c:if>
 	<!-- upper -->
-	<c:if test="${currentFolder.idUpper!=0}">
+	<c:if test="${currentFolder.idUpper!=0 && (search==null || !search)}">
 		<div class="cell droppable" id="${currentFolder.idUpper}">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${currentFolder.idUpper}"

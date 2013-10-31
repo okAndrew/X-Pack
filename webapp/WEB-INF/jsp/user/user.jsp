@@ -52,8 +52,9 @@
 			loadBrowserContent();
 		} else {
 			$.ajax({
-				type : "GET",
-				url : 'search?searchtext=' + searchText,
+				type : "POST",
+				url : 'search',
+				data : {"searchtext" : searchText},
 				success : function(data) {
 					$("#browser").html(data);
 				},

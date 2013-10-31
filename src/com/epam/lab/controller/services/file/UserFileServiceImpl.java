@@ -15,6 +15,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.dao.file.FileDAO;
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -24,6 +25,7 @@ import com.epam.lab.model.UserFile;
 
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
+	private FileDAO fileDAO = (FileDAO) dao;
 
 	public UserFileServiceImpl() {
 		super(new FileDAOImpl());
@@ -36,7 +38,8 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final Properties PROP = new Properties();
 	static {
 		try {
-			InputStream is = UserFileServiceImpl.class.getResourceAsStream("path.properties");
+			InputStream is = UserFileServiceImpl.class
+					.getResourceAsStream("path.properties");
 			PROP.load(is);
 		} catch (IOException e) {
 			logger.error(e);
@@ -310,5 +313,9 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		UserFile file = new UserFile();
 		file = fileDaoImpl.getSizeUploadUserByDates(dataStart, dataEnd, userId);
 		return file.getSize();
+	}
+
+	public UserFile getByName(String fileName) {
+		return fileDAO.getByName(fileName);
 	}
 }

@@ -8,11 +8,11 @@ import com.google.gson.annotations.Expose;
 public class UserFile {
 	@Expose
 	@TableColumn("id")
-	private long id;
+	private Long id;
 	
 	@Expose
 	@TableColumn("id_folder")
-	private long idFolder;
+	private Long idFolder;
 	
 	@Expose
 	@TableColumn("name_income")
@@ -36,21 +36,24 @@ public class UserFile {
 
 	@TableColumn("id_user")
 	private long idUser;
+	
+	@TableColumn("is_public")
+	private Boolean isPublic;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public UserFile setId(long id) {
+	public UserFile setId(Long id) {
 		this.id = id;
 		return this;
 	}
 
-	public long getIdFolder() {
+	public Long getIdFolder() {
 		return idFolder;
 	}
 
-	public UserFile setIdFolder(long idFolder) {
+	public UserFile setIdFolder(Long idFolder) {
 		this.idFolder = idFolder;
 		return this;
 	}
@@ -121,6 +124,14 @@ public class UserFile {
 	public UserFile setIdUser(long idUser) {
 		this.idUser = idUser;
 		return this;
+	}
+
+	public Boolean getIsPublic() {
+		return isPublic;
+	}
+
+	public void setIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 
 	@Override

@@ -13,6 +13,7 @@
 #gallery {
 	float: left;
 	width: 100%;
+	height: 100%;
 	border: 0px solid gray;
 	font-size: 10px;
 	border: 0px solid gray;
@@ -124,19 +125,19 @@
 				<c:choose>
 					<c:when test="${ file.type.equals('IMAGE') }">
 						<a data-toggle="modal" role="button" href="#ImageModal"
-							onclick="setSRC(${file.id})"> <span
+							onclick="setSRC(${file.name})"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">
 						<a data-toggle="modal" role="button" href="#videoModal"
-							onclick="loadVideoContent(${file.id})"> <span
+							onclick="loadVideoContent(${file.name})"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('AUDIO') }">
 						<a data-toggle="modal" role="button" href="#audioModal"
-							onclick="loadAudioContent(${file.id})"> <span
+							onclick="loadAudioContent(${file.name})"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
@@ -170,7 +171,7 @@
 					<a data-toggle="modal" href="#DeleteModal"
 						onclick="set('fileiddelete', ${file.id})"> <span
 						class="glyphicon glyphicon-trash"></span>
-					</a> <a href="download?fileid=${file.id}"> <span
+					</a> <a href="download?file=${file.name}"> <span
 						class="glyphicon glyphicon-download"></span>
 					</a> <a data-toggle="modal" href="#EditModal"
 						onclick="set('fileiddelete', ${file.id})"> <span
@@ -298,7 +299,7 @@ function move(moveable, idtargetFolder) {
 	}
 
 	function setSRC(id) {
-		document.getElementById("img").src = "download?fileid=" + id;
+		document.getElementById("img").src = "download?file=" + name;
 	}
 </script>
 

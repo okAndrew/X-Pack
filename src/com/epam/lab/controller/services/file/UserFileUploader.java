@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
@@ -162,7 +163,7 @@ public class UserFileUploader {
 		Timestamp currentTS = TimeStampManager.getFormatCurrentTimeStamp();
 
 		String fileName = new MD5Encrypter().encrypt(currentTS.toString()
-				+ userFile.getNameIncome() + user.getEmail());
+				+ userFile.getNameIncome() + new Random().nextLong());
 
 		String filePath = new UserFileServiceImpl().getFolder()
 				.getAbsolutePath();

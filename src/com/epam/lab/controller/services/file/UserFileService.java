@@ -15,4 +15,6 @@ public interface UserFileService extends AbstractService<UserFile> {
 	long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd);
 
 	long getUploadTrafficUserByDates(Timestamp dataStart, Timestamp dataEnd, long userId);
+	
+	void changePublicState(long id, boolean state);
 }

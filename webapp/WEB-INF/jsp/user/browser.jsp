@@ -215,6 +215,19 @@
 					onchange="checkboxesStatus()" name="files" value="${file.id}">
 					<span class="glyphicon glyphicon-unchecked"></span> </label>
 			</div>
+			<div class="public">
+				<label>public: </label>
+				<c:choose>
+					<c:when test="${file.isPublic }">
+						<input type="checkbox" onchange="setPublic(${file.id})" name="publicfiles"
+							value="${file.id}" checked="checked">
+					</c:when>
+					<c:otherwise>
+						<input type="checkbox" onchange="setPublic(${file.id})" name="publicfiles"
+							value="${file.id}">
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 	</c:forEach>
 </div>
@@ -323,6 +336,26 @@ function move(moveable, idtargetFolder) {
 
 	function setSRC(id) {
 		document.getElementById("img").src = "download?file=" + name;
+	}
+
+	function setPublic(id) {
+		var publicCheckbox = $("input[name=publicfiles][value=" + id + "]");
+		var state = false;
+		if (publicCheckbox.is(':checked')) {
+			state = true;
+		}
+		$.ajax({
+			type : "POST",
+			url : 'changepublicstate',
+			data : {
+				'fileId' : id,
+				'state' : state
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert('xhr.status ' + xhr.status + '   thrownError:'
+						+ thrownError);
+			}
+		});
 	}
 </script>
 

@@ -310,4 +310,11 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	public UserFile getByName(String fileName) {
 		return fileDAO.getByName(fileName);
 	}
+
+	@Override
+	public void changePublicState(long id, boolean state) {
+		UserFile file = fileDAO.get(id);
+		file.setIsPublic(state);
+		fileDAO.update(file);
+	}
 }

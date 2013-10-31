@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.exceptions.RequestedRangeNotSatisfiableException;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.user.DownloadService;
 import com.epam.lab.model.Range;
+import com.epam.lab.model.UserFile;
 
 @WebServlet("/download")
 public class DownloadServlet extends HttpServlet {
@@ -45,35 +47,10 @@ public class DownloadServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response, boolean content)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		Long userId = null;
-		if (session != null) {
-			Object attrUserId = session.getAttribute("userid");
-			if (attrUserId != null)
-				userId = (Long) attrUserId;
-		}
-		String ifNoneMatch = request.getHeader("If-None-Match");
-		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
-		String ifMatch = request.getHeader("If-Match");
-		long ifUnmodifiedSince = request.getDateHeader("If-Unmodified-Since");
-		String range = request.getHeader("Range");
-		String ifRange = request.getHeader("If-Range");
-		long ifRangeTime = request.getDateHeader("If-Range");
-
-		if (request.getParameter("fileid") == null) {
-			String[] filesIds = request.getParameterValues("files");
-			String[] foldersIds = request.getParameterValues("folders");
-			service = new DownloadService(userId, ifNoneMatch, ifModifiedSince,
-					ifMatch, ifUnmodifiedSince, range, ifRange, ifRangeTime,
-					filesIds, foldersIds);
-		} else {
-			long fileId = Long.valueOf(request.getParameter("fileid"));
-			service = new DownloadService(userId, ifNoneMatch, ifModifiedSince,
-					ifMatch, ifUnmodifiedSince, range, ifRange, ifRangeTime,
-					fileId);
-		}
-
-		if (!service.getFile().exists()) {
+		
+		boolean haveAccess = preprocessing(request);
+		
+		if (!haveAccess || !service.getFile().exists()) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
@@ -178,5 +155,46 @@ public class DownloadServlet extends HttpServlet {
 			service.close(output);
 			service.close(input);
 		}
+	}
+
+	private boolean preprocessing(HttpServletRequest request) {
+		boolean result = false;
+		String ifNoneMatch = request.getHeader("If-None-Match");
+		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
+		String ifMatch = request.getHeader("If-Match");
+		long ifUnmodifiedSince = request.getDateHeader("If-Unmodified-Since");
+		String range = request.getHeader("Range");
+		String ifRange = request.getHeader("If-Range");
+		long ifRangeTime = request.getDateHeader("If-Range");
+
+		HttpSession session = request.getSession(false);
+		Long userId = null;
+		if (session != null) {
+			Object attrUserId = session.getAttribute("userid");
+			if (attrUserId != null)
+				userId = (Long) attrUserId;
+		}
+		String fileName = request.getParameter("file");
+		if (fileName == null && userId != null) {
+			String[] filesIds = request.getParameterValues("files");
+			String[] foldersIds = request.getParameterValues("folders");
+			if (filesIds != null || foldersIds != null) {
+				service = new DownloadService(userId, ifNoneMatch,
+						ifModifiedSince, ifMatch, ifUnmodifiedSince, range,
+						ifRange, ifRangeTime, filesIds, foldersIds);
+				result = true;
+			}
+		} else {
+			UserFile userFile = new UserFileServiceImpl().getByName(fileName);
+			if (userFile != null) {
+				if (userFile.getIsPublic() || (userId != null && userId == userFile.getIdUser())) {
+					service = new DownloadService(userId, ifNoneMatch,
+							ifModifiedSince, ifMatch, ifUnmodifiedSince, range,
+							ifRange, ifRangeTime, userFile);
+					result = true;
+				}
+			}
+		}
+		return result;
 	}
 }

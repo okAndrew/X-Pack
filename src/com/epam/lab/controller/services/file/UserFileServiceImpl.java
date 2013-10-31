@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
@@ -15,6 +14,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.dao.file.FileDAO;
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -24,6 +24,7 @@ import com.epam.lab.model.UserFile;
 
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
+	private FileDAO fileDAO = (FileDAO) dao;
 
 	public UserFileServiceImpl() {
 		super(new FileDAOImpl());
@@ -36,7 +37,8 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final Properties PROP = new Properties();
 	static {
 		try {
-			InputStream is = UserFileServiceImpl.class.getResourceAsStream("path.properties");
+			InputStream is = UserFileServiceImpl.class
+					.getResourceAsStream("path.properties");
 			PROP.load(is);
 		} catch (IOException e) {
 			logger.error(e);
@@ -123,17 +125,17 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return new File(getArchivePath(filesIds, foldersIds));
 	}
 
-	public List<UserFile> getSearchedFiles(long userId, String text) {
-		UserFileServiceImpl service = new UserFileServiceImpl();
-		List<UserFile> files = service.getByUserId(userId);
-		List<UserFile> result = new ArrayList<UserFile>();
-		for (UserFile file : files) {
-			if (file.getNameIncome().contains(text)) {
-				result.add(file);
-			}
-		}
-		return result;
-	}
+//	public List<UserFile> getSearchedFiles(long userId, String text) {
+//		UserFileServiceImpl service = new UserFileServiceImpl();
+//		List<UserFile> files = service.getByUserId(userId);
+//		List<UserFile> result = new ArrayList<UserFile>();
+//		for (UserFile file : files) {
+//			if (file.getNameIncome().contains(text)) {
+//				result.add(file);
+//			}
+//		}
+//		return result;
+//	}
 
 	public boolean check(long folderId, long fileId, String name) {
 		FileDAOImpl dao = new FileDAOImpl();
@@ -146,13 +148,6 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		}
 		return false;
 	}
-
-	// IT'S AWFUL!!
-	// public long update(UserFile file) {
-	// FileDAOImpl dao = new FileDAOImpl();
-	// dao.update(file);
-	// return dao.get(file.getId()).getId();
-	// }
 
 	public void moveFile(long fileIdMove, long folderIdTarget) {
 		FileDAOImpl dao = new FileDAOImpl();
@@ -310,5 +305,16 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		UserFile file = new UserFile();
 		file = fileDaoImpl.getSizeUploadUserByDates(dataStart, dataEnd, userId);
 		return file.getSize();
+	}
+
+	public UserFile getByName(String fileName) {
+		return fileDAO.getByName(fileName);
+	}
+
+	@Override
+	public void changePublicState(long id, boolean state) {
+		UserFile file = fileDAO.get(id);
+		file.setIsPublic(state);
+		fileDAO.update(file);
 	}
 }

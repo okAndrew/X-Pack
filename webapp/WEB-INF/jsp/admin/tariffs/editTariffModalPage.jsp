@@ -19,12 +19,11 @@
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-							<div id="errorinfo" class="alert alert-danger"
-								style="display: none;">
-								<c:if test="${message != null}">
-											${message}
-									</c:if>
-							</div>
+							<c:if test="${editTarMessage != null}">
+								<div id="errorinfo" class="alert alert-danger"
+									style="display: none;">${editTarMessage}</div>
+							</c:if>
+
 							<table class="table">
 								<tbody>
 									<tr>
@@ -44,7 +43,8 @@
 									<tr>
 										<td><fmt:message key="Max_Capacity" bundle="${lang}" /></td>
 										<td><input type="text" name="maxCapacity"
-											class="form-control midle" placeholder="${tariff.maxCapacity}" /></td>
+											class="form-control midle"
+											placeholder="${tariff.maxCapacity}" /></td>
 									</tr>
 
 									<tr>
@@ -61,8 +61,9 @@
 
 									<tr>
 										<td><fmt:message key="Description" bundle="${lang}" /></td>
-										<td><textarea class="form-control" rows="5" name="description"
-											class="form-control midle" placeholder="${tariff.description}"></textarea></td>
+										<td><textarea class="form-control" rows="5"
+												name="description" class="form-control midle"
+												placeholder="${tariff.description}"></textarea></td>
 									</tr>
 
 								</tbody>

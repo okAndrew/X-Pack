@@ -11,19 +11,23 @@
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/myspace.css" rel="stylesheet" />
 <link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
-<link rel="stylesheet" href="//releases.flowplayer.org/5.4.3/skin/minimalist.css">
+<link rel="stylesheet"
+	href="res/css/minimalist.css">
 
 <link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	href="res/css/jquery-ui.css" />
+<script src="res/js/jquery-1.10.2.min.js"></script>
+<script src="res/js/jquery-ui.js"></script>
 <script src="res/js/dropzone.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
+<script src="res/js/utils.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		Dropzone.options.myAwesomeDropzone = {
-			maxFilesize : 1000,
+				parallelUploads: 2,
+				maxFilesize : <c:out value="${freeSpace}"/>,
+				dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
+				maxFiles : 6,
 			init : function() {
 				this.on("complete", function(file) {
 					loadBrowserContent();
@@ -46,20 +50,21 @@
 	}
 	function searchFiles() {
 		var searchText = $("#searchinput").val();
-		if(searchText.length == 0){
+		if (searchText.length == 0) {
 			loadBrowserContent();
-		}else{
-		$.ajax({
-			type : "GET",
-			url : 'search?searchtext=' + searchText,
-			success : function(data) {
-				$("#browser").html(data);
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert('xhr.status ' + xhr.status + '   thrownError:'
-						+ thrownError);
-			}
-		});
+		} else {
+			$.ajax({
+				type : "POST",
+				url : 'search',
+				data : {"searchtext" : searchText},
+				success : function(data) {
+					$("#browser").html(data);
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert('xhr.status ' + xhr.status + '   thrownError:'
+							+ thrownError);
+				}
+			});
 		}
 	}
 </script>
@@ -67,7 +72,7 @@
 img.img {
 	max-height: auto;
 	max-width: 538px;
-	margin-bottom: 3px; 
+	margin-bottom: 3px;
 }
 </style>
 </head>
@@ -102,29 +107,29 @@ img.img {
 						<div class="collapse navbar-collapse controlmenu">
 							<div class="btn-group">
 								<a href="#createFolderModal" data-toggle="modal" role="button"
-									class="btn btn-default"><fmt:message key="Create_folder"
-										bundle="${lang}" /></a>
+									class="btn btn-default"> <span
+									class="glyphicon glyphicon-asterisk"></span> <fmt:message
+										key="Create_folder" bundle="${lang}" /></a>
 								<button type="submit" name="download" class="btn btn-default"
 									disabled="disabled" id="download">
+									<span class="glyphicon glyphicon-cloud-download"></span>
 									<fmt:message key="Download" bundle="${lang}" />
 								</button>
 								<button type="submit" name="delete" class="btn btn-default"
 									disabled="disabled" id="delete">
+									<span class="glyphicon glyphicon-trash"></span>
 									<fmt:message key="Delete" bundle="${lang}" />
 								</button>
 								<button type="button" onclick="loadBrowserContent()"
 									name="search" class="btn btn-default" id="search">
-									<fmt:message key="Search" bundle="${lang}" />
+									<fmt:message key="Test dyn. load" bundle="${lang}" />
 								</button>
 							</div>
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">
 									<input type="text" onkeyup="searchFiles()" class="form-control"
-										id="searchinput"> <span class="input-group-btn">
-										<button onclick="searchFiles()" type="button"
-											class="btn btn-default">
-											<fmt:message key="Search" bundle="${lang}" />
-										</button>
+										id="searchinput"> <span class="input-group-addon">
+										<span class="glyphicon glyphicon-search"></span>
 									</span>
 								</div>
 							</div>

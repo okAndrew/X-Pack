@@ -2,7 +2,6 @@ package com.epam.lab.controller.web.servlets;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,15 +19,12 @@ public class CreatePaymentServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		RequestDispatcher reqDispatcher = request.getRequestDispatcher(USERPAGE_JSP);
+		HttpSession session = request.getSession();
 		long userId = Long.valueOf(session.getAttribute("userid").toString());
 		int months = Integer.valueOf(request.getParameter("months"));
 		long tariffId = Long.valueOf(request.getParameter("tariffId"));
-		
+
 		new PricingService().pay(userId, tariffId, months);
-		
-		
-		reqDispatcher.forward(request, response);
+		response.sendRedirect(USERPAGE_JSP);
 	}
 }

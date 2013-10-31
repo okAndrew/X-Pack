@@ -40,7 +40,7 @@
 					value="${tariff.id}"></td>
 				<td>${tariff.id}</td>
 				<td>${tariff.name}</td>
-				<td>${tariff.maxCapacity}</td>
+				<td><script>document.write(bytesToSize(${tariff.maxCapacity}));</script></td>
 				<td>${tariff.price}</td>
 				<td>${tariff.position}</td>
 				<td>${tariff.description}</td>

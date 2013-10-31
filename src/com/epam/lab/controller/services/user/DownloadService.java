@@ -44,10 +44,9 @@ public class DownloadService {
 
 	public DownloadService(Long userId, String ifNoneMatch,
 			long ifModifiedSince, String ifMatch, long ifUnmodifiedSince,
-			String range, String ifRange, long ifRangeTime, long fileId) {
-		UserFile f = userFileService.get(fileId);
-		file = new File(f.getPath() + File.separator + f.getName());
-		fileName = f.getNameIncome();
+			String range, String ifRange, long ifRangeTime, UserFile userFile) {
+		file = new File(userFile.getPath() + File.separator + userFile.getName());
+		fileName = userFile.getNameIncome();
 		init(userId, ifNoneMatch, ifModifiedSince, ifMatch, ifUnmodifiedSince,
 				range, ifRange, ifRangeTime);
 	}

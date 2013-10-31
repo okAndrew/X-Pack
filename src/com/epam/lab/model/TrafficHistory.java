@@ -10,13 +10,13 @@ public class TrafficHistory {
 	private long id;
 
 	@TableColumn("user_id")
-	private long userId;
+	private Long userId;
 
 	@TableColumn("date")
 	private Timestamp date;
 
 	@TableColumn("size")
-	private double size;
+	private int size;
 
 	public long getId() {
 		return id;
@@ -27,12 +27,17 @@ public class TrafficHistory {
 		return this;
 	}
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public TrafficHistory setUserId(long userId) {
+	public TrafficHistory setUserId(Long userId) {
 		this.userId = userId;
+		return this;
+	}
+
+	public TrafficHistory setSize(int size) {
+		this.size = size;
 		return this;
 	}
 
@@ -45,13 +50,7 @@ public class TrafficHistory {
 		return this;
 	}
 
-	public double getSize() {
+	public int getSize() {
 		return size;
 	}
-
-	public TrafficHistory setSize(int size) {
-		this.size = size;
-		return this;
-	}
-
 }

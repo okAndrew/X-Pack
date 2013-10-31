@@ -1,21 +1,20 @@
 package com.epam.lab.controller.services.tariff;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
-
 import com.epam.lab.controller.dao.tariff.TariffDAO;
 import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.SelectService;
-import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Tariff;
 
 public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		TariffServise {
+
 	static Logger logger = Logger.getLogger(TariffServiseImpl.class);
+
 	private TariffDAO tariffDao = new TariffDAOImpl();
 
 	public TariffServiseImpl() {
@@ -24,9 +23,9 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 
 	public String addTariff(String name, String maxCapacity, String price,
 			String position, String description) {
-		String message = checkParametersTariff(name, maxCapacity, price,
+		String errorMessage = checkParametersTariff(name, maxCapacity, price,
 				position, description);
-		if (message == null) {
+		if (errorMessage == null) {
 			Tariff tariff = new Tariff();
 			tariff.setName(name)
 					.setMaxCapacity(Long.parseLong(maxCapacity) * 1024 * 1024)
@@ -35,34 +34,26 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 					.setDescription(description);
 			tariffDao.insert(tariff);
 		}
-		return message;
+		return errorMessage;
 	}
 
-	// public int changeTariff(long userId, long tariffId) {
-	// int result = 0;
-	// User user = new UserServiceImpl().get(userId);
-	// TariffServiseImpl tariffServise = new TariffServiseImpl();
-	// Tariff tariff = tariffServise.get(tariffId);
-	// Tariff userTariff = tariffServise.get(user.getIdTariff());
-	//
-	// if (userTariff.getPosition() < tariff.getPosition()) {
-	// new PaymentServiceImpl().createPayment(user, tariff);
-	// result = 1;
-	// }
-	//
-	// return result;
-	// }
-
 	@Override
-	public int updateTariff(String id, String name, String maxCapacity,
+	public String updateTariff(String id, String name, String maxCapacity,
 			String price, String position, String description) {
-		Tariff tariff = new Tariff();
-		tariff.setId(Long.parseLong(id)).setName(name)
-				.setMaxCapacity(Integer.parseInt(maxCapacity) * 1024 * 1024)
-				.setPrice(Double.parseDouble(price))
-				.setPosition(Integer.parseInt(position))
-				.setDescription(description);
-		return tariffDao.update(tariff);
+		String errorMessage = null;
+		errorMessage = checkParametersTariff(name, maxCapacity, price,
+				position, description);
+		if (errorMessage == null) {
+			Tariff tariff = new Tariff();
+			tariff.setId(Long.parseLong(id))
+					.setName(name)
+					.setMaxCapacity(Integer.parseInt(maxCapacity) * 1024 * 1024)
+					.setPrice(Double.parseDouble(price))
+					.setPosition(Integer.parseInt(position))
+					.setDescription(description);
+			tariffDao.update(tariff);
+		}
+		return errorMessage;
 	}
 
 	@Override
@@ -84,20 +75,18 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		return tariffDao.getAvailableTariffs();
 	}
 
-	@Override
-	public String checkParametersTariff(String name, String maxCapacity,
+	private String checkParametersTariff(String name, String maxCapacity,
 			String price, String position, String description) {
-		String errorMessage = null;
 		List<Tariff> tariffs = getAll();
-		if (name == "" || maxCapacity == "" || price == "" || position == ""
-				|| description == "") {
-			errorMessage = "Fields canoot be empty!!!";
-			return errorMessage;
-		}
-		for (Tariff iter : tariffs) {
-			if (iter.getName().equalsIgnoreCase(name)) {
-				errorMessage = "Tariff with the same name already exists!!!";
-				break;
+		String errorMessage = null;
+		errorMessage = validateParam(name, maxCapacity, price, position,
+				description);
+		if (errorMessage == null) {
+			for (Tariff iter : tariffs) {
+				if (iter.getName().equalsIgnoreCase(name)) {
+					errorMessage = "Tariff with the same name already exists!!!";
+					return errorMessage;
+				}
 			}
 		}
 		return errorMessage;
@@ -117,6 +106,28 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	@Override
 	public List<Tariff> getAvailableTariffs(String language) {
 		return tariffDao.getAvailableTariffs(language);
+	}
+
+	private String validateParam(String name, String maxCapacity, String price,
+			String position, String description) {
+		String errorMessage = null;
+		if (!Validator.TARIFF_NAME.validate(name)) {
+			errorMessage = "Name tarrif is not correct!! Please use symbols a-z and A-Z";
+			return errorMessage;
+		} else if (!Validator.INTEGERS.validate(maxCapacity)) {
+			errorMessage = "MaxCapacity tarrif is not correct!! Please use symbols 0-9";
+			return errorMessage;
+		} else if (!Validator.DECIMALS.validate(price)) {
+			errorMessage = "Price tarrif is not correct!! Please use symbols 0-9 and '.' (example XXXX.XX)";
+			return errorMessage;
+		} else if (!Validator.INTEGERS.validate(position)) {
+			errorMessage = "Positions tarrif is not correct!! Please use symbols 0-9";
+			return errorMessage;
+		} else if (description == null) {
+			errorMessage = "Description can not is empty!";
+			return errorMessage;
+		}
+		return errorMessage;
 	}
 
 	@Override

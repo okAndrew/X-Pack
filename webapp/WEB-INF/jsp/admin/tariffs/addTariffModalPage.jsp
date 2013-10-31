@@ -77,12 +77,12 @@
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
 							<form action="employeeControllerTariffs" method="post">
-								<div id="errorinfo" class="alert alert-danger"
-									style="display: none;">
-									<c:if test="${message != null}">
-											${message}
-									</c:if>
-								</div>
+
+								<c:if test="${addTarMessage != null}">
+									<div id="errorinfo" class="alert alert-danger"
+										style="display: none;">${addTarMessage}</div>
+								</c:if>
+
 								<table class="table">
 									<tbody>
 										<tr>

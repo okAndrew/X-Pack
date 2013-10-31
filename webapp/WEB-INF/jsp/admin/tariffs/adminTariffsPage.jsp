@@ -16,7 +16,6 @@
 
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="res/css/adminuserpage.css" rel="stylesheet" />
 
 <script type="text/javascript">
 	var page = checkPage("${param.page}");
@@ -24,13 +23,24 @@
 	var orderBy = checkOrderBy("${param.orderby}");
 	var sort = checkSort("${param.sop}");
 	var pageCount = Math.ceil(parseInt("${tariffsCount}") / perPage);
-	var linkVar = "adminUsersPage";
+	var linkVar = "adminTariffsPage";
 </script>
 
 </head>
-
 <body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
+
+	<c:if test="${addTarMessage != null}">
+		<script>
+			$('#addTariffModal').modal('show');
+		</script>
+	</c:if>
+
+	<c:if test="${editTarMessage != null}">
+		<script>
+			$('#editTariffModal').modal('show');
+		</script>
+	</c:if>
 
 	<div class="container">
 		<div class="panel panel-default main">

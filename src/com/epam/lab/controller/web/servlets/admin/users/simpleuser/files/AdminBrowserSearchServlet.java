@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.model.Folder;
+import com.epam.lab.controller.services.user.SearchService;
+import com.epam.lab.controller.services.user.SearchServiceImpl;
 import com.epam.lab.model.UserFile;
 
 @WebServlet("/adminsearch")
@@ -27,8 +27,10 @@ public class AdminBrowserSearchServlet extends HttpServlet {
 		long userId = (long) session.getAttribute("adminUserid");
 		String searchText = request.getParameter("searchtext");
 		if (searchText != null) {
-			List<UserFile> filelist = new UserFileServiceImpl()
-					.getSearchedFiles(userId, searchText);
+			SearchService service = new SearchServiceImpl();
+			long rootFolderId = new FolderServiceImpl().getRoot(userId).getId();
+			service.prepareLists(rootFolderId, searchText);
+			List<UserFile> filelist = service.getFiles();
 			request.setAttribute("filelist", filelist);
 		} else {
 			response.sendRedirect(ADMIN_USER_FILES);

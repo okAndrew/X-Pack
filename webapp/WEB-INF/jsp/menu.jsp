@@ -3,14 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="navbar navbar-fixed-top navbar-inverse">
-
+	
 	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
-	<!--<c:if test="${sessionScope.sessLocale == null}">
-		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
-	</c:if>
-	-->
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
-
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="homepage">DREAMHOST</a>
@@ -72,16 +67,13 @@
 				</c:if>
 				<div class="btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle"
-						data-toggle="dropdown">
-						Action <span class="caret"></span>
-					</button>
+						data-toggle="dropdown">Action</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="locale?language=en_US"><img
+						<li><a href="locale?language=en"><img
 								src="res/img/flags/United-States-Flag-icon.png"></a></li>
-						<li><a href="locale?language=uk_UA"><img
+						<li><a href="locale?language=uk"><img
 								src="res/img/flags/Ukraine-Flag-icon.png"></a></li>
-						<li><a href="locale?language=de_DE"><img
-								src="res/img/flags/Ukraine-Flag-icon.png"></a></li>
+						<li><a href="locale?language=de">german</a></li>
 
 					</ul>
 				</div>

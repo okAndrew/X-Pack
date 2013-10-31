@@ -48,23 +48,22 @@ public class TariffDAOImpl implements TariffDAO {
 	@Override
 	public List<Tariff> getAll(String language) {
 
-		String sql = "select * from(select t.id,t.name,t.max_capacity,t.price, tt.text as description,"
-				+ "t.position, t.is_delete "
-				+ "from tariffs t "
-				+ "inner join text_translation tt on t.description=tt.id "
-				+ "inner join languages l on tt.lang=l.id "
-				+ "where l.name=? "
-				+ "union "
-				+ "select t.id,t.name,t.max_capacity,t.price, tt.text as description,"
-				+ "t.position, t.is_delete "
-				+ "from tariffs t "
-				+ "inner join text_translation tt on t.description=tt.id "
-				+ "inner join languages l on tt.lang=l.id "
-				+ "where l.name='English' and not exists(	select * from tariffs t "
-				+ "inner join text_translation tt on t.description=tt.id "
-				+ "inner join languages l on tt.lang=l.id "
-				+ "where l.name=?)"
-				+ ")as v";
+		String sql = "select * from ("
+				+ "select t.id,t.name,t.max_capacity,t.price, tt.text as description, t.position, t.is_delete "
+				+ " from tariffs t "
+				+ " inner join text_translation tt on t.description=tt.id "
+				+ " inner join languages l on tt.lang=l.id "
+				+ " where l.name=?"
+				+ " union "
+				+ " select t.id,t.name,t.max_capacity,t.price, tt.text as description,"
+				+ " t.position, t.is_delete "
+				+ " from tariffs t "
+				+ " inner join text_translation tt on t.description=tt.id "
+				+ " inner join languages l on tt.lang=l.id "
+				+ " where l.name='English' and not exists( select * from tariffs t2 "
+				+ " inner join text_translation tt on t2.description=tt.id "
+				+ " inner join languages l on tt.lang=l.id "
+				+ " where l.name=? and t2.id = t.id))as v;";
 		List<Tariff> tariffs = queryExecutor.executeQuery(Tariff.class, sql,
 				language, language);
 		return tariffs;

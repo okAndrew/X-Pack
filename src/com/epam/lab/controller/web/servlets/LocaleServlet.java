@@ -1,15 +1,12 @@
 package com.epam.lab.controller.web.servlets;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import sun.util.locale.LocaleUtils;
 
 @WebServlet("/locale")
 public class LocaleServlet extends HttpServlet {
@@ -19,9 +16,7 @@ public class LocaleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		String lang = request.getParameter("language");
 		session.setAttribute("sessLocale", request.getParameter("language"));
-		String s = request.getHeader("referer");
 		response.sendRedirect(request.getHeader("referer"));
 	}
 }

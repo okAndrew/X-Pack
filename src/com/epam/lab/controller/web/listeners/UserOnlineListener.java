@@ -21,6 +21,7 @@ public class UserOnlineListener implements HttpSessionListener,
 	private static int activeSessionsLogged = 0;
 	private static int activeSessions = 0;
 	SessionHistory sessionhistory = null;
+	String browserLocalevalue = null;
 
 	public void sessionCreated(HttpSessionEvent event) {
 		activeSessions++;
@@ -63,6 +64,7 @@ public class UserOnlineListener implements HttpSessionListener,
 			sessionhistory.setUserid((long) session.getAttribute("userid"));
 			historyService.setUserId(sessionhistory);
 		}
+
 	}
 
 	@Override
@@ -77,7 +79,6 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	@Override
 	public void attributeReplaced(HttpSessionBindingEvent event) {
-		//
-	}
 
+	}
 }

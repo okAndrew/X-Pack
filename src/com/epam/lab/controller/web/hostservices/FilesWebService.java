@@ -28,6 +28,7 @@ import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.file.UserFileUploader;
 import com.epam.lab.controller.services.token4auth.Token4AuthService;
 import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
+import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.UserFile;
 import com.sun.jersey.multipart.FormDataBodyPart;
@@ -50,12 +51,20 @@ public class FilesWebService {
 			@PathParam("idFolder") String idFolderStr,
 			FormDataMultiPart multiPart) {
 		long idFolder = Long.valueOf(idFolderStr);
-		String message = verifyAccessRequest(token, idFolder);
-		if (message != null) {
-			JSONObject jsonError = buildJsonError(message);
+		Folder folder = null;
+		try {
+			Token4AuthService service = new Token4AuthServiceImpl();
+			folder = service.verifyAccessToFolder(token, idFolder);
+		} catch (TokenNotFoundException | UserNotFoundException
+				| FolderNotFoundException e) {
+			e.printStackTrace();
+		}
+		if (folder == null) {
+			JSONObject jsonError = buildJsonError("");
 			return new JSONArray().put(jsonError);
 		}
-		JSONArray resultArray = uploadFiles(multiPart, idFolder);
+
+		JSONArray resultArray = uploadFiles(multiPart, folder.getId());
 		return resultArray;
 	}
 
@@ -86,7 +95,7 @@ public class FilesWebService {
 		// tokenData
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		for (UserFile file : files) {
-			
+
 			fileService.delete(file.getId());
 		}
 		return Response.status(200).build();
@@ -142,28 +151,6 @@ public class FilesWebService {
 		return jsonObject;
 	}
 
-	private String verifyAccessRequest(String token, long idFolder) {
-		String message = null;
-		Token4AuthService service = new Token4AuthServiceImpl();
-		boolean itUserFolder = false;
-		try {
-			itUserFolder = service.verifyAccessToFolder(token, idFolder);
-		} catch (TokenNotFoundException e) {
-			logger.warn(e);
-			message = TOKEN_NOT_FOUND;
-		} catch (UserNotFoundException e) {
-			logger.warn(e);
-			message = TOKEN_NOT_FOUND;
-		} catch (FolderNotFoundException e) {
-			logger.warn(e);
-			message = FOLDER_NOT_FOUND;
-		}
-		if (itUserFolder == false) {
-			message = FOLDER_NOT_FOUND;
-		}
-		return message;
-	}
-
 	private JSONObject buildJsonError(String mes) {
 		JSONObject jsonOb = new JSONObject();
 		try {
@@ -179,7 +166,7 @@ public class FilesWebService {
 		try {
 			jsonOb.put("fileName", userFile.getNameIncome());
 			jsonOb.put("url",
-					"http://localhost:8080/dreamhost/download?fileid="
+					"http://192.168.12.66:8080/dreamhost/download?fileid="
 							+ userFile.getId());
 			jsonOb.put("idFolder", userFile.getIdFolder());
 			jsonOb.put("size", userFile.getSize());

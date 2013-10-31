@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-
 <ol class="breadcrumb">
 	<c:forEach items="${folderpath}" var="folder">
 		<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
@@ -14,6 +13,7 @@
 #gallery {
 	float: left;
 	width: 100%;
+	height: 100%;
 	border: 0px solid gray;
 	font-size: 10px;
 	border: 0px solid gray;
@@ -55,7 +55,6 @@
 	background: #8C97A1;
 }
 </style>
-
 <div id="gallery">
 	<!-- upper -->
 	<c:if test="${currentFolder.idUpper!=0}">
@@ -68,10 +67,7 @@
 			</div>
 			<div class="cell-desc">
 				<h4>${currentFolder.name}</h4>
-				<h5>
-					Total size:
-					<script>document.write(bytesToSize(${currentFolder.size}));</script>
-				</h5>
+				<h5>Total size: ${currentFolder.size}</h5>
 			</div>
 		</div>
 	</c:if>
@@ -79,8 +75,6 @@
 	<c:forEach items="${folders}" var="folder">
 		<div class="cell draggable droppable" name="folder-${folder.id}"
 			id="${folder.id}">
-			<input type="checkbox" name="folders" value="${folder.id}"
-				id="folder-${folder.id}" hidden="hidden">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${folder.id}" title="${folder.name}"><img
 					src="http://www.whatthetech.com/blog/wp-content/uploads/2010/08/leopard-folder.png"
@@ -100,9 +94,7 @@
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
-				<h5>
-					<script>document.write(bytesToSize(${folder.size}));</script>
-				</h5>
+				<h5>${folder.size}</h5>
 				<h6>
 					<fmt:formatDate type="date" value="${folder.date}" />
 				</h6>
@@ -117,6 +109,11 @@
 					</a>
 				</h5>
 			</div>
+			<div class="btn-group check" data-toggle="buttons">
+				<label class="btn btn-default"><input type="checkbox"
+					onchange="checkboxesStatus()" name="folders" value="${folder.id}">
+					<span class="glyphicon glyphicon-unchecked"></span> </label>
+			</div>
 		</div>
 	</c:forEach>
 	<!-- files -->
@@ -128,19 +125,19 @@
 				<c:choose>
 					<c:when test="${ file.type.equals('IMAGE') }">
 						<a data-toggle="modal" role="button" href="#ImageModal"
-							onclick="setSRC(${file.id})"> <span
+							onclick="setSRC(${file.name})"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">
 						<a data-toggle="modal" role="button" href="#videoModal"
-							onclick="loadVideoContent(${file.id})"> <span
+							onclick="loadVideoContent(${file.name})"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('AUDIO') }">
 						<a data-toggle="modal" role="button" href="#audioModal"
-							onclick="loadAudioContent(${file.id})"> <span
+							onclick="loadAudioContent(${file.name})"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
@@ -162,10 +159,7 @@
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
-				<h5>
-					Size:
-					<script>document.write(bytesToSize(${file.size}));</script>
-				</h5>
+				<h5>Size: ${file.size}</h5>
 				<h6>
 					Created at:
 					<fmt:formatDate type="date" value="${file.date}" />
@@ -177,7 +171,7 @@
 					<a data-toggle="modal" href="#DeleteModal"
 						onclick="set('fileiddelete', ${file.id})"> <span
 						class="glyphicon glyphicon-trash"></span>
-					</a> <a href="download?fileid=${file.id}"> <span
+					</a> <a href="download?file=${file.name}"> <span
 						class="glyphicon glyphicon-download"></span>
 					</a> <a data-toggle="modal" href="#EditModal"
 						onclick="set('fileiddelete', ${file.id})"> <span
@@ -185,10 +179,14 @@
 					</a>
 				</h5>
 			</div>
+			<div class="btn-group check" data-toggle="buttons">
+				<label class="btn btn-default"><input type="checkbox"
+					onchange="checkboxesStatus()" name="files" value="${file.id}">
+					<span class="glyphicon glyphicon-unchecked"></span> </label>
+			</div>
 		</div>
 	</c:forEach>
 </div>
-
 <style type="text/css">
 .dropzone {
 	margin-left: auto;
@@ -207,8 +205,19 @@
 </style>
 
 <script>
+$('.check').click(function(){
+	var cb = $(this).find('input:checkbox').is(":checked");
+	var span = $(this).find('span');
+	if(cb){
+		span.removeClass('glyphicon-check');		
+		span.addClass('glyphicon-unchecked');
+	}else{
+		span.addClass('glyphicon-check');
+		span.removeClass('glyphicon-unchecked');
+	}
+});
+
 $(function() {
-	
 	$(".draggable").draggable({
 		revert : "invalid",
 		scroll: true,
@@ -248,21 +257,6 @@ function move(moveable, idtargetFolder) {
 		}
 	});
 }
-
-$('.cell').on('click',function(){ 
-    var checkedCellName=$(this).attr('name');
-    var checkbox = $('#'+checkedCellName);
-    if(checkbox.is(':checked')){
-    	checkbox.prop('checked', false);
-    	$(this).removeClass('checked');
-    	
-    }else{
-    	checkbox.prop('checked', true);
-    	$(this).addClass('checked');
-    }
-    checkboxesStatus();
-});
-
 	function toggle(source) {
 		var checkboxes = document.getElementsByName('folders');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
@@ -305,7 +299,7 @@ $('.cell').on('click',function(){
 	}
 
 	function setSRC(id) {
-		document.getElementById("img").src = "download?fileid=" + id;
+		document.getElementById("img").src = "download?file=" + name;
 	}
 </script>
 

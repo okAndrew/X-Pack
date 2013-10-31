@@ -123,9 +123,9 @@ public class FolderWebService {
 	private String verifyRequest(String token, long idFolder) {
 		String message = null;
 		Token4AuthService service = new Token4AuthServiceImpl();
-		boolean itUserFolder = false;
+		Folder userFolder = null;
 		try {
-			itUserFolder = service.verifyAccessToFolder(token, idFolder);
+			userFolder = service.verifyAccessToFolder(token, idFolder);
 		} catch (TokenNotFoundException e) {
 			logger.warn(e);
 			message = TOKEN_NOT_FOUND;
@@ -136,7 +136,7 @@ public class FolderWebService {
 			logger.warn(e);
 			message = FOLDER_NOT_FOUND;
 		}
-		if (itUserFolder == false) {
+		if (userFolder == null) {
 			message = FOLDER_NOT_FOUND;
 		}
 		return message;

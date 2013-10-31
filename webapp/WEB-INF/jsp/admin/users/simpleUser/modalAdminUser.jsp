@@ -50,15 +50,16 @@
 				<div class="container">
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
-						<div >
+						<div>
 							<form action="updateUser" name="updateForm" method="post"
 								onsubmit="return validateForm()">
-								<div id="errorinfo" class="alert alert-danger"
-									style="display:${(message != null) ? 'block' : 'none'}">
-									<c:if test="${message != null}">
-											${message}
-										</c:if>
-								</div>
+								<c:if test="${message != null}">
+									<div id="errorinfo" class="alert alert-danger"
+										style="display:${(message != null) ? 'block' : 'none'}">
+
+										${message}</div>
+								</c:if>
+
 								<table class="table">
 									<tbody>
 										<tr>

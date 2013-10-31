@@ -2,16 +2,19 @@ package com.epam.lab.controller.web.servlets.admin.users.simpleuser.simpleuserpa
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.epam.lab.controller.services.file.UserFileServiceImpl;
+
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.model.UserFile;
+import com.epam.lab.controller.services.user.SearchService;
+import com.epam.lab.controller.services.user.SearchServiceImpl;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.UserFile;
 
 @WebServlet("/adminUserSearchFiles")
 public class AdminUserSearchFilesServlet extends HttpServlet {
@@ -33,9 +36,11 @@ public class AdminUserSearchFilesServlet extends HttpServlet {
 		long userId = (long) session.getAttribute("adminUserid");
 		if (request.getParameter("searchtext") != null) {
 			String text = request.getParameter("searchtext");
-			List<UserFile> files = new UserFileServiceImpl().getSearchedFiles(userId, text);
-			List<Folder> folders = new FolderServiceImpl().getSearched(
-					userId, text);
+			SearchService service = new SearchServiceImpl();
+			long rootFolderId = new FolderServiceImpl().getRoot(userId).getId();
+			service.prepareLists(rootFolderId, text);
+			List<UserFile> files = service.getFiles();
+			List<Folder> folders = service.getFolders();
 			request.setAttribute("files", files);
 			request.setAttribute("folders", folders);
 			request.getRequestDispatcher(ADMIN_USER_FILES_JSP).forward(request,

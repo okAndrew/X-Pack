@@ -16,6 +16,7 @@ public class SendRestorePassMail {
 		String msg = null;
 		UserServiceImpl userService = new UserServiceImpl();
 		User user = userService.get(email);
+		MailSender sender = new MailSender();
 		
 		if (user != null) {
 			TokenDAOImpl tokenDAO = new TokenDAOImpl();
@@ -29,7 +30,7 @@ public class SendRestorePassMail {
 			token.setToken(tokenStr);
 			tokenDAO.insert(token);
 			
-			MailSender.send(user.getEmail(), "Restore", mail);
+			sender.send(user.getEmail(), "Restore", mail);
 		} else {
 			msg = "Error";
 		}

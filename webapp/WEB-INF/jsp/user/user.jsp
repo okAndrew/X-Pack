@@ -25,7 +25,9 @@
 	$(document).ready(function() {
 		Dropzone.options.myAwesomeDropzone = {
 				parallelUploads: 2,
-			maxFilesize : 1000,
+				maxFilesize : <c:out value="${freeSpace}"/>,
+				dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
+				maxFiles : 6,
 			init : function() {
 				this.on("complete", function(file) {
 					loadBrowserContent();

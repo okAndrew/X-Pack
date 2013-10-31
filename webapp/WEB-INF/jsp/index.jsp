@@ -14,7 +14,7 @@
 <script src="res/js/bootstrap.js"></script>
 </head>
 <body>
-	<jsp:include page="jsp/menu.jsp"></jsp:include>
+	<jsp:include page="menu.jsp"></jsp:include>
 	<div class="jumbotron">
 		<div class="container">
 			<h1>Hello, Team!</h1>

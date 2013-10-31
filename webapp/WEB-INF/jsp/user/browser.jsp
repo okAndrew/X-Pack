@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <c:if test="${search==null || !search}">
 	<ol class="breadcrumb">
@@ -89,7 +90,10 @@
 			</div>
 			<div class="cell-desc">
 				<h4>${currentFolder.name}</h4>
-				<h5>Total size: ${currentFolder.size}</h5>
+				<h5>
+					Total size:
+					<dream:formatSize value="${currentFolder.size}" />
+				</h5>
 			</div>
 		</div>
 	</c:if>
@@ -116,7 +120,9 @@
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
-				<h5>${folder.size}</h5>
+				<h5>
+					<dream:formatSize value="${folder.size}" />
+				</h5>
 				<h6>
 					<fmt:formatDate type="date" value="${folder.date}" />
 				</h6>
@@ -181,7 +187,10 @@
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
-				<h5>Size: ${file.size}</h5>
+				<h5>
+					Size:
+					<dream:formatSize value="${file.size}" />
+				</h5>
 				<h6>
 					Created at:
 					<fmt:formatDate type="date" value="${file.date}" />
@@ -310,7 +319,6 @@ function move(moveable, idtargetFolder) {
 			if (checkboxes[i].checked === true) {
 				$('#download').prop('disabled', false);
 		    	$('#delete').prop('disabled', false);
-		    	$('#move').prop('disabled', false);
 				return;
 			}
 		}
@@ -319,13 +327,11 @@ function move(moveable, idtargetFolder) {
 			if (checkboxes[i].checked === true) {
 				$('#download').prop('disabled', false);
 		    	$('#delete').prop('disabled', false);
-		    	$('#move').prop('disabled', false);
 				return;
 			}
 		}
 		$('#download').prop('disabled', true);
     	$('#delete').prop('disabled', true);
-    	$('#move').prop('disabled', true);
 	}
 
 	function setSRC(id) {

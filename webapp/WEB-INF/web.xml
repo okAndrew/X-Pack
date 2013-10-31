@@ -32,4 +32,10 @@
 		<error-code>404</error-code>
 		<location>/error</location>
 	</error-page>
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://dreamhost.com/jsp/tags/</taglib-uri>
+			<taglib-location>/WEB-INF/tags/formatSize.tld</taglib-location>
+		</taglib>
+	</jsp-config>
 </web-app>

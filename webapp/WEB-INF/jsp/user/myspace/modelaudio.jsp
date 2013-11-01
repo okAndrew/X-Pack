@@ -25,14 +25,12 @@
 <!-- /.modal -->
 
 <script type="text/javascript">
-	function loadAudioContent(id) {
-		debugger;
+	function loadAudioContent(name) {
 		$.ajax({
 			type : "GET",
-			url : 'audiocontent?id=' + id,
+			url : 'audiocontent?name=' + name,
 			success : function(data) {
 				$("#audio-player").html(data);
-				debugger;
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'

@@ -153,19 +153,19 @@
 				<c:choose>
 					<c:when test="${ file.type.equals('IMAGE') }">
 						<a data-toggle="modal" role="button" href="#ImageModal"
-							onclick="setSRC(${file.name})"> <span
+							onclick="setSRC('${file.name}')"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">
 						<a data-toggle="modal" role="button" href="#videoModal"
-							onclick="loadVideoContent(${file.name})"> <span
+							onclick="loadVideoContent('${file.name}')"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('AUDIO') }">
 						<a data-toggle="modal" role="button" href="#audioModal"
-							onclick="loadAudioContent(${file.name})"> <span
+							onclick="loadAudioContent('${file.name}')"> <span
 							class="glyphicon glyphicon-play"></span>
 						</a>
 					</c:when>
@@ -334,7 +334,7 @@ function move(moveable, idtargetFolder) {
     	$('#delete').prop('disabled', true);
 	}
 
-	function setSRC(id) {
+	function setSRC(name) {
 		document.getElementById("img").src = "download?file=" + name;
 	}
 

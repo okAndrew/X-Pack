@@ -38,13 +38,13 @@ public class DownloadService {
 	private long ifUnmodifiedSince;
 	private String range;
 	private String ifRange;
-	private long ifRangeTime;
+	private String ifRangeTime;
 
 	private Long userId;
 
 	public DownloadService(Long userId, String ifNoneMatch,
 			long ifModifiedSince, String ifMatch, long ifUnmodifiedSince,
-			String range, String ifRange, long ifRangeTime, UserFile userFile) {
+			String range, String ifRange, String ifRangeTime, UserFile userFile) {
 		file = new File(userFile.getPath() + File.separator + userFile.getName());
 		fileName = userFile.getNameIncome();
 		init(userId, ifNoneMatch, ifModifiedSince, ifMatch, ifUnmodifiedSince,
@@ -53,7 +53,7 @@ public class DownloadService {
 
 	public DownloadService(Long  userId, String ifNoneMatch,
 			long ifModifiedSince, String ifMatch, long ifUnmodifiedSince,
-			String range, String ifRange, long ifRangeTime, String[] filesIds,
+			String range, String ifRange, String ifRangeTime, String[] filesIds,
 			String[] foldersIds) {
 		file = userFileService.getArchive(filesIds, foldersIds);
 		fileName = file.getName();
@@ -91,7 +91,7 @@ public class DownloadService {
 
 	private void init(Long userId, String ifNoneMatch, long ifModifiedSince,
 			String ifMatch, long ifUnmodifiedSince, String range,
-			String ifRange, long ifRangeTime) {
+			String ifRange, String ifRangeTime) {
 		this.userId = userId;
 		this.ifNoneMatch = ifNoneMatch;
 		this.ifModifiedSince = ifModifiedSince;
@@ -126,6 +126,7 @@ public class DownloadService {
 			}
 			if (ifRange != null && !ifRange.equals(eTag)) {
 				try {
+					long ifRangeTime = Long.parseLong(this.ifRangeTime); 
 					if (ifRangeTime != -1 && ifRangeTime + 1000 < lastModified) {
 						ranges.add(full);
 					}

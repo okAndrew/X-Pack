@@ -117,7 +117,7 @@ img.trunc {
 								value="${fn:substring(folder.name, 0, 13)}..."></c:set>
 						</c:if> <c:out value="${formatName}"></c:out>
 					</a> <a data-toggle="modal" role="button" href="#EditModal"
-						onclick="set('folderidedit', ${folder.id})"> <span
+						onmousedown="set('folderidedit', '${folder.id}')"> <span
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
@@ -184,7 +184,8 @@ img.trunc {
 							<c:set var="formatName"
 								value="${fn:substring(file.nameIncome, 0, 13)}..."></c:set>
 						</c:if> <c:out value="${formatName}"></c:out>
-					</a> <a data-toggle="modal" role="button" href="#EditModal"> <span
+					</a> <a data-toggle="modal" role="button" href="#EditModal"
+						onmousedown="set('fileidedit', '${file.id}')"> <span
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
@@ -312,7 +313,7 @@ function move(moveable, idtargetFolder) {
 	}
 
 	function set(targetElementId, id) {
-		document.getElementById(targetElementId).setAttribute('value', id);
+		$('#'+targetElementId).attr('value', id);
 	}
 	function getCurFolderId() {
 		document.getElementById("folderidmove").getAttribute("value");

@@ -10,11 +10,18 @@
 	}
 </script>
 
+<script>
+function checkBoxes(sourse){
+	toggle(sourse);
+	checkboxesStatus();
+}
+</script>
+
 <table class="table zebra-striped table-hover table-condensed"
 	id="tablesorter">
 	<thead>
 		<tr>
-			<th><input type="checkbox" onClick="toggle(this)" /></th>
+			<th><input type="checkbox" onClick="checkBoxes(this)" /></th>
 			<th onclick="changeOrderBy('id');"><fmt:message key="Id"
 					bundle="${lang}" /></th>
 			<th onclick="changeOrderBy('login');"><fmt:message key="Login"
@@ -36,7 +43,7 @@
 	<tbody class="avoid-sort">
 		<c:forEach var="user" items="${users}">
 			<tr>
-				<td><input type="checkbox" name="checkUser" value="${user.id}"></td>
+				<td><input type="checkbox" name="checkUser" value="${user.id}" onclick="checkboxesStatus()"></td>
 				<td>${user.id}</td>
 				<td>${user.login}</td>
 				<td>${user.email}</td>

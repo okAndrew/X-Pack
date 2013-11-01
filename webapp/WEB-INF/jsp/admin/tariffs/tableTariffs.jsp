@@ -9,11 +9,17 @@
 		}
 	}
 </script>
+<script>
+function checkBoxes(sourse){
+	toggle(sourse);
+	checkboxesStatus();
+}
+</script>
 
 <table class="table zebra-striped table-hover table-condensed">
 	<thead>
 		<tr>
-			<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
+			<th><input type="checkbox" onClick="checkBoxes(this)" /> <fmt:message
 					key="All" bundle="${lang}" /></th>
 			<th onclick="changeOrderBy('id');"><fmt:message key="Id"
 					bundle="${lang}" /></th>
@@ -37,7 +43,7 @@
 		<c:forEach var="tariff" items="${tariffs}">
 			<tr>
 				<td><input type="checkbox" name="checkTariff"
-					value="${tariff.id}"></td>
+					value="${tariff.id}" onclick="checkboxesStatus()"></td>
 				<td>${tariff.id}</td>
 				<td>${tariff.name}</td>
 				<td><script>document.write(bytesToSize(${tariff.maxCapacity}));</script></td>

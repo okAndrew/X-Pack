@@ -27,6 +27,27 @@
 	var linkVar = "adminUsersPage";
 </script>
 
+<script>
+function checkboxesStatus() {
+	  var checkboxes = document.getElementsByName('checkUser');
+	  for ( var i = 0, n = checkboxes.length; i < n; i++) {
+	   if (checkboxes[i].checked === true) {
+		     $('#delete').prop('disabled', false);
+		     $('#restore').prop('disabled', false);
+		     $('#activated').prop('disabled', false);
+		     $('#baned').prop('disabled', false);
+		     $('#send').prop('disabled', false);
+	    return;
+	   }
+	  }
+	     $('#delete').prop('disabled', true);
+	     $('#restore').prop('disabled', true);
+	     $('#activated').prop('disabled', true);
+	     $('#baned').prop('disabled', true);
+	     $('#send').prop('disabled', true);
+	 }
+</script>
+
 <script type="text/javascript">
 	$("#addNewUserSubmit").click(function() {
 		alert("test");
@@ -51,21 +72,21 @@
 				<form action="employeeControllerUsers" method="post">
 					<div class="btn-group">
 						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addUserModal"> <fmt:message key="Add" bundle="${lang}" /> </button>
-						<button type="submit" class="btn btn-default" name="action"
+						<button disabled="disabled" type="submit" class="btn btn-default" id="delete" name="action"
 							value="delete">
 							<fmt:message key="Delete" bundle="${lang}" />
 						</button>
-						<button type="submit" class="btn btn-default" name="action"
+						<button disabled="disabled" type="submit" class="btn btn-default" id="restore" name="action"
 							value="restore">Restore</button>
-						<button type="submit" class="btn btn-default" name="action"
+						<button disabled="disabled" type="submit" class="btn btn-default" id="activated" name="action"
 							value="activated">
 							<fmt:message key="Activate" bundle="${lang}" />
 						</button>
-						<button type="submit" class="btn btn-default" name="action"
+						<button disabled="disabled" type="submit" class="btn btn-default" id="baned" name="action"
 							value="baned">
 							<fmt:message key="Ban" bundle="${lang}" />
 						</button>
-						<button type="button" class="btn btn-default" data-toggle="modal"
+						<button type="button" class="btn btn-default" data-toggle="modal" id="send" disabled="disabled"
 							data-target="#sendEmailModal">
 							<fmt:message key="Send_email" bundle="${lang}" />
 						</button>

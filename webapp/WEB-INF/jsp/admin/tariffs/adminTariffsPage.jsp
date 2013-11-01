@@ -26,6 +26,21 @@
 	var linkVar = "adminTariffsPage";
 </script>
 
+<script>
+function checkboxesStatus() {
+	  var checkboxes = document.getElementsByName('checkTariff');
+	  for ( var i = 0, n = checkboxes.length; i < n; i++) {
+	   if (checkboxes[i].checked === true) {
+		     $('#isActivate').prop('disabled', false);
+		     $('#isDelete').prop('disabled', false);
+	    return;
+	   }
+	  }
+	     $('#isActivate').prop('disabled', true);
+	     $('#isDelete').prop('disabled', true);
+	 }
+</script>
+
 </head>
 <body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
@@ -51,11 +66,11 @@
 							class="btn btn-default">
 							<fmt:message key="Add" bundle="${lang}" />
 						</button>
-						<button type="submit" class="btn btn-default" name="action"
+						<button disabled="disabled" type="submit" class="btn btn-default" id="isActivate" name="action"
 							value="isActivate">
 							<fmt:message key="Activate" bundle="${lang}" />
 						</button>
-						<button type="submit" class="btn btn-default" name="action"
+						<button disabled="disabled" type="submit" class="btn btn-default" id="isDelete" name="action"
 							value="isDelete">
 							<fmt:message key="Delete" bundle="${lang}" />
 						</button>

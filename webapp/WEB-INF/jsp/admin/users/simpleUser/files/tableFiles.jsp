@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <table class="table zebra-striped table-hover table-condensed">
 	<thead>
 		<tr>
@@ -71,14 +71,13 @@
 		var checkboxes = document.getElementsByName('filelist');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {
-				document.getElementById('download').removeAttribute('disabled');
-				document.getElementById('delete').removeAttribute('disabled');
+				$('#download').prop('disabled', false);
+		    	$('#delete').prop('disabled', false);
 				return;
 			}
 		}
-		document.getElementById('download')
-				.setAttribute('disabled', 'disabled');
-		document.getElementById('delete').setAttribute('disabled', 'disabled');
+		$('#download').prop('disabled', true);
+    	$('#delete').prop('disabled', true);
 	}
 
 	function setSRC(id) {

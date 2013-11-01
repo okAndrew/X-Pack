@@ -1,20 +1,22 @@
 package com.epam.lab.controller.services;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.annotations.TableColumn;
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.model.User;
 
 public class SelectService<T> {
-	
+
 	static Logger logger = Logger.getLogger(UserServiceImpl.class);
-	
-	public List<T> getByParam(Class<?> type, String page, String count, String orderBy, String sop) {
+
+	public List<T> getByParam(Class<?> type, String page, String count,
+			String orderBy, String sop) {
 		DBQueryExecutor<T> dbQueryExecutor = new DBQueryExecutor<T>();
 		int p = getPage(page);
 		int c = getCount(count);
@@ -23,7 +25,8 @@ public class SelectService<T> {
 
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("SELECT * FROM ").append(type.getSimpleName().toLowerCase()).append("s");
+		sql.append("SELECT * FROM ").append(type.getSimpleName().toLowerCase())
+				.append("s");
 		sql.append(" ORDER BY ").append(order);
 		sql.append(" ").append(sort);
 		sql.append(" LIMIT ").append(c);
@@ -31,7 +34,7 @@ public class SelectService<T> {
 
 		return dbQueryExecutor.executeQuery(type, sql.toString());
 	}
-	
+
 	private int getPage(String page) {
 		int p = 0;
 
@@ -58,7 +61,7 @@ public class SelectService<T> {
 				c = 10;
 			}
 		}
-		
+
 		if (c < 0 || c > 100) {
 			c = 10;
 		}
@@ -100,6 +103,22 @@ public class SelectService<T> {
 		}
 
 		return sort;
+	}
+
+	public Map<String, String> getParam(Class<?> type, String page,
+			String count, String orderBy, String sop) {
+		Integer p = getPage(page);
+		Integer c = getCount(count);
+		String order = getOrderBy(orderBy, type);
+		String sort = getSort(sop);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("page", p.toString());
+		map.put("count", c.toString());
+		map.put("order", order);
+		map.put("sort", sort);
+
+		return map;
+
 	}
 
 }

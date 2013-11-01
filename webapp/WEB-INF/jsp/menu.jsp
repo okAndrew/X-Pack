@@ -1,16 +1,12 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <div class="navbar navbar-fixed-top navbar-inverse">
+
 	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
-	<!--<c:if test="${sessionScope.sessLocale == null}">
-		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
-	</c:if>
-	<c:if test="${pageContext.request.locale=='de'}">
-	<fmt:setLocale value="de_DE" scope="session"/>
-	</c:if>-->
-	
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
 		<div class="navbar-header">
@@ -19,12 +15,10 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<c:if test="${sessionScope.userLogin != null}">
-					<li id="menu_myspace"> <a href="userpage">
-						<fmt:message key="My_space" bundle="${lang}" /></a>
-					</li>
-					<li id="menu_pricing"> <a href="pricing">
-						<fmt:message key="Pricing" bundle="${lang}" /></a>
-					</li>
+					<li id="menu_myspace"><a href="userpage"> <fmt:message
+								key="My_space" bundle="${lang}" /></a></li>
+					<li id="menu_pricing"><a href="pricing"> <fmt:message
+								key="Pricing" bundle="${lang}" /></a></li>
 				</c:if>
 				<c:if test="${sessionScope.userRole == 'ADMIN'}">
 					<li class=""><a href="adminUsersPage"><fmt:message
@@ -36,13 +30,13 @@
 					<li class=""><a href="adminLogsPage"><fmt:message
 								key="Logger" bundle="${lang}" /></a></li>
 				</c:if>
-				<li class="dropdown" id="menu_about">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><fmt:message key="About" bundle="${lang}" /> <b class="caret"></b></a>
+				<li class="dropdown" id="menu_about"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown"><fmt:message
+							key="About" bundle="${lang}" /> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="about">Project</a></li>
 						<li><a href="team">Team</a></li>
-					</ul>
-				</li>
+					</ul></li>
 			</ul>
 
 			<div class="navbar-form navbar-right">
@@ -73,13 +67,15 @@
 						</ul>
 					</div>
 				</c:if>
-
-				<a href="locale?language=en_US"><img
-					src="res/img/flags/United-States-Flag-icon.png"></a> <a
-					href="locale?language=uk_UA"><img
-					src="res/img/flags/Ukraine-Flag-icon.png"></a> <a
-					href="locale?language=de_DE"><img
-					src="res/img/flags/Ukraine-Flag-icon.png"></a> 
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown">${currentLanguage.language}</button>
+					<ul class="dropdown-menu" role="menu">
+						<c:forEach items="${languages}" var="language">
+							<li><a href="locale?language=${language.defaulLocale}">${language.name}</a></li>
+						</c:forEach>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

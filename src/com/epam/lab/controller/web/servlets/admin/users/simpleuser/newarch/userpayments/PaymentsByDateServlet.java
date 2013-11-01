@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.simpleuserpage;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userpayments;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -37,39 +37,20 @@ public class PaymentsByDateServlet extends HttpServlet {
 		PaymentServiceImpl psevrive = new PaymentServiceImpl();
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-		Timestamp endDate = null;
-		Timestamp startDate = null;
+		String enddateRequest = request.getParameter("endDate");
+		String startdateRequest = request.getParameter("startDate");
 
-		if (request.getParameter("startDate") != "") {
-			if (request.getParameter("endDate") != "") {
-				try {
-					endDate = new Timestamp(sf.parse(
-							request.getParameter("endDate")).getTime());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			} else {
-				endDate = TimeStampManager.getFormatCurrentTimeStamp();
-			}
-			try {
-				startDate = new Timestamp(sf.parse(
-						request.getParameter("startDate")).getTime());
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			List<Payment> list = psevrive.getPayByPeriod(userId, startDate,
-					endDate);
+		if (startdateRequest != "") {
+			List<Payment> list = psevrive.getPayByPeriod(userId,
+					startdateRequest, enddateRequest);
 			request.setAttribute("listPayments", list);
 			request.setAttribute("notFullList", true);
-			request.setAttribute(
-					"messagePeriod",
-					"Your payments for period: "
-							+ request.getParameter("startDate") + " - "
-							+ request.getParameter("endDate"));
+			request.setAttribute("messagePeriod", "Your payments for period: "
+					+ startdateRequest + " - " + enddateRequest);
 		} else {
 			request.setAttribute("message", "Please select period");
 		}
+
 		dispatcher = request.getRequestDispatcher("adminUserPayments");
 		dispatcher.forward(request, response);
 	}

@@ -5,12 +5,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.AdminUserActivityCommand;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.AdminUserPaymentsCommand;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.AdminUserTrafficCommand;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.useractivity.AdminUserActivityCommand;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles.AdminSimpleUserFilesCommand;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles.AdminSimpleUserFilesDelCommand;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userinfo.AdminSimpleUserInfoCommand;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userpayments.AdminUserPaymentsCommand;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.usertraffic.AdminUserTrafficCommand;
 
 public class AdminSimpleUserRequestHelper {
 

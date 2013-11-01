@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.files;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles.files;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -14,15 +14,13 @@ public class AdminUserControllerServlet extends HttpServlet {
 	private static final String DELETE_SERVLET = "admindelete";
 	private static final String SEARCH_SERVLET = "search";
 	private static final String ADMIN_USER_FILES = "adminUserFiles";
-	private static final String MOVE_SERVLET = "adminmove";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("search") != null) {
 			request.getRequestDispatcher(SEARCH_SERVLET).forward(request,
 					response);
-		} else if (request.getParameterValues("folders") == null
-				&& request.getParameterValues("files") == null) {
+		} else if (request.getParameterValues("filelist") == null) {
 			request.setAttribute("message", "Unchecked checkboxes");
 			request.getRequestDispatcher(ADMIN_USER_FILES).forward(request,
 					response);
@@ -31,9 +29,6 @@ public class AdminUserControllerServlet extends HttpServlet {
 					response);
 		} else if (request.getParameter("delete") != null) {
 			request.getRequestDispatcher(DELETE_SERVLET).forward(request,
-					response);
-		} else if (request.getParameter("move") != null) {
-			request.getRequestDispatcher(MOVE_SERVLET).forward(request,
 					response);
 		}
 	}

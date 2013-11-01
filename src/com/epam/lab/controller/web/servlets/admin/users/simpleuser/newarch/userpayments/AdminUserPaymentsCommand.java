@@ -1,27 +1,29 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userpayments;
 
 import java.io.IOException;
-
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
-import com.epam.lab.model.User;
+import com.epam.lab.model.Payment;
 
-public class AdminUserInfoCommand implements AdminSimpleUserPageCommand {
+public class AdminUserPaymentsCommand implements AdminSimpleUserPageCommand {
 
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
-		UserServiceImpl us = new UserServiceImpl();
 		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("adminUserid");
-		User user = us.get(userId);
-		request.setAttribute("user", user);
-		page = "adminUser";// adminUserInfo
+		PaymentServiceImpl psevrive = new PaymentServiceImpl();
+		List<Payment> list = psevrive.getAllPayByUserId((long) session
+				.getAttribute("adminUserid"));
+		request.setAttribute("listPayments", list);
+		page = "adminUserPayments";
 		return page;
+
 	}
+
 }

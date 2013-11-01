@@ -21,7 +21,7 @@ import com.epam.lab.model.Folder;
 public class AdminUserFilesServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ADMIN_USER_FILES_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserFiles.jsp";
+	private static final String ADMIN_USER_FILES_JSP = "WEB-INF/jsp/admin/users/simpleUser/files/adminUserFiles.jsp";
 
 	public AdminUserFilesServlet() {
 		super();

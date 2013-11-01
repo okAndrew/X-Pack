@@ -11,7 +11,7 @@
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title">
-					<fmt:message key="Add_new_tariff" bundle="${lang}" />
+					<fmt:message key="Edit_tariff" bundle="${lang}" />
 				</h4>
 			</div>
 			<div class="modal-body">

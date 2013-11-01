@@ -21,6 +21,7 @@ public class UserOnlineListener implements HttpSessionListener,
 	private static int activeSessionsLogged = 0;
 	private static int activeSessions = 0;
 	SessionHistory sessionhistory = null;
+	String browserLocalevalue = null;
 
 	public void sessionCreated(HttpSessionEvent event) {
 		activeSessions++;
@@ -28,6 +29,7 @@ public class UserOnlineListener implements HttpSessionListener,
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		sessionhistory = historyService.insertSessionWithoutUser(
 				session.getId(), TimeStampManager.getFormatCurrentTimeStamp());
+		session.setAttribute("sessLocale", "");
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {
@@ -63,6 +65,7 @@ public class UserOnlineListener implements HttpSessionListener,
 			sessionhistory.setUserid((long) session.getAttribute("userid"));
 			historyService.setUserId(sessionhistory);
 		}
+
 	}
 
 	@Override
@@ -77,7 +80,6 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	@Override
 	public void attributeReplaced(HttpSessionBindingEvent event) {
-		//
-	}
 
+	}
 }

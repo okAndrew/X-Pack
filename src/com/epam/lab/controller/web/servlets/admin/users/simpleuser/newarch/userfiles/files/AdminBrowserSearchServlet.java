@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.files;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles.files;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.epam.lab.model.UserFile;
 @WebServlet("/adminsearch")
 public class AdminBrowserSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String BROWSER_JSP = "WEB-INF/jsp/admin/users/simpleUser/myspaceAdminUser/adminbrowser.jsp";
+	private static final String BROWSER_JSP = "WEB-INF/jsp/admin/users/simpleUser/files/tableFiles.jsp";
 	private static final String ADMIN_USER_FILES = "adminUserFiles";
 
 	protected void doGet(HttpServletRequest request,

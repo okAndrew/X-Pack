@@ -33,7 +33,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	private UserDAOImpl userDaoImpl = new UserDAOImpl();
 	private MailSender sender = new MailSender();
 	static Logger logger = Logger.getLogger(UserServiceImpl.class);
-	
+
 	public UserServiceImpl() {
 		super(new UserDAOImpl());
 	}
@@ -260,7 +260,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	public boolean tryEditEmail(String oldEmail, String newEmail) {
 		boolean res = false;
 		User user = null;
-		
+
 		if (Validator.USER_EMAIL.validate(oldEmail)
 				&& Validator.USER_EMAIL.validate(newEmail)) {
 			user = get(oldEmail);
@@ -405,5 +405,31 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		long freeSize = tarriff.getMaxCapacity() - user.getCapacity();
 		return freeSize;
 
+	}
+
+	public String checkUpdate(String userEmail, int userId, String userLogin,
+			boolean activated, boolean banned, Role role) {
+		String errmessage = null;
+		if (checkEmailById(userEmail, userId)) {
+			if (ckeckLoginById(userLogin, userId)) {
+				if (Validator.USER_LOGIN.validate(userLogin)) {
+					User user = get(userId).setLogin(userLogin)
+							.setEmail(userEmail).setIsActivated(activated)
+							.setIsBanned(banned).setRole(role);
+					userDaoImpl.update(user);
+				} else {
+					errmessage = "Login must be string without spesial characters";
+					return errmessage;
+				}
+			} else {
+				errmessage = "Login already exists";
+				return errmessage;
+			}
+		} else {
+			errmessage = "Email already exists";
+			return errmessage;
+
+		}
+		return errmessage;
 	}
 }

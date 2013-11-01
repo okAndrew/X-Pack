@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.SelectService;
+import com.epam.lab.controller.services.locale.LocaleServiceImpl;
 import com.epam.lab.controller.services.tariff.TariffServiseImpl;
+import com.epam.lab.model.Locale;
 import com.epam.lab.model.Tariff;
 
 @WebServlet("/adminTariffsPage")
@@ -38,11 +40,15 @@ public class AdminTariffsPageServlet extends HttpServlet {
 
 	private void getAllTariffs(HttpServletRequest request,
 			HttpServletResponse response) {
+		Locale language = null;
+		LocaleServiceImpl impl = new LocaleServiceImpl();
+		HttpSession session = request.getSession(false);
+		language = impl.getByLocale(session.getAttribute("sessLocale")
+				.toString());
 		TariffServiseImpl servise = new TariffServiseImpl();
-		SelectService<Tariff> selectService = new SelectService<Tariff>();
-		List<Tariff> tariffs = selectService.getByParam(Tariff.class,
-				request.getParameter("page"), request.getParameter("count"),
-				request.getParameter("orderby"), request.getParameter("sop"));
+		List<Tariff> tariffs = servise.getByParam(request.getParameter("page"),
+				request.getParameter("count"), request.getParameter("orderby"),
+				request.getParameter("sop"), language.getLanguage());
 		request.setAttribute("tariffs", tariffs);
 		request.setAttribute("tariffsCount", servise.getCount());
 	}

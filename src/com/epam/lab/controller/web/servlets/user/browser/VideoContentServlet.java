@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 public class VideoContentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIDEO_CONTENT_JSP = "WEB-INF/jsp/user/myspace/videocontent.jsp";
-	private static final String DOWNLOAD_SERVLET = "download?fileid=";
+	private static final String DOWNLOAD_SERVLET = "download?file=";
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		String videoSRC = DOWNLOAD_SERVLET + request.getParameter("id");
+		String videoSRC = DOWNLOAD_SERVLET + request.getParameter("name");
 		request.setAttribute("videoSRC", videoSRC);
 		request.getRequestDispatcher(VIDEO_CONTENT_JSP).include(request,
 				response);

@@ -342,7 +342,7 @@ function move(moveable, idtargetFolder) {
     	$('#delete').prop('disabled', true);
 	}
 
-	function setSRC(id) {
+	function setSRC(name) {
 		document.getElementById("img").src = "download?file=" + name;
 	}
 

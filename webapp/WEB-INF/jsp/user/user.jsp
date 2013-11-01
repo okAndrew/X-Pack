@@ -11,30 +11,30 @@
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/myspace.css" rel="stylesheet" />
 <link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
-<link rel="stylesheet"
-	href="res/css/minimalist.css">
+<link rel="stylesheet" href="res/css/minimalist.css">
 
-<link rel="stylesheet"
-	href="res/css/jquery-ui.css" />
+<link rel="stylesheet" href="res/css/jquery-ui.css" />
 <script src="res/js/jquery-1.10.2.min.js"></script>
 <script src="res/js/jquery-ui.js"></script>
 <script src="res/js/dropzone.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/utils.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		Dropzone.options.myAwesomeDropzone = {
-				parallelUploads: 2,
-				maxFilesize : <c:out value="${freeSpace}"/>,
-				dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
-				maxFiles : 6,
-			init : function() {
-				this.on("complete", function(file) {
-					loadBrowserContent();
-				});
-			}
-		}
-	})
+	$(document)
+			.ready(
+					function() {
+						Dropzone.options.myAwesomeDropzone = {
+							parallelUploads : 2,
+							maxFilesize : <c:out value="${freeSpace}"/>,
+							dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
+							maxFiles : 6,
+							init : function() {
+								this.on("complete", function(file) {
+									loadBrowserContent();
+								});
+							}
+						}
+					})
 	function loadBrowserContent() {
 		$.ajax({
 			type : "GET",
@@ -56,7 +56,9 @@
 			$.ajax({
 				type : "POST",
 				url : 'search',
-				data : {"searchtext" : searchText},
+				data : {
+					"searchtext" : searchText
+				},
 				success : function(data) {
 					$("#browser").html(data);
 				},
@@ -66,6 +68,17 @@
 				}
 			});
 		}
+	}
+	function disableEnterKey(e) {
+		var key;
+		if (window.event)
+			key = window.event.keyCode; //IE
+		else
+			key = e.which; //firefox
+		if (key == 13)
+			return false;
+		else
+			return true;
 	}
 </script>
 <style type="text/css">
@@ -128,7 +141,7 @@ img.img {
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">
 									<input type="text" onkeyup="searchFiles()" class="form-control"
-										id="searchinput"> <span class="input-group-addon">
+										id="searchinput" onKeyPress="return disableEnterKey(event)"> <span class="input-group-addon">
 										<span class="glyphicon glyphicon-search"></span>
 									</span>
 								</div>

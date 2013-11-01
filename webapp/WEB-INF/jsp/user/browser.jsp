@@ -46,6 +46,11 @@
 	margin-right: 6px;
 }
 
+img.trunc {
+	height: 70px;
+	width: 70px;
+}
+
 .cell-desc {
 	height: 90px;
 	width: 160px;
@@ -132,46 +137,46 @@
 					<a data-toggle="modal" role="button" href="#DeleteModal"
 						onclick="set('folderiddelete', ${folder.id})"> <span
 						class="glyphicon glyphicon-trash"></span>
-					</a><a data-toggle="modal" href="#EditModal"> <span
-						class="glyphicon glyphicon-info-sign"></span>
 					</a>
 				</h5>
 			</div>
 			<div class="btn-group check" data-toggle="buttons">
 				<label class="btn btn-default"><input type="checkbox"
-					onchange="checkboxesStatus()" name="folders" value="${folder.id}">
-					<span class="glyphicon glyphicon-unchecked"></span> </label>
+					class="cell-check" onchange="checkboxesStatus()" name="folders"
+					value="${folder.id}"> <span
+					class="glyphicon glyphicon-unchecked"></span> </label>
 			</div>
 		</div>
 	</c:forEach>
 	<!-- files -->
 	<c:forEach items="${files}" var="file">
 		<div class="cell draggable" name="file-${file.id}">
-			<input type="checkbox" name="files" value="${file.id}"
-				id="file-${file.id}" hidden="hidden">
 			<div class="thumb">
 				<c:choose>
 					<c:when test="${ file.type.equals('IMAGE') }">
 						<a data-toggle="modal" role="button" href="#ImageModal"
-							onclick="setSRC(${file.name})"> <span
-							class="glyphicon glyphicon-play"></span>
+							onclick="setSRC(${file.name})"><img class="trunc"
+							title="${file.nameIncome}"
+							src="http://icons.iconarchive.com/icons/treetog/junior/256/document-picture-png-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">
 						<a data-toggle="modal" role="button" href="#videoModal"
-							onclick="loadVideoContent(${file.name})"> <span
-							class="glyphicon glyphicon-play"></span>
+							onclick="loadVideoContent(${file.name})"><img class="trunc"
+							title="${file.nameIncome}"
+							src="http://www.icon2s.com/wp-content/uploads/2013/01/Blue-File-Video-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('AUDIO') }">
 						<a data-toggle="modal" role="button" href="#audioModal"
-							onclick="loadAudioContent(${file.name})"> <span
-							class="glyphicon glyphicon-play"></span>
+							onclick="loadAudioContent(${file.name})"> <img class="trunc"
+							title="${file.nameIncome}"
+							src="https://cdn1.iconfinder.com/data/icons/camill-icons/256/camill_file_mp3.png">
 						</a>
 					</c:when>
 					<c:otherwise>
-						<img title="${file.nameIncome}"
-							src="http://download.easyicon.net/png/30357/128/" height="70px">
+						<img class="trunc" title="${file.nameIncome}"
+							src="http://download.easyicon.net/png/30357/128/">
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -204,27 +209,25 @@
 						class="glyphicon glyphicon-trash"></span>
 					</a> <a href="download?file=${file.name}"> <span
 						class="glyphicon glyphicon-download"></span>
-					</a> <a data-toggle="modal" href="#EditModal"
-						onclick="set('fileiddelete', ${file.id})"> <span
-						class="glyphicon glyphicon-info-sign"></span>
 					</a>
 				</h5>
 			</div>
 			<div class="btn-group check" data-toggle="buttons">
 				<label class="btn btn-default"><input type="checkbox"
-					onchange="checkboxesStatus()" name="files" value="${file.id}">
-					<span class="glyphicon glyphicon-unchecked"></span> </label>
+					class="cell-check" onchange="checkboxesStatus()" name="files"
+					value="${file.id}"> <span
+					class="glyphicon glyphicon-unchecked"></span> </label>
 			</div>
 			<div class="public">
 				<label>public: </label>
 				<c:choose>
 					<c:when test="${file.isPublic }">
-						<input type="checkbox" onchange="setPublic(${file.id})" name="publicfiles"
-							value="${file.id}" checked="checked">
+						<input type="checkbox" onchange="setPublic(${file.id})"
+							name="publicfiles" value="${file.id}" checked="checked">
 					</c:when>
 					<c:otherwise>
-						<input type="checkbox" onchange="setPublic(${file.id})" name="publicfiles"
-							value="${file.id}">
+						<input type="checkbox" onchange="setPublic(${file.id})"
+							name="publicfiles" value="${file.id}">
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -253,7 +256,12 @@ $(function() {
 		distance: 20,
 		opacity: 0.9,
 		helper: function(){
-			var selected = $('#gallery input:checked').parents('.draggable');
+			var cellCheckBox = $(this).find('input.cell-check');
+			if(!cellCheckBox.is(':checked')){
+				cellCheckBox.attr('checked', true);
+				cellCheckBox.click();
+			}
+			var selected = $('#gallery input.cell-check:checked').parents('.draggable');
 		    if (selected.length === 0) {
 		      	selected = $(this);
 		    }
@@ -272,7 +280,7 @@ $(function() {
 			});
 			var idTargetFolder = $(this).attr("id");
 			move(moveable, idTargetFolder);
-			$('#gallery input:checked').parents('.draggable').each(function(){
+			$('#gallery input.cell-check:checked').parents('.draggable').each(function(){
 				if($(this).attr('id') != idTargetFolder)
 					$(this).remove();
 			});

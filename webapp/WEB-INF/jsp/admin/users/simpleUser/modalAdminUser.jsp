@@ -51,77 +51,74 @@
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
 						<div>
-							<form action="updateUser" name="updateForm" method="post"
-								onsubmit="return validateForm()">
-								<c:if test="${message != null}">
-									<div id="errorinfo" class="alert alert-danger"
-										style="display:${(message != null) ? 'block' : 'none'}">
+							<c:if test="${message != null}">
+								<div id="errorinfo" class="alert alert-danger"
+									style="display:${(message != null) ? 'block' : 'none'}">
+									${message}</div>
+							</c:if>
 
-										${message}</div>
-								</c:if>
+							<table class="table">
+								<tbody>
+									<tr>
+										<td><fmt:message key="User_id" bundle="${lang}" /></td>
+										<td><input type="text" name="userIdHolder"
+											class="form-control first" value="${adminUser.id}"
+											autofocus="autofocus" readonly></td>
+									</tr>
+									<tr>
+										<td><fmt:message key="Login" bundle="${lang}" /></td>
+										<td><input type="text" name="userLogin"
+											class="form-control first" value="${adminUser.login}"
+											autofocus="autofocus"></td>
+									</tr>
+									<tr>
+										<td><fmt:message key="Email" bundle="${lang}" /></td>
+										<td><input type="text" name="userEmail" id="userEmail"
+											class="form-control first" value="${adminUser.email}"
+											autofocus="autofocus" /></td>
+									</tr>
+									<tr>
+										<td><fmt:message key="Tariff" bundle="${lang}" /></td>
+										<td><input type="text" name="userIdTariff"
+											class="form-control first" value="${adminUser.idTariff}"
+											autofocus="autofocus" readonly></td>
+									</tr>
+									<tr>
+										<td><fmt:message key="Capacity" bundle="${lang}" /></td>
+										<td><input type="text" class="form-control first"
+											value="${adminUser.capacity}" autofocus="autofocus" disabled></td>
+									</tr>
 
-								<table class="table">
-									<tbody>
-										<tr>
-											<td><fmt:message key="User_id" bundle="${lang}" /></td>
-											<td><input type="text" name="userIdHolder"
-												class="form-control first" value="${adminUser.id}"
-												autofocus="autofocus" readonly></td>
-										</tr>
-										<tr>
-											<td><fmt:message key="Login" bundle="${lang}" /></td>
-											<td><input type="text" name="userLogin"
-												class="form-control first" value="${adminUser.login}"
-												autofocus="autofocus"></td>
-										</tr>
-										<tr>
-											<td><fmt:message key="Email" bundle="${lang}" /></td>
-											<td><input type="text" name="userEmail" id="userEmail"
-												class="form-control first" value="${adminUser.email}"
-												autofocus="autofocus" /></td>
-										</tr>
-										<tr>
-											<td><fmt:message key="Tariff" bundle="${lang}" /></td>
-											<td><input type="text" name="userIdTariff"
-												class="form-control first" value="${adminUser.idTariff}"
-												autofocus="autofocus" readonly></td>
-										</tr>
-										<tr>
-											<td><fmt:message key="Capacity" bundle="${lang}" /></td>
-											<td><input type="text" class="form-control first"
-												value="${adminUser.capacity}" autofocus="autofocus" disabled></td>
-										</tr>
+									<tr>
+										<td><fmt:message key="Activation" bundle="${lang}" /></td>
+										<td><input type="text" name="userActivation"
+											id="userActivation" class="form-control last"
+											value="${adminUser.isActivated}" autofocus="autofocus"></td>
+									</tr>
+									<tr>
+										<td><fmt:message key="Banned" bundle="${lang}" /></td>
+										<td><input type="text" name="userBanned" id="userBanned"
+											class="form-control last" value="${adminUser.isBanned}"
+											autofocus="autofocus"></td>
+									</tr>
+									<tr>
+										<td><fmt:message key="Role" bundle="${lang}" /></td>
+										<td><input type="text" name="userRole" id="userRole"
+											class="form-control last" value="${adminUser.role}"
+											autofocus="autofocus"></td>
+									</tr>
 
-										<tr>
-											<td><fmt:message key="Activation" bundle="${lang}" /></td>
-											<td><input type="text" name="userActivation"
-												id="userActivation" class="form-control last"
-												value="${adminUser.isActivated}" autofocus="autofocus"></td>
-										</tr>
-										<tr>
-											<td><fmt:message key="Banned" bundle="${lang}" /></td>
-											<td><input type="text" name="userBanned" id="userBanned"
-												class="form-control last" value="${adminUser.isBanned}"
-												autofocus="autofocus"></td>
-										</tr>
-										<tr>
-											<td><fmt:message key="Role" bundle="${lang}" /></td>
-											<td><input type="text" name="userRole" id="userRole"
-												class="form-control last" value="${adminUser.role}"
-												autofocus="autofocus"></td>
-										</tr>
-
-									</tbody>
-								</table>
-								<button type="submit" class="btn btn-primary ">
-									<fmt:message key="Save_changes" bundle="${lang}" />
-								</button>
-							</form>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary" name="action"
+					value="update">
+					<fmt:message key="Save_changes" bundle="${lang}" />
+				</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<fmt:message key="Close" bundle="${lang}" />
 				</button>

@@ -46,8 +46,6 @@
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<form action="employeeControllerTariffs" method="post">
-					<jsp:include page="addTariffModalPage.jsp"></jsp:include>
-					<jsp:include page="editTariffModalPage.jsp"></jsp:include>
 					<div class="btn-group">
 						<button data-toggle="modal" data-target="#addTariffModal"
 							class="btn btn-default">
@@ -70,6 +68,8 @@
 						</div>
 					</c:if>
 					<jsp:include page="tableTariffs.jsp"></jsp:include>
+					<jsp:include page="addTariffModalPage.jsp"></jsp:include>
+					<jsp:include page="editTariffModalPage.jsp"></jsp:include>
 				</form>
 				<jsp:include page="../../paginator.jsp"></jsp:include>
 			</div>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.statistics.traffichistory.TrafficHistoryServiceImpl;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
 
 public class AdminUserTrafficCommand implements AdminSimpleUserPageCommand {
 

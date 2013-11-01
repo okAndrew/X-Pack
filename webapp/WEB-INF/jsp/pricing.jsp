@@ -12,6 +12,8 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
+<script src="res/js/utils.js"></script>
+
 <script type="text/javascript">
 window.onload = function() {
 	var el = document.getElementById("menu_pricing");
@@ -40,10 +42,10 @@ $("#form_pay_submit").click( function() {
 								<h4>
 									<c:choose>
 										<c:when test="${currentTariff.id == tariff.id}">
-											<b>${tariff.name} - ${tariff.maxCapacity}Mb (current)</b>
+											<b>${tariff.name} - <script>document.write(bytesToSize(${tariff.maxCapacity}));</script> (current)</b>
 										</c:when>
 										<c:otherwise>
-											${tariff.name} - ${tariff.maxCapacity}Mb
+											${tariff.name} - <script>document.write(bytesToSize(${tariff.maxCapacity}));</script>
 										</c:otherwise>
 									</c:choose>
 								</h4>

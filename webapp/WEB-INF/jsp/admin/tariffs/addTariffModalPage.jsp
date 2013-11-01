@@ -55,8 +55,8 @@
 
 										<tr>
 											<td><fmt:message key="Description" bundle="${lang}" /></td>
-											<td><input type="text" name="description"
-												class="form-control midle" placeholder="Description" /></td>
+											<td><textarea class="form-control" rows="5" name="description"
+												class="form-control midle" placeholder="Description"></textarea></td>
 										</tr>
 
 									</tbody>

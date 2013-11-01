@@ -87,7 +87,7 @@ img.trunc {
 				<a href="userfoldernav?folderid=${currentFolder.idUpper}"
 					title="To up"><img
 					src="http://icons.iconarchive.com/icons/icojam/blue-bits/64/arrow-up-icon.png"
-					height="70px"> <span class="glyphicon glyphicon-chevron-up"></span></a>
+					height="70px"></a>
 			</div>
 			<div class="cell-desc">
 				<h4>${currentFolder.name}</h4>

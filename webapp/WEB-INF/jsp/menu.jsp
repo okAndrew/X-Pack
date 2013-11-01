@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="navbar navbar-fixed-top navbar-inverse">
-	
+
 	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
@@ -67,17 +67,14 @@
 				</c:if>
 				<div class="btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle"
-						data-toggle="dropdown">Action</button>
+						data-toggle="dropdown">${currentLanguage.language}</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="locale?language=en"><img
-								src="res/img/flags/United-States-Flag-icon.png"></a></li>
-						<li><a href="locale?language=uk"><img
-								src="res/img/flags/Ukraine-Flag-icon.png"></a></li>
-						<li><a href="locale?language=de">german</a></li>
-
+						<c:forEach items="${languages}" var="language">
+							<li><a href="locale?language=${language.defaulLocale}"
+								>${language.name}</a></li>
+						</c:forEach>
 					</ul>
 				</div>
-
 			</div>
 		</div>
 	</div>

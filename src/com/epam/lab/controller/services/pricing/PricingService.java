@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.dao.payment.PaymentDAOImpl;
-import com.epam.lab.controller.services.language.LanguageServiceImpl;
+import com.epam.lab.controller.services.locale.LocaleServiceImpl;
 import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
-import com.epam.lab.model.Language;
+import com.epam.lab.model.Locale;
 import com.epam.lab.model.Payment;
 import com.epam.lab.model.Tariff;
 import com.epam.lab.model.User;
@@ -24,22 +24,19 @@ public class PricingService {
 	PaymentServiceImpl paymentService = null;
 	HttpSession session = null;
 	User user = null;
-	LanguageServiceImpl impl = null;
-	Language language = null;
+	LocaleServiceImpl impl = null;
+	Locale language = null;
 
 	public HttpServletRequest initialize(HttpServletRequest request) {
 		tariffServise = new TariffServiseImpl();
 		userService = new UserServiceImpl();
 		session = request.getSession(false);
 		paymentService = new PaymentServiceImpl();
-		impl = new LanguageServiceImpl();
-		
-		if (session.getAttribute("sessLocale") == null) {
-			language = impl.getByLocale(request.getLocale().toString());
-		} else {
-			language = impl.getByLocale(session.getAttribute("sessLocale")
-					.toString());
-		}
+		impl = new LocaleServiceImpl();
+
+		language = impl.getByLocale(session.getAttribute("sessLocale")
+				.toString());
+
 		if (session != null) {
 			user = userService.get(Long.valueOf(session.getAttribute("userid")
 					.toString()));
@@ -54,11 +51,13 @@ public class PricingService {
 				request.setAttribute("daysLeft", daysLeft);
 			}
 			long s = user.getIdTariff();
-			request.setAttribute("currentTariff",
-					tariffServise.get(user.getIdTariff(), language.getName()));
+			request.setAttribute(
+					"currentTariff",
+					tariffServise.get(user.getIdTariff(),
+							language.getLanguage()));
 		}
-		request.setAttribute("tariffs",
-				new TariffServiseImpl().getAvailableTariffs(language.getName()));
+		request.setAttribute("tariffs", new TariffServiseImpl()
+				.getAvailableTariffs(language.getLanguage()));
 
 		return request;
 	}

@@ -1,6 +1,7 @@
 package com.epam.lab.controller.web.filters;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,6 +12,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import com.epam.lab.controller.services.language.LanguageServiceImpl;
+import com.epam.lab.controller.services.locale.LocaleServiceImpl;
+import com.epam.lab.model.Language;
 
 /**
  * Servlet Filter implementation class LocaleFilter
@@ -23,6 +28,8 @@ public class LocaleFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpSession session = httpRequest.getSession(false);
+		LocaleServiceImpl locImpl = new LocaleServiceImpl();
+		LanguageServiceImpl impl = new LanguageServiceImpl();
 
 		if (browserLocalevalue == null
 				|| (!(browserLocalevalue.equals(request.getLocale().toString())))) {
@@ -33,6 +40,10 @@ public class LocaleFilter implements Filter {
 			session.setAttribute("sessLocale", request.getLocale());
 
 		}
+		session.setAttribute("currentLanguage", locImpl.getByLocale(session
+				.getAttribute("sessLocale").toString()));
+		List<Language> list = impl.getAll();
+		session.setAttribute("languages", list);
 		chain.doFilter(request, response);
 	}
 

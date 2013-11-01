@@ -14,10 +14,4 @@ public class LanguageServiceImpl extends AbstractServiceImpl<Language>
 		super(new LanguageDAOImpl());
 	}
 
-	@Override
-	public Language getByLocale(String locale) {
-		LanguageDAOImpl daoImpl = new LanguageDAOImpl();
-		return daoImpl.getByLocale(locale);
-	}
-
 }

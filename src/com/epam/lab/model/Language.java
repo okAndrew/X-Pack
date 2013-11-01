@@ -7,19 +7,19 @@ public class Language {
 	@TableColumn("id")
 	private long id;
 
-	@TableColumn("locale")
-	private String locale;
-
 	@TableColumn("name")
 	private String name;
+
+	@TableColumn("defaultlocale")
+	private String defaultLocale;
 
 	public Language() {
 	}
 
-	public Language(long id, String locale, String name) {
+	public Language(long id, String name, String defaultLocale) {
 		this.id = id;
-		this.locale = locale;
 		this.name = name;
+		this.defaultLocale = defaultLocale;
 	}
 
 	public long getId() {
@@ -28,15 +28,6 @@ public class Language {
 
 	public Language setId(long id) {
 		this.id = id;
-		return this;
-	}
-
-	public String getLocale() {
-		return locale;
-	}
-
-	public Language setLocale(String locale) {
-		this.locale = locale;
 		return this;
 	}
 
@@ -49,10 +40,19 @@ public class Language {
 		return this;
 	}
 
+	public String getDefaulLocale() {
+		return defaultLocale;
+	}
+
+	public Language setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+		return this;
+	}
+
 	@Override
 	public String toString() {
-		return "Language [id=" + id + ", locale=" + locale + ", name=" + name
-				+ "]";
+		return "Language [id=" + id + ", name=" + name + ", defaultLocale="
+				+ defaultLocale + "]";
 	}
 
 }

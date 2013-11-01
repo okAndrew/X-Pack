@@ -24,7 +24,7 @@ public class LanguageDAOImpl implements LanguageDAO {
 
 	@Override
 	public List<Language> getAll() {
-		String sql = "SELECT * FROM languages";
+		String sql = "SELECT * from languages";
 		List<Language> resultList = queryExecutor.executeQuery(Language.class,
 				sql);
 		return resultList;
@@ -32,7 +32,11 @@ public class LanguageDAOImpl implements LanguageDAO {
 
 	@Override
 	public int insert(Language object) {
-		// TODO Auto-generated method stub
+		try {
+			throw new NoSupportedActionException("No support this method");
+		} catch (NoSupportedActionException e) {
+			logger.error("use no suropted method" + e);
+		}
 		return 0;
 	}
 
@@ -54,14 +58,6 @@ public class LanguageDAOImpl implements LanguageDAO {
 			logger.error("use no suropted method" + e);
 		}
 		return 0;
-	}
-
-	@Override
-	public Language getByLocale(String locale) {
-		String sql = "SELECT * FROM languages where locale=?";
-		Language result = queryExecutor.executeQuerySingle(Language.class, sql,
-				locale);
-		return result;
 	}
 
 }

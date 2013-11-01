@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles;
 
 import java.io.IOException;
 
@@ -10,27 +10,27 @@ import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
 
-public class AdminUserDeleteFilesCommand implements AdminSimpleUserPageCommand {
+public class AdminSimpleUserFilesDelCommand implements AdminSimpleUserPageCommand{
 
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
 		UserFileServiceImpl service2 = new UserFileServiceImpl();
-		String[] rs = request.getParameterValues("files");
-		String[] rs2 = request.getParameterValues("folders");
-		if (rs != null) {
-			for (int i = 0; i < rs.length; i++) {
-				service2.delete(Integer.parseInt(rs[i]));
+		String[] files = request.getParameterValues("files");
+		String[] folders = request.getParameterValues("folders");
+		if (files != null) {
+			for (int i = 0; i < files.length; i++) {
+				service2.delete(Integer.parseInt(files[i]));
 			}
 		}
-		if (rs2 != null) {
+		if (folders != null) {
 			FolderServiceImpl service = new FolderServiceImpl();
-			for (int i = 0; i < rs2.length; i++) {
-				service.delete(Integer.parseInt(rs2[i]));
+			for (int i = 0; i < folders.length; i++) {
+				service.delete(Integer.parseInt(folders[i]));
 			}
 		}
-		if (rs == null && rs2 == null) {
+		if (files == null && folders == null) {
 			request.setAttribute("message",
 					"Error! Please select files to delete");
 		}

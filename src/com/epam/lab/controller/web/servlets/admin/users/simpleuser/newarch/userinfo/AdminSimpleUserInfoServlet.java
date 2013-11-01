@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userinfo;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,7 +12,7 @@ import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.User;
 
 @WebServlet("/adminUser")
-public class AdminUserServlet extends HttpServlet {
+public class AdminSimpleUserInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_USER_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUser.jsp";
 

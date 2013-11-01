@@ -21,7 +21,6 @@ table {
 }
 
 tr td {
-	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: hidden;
 }

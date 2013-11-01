@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.files;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles;
 
 import java.io.IOException;
 import java.util.List;

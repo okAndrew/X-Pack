@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.usertraffic;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

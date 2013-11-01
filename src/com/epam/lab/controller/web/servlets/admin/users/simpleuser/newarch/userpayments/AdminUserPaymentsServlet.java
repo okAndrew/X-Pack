@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.simpleuserpage;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userpayments;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,18 +27,15 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-
 		PaymentServiceImpl psevrive = new PaymentServiceImpl();
-
 		List<Payment> list = psevrive.getAllPayByUserId((long) session
 				.getAttribute("adminUserid"));
-
 		request.setAttribute("listPayments", list);
-		
 		RequestDispatcher requestDispatcher = request
 				.getRequestDispatcher(ADMIN_USER_PAYMENTS_JSP);
 		requestDispatcher.forward(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

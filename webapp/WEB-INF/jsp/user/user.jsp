@@ -135,14 +135,14 @@ img.img {
 								</button>
 								<button type="button" onclick="loadBrowserContent()"
 									name="search" class="btn btn-default" id="search">
-									<fmt:message key="Test dyn. load" bundle="${lang}" />
-								</button>
+									Test dynynamic load</button>
 							</div>
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">
 									<input type="text" onkeyup="searchFiles()" class="form-control"
-										id="searchinput" onKeyPress="return disableEnterKey(event)"> <span class="input-group-addon">
-										<span class="glyphicon glyphicon-search"></span>
+										id="searchinput" onKeyPress="return disableEnterKey(event)">
+									<span class="input-group-addon"> <span
+										class="glyphicon glyphicon-search"></span>
 									</span>
 								</div>
 							</div>

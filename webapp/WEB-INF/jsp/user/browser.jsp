@@ -36,10 +36,6 @@
 	position: relative;
 }
 
-.cell.checked {
-	background: silver;
-}
-
 .thumb {
 	text-decoration: none;
 	float: left;
@@ -155,22 +151,22 @@ img.trunc {
 				<c:choose>
 					<c:when test="${ file.type.equals('IMAGE') }">
 						<a data-toggle="modal" role="button" href="#ImageModal"
-							onclick="setSRC(${file.name})"><img class="trunc"
+							onclick="setSRC('${file.name}')"><img class="trunc"
 							title="${file.nameIncome}"
 							src="http://icons.iconarchive.com/icons/treetog/junior/256/document-picture-png-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">
 						<a data-toggle="modal" role="button" href="#videoModal"
-							onclick="loadVideoContent(${file.name})"><img class="trunc"
+							onclick="loadVideoContent('${file.name}')"><img class="trunc"
 							title="${file.nameIncome}"
 							src="http://www.icon2s.com/wp-content/uploads/2013/01/Blue-File-Video-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('AUDIO') }">
 						<a data-toggle="modal" role="button" href="#audioModal"
-							onclick="loadAudioContent(${file.name})"> <img class="trunc"
-							title="${file.nameIncome}"
+							onclick="loadAudioContent('${file.name}')"> <img
+							class="trunc" title="${file.nameIncome}"
 							src="https://cdn1.iconfinder.com/data/icons/camill-icons/256/camill_file_mp3.png">
 						</a>
 					</c:when>
@@ -321,6 +317,7 @@ function move(moveable, idtargetFolder) {
 	function getCurFolderId() {
 		document.getElementById("folderidmove").getAttribute("value");
 	}
+	
 	function checkboxesStatus() {
 		var checkboxes = document.getElementsByName('folders');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
@@ -341,6 +338,9 @@ function move(moveable, idtargetFolder) {
 		$('#download').prop('disabled', true);
     	$('#delete').prop('disabled', true);
 	}
+	
+	
+	
 
 	function setSRC(name) {
 		document.getElementById("img").src = "download?file=" + name;

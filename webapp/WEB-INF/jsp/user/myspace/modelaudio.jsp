@@ -14,9 +14,6 @@
 			<div class="modal-body">
 				<div id="audio-player"></div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-			</div>
 		</div>
 		<!-- /.modal-content -->
 	</div>
@@ -25,14 +22,12 @@
 <!-- /.modal -->
 
 <script type="text/javascript">
-	function loadAudioContent(id) {
-		debugger;
+	function loadAudioContent(name) {
 		$.ajax({
 			type : "GET",
-			url : 'audiocontent?id=' + id,
+			url : 'audiocontent?name=' + name,
 			success : function(data) {
 				$("#audio-player").html(data);
-				debugger;
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'

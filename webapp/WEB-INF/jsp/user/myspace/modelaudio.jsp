@@ -14,9 +14,6 @@
 			<div class="modal-body">
 				<div id="audio-player"></div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-			</div>
 		</div>
 		<!-- /.modal-content -->
 	</div>

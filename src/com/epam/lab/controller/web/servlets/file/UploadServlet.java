@@ -25,13 +25,12 @@ import com.epam.lab.controller.services.user.UserServiceImpl;
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(UploadServlet.class);
-	private static final String USER_PAGE = "userpage";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		if (ServletFileUpload.isMultipartContent(request)) {
 			try {
-				HttpSession session = request.getSession(false);
+				HttpSession session = request.getSession();
 				long folderId = (long) session.getAttribute("folderid");
 				long userId = (long) session.getAttribute("userid");
 				ServletFileUpload upload = new ServletFileUpload(
@@ -52,7 +51,8 @@ public class UploadServlet extends HttpServlet {
 				logger.error(e);
 				e.printStackTrace();
 			}
+		}else{
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
-		response.sendRedirect(USER_PAGE);
 	}
 }

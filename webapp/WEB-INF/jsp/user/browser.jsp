@@ -1,14 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
-<ol class="breadcrumb">
-	<c:forEach items="${folderpath}" var="folder">
-		<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
-	</c:forEach>
-</ol>
+<c:if test="${search==null || !search}">
+	<ol class="breadcrumb">
+		<c:forEach items="${folderpath}" var="folder">
+			<li><a href="userfoldernav?folderid=${folder.id}">${folder.name}</a></li>
+		</c:forEach>
+	</ol>
+</c:if>
 <style>
 #gallery {
 	float: left;
@@ -33,14 +36,15 @@
 	position: relative;
 }
 
-.cell.checked {
-	background: silver;
-}
-
 .thumb {
 	text-decoration: none;
 	float: left;
 	margin-right: 6px;
+}
+
+img.trunc {
+	height: 70px;
+	width: 70px;
 }
 
 .cell-desc {
@@ -55,9 +59,29 @@
 	background: #8C97A1;
 }
 </style>
+<style type="text/css">
+.dropzone {
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+	min-height: 150px;
+}
+
+.draggable {
+	float: left;
+}
+
+.droppable {
+	float: left;
+}
+</style>
 <div id="gallery">
+	<c:if
+		test="${search!=null && search && search_no_result!=null && search_no_result}">
+		<p>Your search returned no results</p>
+	</c:if>
 	<!-- upper -->
-	<c:if test="${currentFolder.idUpper!=0}">
+	<c:if test="${currentFolder.idUpper!=0 && (search==null || !search)}">
 		<div class="cell droppable" id="${currentFolder.idUpper}">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${currentFolder.idUpper}"
@@ -67,7 +91,10 @@
 			</div>
 			<div class="cell-desc">
 				<h4>${currentFolder.name}</h4>
-				<h5>Total size: ${currentFolder.size}</h5>
+				<h5>
+					Total size:
+					<dream:formatSize value="${currentFolder.size}" />
+				</h5>
 			</div>
 		</div>
 	</c:if>
@@ -94,7 +121,9 @@
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
-				<h5>${folder.size}</h5>
+				<h5>
+					<dream:formatSize value="${folder.size}" />
+				</h5>
 				<h6>
 					<fmt:formatDate type="date" value="${folder.date}" />
 				</h6>
@@ -104,46 +133,46 @@
 					<a data-toggle="modal" role="button" href="#DeleteModal"
 						onclick="set('folderiddelete', ${folder.id})"> <span
 						class="glyphicon glyphicon-trash"></span>
-					</a><a data-toggle="modal" href="#EditModal"> <span
-						class="glyphicon glyphicon-info-sign"></span>
 					</a>
 				</h5>
 			</div>
 			<div class="btn-group check" data-toggle="buttons">
 				<label class="btn btn-default"><input type="checkbox"
-					onchange="checkboxesStatus()" name="folders" value="${folder.id}">
-					<span class="glyphicon glyphicon-unchecked"></span> </label>
+					class="cell-check" onchange="checkboxesStatus()" name="folders"
+					value="${folder.id}"> <span
+					class="glyphicon glyphicon-unchecked"></span> </label>
 			</div>
 		</div>
 	</c:forEach>
 	<!-- files -->
 	<c:forEach items="${files}" var="file">
 		<div class="cell draggable" name="file-${file.id}">
-			<input type="checkbox" name="files" value="${file.id}"
-				id="file-${file.id}" hidden="hidden">
 			<div class="thumb">
 				<c:choose>
 					<c:when test="${ file.type.equals('IMAGE') }">
 						<a data-toggle="modal" role="button" href="#ImageModal"
-							onclick="setSRC(${file.name})"> <span
-							class="glyphicon glyphicon-play"></span>
+							onclick="setSRC('${file.name}')"><img class="trunc"
+							title="${file.nameIncome}"
+							src="http://icons.iconarchive.com/icons/treetog/junior/256/document-picture-png-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">
 						<a data-toggle="modal" role="button" href="#videoModal"
-							onclick="loadVideoContent(${file.name})"> <span
-							class="glyphicon glyphicon-play"></span>
+							onclick="loadVideoContent('${file.name}')"><img class="trunc"
+							title="${file.nameIncome}"
+							src="http://www.icon2s.com/wp-content/uploads/2013/01/Blue-File-Video-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('AUDIO') }">
 						<a data-toggle="modal" role="button" href="#audioModal"
-							onclick="loadAudioContent(${file.name})"> <span
-							class="glyphicon glyphicon-play"></span>
+							onclick="loadAudioContent('${file.name}')"> <img
+							class="trunc" title="${file.nameIncome}"
+							src="https://cdn1.iconfinder.com/data/icons/camill-icons/256/camill_file_mp3.png">
 						</a>
 					</c:when>
 					<c:otherwise>
-						<img title="${file.nameIncome}"
-							src="http://download.easyicon.net/png/30357/128/" height="70px">
+						<img class="trunc" title="${file.nameIncome}"
+							src="http://download.easyicon.net/png/30357/128/">
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -159,7 +188,10 @@
 						class="glyphicon glyphicon-pencil"></span>
 					</a>
 				</h5>
-				<h5>Size: ${file.size}</h5>
+				<h5>
+					Size:
+					<dream:formatSize value="${file.size}" />
+				</h5>
 				<h6>
 					Created at:
 					<fmt:formatDate type="date" value="${file.date}" />
@@ -173,36 +205,32 @@
 						class="glyphicon glyphicon-trash"></span>
 					</a> <a href="download?file=${file.name}"> <span
 						class="glyphicon glyphicon-download"></span>
-					</a> <a data-toggle="modal" href="#EditModal"
-						onclick="set('fileiddelete', ${file.id})"> <span
-						class="glyphicon glyphicon-info-sign"></span>
 					</a>
 				</h5>
 			</div>
 			<div class="btn-group check" data-toggle="buttons">
 				<label class="btn btn-default"><input type="checkbox"
-					onchange="checkboxesStatus()" name="files" value="${file.id}">
-					<span class="glyphicon glyphicon-unchecked"></span> </label>
+					class="cell-check" onchange="checkboxesStatus()" name="files"
+					value="${file.id}"> <span
+					class="glyphicon glyphicon-unchecked"></span> </label>
+			</div>
+			<div class="public">
+				<label>public: </label>
+				<c:choose>
+					<c:when test="${file.isPublic }">
+						<input type="checkbox" onchange="setPublic(${file.id})"
+							name="publicfiles" value="${file.id}" checked="checked">
+					</c:when>
+					<c:otherwise>
+						<input type="checkbox" onchange="setPublic(${file.id})"
+							name="publicfiles" value="${file.id}">
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</c:forEach>
 </div>
-<style type="text/css">
-.dropzone {
-	margin-left: auto;
-	margin-right: auto;
-	width: 85%;
-	min-height: 150px;
-}
 
-.draggable {
-	float: left;
-}
-
-.droppable {
-	float: left;
-}
-</style>
 
 <script>
 $('.check').click(function(){
@@ -223,20 +251,35 @@ $(function() {
 		scroll: true,
 		distance: 20,
 		opacity: 0.9,
-		start: function(event, ui) {
-			$(this).css('z-index', 9999);
-		},
-		stop:function(event, ui) {
-			$(this).css('z-index', 1);
-		},
+		helper: function(){
+			var cellCheckBox = $(this).find('input.cell-check');
+			if(!cellCheckBox.is(':checked')){
+				cellCheckBox.attr('checked', true);
+				cellCheckBox.click();
+			}
+			var selected = $('#gallery input.cell-check:checked').parents('.draggable');
+		    if (selected.length === 0) {
+		      	selected = $(this);
+		    }
+		    var container = $('<div/>').attr('class', 'dropable');
+		    container.append(selected.clone()).css('z-index', 9999);
+		    return container; 
+		}
 	});
 
 	$(".droppable").droppable({
+		tolerance: 'pointer',
 		drop : function(event, ui) {
-			var idmove = ui.draggable.attr('name');
+			var moveable = [];
+			$(ui.helper.children()).each(function(){
+				moveable.push($(this).attr('name'));
+			});
 			var idTargetFolder = $(this).attr("id");
-			move(idmove, idTargetFolder);
-			$(ui.draggable).remove();
+			move(moveable, idTargetFolder);
+			$('#gallery input.cell-check:checked').parents('.draggable').each(function(){
+				if($(this).attr('id') != idTargetFolder)
+					$(this).remove();
+			});
 		},
     	hoverClass: "hover-drop",
 	});
@@ -246,7 +289,7 @@ function move(moveable, idtargetFolder) {
 		type : "POST",
 		url : 'move',
 		data : {
-			'moveable' : moveable,
+			'moveable[]' : moveable,
 			'idTarget' : idtargetFolder
 		},
 		success : function(data) {
@@ -274,13 +317,13 @@ function move(moveable, idtargetFolder) {
 	function getCurFolderId() {
 		document.getElementById("folderidmove").getAttribute("value");
 	}
+	
 	function checkboxesStatus() {
 		var checkboxes = document.getElementsByName('folders');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {
 				$('#download').prop('disabled', false);
 		    	$('#delete').prop('disabled', false);
-		    	$('#move').prop('disabled', false);
 				return;
 			}
 		}
@@ -289,17 +332,38 @@ function move(moveable, idtargetFolder) {
 			if (checkboxes[i].checked === true) {
 				$('#download').prop('disabled', false);
 		    	$('#delete').prop('disabled', false);
-		    	$('#move').prop('disabled', false);
 				return;
 			}
 		}
 		$('#download').prop('disabled', true);
     	$('#delete').prop('disabled', true);
-    	$('#move').prop('disabled', true);
+	}
+	
+	
+	
+
+	function setSRC(name) {
+		document.getElementById("img").src = "download?file=" + name;
 	}
 
-	function setSRC(id) {
-		document.getElementById("img").src = "download?file=" + name;
+	function setPublic(id) {
+		var publicCheckbox = $("input[name=publicfiles][value=" + id + "]");
+		var state = false;
+		if (publicCheckbox.is(':checked')) {
+			state = true;
+		}
+		$.ajax({
+			type : "POST",
+			url : 'changepublicstate',
+			data : {
+				'fileId' : id,
+				'state' : state
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert('xhr.status ' + xhr.status + '   thrownError:'
+						+ thrownError);
+			}
+		});
 	}
 </script>
 

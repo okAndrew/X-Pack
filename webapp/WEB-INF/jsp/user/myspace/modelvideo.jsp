@@ -25,10 +25,10 @@
 <!-- /.modal -->
 
 <script type="text/javascript">
-	function loadVideoContent(id) {
+	function loadVideoContent(name) {
 		$.ajax({
 			type : "GET",
-			url : 'videocontent?id=' + id,
+			url : 'videocontent?name=' + name,
 			success : function(data) {
 				$("#video-player").html(data);
 				$("#video-player-inside").flowplayer({

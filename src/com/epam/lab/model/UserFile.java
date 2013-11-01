@@ -139,7 +139,7 @@ public class UserFile {
 		return "File [id=" + id + ", idFolder=" + idFolder + ", nameIncome="
 				+ nameIncome + ", name=" + name + ", path=" + path + ", type="
 				+ type + ", size=" + size + ", date=" + date + ", idUser="
-				+ idUser + "]";
+				+ idUser + ", isPublic=" + isPublic +"]";
 	}
 
 }

@@ -11,28 +11,30 @@
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/myspace.css" rel="stylesheet" />
 <link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
-<link rel="stylesheet"
-	href="//releases.flowplayer.org/5.4.3/skin/minimalist.css">
+<link rel="stylesheet" href="res/css/minimalist.css">
 
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="res/css/jquery-ui.css" />
+<script src="res/js/jquery-1.10.2.min.js"></script>
+<script src="res/js/jquery-ui.js"></script>
 <script src="res/js/dropzone.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/utils.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		Dropzone.options.myAwesomeDropzone = {
-			maxFilesize : 1000,
-			init : function() {
-				this.on("complete", function(file) {
-					loadBrowserContent();
-				});
-			}
-		}
-	})
+	$(document)
+			.ready(
+					function() {
+						Dropzone.options.myAwesomeDropzone = {
+							parallelUploads : 2,
+							maxFilesize : <c:out value="${freeSpace}"/>,
+							dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
+							maxFiles : 6,
+							init : function() {
+								this.on("complete", function(file) {
+									loadBrowserContent();
+								});
+							}
+						}
+					})
 	function loadBrowserContent() {
 		$.ajax({
 			type : "GET",
@@ -52,8 +54,11 @@
 			loadBrowserContent();
 		} else {
 			$.ajax({
-				type : "GET",
-				url : 'search?searchtext=' + searchText,
+				type : "POST",
+				url : 'search',
+				data : {
+					"searchtext" : searchText
+				},
 				success : function(data) {
 					$("#browser").html(data);
 				},
@@ -63,6 +68,17 @@
 				}
 			});
 		}
+	}
+	function disableEnterKey(e) {
+		var key;
+		if (window.event)
+			key = window.event.keyCode; //IE
+		else
+			key = e.which; //firefox
+		if (key == 13)
+			return false;
+		else
+			return true;
 	}
 </script>
 <style type="text/css">
@@ -119,14 +135,14 @@ img.img {
 								</button>
 								<button type="button" onclick="loadBrowserContent()"
 									name="search" class="btn btn-default" id="search">
-									<fmt:message key="Test dyn. load" bundle="${lang}" />
-								</button>
+									Test dynynamic load</button>
 							</div>
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">
 									<input type="text" onkeyup="searchFiles()" class="form-control"
-										id="searchinput"> <span class="input-group-addon">
-										<span class="glyphicon glyphicon-search"></span>
+										id="searchinput" onKeyPress="return disableEnterKey(event)">
+									<span class="input-group-addon"> <span
+										class="glyphicon glyphicon-search"></span>
 									</span>
 								</div>
 							</div>

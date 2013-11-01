@@ -48,11 +48,11 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public int update(UserFile object) {
-		String sql = "UPDATE files SET id_folder=?, name_income=?, name=?, path=?, type=?, size=?, id_user=? WHERE id=?";
+		String sql = "UPDATE files SET id_folder=?, name_income=?, name=?, path=?, type=?, size=?, id_user=?, is_public=? WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, object.getIdFolder(),
 				object.getNameIncome(), object.getName(), object.getPath(),
 				object.getType(), object.getSize(), object.getIdUser(),
-				object.getId());
+				object.getIsPublic(), object.getId());
 		return result;
 	}
 
@@ -100,6 +100,7 @@ public class FileDAOImpl implements FileDAO {
 	public UserFile getSizeUploadUserByDates(Timestamp dateStart,
 			Timestamp dateEnd, long userId) {
 		String sql = "SELECT SUM(size) AS size FROM files WHERE id_user=? AND date BETWEEN ? AND ?";
-		return queryExecutor.executeQuerySingle(UserFile.class, sql, userId, dateStart, dateEnd);
+		return queryExecutor.executeQuerySingle(UserFile.class, sql, userId,
+				dateStart, dateEnd);
 	}
 }

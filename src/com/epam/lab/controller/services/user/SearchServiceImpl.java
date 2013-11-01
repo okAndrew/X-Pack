@@ -12,15 +12,11 @@ public class SearchServiceImpl implements SearchService {
 	private UserFileServiceImpl fileService = new UserFileServiceImpl();
 	private FolderServiceImpl folderService = new FolderServiceImpl();
 	private List<Folder> folders;
-	private List<UserFile> files;
+	private List<UserFile> files = new ArrayList<UserFile>();
 
 	@Override
 	public boolean prepareLists(long upperId, String searched) {
-		folders = findFolders(upperId, searched);
-		files = findFiles(upperId, searched);
-		for (Folder folder : folders) {
-			files.addAll(findFiles(folder.getId(), searched));
-		}
+		this.folders = find(upperId, searched);
 		if ((folders != null && folders.size() > 0)
 				|| (files != null && files.size() > 0)) {
 			return true;
@@ -38,18 +34,19 @@ public class SearchServiceImpl implements SearchService {
 		return this.files;
 	}
 
-	private List<Folder> findFolders(long upperId, String searched) {
+	private List<Folder> find(long upperId, String searched) {
 		List<Folder> result = new ArrayList<Folder>();
+		this.files.addAll(findFiles(upperId, searched));
 		List<Folder> folders = folderService.getByUpperId(upperId);
 		for (Folder folder : folders) {
 			if (folder.getName().contains(searched)) {
 				result.add(folder);
 			}
-			result.addAll(findFolders(folder.getId(), searched));
+			result.addAll(find(folder.getId(), searched));
 		}
 		return result;
 	}
-
+	
 	private List<UserFile> findFiles(long folderId, String searched) {
 		List<UserFile> files = fileService.getByFolderId(folderId);
 		List<UserFile> result = new ArrayList<UserFile>();

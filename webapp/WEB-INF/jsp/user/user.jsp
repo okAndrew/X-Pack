@@ -24,10 +24,10 @@
 			.ready(
 					function() {
 						Dropzone.options.myAwesomeDropzone = {
-							parallelUploads : 2,
+							parallelUploads : 1,
 							maxFilesize : <c:out value="${freeSpace}"/>,
 							dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
-							maxFiles : 6,
+							// maxFiles : 6,
 							init : function() {
 								this.on("complete", function(file) {
 									loadBrowserContent();
@@ -48,6 +48,12 @@
 			}
 		});
 	}
+
+	function fixedEncodeURIComponent(str) {
+		return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(
+				/\*/g, "%2A");
+	}
+
 	function searchFiles() {
 		var searchText = $("#searchinput").val();
 		if (searchText.length == 0) {

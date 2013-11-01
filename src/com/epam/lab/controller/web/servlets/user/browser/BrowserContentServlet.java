@@ -42,7 +42,7 @@ public class BrowserContentServlet extends HttpServlet {
 			folderId = (long) session.getAttribute("folderid");
 		}
 		Folder currentFolder = folderService.get(folderId);
-		List<Folder> folders = folderService.get(userId, folderId);
+		List<Folder> folders = folderService.getByUpperId(folderId);
 		List<UserFile> files = fileService.getByFolderId(folderId);
 		List<Folder> folderPath = folderService.getFolderPath(folderId);
 		request.setAttribute("folders", folders);

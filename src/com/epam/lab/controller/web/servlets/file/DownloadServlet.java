@@ -160,12 +160,12 @@ public class DownloadServlet extends HttpServlet {
 	private boolean preprocessing(HttpServletRequest request) {
 		boolean result = false;
 		String ifNoneMatch = request.getHeader("If-None-Match");
-		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
+		Long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		String ifMatch = request.getHeader("If-Match");
-		long ifUnmodifiedSince = request.getDateHeader("If-Unmodified-Since");
+		Long ifUnmodifiedSince = request.getDateHeader("If-Unmodified-Since");
 		String range = request.getHeader("Range");
 		String ifRange = request.getHeader("If-Range");
-		long ifRangeTime = request.getDateHeader("If-Range");
+		Long ifRangeTime = request.getDateHeader("If-Range");
 
 		HttpSession session = request.getSession(false);
 		Long userId = null;

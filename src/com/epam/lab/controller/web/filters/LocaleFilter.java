@@ -40,6 +40,9 @@ public class LocaleFilter implements Filter {
 			session.setAttribute("sessLocale", request.getLocale());
 
 		}
+		if (session.getAttribute("sessLocale").toString().equals("")) {
+			session.setAttribute("sessLocale", request.getLocale());
+		}
 		session.setAttribute("currentLanguage", locImpl.getByLocale(session
 				.getAttribute("sessLocale").toString()));
 		List<Language> list = impl.getAll();

@@ -19,7 +19,7 @@ import com.epam.lab.model.Language;
 public class HomePageServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String HOMEPAGE_JSP = "WEB-INF/index.jsp";
+	private static final String HOMEPAGE_JSP = "WEB-INF/jsp/index.jsp";
 
 	public HomePageServlet() {
 		super();

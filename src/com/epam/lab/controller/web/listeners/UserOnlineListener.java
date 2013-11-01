@@ -29,6 +29,7 @@ public class UserOnlineListener implements HttpSessionListener,
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		sessionhistory = historyService.insertSessionWithoutUser(
 				session.getId(), TimeStampManager.getFormatCurrentTimeStamp());
+		session.setAttribute("sessLocale", "");
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {

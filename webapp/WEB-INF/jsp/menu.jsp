@@ -1,6 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <div class="navbar navbar-fixed-top navbar-inverse">
 
@@ -70,8 +72,7 @@
 						data-toggle="dropdown">${currentLanguage.language}</button>
 					<ul class="dropdown-menu" role="menu">
 						<c:forEach items="${languages}" var="language">
-							<li><a href="locale?language=${language.defaulLocale}"
-								>${language.name}</a></li>
+							<li><a href="locale?language=${language.defaulLocale}">${language.name}</a></li>
 						</c:forEach>
 					</ul>
 				</div>

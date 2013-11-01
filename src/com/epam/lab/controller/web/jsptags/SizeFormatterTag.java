@@ -31,8 +31,14 @@ public class SizeFormatterTag extends SimpleTagSupport {
 			if (bytes == null) {
 				result = "n/a";
 			} else {
-				int unitN = (int) (Math.floor(Math.log(bytes) / Math.log(1024)));
-				double resSize = bytes / Math.pow(1024, unitN);
+				double resSize = 0;
+				int unitN = 0;
+				if (bytes != 0) {
+					double floor = Math.floor(Math.log(bytes));
+					double log = Math.log(1024);
+					unitN = (int) (floor / log);
+					resSize = bytes / Math.pow(1024, unitN);
+				}
 				result = String.format("%.2f %s", resSize, units[unitN]);
 			}
 			getJspContext().getOut().write(result);

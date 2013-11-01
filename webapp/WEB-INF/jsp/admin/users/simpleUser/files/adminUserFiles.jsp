@@ -50,16 +50,16 @@
 	}
 </script>
 </head>
-<body>
-	<jsp:include page="../../../menu.jsp"></jsp:include>
-	<jsp:include page="myspaceAdminUser/modeldelete.jsp"></jsp:include>
-	<jsp:include page="myspaceAdminUser/modelimage.jsp"></jsp:include>
-	<jsp:include page="myspaceAdminUser/modelvideo.jsp"></jsp:include>
+<body >
+	<jsp:include page="../../../../menu.jsp"></jsp:include>
+	<jsp:include page="../myspaceAdminUser/modeldelete.jsp"></jsp:include>
+	<jsp:include page="../myspaceAdminUser/modelimage.jsp"></jsp:include>
+	<jsp:include page="../myspaceAdminUser/modelvideo.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
-			<jsp:include page="adminUserHeader.jsp"></jsp:include>
+				<jsp:include page="../adminUserHeader.jsp"></jsp:include>
 				<form action="adminUsercontroller" method="post">
 					<nav class="navbar navbar-default controlmenu" role="navigation">
 						<div class="collapse navbar-collapse controlmenu">
@@ -73,7 +73,7 @@
 									disabled="disabled" id="delete">
 									<fmt:message key="Delete" bundle="${lang}" />
 								</button>
-								
+
 							</div>
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">
@@ -89,7 +89,7 @@
 						</div>
 					</nav>
 					<div id="adminbrowser">
-						<jsp:include page="myspaceAdminUser/adminbrowser.jsp"></jsp:include>
+						<jsp:include page="tableFiles.jsp"></jsp:include>
 					</div>
 				</form>
 			</div>

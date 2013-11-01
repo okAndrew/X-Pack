@@ -18,11 +18,11 @@ public class SelectService<T> {
 	public List<T> getByParam(Class<?> type, String page, String count,
 			String orderBy, String sop) {
 		DBQueryExecutor<T> dbQueryExecutor = new DBQueryExecutor<T>();
-
 		int p = getPage(page);
 		int c = getCount(count);
 		String order = getOrderBy(orderBy, type);
 		String sort = getSort(sop);
+
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("SELECT * FROM ").append(type.getSimpleName().toLowerCase())
@@ -33,22 +33,6 @@ public class SelectService<T> {
 		sql.append(" OFFSET ").append(p * c);
 
 		return dbQueryExecutor.executeQuery(type, sql.toString());
-	}
-
-	public Map<String, String> getParam(Class<?> type, String page,
-			String count, String orderBy, String sop) {
-		Integer p = getPage(page);
-		Integer c = getCount(count);
-		String order = getOrderBy(orderBy, type);
-		String sort = getSort(sop);
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("page", p.toString());
-		map.put("count", c.toString());
-		map.put("order", order);
-		map.put("sort", sort);
-
-		return map;
-
 	}
 
 	private int getPage(String page) {
@@ -119,6 +103,22 @@ public class SelectService<T> {
 		}
 
 		return sort;
+	}
+
+	public Map<String, String> getParam(Class<?> type, String page,
+			String count, String orderBy, String sop) {
+		Integer p = getPage(page);
+		Integer c = getCount(count);
+		String order = getOrderBy(orderBy, type);
+		String sort = getSort(sop);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("page", p.toString());
+		map.put("count", c.toString());
+		map.put("order", order);
+		map.put("sort", sort);
+
+		return map;
+
 	}
 
 }

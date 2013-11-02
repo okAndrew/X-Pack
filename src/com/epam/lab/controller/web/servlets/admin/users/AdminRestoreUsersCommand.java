@@ -20,7 +20,7 @@ public class AdminRestoreUsersCommand implements AdminUsersPageCommand {
 			return page;
 		} else {
 			UserServiceImpl service = new UserServiceImpl();
-			Long adminId = (Long) request.getSession(false).getAttribute("userid");
+			Long adminId = (Long) request.getSession().getAttribute("userid");
 			service.activateUsers(request.getParameterValues("checkUser"), adminId);
 			page = "adminUsersPage";
 		}

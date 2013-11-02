@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <script type="text/javascript" src="res/js/utils.js"></script>
 
@@ -21,15 +22,15 @@
 		<tbody>
 			<tr>
 				<td>Download last mounth</td>
-				<td><script>document.write(bytesToSize(${downlLastMounts}));</script></td>
+				<td><dream:formatSize value="${downlLastMounts}"/></td>
 			</tr>
 			<tr>
 				<td>Upload last mounts</td>
-				<td><script>document.write(bytesToSize(${uploadLastMounts}));</script></td>
+				<td><dream:formatSize value="${uploadLastMounts}"/></td>
 			</tr>
 			<tr>
 				<td>Download last week</td>
-				<td><script>document.write(bytesToSize(${downlLastWeek}));</script></td>
+				<td><dream:formatSize value="${downlLastWeek}"/></td>
 			</tr>
 			<tr>
 				<td>Upload last week</td>

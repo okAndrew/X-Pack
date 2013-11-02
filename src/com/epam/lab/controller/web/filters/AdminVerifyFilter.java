@@ -15,16 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import com.epam.lab.model.Role;
 
-/**
- * Servlet Filter implementation class UserVertifyFilter
- */
-@WebFilter(urlPatterns = { "/adminUsersPage", "/adminPage", "/signOutAdmin",
-		"/employeeController", "/adminUserDeleteFile",
-		"/userEmployeeController", "/adminUserFiles", "/adminUserInfo",
-		"/adminUserPayments", "/adminUserSearchFiles", "/adminUser",
-		"/paymentsByDate", "/updateUser", "/addTariff", "/adminTarrifsPage",
-		"/tariffsController", "/adminFilesPage", "/adminLoggingPage"})
-
+@WebFilter(urlPatterns = { "/userpage", "/pricing", "/about", "/team",
+		"/settings", "/EditUserLoginServlet", "/EditEmailServlet",
+		"/adminUsersPage", "/employeeControllerUsers", "/adminTariffsPage",
+		"/employeeControllerTariffs", "/adminStatisticsPage", "/adminLogsPage",
+		"/adminUser", "/userEmployeeController", "/adminUserActivity",
+		"/adminUserActivityGraph" })
 public class AdminVerifyFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -47,13 +43,9 @@ public class AdminVerifyFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-
 	}
 }

@@ -1,6 +1,7 @@
 package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.usertraffic;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,7 @@ public class AdminUserTrafficCommand implements AdminSimpleUserPageCommand {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("adminUserid");
 		setDataDownload(request, response, userId);
 		setDataDownload(request, response, userId);

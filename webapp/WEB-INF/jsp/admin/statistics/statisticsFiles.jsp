@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 <script type="text/javascript" src="res/js/utils.js"></script>
 <div id="example"></div>
 
@@ -17,7 +18,7 @@
 			<tr>
 				<td></td>
 				<td>${type.type}</td>
-				<td><script>document.write(bytesToSize(${type.size}));</script></td>
+				<td><dream:formatSize value="${type.size}"/></td>
 			</tr>
 		</c:forEach>
 	</tbody>

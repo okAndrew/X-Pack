@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +18,13 @@ import com.epam.lab.model.Statistics;
 @WebServlet("/adminUserActivityGraph")
 public class AdminUserActivityGraphServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
- 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
- 		StatisticsServiceImpl statisticsServiceImpl = new StatisticsServiceImpl();
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		StatisticsServiceImpl statisticsServiceImpl = new StatisticsServiceImpl();
 		List<Statistics> list = new ArrayList<Statistics>();
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("adminUserid");
 		list = statisticsServiceImpl.getAllByUserId(userId);
 		String stringData = statisticsServiceImpl.toJson(list);
@@ -35,6 +35,5 @@ public class AdminUserActivityGraphServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 
 }

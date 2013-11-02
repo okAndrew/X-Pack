@@ -26,7 +26,7 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		PaymentServiceImpl psevrive = new PaymentServiceImpl();
 		List<Payment> list = psevrive.getAllPayByUserId((long) session
 				.getAttribute("adminUserid"));

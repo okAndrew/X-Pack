@@ -27,7 +27,7 @@ public class AdminUserActivityServlet extends HttpServlet {
 	
  	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SessionHistoryServiceImpl historyServiceImpl = new SessionHistoryServiceImpl();
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("adminUserid");
 		long visitsByUserId = historyServiceImpl.getVisitsPerDayByUserId(userId);
 		Timestamp avarageSession = historyServiceImpl.getAvarageTimeSessionByUserId(userId);

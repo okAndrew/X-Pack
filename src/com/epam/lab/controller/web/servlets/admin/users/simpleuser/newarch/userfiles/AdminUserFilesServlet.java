@@ -3,7 +3,6 @@ package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.user
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,10 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
-import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.UserFile;
-import com.epam.lab.model.Folder;
 
 @WebServlet("/adminUserFiles")
 public class AdminUserFilesServlet extends HttpServlet {
@@ -29,7 +25,7 @@ public class AdminUserFilesServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		UserFileServiceImpl fileServiceImpl = new UserFileServiceImpl();
 		long userId = (long) session.getAttribute("adminUserid");
 		List<UserFile> list = fileServiceImpl.getByUserId(userId);

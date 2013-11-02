@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
 
 public class AdminSimpleUserFilesDelCommand implements
@@ -16,18 +16,13 @@ public class AdminSimpleUserFilesDelCommand implements
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
-		UserFileServiceImpl service2 = new UserFileServiceImpl();
-		String[] files = request.getParameterValues("files");
-		if (files != null) {
-			for (int i = 0; i < files.length; i++) {
-				service2.delete(Integer.parseInt(files[i]));
-			}
-		}
-		if (files == null) {
-			request.setAttribute("message",
-					"Error! Please select files to delete");
-		}
+		UserServiceImpl service = new UserServiceImpl();
+		Long userId = (Long) request.getSession().getAttribute("adminUserid");
+		String messageToUser = request.getParameter("message");
+		service.deleteFiles(request.getParameterValues("filelist"), userId,
+				messageToUser);
 		page = "adminUserFiles";
+
 		return page;
 	}
 

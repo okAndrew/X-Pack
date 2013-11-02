@@ -28,6 +28,7 @@ import com.epam.lab.model.UserFile;
 
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
+	private static final String SITE_LINK = "http://localhost:8080/dreamhost/";
 	private FileDAO fileDAO = (FileDAO) dao;
 
 	public UserFileServiceImpl() {
@@ -152,18 +153,6 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	public File getArchive(String[] filesIds, String[] foldersIds) {
 		return new File(getArchivePath(filesIds, foldersIds));
 	}
-
-	// public List<UserFile> getSearchedFiles(long userId, String text) {
-	// UserFileServiceImpl service = new UserFileServiceImpl();
-	// List<UserFile> files = service.getByUserId(userId);
-	// List<UserFile> result = new ArrayList<UserFile>();
-	// for (UserFile file : files) {
-	// if (file.getNameIncome().contains(text)) {
-	// result.add(file);
-	// }
-	// }
-	// return result;
-	// }
 
 	public boolean check(long folderId, long fileId, String name) {
 		FileDAOImpl dao = new FileDAOImpl();
@@ -344,6 +333,12 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		UserFile file = fileDAO.get(id);
 		file.setIsPublic(state);
 		fileDAO.update(file);
+	}
+
+	@Override
+	public String getLink(long fileId) {
+		String name = fileDAO.get(fileId).getName();
+		return SITE_LINK + "download?file=" + name;
 	}
 
 	public List<FilesTypesSize> getTypesFiles() {

@@ -99,7 +99,7 @@ img.trunc {
 				<a href="userfoldernav?folderid=${currentFolder.idUpper}"
 					title="To up"><img
 					src="http://icons.iconarchive.com/icons/icojam/blue-bits/64/arrow-up-icon.png"
-					height="70px"> <span class="glyphicon glyphicon-chevron-up"></span></a>
+					height="70px"></a>
 			</div>
 			<div class="cell-desc">
 				<h4>${currentFolder.name}</h4>
@@ -240,6 +240,16 @@ img.trunc {
 					</c:otherwise>
 				</c:choose>
 			</div>
+			<c:choose>
+				<c:when test="${file.isPublic }">
+					<button id="link-button${file.id }" type="button"
+						onclick="showLink(${file.id })">LINK</button>
+				</c:when>
+				<c:otherwise>
+					<button id="link-button${file.id }" type="button"
+						onclick="showLink(${file.id })" disabled="disabled">LINK</button>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</c:forEach>
 </div>
@@ -372,12 +382,32 @@ function move(moveable, idtargetFolder) {
 		if (publicCheckbox.is(':checked')) {
 			state = true;
 		}
+		$("#link-button" + id).prop('disabled', !state);
+		debugger;
 		$.ajax({
 			type : "POST",
 			url : 'changepublicstate',
 			data : {
 				'fileId' : id,
 				'state' : state
+			},
+			error : function(xhr, ajaxOptions, thrownError) {
+				alert('xhr.status ' + xhr.status + '   thrownError:'
+						+ thrownError);
+			}
+		});
+	}
+
+	function showLink(id) {
+		$.ajax({
+			type : "POST",
+			url : 'showlink',
+			data : {
+				'fileId' : id
+			},
+			success : function(data) {
+				$("#link input").val(data);
+				$('#linkModal').modal('show');
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'

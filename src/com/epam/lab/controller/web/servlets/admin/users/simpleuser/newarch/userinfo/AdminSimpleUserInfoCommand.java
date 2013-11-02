@@ -11,14 +11,14 @@ import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
 import com.epam.lab.model.User;
 
-public class AdminSimpleUserInfoCommand implements AdminSimpleUserPageCommand{
+public class AdminSimpleUserInfoCommand implements AdminSimpleUserPageCommand {
 
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
 		UserServiceImpl service = new UserServiceImpl();
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("adminUserid");
 		User user = service.get(userId);
 		request.setAttribute("user", user);

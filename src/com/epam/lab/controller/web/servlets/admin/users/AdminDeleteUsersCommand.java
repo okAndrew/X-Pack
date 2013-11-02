@@ -17,8 +17,9 @@ public class AdminDeleteUsersCommand implements AdminUsersPageCommand {
 			return page;
 		} else {
 			UserServiceImpl service = new UserServiceImpl();
-			Long adminId = (Long) request.getSession(false).getAttribute("userid");
-			service.deleteUsers(request.getParameterValues("checkUser"), adminId);
+			Long adminId = (Long) request.getSession().getAttribute("userid");
+			service.deleteUsers(request.getParameterValues("checkUser"),
+					adminId);
 			page = "adminUsersPage";
 		}
 		return page;

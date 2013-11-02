@@ -23,7 +23,8 @@ public class SizeFormatterTag extends SimpleTagSupport {
 	@Override
 	public void doTag() throws JspException, IOException {
 		try {
-			Integer bytes = Integer.parseInt(value);
+			Double tmp = Double.parseDouble(value);
+			Long bytes = tmp.longValue();
 
 			String[] units = { "Bytes", "KB", "MB", "GB", "TB" };
 

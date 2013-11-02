@@ -1,6 +1,7 @@
 package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userinfo;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,7 @@ public class AdminSimpleUserInfoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		long userId = 0;
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		if (request.getParameter("userid") == null) {
 			userId = (long) session.getAttribute("adminUserid");
 		} else {

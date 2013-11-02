@@ -6,35 +6,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>DreamHost | User Menu</title>
+<title>DreamHost | Admin User Files</title>
+
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/myspace.css" rel="stylesheet" />
-<link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
-
-
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="res/js/dropzone.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 
 <script type="text/javascript">
-	function loadBrowserContent() {
-		$.ajax({
-			type : "GET",
-			url : 'adminBrowserContent',
-			success : function(data) {
-				$("#adminbrowser").html(data);
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert('xhr.status ' + xhr.status + '   thrownError:'
-						+ thrownError);
-			}
-		});
-	}
 	function searchFiles() {
 		$.ajax({
 			type : "GET",
@@ -48,13 +33,25 @@
 			}
 		});
 	}
+	function disableEnterKey(e) {
+		var key;
+		if (window.event)
+			key = window.event.keyCode; //IE
+		else
+			key = e.which; //firefox
+		if (key == 13)
+			return false;
+		else
+			return true;
+	}
 </script>
 </head>
-<body >
+<body>
 	<jsp:include page="../../../../menu.jsp"></jsp:include>
-	<jsp:include page="../myspaceAdminUser/modeldelete.jsp"></jsp:include>
-	<jsp:include page="../myspaceAdminUser/modelimage.jsp"></jsp:include>
-	<jsp:include page="../myspaceAdminUser/modelvideo.jsp"></jsp:include>
+	<jsp:include page="../../../../user/myspace/modeldelete.jsp"></jsp:include>
+	<jsp:include page="../../../../user/myspace/modelimage.jsp"></jsp:include>
+	<jsp:include page="../../../../user/myspace/modelvideo.jsp"></jsp:include>
+	<jsp:include page="../../../../user/myspace/modelaudio.jsp"></jsp:include>
 
 	<div class="container">
 		<div class="panel panel-default main">
@@ -69,20 +66,18 @@
 									disabled="disabled" id="download">
 									<fmt:message key="Download" bundle="${lang}" />
 								</button>
-								<button type="submit" name="delete" class="btn btn-default"
-									disabled="disabled" id="delete">
+								<button type="submit" name="cause" class="btn btn-default"
+									data-toggle="modal" disabled="disabled" id="delete"
+									data-target="#causeDeletingSendEmailModal">
 									<fmt:message key="Delete" bundle="${lang}" />
 								</button>
-
 							</div>
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">
 									<input type="text" onkeyup="searchFiles()" class="form-control"
-										id="searchinput"> <span class="input-group-btn">
-										<button onclick="searchFiles()" type="button"
-											class="btn btn-default">
-											<fmt:message key="Search" bundle="${lang}" />
-										</button>
+										id="searchinput" onKeyPress="return disableEnterKey(event)">
+									<span class="input-group-addon"> <span
+										class="glyphicon glyphicon-search"></span>
 									</span>
 								</div>
 							</div>
@@ -91,7 +86,10 @@
 					<div id="adminbrowser">
 						<jsp:include page="tableFiles.jsp"></jsp:include>
 					</div>
+					<jsp:include page="causeDeletingSendEmailModalPage.jsp"></jsp:include>
 				</form>
 			</div>
 		</div>
 	</div>
+</body>
+</html>

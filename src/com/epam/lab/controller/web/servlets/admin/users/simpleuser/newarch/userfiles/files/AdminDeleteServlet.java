@@ -17,17 +17,11 @@ public class AdminDeleteServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("deletesingle")!=null) {
-			UserServiceImpl service = new UserServiceImpl();
-			String[] fileId = { request.getParameter("fileid") };
-			String[] folderId = { request.getParameter("folderid") };
-			service.deleteFilesAndFolders(fileId, folderId);
-		} else {
-			String[] foldersId = request.getParameterValues("folders");
-			String[] filesId = request.getParameterValues("files");
-			UserServiceImpl service = new UserServiceImpl();
-			service.deleteFilesAndFolders(filesId, foldersId);
-		}
+		UserServiceImpl service = new UserServiceImpl();
+		Long userId = (Long) request.getSession().getAttribute("adminUserid");
+		String messageToUser = request.getParameter("message");
+		service.deleteFiles(request.getParameterValues("filelist"), userId,
+				messageToUser);
 		response.sendRedirect(ADMIN_USER_FILES);
 	}
 }

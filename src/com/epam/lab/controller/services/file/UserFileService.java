@@ -20,4 +20,6 @@ public interface UserFileService extends AbstractService<UserFile> {
 			Timestamp dataEnd, long userId);
 
 	public void changePublicState(long id, boolean state);
+
+	public String getLink(long fileId);
 }

@@ -14,7 +14,6 @@ import org.codehaus.jettison.json.JSONObject;
 
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.exceptions.notfound.TokenNotFoundException;
-import com.epam.lab.controller.exceptions.notfound.UserNotFoundException;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.services.token4auth.Token4AuthService;
 import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
@@ -28,6 +27,7 @@ public class FolderWebService {
 	private static Logger logger = Logger.getLogger(FilesWebService.class);
 	private static final String TOKEN_NOT_FOUND = "Token not found";
 	private static final String FOLDER_NOT_FOUND = "Folder not found";
+	private Token4AuthService tokenService = new Token4AuthServiceImpl();
 
 	@POST
 	@Path("create/{token}")
@@ -36,21 +36,24 @@ public class FolderWebService {
 	public JSONObject createFolder(@PathParam("token") String token,
 			Folder folder) {
 		JSONObject response = null;
-		String message = verifyRequest(token, folder.getIdUpper());
-		if (message != null) {
-			response = buildJsonError(message);
-		} else {
-			User user = null;
-			try {
-				user = getUserByToken(token);
-			} catch (TokenNotFoundException e) {
-				logger.error(e);
-				return null;
-			}
-			Folder createdFolder = new FolderServiceImpl().createFolder(
-					folder.getName(), user.getId(), folder.getIdUpper());
-			response = folderToJson(createdFolder);
+		Folder upperFolder = null;
+		try {
+			upperFolder = tokenService.verifyAccessRequest(token,
+					folder.getIdUpper());
+		} catch (TokenNotFoundException e) {
+			e.printStackTrace();
 		}
+		User user = null;
+		try {
+			user = getUserByToken(token);
+		} catch (TokenNotFoundException e) {
+			logger.error(e);
+			return null;
+		}
+		Folder createdFolder = new FolderServiceImpl().createFolder(
+				folder.getName(), user.getId(), folder.getIdUpper());
+		response = folderToJson(createdFolder);
+
 		return response;
 	}
 
@@ -119,27 +122,4 @@ public class FolderWebService {
 		User user = new UserServiceImpl().get(tokenData.getIdUser());
 		return user;
 	}
-
-	private String verifyRequest(String token, long idFolder) {
-		String message = null;
-		Token4AuthService service = new Token4AuthServiceImpl();
-		Folder userFolder = null;
-		try {
-			userFolder = service.verifyAccessToFolder(token, idFolder);
-		} catch (TokenNotFoundException e) {
-			logger.warn(e);
-			message = TOKEN_NOT_FOUND;
-		} catch (UserNotFoundException e) {
-			logger.warn(e);
-			message = TOKEN_NOT_FOUND;
-		} catch (FolderNotFoundException e) {
-			logger.warn(e);
-			message = FOLDER_NOT_FOUND;
-		}
-		if (userFolder == null) {
-			message = FOLDER_NOT_FOUND;
-		}
-		return message;
-	}
-
 }

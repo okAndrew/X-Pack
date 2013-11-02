@@ -7,16 +7,19 @@ import com.epam.lab.controller.services.AbstractService;
 import com.epam.lab.model.UserFile;
 
 public interface UserFileService extends AbstractService<UserFile> {
+	public UserFile createFileInfo(String nameIncome, Long idFolder,
+			Long idUser, Boolean isPublic, Long size);
 
-	List<UserFile> getByFolderId(long folderId);
+	public List<UserFile> getByFolderId(long folderId);
 
-	int deleteByUserId(long userId);
+	public int deleteByUserId(long userId);
 
-	long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd);
+	public long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd);
 
-	long getUploadTrafficUserByDates(Timestamp dataStart, Timestamp dataEnd, long userId);
-	
-	void changePublicState(long id, boolean state);
+	public long getUploadTrafficUserByDates(Timestamp dataStart,
+			Timestamp dataEnd, long userId);
 
-	String getLink(long fileId);
+	public void changePublicState(long id, boolean state);
+
+	public String getLink(long fileId);
 }

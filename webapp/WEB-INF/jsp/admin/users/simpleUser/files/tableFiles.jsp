@@ -21,11 +21,11 @@
 		<c:forEach items="${filelist}" var="file">
 			<tr>
 				<td><label class="checkbox-inline"> <input
-						type="checkbox" name="filelist" onchange="checkboxesStatus()"
+						type="checkbox" name="files" onchange="checkboxesStatus()"
 						value="${file.id}">
 				</label></td>
 				<td>${file.path}</td>
-				<td><a href="download?fileid=${file.name}">${file.nameIncome}</a>
+				<td><a href="download?file=${file.name}">${file.nameIncome}</a>
 					<c:if test='${ file.type.equals("IMAGE") }'>
 						<div class="btn-group">
 							<a data-toggle="modal" role="button" href="#ImageModal"
@@ -58,7 +58,7 @@
 <script>
 	function toggle(source) {
 		
-		var checkboxes = document.getElementsByName('filelist');
+		var checkboxes = document.getElementsByName('files');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			checkboxes[i].checked = source.checked;
 			checkboxesStatus();
@@ -71,7 +71,7 @@
 	
 	function checkboxesStatus(source) {
 		
-		var checkboxes = document.getElementsByName('filelist');
+		var checkboxes = document.getElementsByName('files');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {
 				$('#download').prop('disabled', false);
@@ -84,11 +84,11 @@
 	}
 
 	function setSRC(id) {
-		document.getElementById("img").src = "download?fileid=" + id;
+		document.getElementById("img").src = "download?file=" + id;
 	}
 
 	function setVideoSrc(id) {
-		document.getElementById("video").src = "download?fileid=" + id;
+		document.getElementById("video").src = "download?file=" + id;
 	}
 </script>
 

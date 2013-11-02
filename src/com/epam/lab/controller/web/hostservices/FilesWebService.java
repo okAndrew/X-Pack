@@ -20,17 +20,19 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.epam.lab.controller.exceptions.FileTooLargeException;
-import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.exceptions.notfound.TokenNotFoundException;
-import com.epam.lab.controller.exceptions.notfound.UserNotFoundException;
+import com.epam.lab.controller.services.file.FileUploadServiceImpl;
 import com.epam.lab.controller.services.file.UserFileService;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
-import com.epam.lab.controller.services.file.UserFileUploader;
 import com.epam.lab.controller.services.token4auth.Token4AuthService;
 import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Auth;
+import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
@@ -42,42 +44,47 @@ public class FilesWebService {
 	private static final String FOLDER_NOT_FOUND = "Folder not found";
 	private static final String FILE_TOO_LARGE = "File too large for upload";
 	private static final String ERROR_UPLOADING = "Error uploading";
+	private Token4AuthService tokenService = new Token4AuthServiceImpl();
 
 	@POST
 	@Path("upload/{idFolder}/{token}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONArray uploadFile(@PathParam("token") String token,
+	public Response uploadFile(@PathParam("token") String token,
 			@PathParam("idFolder") String idFolderStr,
 			FormDataMultiPart multiPart) {
+		JSONArray resultArray = null;
 		long idFolder = Long.valueOf(idFolderStr);
 		Folder folder = null;
 		try {
-			Token4AuthService service = new Token4AuthServiceImpl();
-			folder = service.verifyAccessToFolder(token, idFolder);
-		} catch (TokenNotFoundException | UserNotFoundException
-				| FolderNotFoundException e) {
+			folder = tokenService.verifyAccessRequest(token, idFolder);
+		} catch (TokenNotFoundException e) {
 			e.printStackTrace();
+			return Response.status(401).entity(TOKEN_NOT_FOUND).build();
 		}
 		if (folder == null) {
-			JSONObject jsonError = buildJsonError("");
-			return new JSONArray().put(jsonError);
+			return Response.status(404).entity(FOLDER_NOT_FOUND).build();
+		} else {
+			Token4Auth tokenData = tokenService.getByToken(token);
+			resultArray = uploadFiles(multiPart, folder.getId(),
+					tokenData.getIdUser());
 		}
-
-		JSONArray resultArray = uploadFiles(multiPart, folder.getId());
-		return resultArray;
+		return Response.status(201).entity(resultArray).build();
 	}
 
 	@GET
 	@Path("getfrom/{idfolder}/{token}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONArray getByIdFolder(@PathParam("token") String token,
+	public JSONArray getFilesFromFolder(@PathParam("token") String token,
 			@PathParam("idfolder") int idFolder) {
 		JSONArray resultArray = null;
-		String message = verifyAccessRequest(token, idFolder);
-		if (message != null) {
-			JSONObject jsonError = buildJsonError(message);
-			return new JSONArray().put(jsonError);
+		Folder folder = null;
+		try {
+			folder = tokenService.verifyAccessRequest(token, idFolder);
+		} catch (TokenNotFoundException e) {
+			e.printStackTrace();
+		}
+		if (folder == null) {
 		} else {
 			resultArray = getFiles(idFolder);
 		}
@@ -112,29 +119,32 @@ public class FilesWebService {
 		return jsonArray;
 	}
 
-	private JSONArray uploadFiles(FormDataMultiPart multiPart, long idFolder) {
+	private JSONArray uploadFiles(FormDataMultiPart multiPart, long idFolder,
+			long idUser) {
 		JSONArray resultArray = new JSONArray();
 		List<FormDataBodyPart> fields = multiPart.getFields("file");
 		for (FormDataBodyPart field : fields) {
 			InputStream inputStream = field.getValueAs(InputStream.class);
 			String fileName = field.getFormDataContentDisposition()
 					.getFileName();
-			JSONObject jsonObject = uploadFile(idFolder, inputStream, fileName);
+			JSONObject jsonObject = uploadFile(inputStream, fileName, idFolder,
+					idUser);
 			resultArray.put(jsonObject);
 		}
 		return resultArray;
 	}
 
-	private JSONObject uploadFile(long idFolder, InputStream inputStream,
-			String fileName) {
+	private JSONObject uploadFile(InputStream inputStream, String fileName,
+			long idFolder, long idUser) {
 		UserFile uploadedFile = null;
 		String message = null;
 		try {
-			uploadedFile = new UserFileUploader().uploadFile(inputStream,
-					fileName, idFolder);
-		} catch (FolderNotFoundException e) {
-			logger.warn(e);
-			message = FOLDER_NOT_FOUND;
+			UserFileServiceImpl userFileService = new UserFileServiceImpl();
+			UserFile fileInfo = userFileService.createFileInfo(fileName,
+					idFolder, idUser, true, 0L);
+			User user = new UserServiceImpl().get(idUser);
+			new FileUploadServiceImpl().uploadFile(inputStream, fileInfo, user);
+			uploadedFile = userFileService.getByName(fileInfo.getName());
 		} catch (IOException e) {
 			logger.warn(e);
 			message = ERROR_UPLOADING;
@@ -162,19 +172,18 @@ public class FilesWebService {
 	}
 
 	private JSONObject toJson(UserFile userFile) {
-		JSONObject jsonOb = new JSONObject();
+		Gson jsonOb = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+				.create();
+		String json = jsonOb.toJson(userFile);
+		JSONObject result = null;
 		try {
-			jsonOb.put("fileName", userFile.getNameIncome());
-			jsonOb.put("url",
-					"http://192.168.12.66:8080/dreamhost/download?fileid="
-							+ userFile.getId());
-			jsonOb.put("idFolder", userFile.getIdFolder());
-			jsonOb.put("size", userFile.getSize());
-			jsonOb.put("changeDate", userFile.getDate());
+			result = new JSONObject(json);
+			result.put("url", "http://localhost:8080/dreamhost/download?file="
+					+ userFile.getName());
 		} catch (JSONException e) {
+			e.printStackTrace();
 			logger.error(e);
 		}
-		return jsonOb;
+		return result;
 	}
-
 }

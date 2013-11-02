@@ -20,28 +20,28 @@ import com.epam.lab.model.Language;
 /**
  * Servlet Filter implementation class LocaleFilter
  */
-@WebFilter(/*{"/signin", "/sihnout","/homepage", "/userpage", "/pricing", "/about", "/team",
+@WebFilter({"/signin", "/sihnout","/homepage", "/userpage", "/pricing", "/about", "/team",
 		"/settings", "/EditUserLoginServlet", "/EditEmailServlet",
 		"/adminUsersPage", "/employeeControllerUsers", "/adminTariffsPage",
 		"/employeeControllerTariffs", "/adminStatisticsPage", "/adminLogsPage",
 		"/adminUser", "/userEmployeeController", "/adminUserActivity",
-		"/adminUserActivityGraph", "/EditUserLoginServlet", "/EditEmailServlet"}*/)
+		"/adminUserActivityGraph", "/EditUserLoginServlet", "/EditEmailServlet"})
 public class LocaleFilter implements Filter {
 	private String browserLocalevalue = null;
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		HttpSession session = httpRequest.getSession(false);
+		HttpSession session = httpRequest.getSession(true);
 		LocaleServiceImpl locImpl = new LocaleServiceImpl();
 		LanguageServiceImpl impl = new LanguageServiceImpl();
 
 		if (browserLocalevalue == null
 				|| (!(browserLocalevalue.equals(request.getLocale().toString())))) {
 			browserLocalevalue = request.getLocale().toString();
-			if (session == null) {
-				session = httpRequest.getSession(true);
-			}
+//			if (session == null) {
+//				session = httpRequest.getSession(true);
+//			}
 			session.setAttribute("sessLocale", request.getLocale());
 
 		}

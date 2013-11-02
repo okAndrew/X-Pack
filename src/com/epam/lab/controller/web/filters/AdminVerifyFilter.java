@@ -37,8 +37,10 @@ public class AdminVerifyFilter implements Filter {
 				}
 			}
 		}
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		httpResponse.sendRedirect("signin");
+		chain.doFilter(request, response);
+		//Natalya's comment
+//		HttpServletResponse httpResponse = (HttpServletResponse) response;
+//		httpResponse.sendRedirect("signin");
 	}
 
 	@Override

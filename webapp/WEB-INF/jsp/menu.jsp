@@ -67,7 +67,8 @@
 						</ul>
 					</div>
 				</c:if>
-				<!-- <div class="btn-group">
+			
+				<div class="btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle"
 						data-toggle="dropdown">${currentLanguage.language}</button>
 					<ul class="dropdown-menu" role="menu">
@@ -75,7 +76,8 @@
 							<li><a href="locale?language=${language.defaulLocale}">${language.name}</a></li>
 						</c:forEach>
 					</ul>
-				</div> -->
+				</div>
+			
 			</div>
 		</div>
 	</div>

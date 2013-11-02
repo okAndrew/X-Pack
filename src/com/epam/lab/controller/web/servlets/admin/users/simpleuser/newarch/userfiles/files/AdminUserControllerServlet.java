@@ -20,7 +20,7 @@ public class AdminUserControllerServlet extends HttpServlet {
 		if (request.getParameter("search") != null) {
 			request.getRequestDispatcher(SEARCH_SERVLET).forward(request,
 					response);
-		} else if (request.getParameterValues("filelist") == null) {
+		} else if (request.getParameterValues("files") == null) {
 			request.setAttribute("message", "Unchecked checkboxes");
 			request.getRequestDispatcher(ADMIN_USER_FILES).forward(request,
 					response);

@@ -22,7 +22,7 @@ public class UserOnlineListener implements HttpSessionListener,
 	private static int activeSessions = 0;
 	SessionHistory sessionhistory = null;
 	String browserLocalevalue = null;
-	String rememberLocale = null;
+	private static String rememberLocale;
 
 	public void sessionCreated(HttpSessionEvent event) {
 		activeSessions++;
@@ -33,7 +33,6 @@ public class UserOnlineListener implements HttpSessionListener,
 		if (rememberLocale != null) {
 			session.setAttribute("sessLocale", rememberLocale);
 		}
-		else session.setAttribute("sessLocale", "");
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {
@@ -46,6 +45,7 @@ public class UserOnlineListener implements HttpSessionListener,
 				.getId());
 		sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
 		historyService.update(sessionhistory);
+		rememberLocale = session.getAttribute("sessLocale").toString();
 	}
 
 	public static int getActiveSessionNumberLogged() {
@@ -54,6 +54,11 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	public static int getActiveSessionNumber() {
 		return activeSessions;
+	}
+
+	public static String getLastLanguage() {
+		return rememberLocale;
+
 	}
 
 	@Override
@@ -84,9 +89,6 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	@Override
 	public void attributeReplaced(HttpSessionBindingEvent event) {
-		HttpSession session = event.getSession();
-		if (event.getName().equals("sessLocale")) {
-			rememberLocale = session.getAttribute("sessLocale").toString();
-		}
+
 	}
 }

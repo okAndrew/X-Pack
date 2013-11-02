@@ -32,7 +32,7 @@
 	border: 1px solid #EEEEEE;
 	background: #FBFBF8;
 	line-height: 100%;
-	height: 100px;
+	height: 110px;
 	position: relative;
 }
 
@@ -75,6 +75,18 @@ img.trunc {
 	float: left;
 }
 </style>
+
+<div class="btn-group">
+	<button type="button" class="btn btn-primary" onclick="selectAll()">
+		<span class="glyphicon glyphicon-cloud-download"></span>
+		<fmt:message key="All" bundle="${lang}" />
+	</button>
+	<button type="button" class="btn btn-primary" onclick="selectNone()">
+		<span class="glyphicon glyphicon-cloud-download"></span>
+		<fmt:message key="None" bundle="${lang}" />
+	</button>
+</div>
+
 <div id="gallery">
 	<c:if
 		test="${search!=null && search && search_no_result!=null && search_no_result}">
@@ -317,6 +329,13 @@ function move(moveable, idtargetFolder) {
 	}
 	function getCurFolderId() {
 		document.getElementById("folderidmove").getAttribute("value");
+	}
+	
+	function selectAll() {
+		$('input.cell-check').attr('checked', true);
+		var spans = $('span.glyphicon-unchecked');
+		spans.removeClass('glyphicon-unchecked');
+		spans.addClass('glyphicon-check');
 	}
 	
 	function checkboxesStatus() {

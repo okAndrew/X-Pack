@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.file.TypesService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.utils.DiskSpaceUtil;
 
 public class AdminStatisticFilesCommand implements AdminStatisticPageCommand {
@@ -43,7 +43,7 @@ public class AdminStatisticFilesCommand implements AdminStatisticPageCommand {
 
 	private void getTypeFilesGroup(HttpServletRequest request,
 			HttpServletResponse response) {
-		TypesService service = new TypesService();
+		UserFileServiceImpl service = new UserFileServiceImpl();
 		request.setAttribute("types", service.getTypesFiles());
 	}
 }

@@ -18,11 +18,32 @@ public class FileDAOImpl implements FileDAO {
 		return result;
 	}
 
+	public UserFile getByName(String fName) {
+		String sql = "SELECT * FROM files WHERE name=?";
+		return queryExecutor.executeQuerySingle(UserFile.class, sql, fName);
+	}
+
+	@Override
+	public UserFile getSizeUploadByDates(Timestamp dateStart, Timestamp dateEnd) {
+		String sql = "SELECT SUM(size) AS size FROM files WHERE date BETWEEN ? AND ?";
+		return queryExecutor.executeQuerySingle(UserFile.class, sql, dateStart,
+				dateEnd);
+	}
+
+	@Override
+	public UserFile getSizeUploadUserByDates(Timestamp dateStart,
+			Timestamp dateEnd, long userId) {
+		String sql = "SELECT SUM(size) AS size FROM files WHERE id_user=? AND date BETWEEN ? AND ?";
+		return queryExecutor.executeQuerySingle(UserFile.class, sql, userId,
+				dateStart, dateEnd);
+	}
+
 	@Override
 	public List<UserFile> getAll() {
 		return null;
 	}
 
+	@Override
 	public List<UserFile> getAllByUserId(long userId) {
 		String sql = "SELECT * FROM files WHERE id_user = ?";
 		List<UserFile> resultList = queryExecutor.executeQuery(UserFile.class,
@@ -30,10 +51,19 @@ public class FileDAOImpl implements FileDAO {
 		return resultList;
 	}
 
+	@Override
 	public List<UserFile> getAllByFolderId(long folderId) {
 		String sql = "SELECT * FROM files WHERE id_folder = ?";
 		List<UserFile> resultList = queryExecutor.executeQuery(UserFile.class,
 				sql, folderId);
+		return resultList;
+	}
+
+	@Override
+	public List<FilesTypesSize> getFilesGroupType() {
+		String sql = "SELECT type, SUM(size) AS size FROM files GROUP BY(type)";
+		List<FilesTypesSize> resultList = new DBQueryExecutor<FilesTypesSize>()
+				.executeQuery(FilesTypesSize.class, sql);
 		return resultList;
 	}
 
@@ -57,12 +87,19 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
+	public int updateSize(long id, long size) {
+		String sql = "UPDATE files SET size=? WHERE id=?";
+		return queryExecutor.executeUpdate(sql, size, id);
+	}
+
+	@Override
 	public int delete(long id) {
 		String sql = "DELETE FROM files WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, id);
 		return result;
 	}
 
+	@Override
 	public int deleteByFolderId(long id) {
 		String sql = "DELETE FROM files WHERE id_folder=?";
 		int result = queryExecutor.executeUpdate(sql, id);
@@ -70,37 +107,9 @@ public class FileDAOImpl implements FileDAO {
 	}
 
 	@Override
-	public List<FilesTypesSize> getFilesGroupType() {
-		String sql = "SELECT type, SUM(size) AS size FROM files GROUP BY(type)";
-		List<FilesTypesSize> resultList = new DBQueryExecutor<FilesTypesSize>()
-				.executeQuery(FilesTypesSize.class, sql);
-		return resultList;
-	}
-
-	public UserFile getByName(String fName) {
-		String sql = "SELECT * FROM files WHERE name=?";
-		return queryExecutor.executeQuerySingle(UserFile.class, sql, fName);
-	}
-
-	@Override
 	public int deleteByUserId(long userId) {
 		String sql = "DELETE FROM files WHERE id_user=?";
 		int result = queryExecutor.executeUpdate(sql, userId);
 		return result;
-	}
-
-	@Override
-	public UserFile getSizeUploadByDates(Timestamp dateStart, Timestamp dateEnd) {
-		String sql = "SELECT SUM(size) AS size FROM files WHERE date BETWEEN ? AND ?";
-		return queryExecutor.executeQuerySingle(UserFile.class, sql, dateStart,
-				dateEnd);
-	}
-
-	@Override
-	public UserFile getSizeUploadUserByDates(Timestamp dateStart,
-			Timestamp dateEnd, long userId) {
-		String sql = "SELECT SUM(size) AS size FROM files WHERE id_user=? AND date BETWEEN ? AND ?";
-		return queryExecutor.executeQuerySingle(UserFile.class, sql, userId,
-				dateStart, dateEnd);
 	}
 }

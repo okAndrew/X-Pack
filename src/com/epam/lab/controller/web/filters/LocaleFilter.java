@@ -20,7 +20,12 @@ import com.epam.lab.model.Language;
 /**
  * Servlet Filter implementation class LocaleFilter
  */
-@WebFilter("/*")
+@WebFilter(/*{"/signin", "/sihnout","/homepage", "/userpage", "/pricing", "/about", "/team",
+		"/settings", "/EditUserLoginServlet", "/EditEmailServlet",
+		"/adminUsersPage", "/employeeControllerUsers", "/adminTariffsPage",
+		"/employeeControllerTariffs", "/adminStatisticsPage", "/adminLogsPage",
+		"/adminUser", "/userEmployeeController", "/adminUserActivity",
+		"/adminUserActivityGraph", "/EditUserLoginServlet", "/EditEmailServlet"}*/)
 public class LocaleFilter implements Filter {
 	private String browserLocalevalue = null;
 

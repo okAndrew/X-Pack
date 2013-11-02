@@ -20,7 +20,7 @@ public class AdminSimpleUserRequestHelper {
 	private AdminSimpleUserRequestHelper() {
 		commands.put("adminUserInfo", new AdminSimpleUserInfoCommand());
 		commands.put("adminUserFiles", new AdminSimpleUserFilesCommand());
-		commands.put("delete", new AdminSimpleUserFilesDelCommand());
+		commands.put("admindelete", new AdminSimpleUserFilesDelCommand());
 		commands.put("adminUserPayments", new AdminUserPaymentsCommand());
 		commands.put("adminUserActivity", new AdminUserActivityCommand());
 		commands.put("adminUserTraffic", new AdminUserTrafficCommand());

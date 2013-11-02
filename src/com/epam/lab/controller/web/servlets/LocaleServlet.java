@@ -17,8 +17,6 @@ public class LocaleServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		session.setAttribute("sessLocale", request.getParameter("language"));
-		String s = session.getAttribute("sessLocale").toString();
-		System.out.println(s);
 		response.sendRedirect(request.getHeader("referer"));
 	}
 }

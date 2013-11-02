@@ -188,6 +188,35 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 	}
 
+	@Override
+	public void deleteFiles(String[] filesId, Long userId, String message) {
+		StringBuilder deletedFiles = new StringBuilder();
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
+		FolderServiceImpl folderService = new FolderServiceImpl();
+		int i = 1;
+		if (filesId != null) {
+			for (String fileId : filesId) {
+				UserFile file = fileService.get(Long.parseLong(fileId));
+
+				deletedFiles.append("  ").append(i + ". ")
+						.append(file.getNameIncome());
+				fileService.delete(Long.parseLong(fileId));
+				Folder folder = folderService.get(file.getIdFolder());
+				if (folder.getSize() == 0 && !(folder.getName().equals("root"))) {
+					folderService.delete(folder.getId());
+				}
+				i++;
+			}
+			StringBuilder str = new StringBuilder();
+			str.append("Your files: ").append(deletedFiles)
+					.append("  were deleted from Dreamhost, because of ")
+					.append(message);
+			sender.send(get(userId).getEmail(), "Deleted files", str.toString());
+
+		}
+
+	}
+
 	public void changeUserPassword(long userId, String password) {
 		MD5Encrypter md5 = new MD5Encrypter();
 		String md5Pass = md5.encrypt(password);

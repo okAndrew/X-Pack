@@ -12,7 +12,7 @@ public class AdminUserControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String DOWNLOAD_SERVLET = "download";
 	private static final String DELETE_SERVLET = "admindelete";
-	private static final String SEARCH_SERVLET = "search";
+	private static final String SEARCH_SERVLET = "adminsearch";
 	private static final String ADMIN_USER_FILES = "adminUserFiles";
 
 	protected void doPost(HttpServletRequest request,

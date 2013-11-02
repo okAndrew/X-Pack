@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <table class="table zebra-striped table-hover table-condensed">
 	<thead>
 		<tr>
@@ -15,50 +17,51 @@
 			<th><fmt:message key="Type" bundle="${lang}" /></th>
 		</tr>
 	</thead>
-	<tbody class="avoid-sort">
+	<tbody>
 		<c:forEach items="${filelist}" var="file">
 			<tr>
 				<td><label class="checkbox-inline"> <input
-						type="checkbox" name="filelist" value="${file.id}">
+						type="checkbox" name="filelist" onchange="checkboxesStatus()"
+						value="${file.id}">
 				</label></td>
 				<td>${file.path}</td>
-				<td><a href="download?fileid=${file.id}">${file.nameIncome}</a>
+				<td><a href="download?fileid=${file.name}">${file.nameIncome}</a>
 					<c:if test='${ file.type.equals("IMAGE") }'>
 						<div class="btn-group">
 							<a data-toggle="modal" role="button" href="#ImageModal"
-								onclick="setSRC(${file.id})"> <span
+								onclick="setSRC(${file.name})"> <span
 								class="glyphicon glyphicon-play"></span>
 							</a>
 						</div>
 					</c:if> <c:if test='${ file.type.equals("VIDEO") }'>
 						<div class="btn-group">
-							<a data-toggle="modal" role="button" href="#VideoModal"
-								onclick="setVideoSrc(${file.id})"> <span
+							<a data-toggle="modal" role="button" href="#videoModal"
+								onclick="loadVideoContent('${file.name}')"> <span
 								class="glyphicon glyphicon-play"></span>
 							</a>
 						</div>
 					</c:if> <c:if test='${ file.type.equals("AUDIO") }'>
 						<div class="btn-group">
-							<audio controls>
-								<source src="download?fileid=${file.id}" type="audio/mpeg">
-							</audio>
+							<a data-toggle="modal" role="button" href="#audioModal"
+								onclick="loadAudioContent('${file.name}')"> <span
+								class="glyphicon glyphicon-play"></span>
+							</a>
 						</div>
 					</c:if></td>
 				<td><fmt:formatDate value="${file.date}" /></td>
-				<td>${file.size}</td>
+				<td><dream:formatSize value="${file.size}" /></td>
 				<td>${file.type}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-
-
 <script>
 	function toggle(source) {
 		
 		var checkboxes = document.getElementsByName('filelist');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			checkboxes[i].checked = source.checked;
+			checkboxesStatus();
 		}
 	}
 
@@ -88,3 +91,4 @@
 		document.getElementById("video").src = "download?fileid=" + id;
 	}
 </script>
+

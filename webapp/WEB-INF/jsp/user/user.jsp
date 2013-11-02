@@ -144,6 +144,12 @@ img.img {
 									name="search" class="btn btn-default" id="search">
 									Test dynynamic load</button>
 							</div>
+							<div class="btn-group select-all" data-toggle="buttons">
+								<label class="btn btn-default"><fmt:message key="All" bundle="${lang}" />: <input type="checkbox"
+									class="select-all-input" onchange="toggle(this)"
+									name="selectAll"> <span
+									class="glyphicon glyphicon-unchecked"></span> </label>
+							</div>
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">
 									<input type="text" onkeyup="searchFiles()" class="form-control"

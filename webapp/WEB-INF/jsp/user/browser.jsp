@@ -324,14 +324,36 @@ function move(moveable, idtargetFolder) {
 	});
 }
 	function toggle(source) {
-		var checkboxes = document.getElementsByName('folders');
-		for ( var i = 0, n = checkboxes.length; i < n; i++) {
-			checkboxes[i].checked = source.checked;
+		$('input.cell-check').prop('checked', source.checked);
+		if (source.checked) {
+			$('.check').find('span').removeClass('glyphicon-unchecked');
+			$('.check').find('span').addClass('glyphicon-check');
+			$('.check').find('label').addClass('active');
+			$('.select-all').find('span').removeClass('glyphicon-unchecked');
+			$('.select-all').find('span').addClass('glyphicon-check');
+		} else {
+			$('.check').find('span').addClass('glyphicon-unchecked');
+			$('.check').find('span').removeClass('glyphicon-check');
+			$('.check').find('label').removeClass('active');
+			$('.select-all').find('span').addClass('glyphicon-unchecked');
+			$('.select-all').find('span').removeClass('glyphicon-check');
 		}
-		var checkboxes = document.getElementsByName('files');
-		for ( var i = 0, n = checkboxes.length; i < n; i++) {
-			checkboxes[i].checked = source.checked;
+		buttonsStatus();
+	}
+
+	function checkboxesStatus() {
+		if ($('input.cell-check:not(:checked)').length === 1) {
+			$('input.select-all-input').prop('checked', false);
+			$('.select-all').find('span').addClass('glyphicon-unchecked');
+			$('.select-all').find('span').removeClass('glyphicon-check');
+			$('.select-all').find('label').removeClass('active');
+		} else if ($('input.cell-check:not(:checked)').length === 0) {
+			$('input.select-all-input').prop('checked', true);
+			$('.select-all').find('span').removeClass('glyphicon-unchecked');
+			$('.select-all').find('span').addClass('glyphicon-check');
+			$('.select-all').find('label').addClass('active');
 		}
+		buttonsStatus();
 	}
 
 	function set(targetElementId, id) {
@@ -348,7 +370,7 @@ function move(moveable, idtargetFolder) {
 		spans.addClass('glyphicon-check');
 	}
 	
-	function checkboxesStatus() {
+	function buttonsStatus() {
 		var checkboxes = document.getElementsByName('folders');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {

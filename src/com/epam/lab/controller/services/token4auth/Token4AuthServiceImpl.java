@@ -66,12 +66,13 @@ public class Token4AuthServiceImpl extends AbstractServiceImpl<Token4Auth>
 			User user = new UserServiceImpl().get(tokenData.getIdUser());
 			if (user != null) {
 				FolderServiceImpl folderService = new FolderServiceImpl();
-				boolean isUsersFolder = folderService.isUsersFolder(idFolder,
-						tokenData.getIdUser());
-				if (isUsersFolder) {
-					folder = folderService.get(tokenData.getIdUser());
-				} else if (idFolder == 0) {
+				if (idFolder == 0) {
 					folder = folderService.getRoot(tokenData.getIdUser());
+				} else {
+					folder = folderService.get(idFolder);
+					if (folder.getIdUser() != user.getId()) {
+						folder = null;
+					}
 				}
 			} else {
 				throw new TokenNotFoundException();

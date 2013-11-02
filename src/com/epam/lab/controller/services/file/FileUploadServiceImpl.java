@@ -29,7 +29,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 		User user = new UserServiceImpl().get(userId);
 		for (FileItem fileItem : items) {
 			UserFile fileInfo = fileService.createFileInfo(fileItem.getName(),
-					folderId, userId, false, fileItem.getSize());
+					folderId, userId, false, 0L);
 			uploadService.uploadFile(fileItem, fileInfo, user);
 		}
 	}

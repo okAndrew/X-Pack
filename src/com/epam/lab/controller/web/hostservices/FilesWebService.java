@@ -31,6 +31,8 @@ import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
@@ -51,24 +53,23 @@ public class FilesWebService {
 	public Response uploadFile(@PathParam("token") String token,
 			@PathParam("idFolder") String idFolderStr,
 			FormDataMultiPart multiPart) {
-		Response response;
 		JSONArray resultArray = null;
 		long idFolder = Long.valueOf(idFolderStr);
-		Folder folder;
+		Folder folder = null;
 		try {
 			folder = tokenService.verifyAccessRequest(token, idFolder);
 		} catch (TokenNotFoundException e) {
 			e.printStackTrace();
-			return null;
+			return Response.status(401).entity(TOKEN_NOT_FOUND).build();
 		}
 		if (folder == null) {
-			return null;
+			return Response.status(404).entity(FOLDER_NOT_FOUND).build();
 		} else {
 			Token4Auth tokenData = tokenService.getByToken(token);
 			resultArray = uploadFiles(multiPart, folder.getId(),
 					tokenData.getIdUser());
 		}
-		return Response.status(200).entity(resultArray).build();
+		return Response.status(201).entity(resultArray).build();
 	}
 
 	@GET
@@ -171,19 +172,18 @@ public class FilesWebService {
 	}
 
 	private JSONObject toJson(UserFile userFile) {
-		JSONObject jsonOb = new JSONObject();
+		Gson jsonOb = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+				.create();
+		String json = jsonOb.toJson(userFile);
+		JSONObject result = null;
 		try {
-			jsonOb.put("fileName", userFile.getNameIncome());
-			jsonOb.put("url",
-					"http://192.168.12.66:8080/dreamhost/download?file="
-							+ userFile.getName());
-			jsonOb.put("idFolder", userFile.getIdFolder());
-			jsonOb.put("size", userFile.getSize());
-			jsonOb.put("changeDate", userFile.getDate());
+			result = new JSONObject(json);
+			result.put("url", "http://localhost:8080/dreamhost/download?file="
+					+ userFile.getName());
 		} catch (JSONException e) {
+			e.printStackTrace();
 			logger.error(e);
 		}
-		return jsonOb;
+		return result;
 	}
-
 }

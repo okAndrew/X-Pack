@@ -47,9 +47,9 @@ public class DownloadServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response, boolean content)
 			throws ServletException, IOException {
-		
+
 		boolean haveAccess = preprocessing(request);
-		
+
 		if (!haveAccess || !service.getFile().exists()) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
@@ -165,7 +165,13 @@ public class DownloadServlet extends HttpServlet {
 		Long ifUnmodifiedSince = request.getDateHeader("If-Unmodified-Since");
 		String range = request.getHeader("Range");
 		String ifRange = request.getHeader("If-Range");
-		Long ifRangeTime = request.getDateHeader("If-Range");
+		String ifRangeTime;
+		try {
+			Long ifRangeTimeLong = request.getDateHeader("If-Range");
+			ifRangeTime = ifRangeTimeLong.toString();
+		} catch (IllegalArgumentException e) {
+			ifRangeTime = "";
+		}
 
 		HttpSession session = request.getSession(false);
 		Long userId = null;
@@ -187,7 +193,8 @@ public class DownloadServlet extends HttpServlet {
 		} else {
 			UserFile userFile = new UserFileServiceImpl().getByName(fileName);
 			if (userFile != null) {
-				if (userFile.getIsPublic() || (userId != null && userId == userFile.getIdUser())) {
+				if (userFile.getIsPublic()
+						|| (userId != null && userId == userFile.getIdUser())) {
 					service = new DownloadService(userId, ifNoneMatch,
 							ifModifiedSince, ifMatch, ifUnmodifiedSince, range,
 							ifRange, ifRangeTime, userFile);

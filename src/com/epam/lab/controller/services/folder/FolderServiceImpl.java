@@ -235,7 +235,7 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 
 	private String checkParams(String folderName) {
 		String result = null;
-		if (!Validator.FOLDER_NAME.validate(folderName)) {
+		if (!Validator.FILE_NAME.validate(folderName)) {
 			result = "Your folder name format failed";
 		}
 		return result;

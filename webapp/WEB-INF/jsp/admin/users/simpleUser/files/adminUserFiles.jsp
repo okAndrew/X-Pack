@@ -19,7 +19,6 @@
 
 	function searchFiles() {
 		var searchText = $("#searchinput").val();
-		
 		$.ajax({
 			type : "POST",
 			url : 'adminsearch',

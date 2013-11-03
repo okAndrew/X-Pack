@@ -15,10 +15,6 @@ import com.epam.lab.model.Role;
 public class UpdateAdminUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public UpdateAdminUserServlet() {
-		super();
-	}
-
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null;

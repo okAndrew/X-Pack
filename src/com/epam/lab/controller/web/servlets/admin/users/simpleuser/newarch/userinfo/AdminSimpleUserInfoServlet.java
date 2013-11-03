@@ -19,7 +19,7 @@ public class AdminSimpleUserInfoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,

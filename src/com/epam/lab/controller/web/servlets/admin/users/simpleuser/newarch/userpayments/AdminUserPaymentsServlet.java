@@ -20,17 +20,8 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_USER_PAYMENTS_JSP = "WEB-INF/jsp/admin/users/simpleUser/adminUserPayments.jsp";
 
-	public AdminUserPaymentsServlet() {
-		super();
-	}
-
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		PaymentServiceImpl psevrive = new PaymentServiceImpl();
-		List<Payment> list = psevrive.getAllPayByUserId((long) session
-				.getAttribute("adminUserid"));
-		request.setAttribute("listPayments", list);
 		RequestDispatcher requestDispatcher = request
 				.getRequestDispatcher(ADMIN_USER_PAYMENTS_JSP);
 		requestDispatcher.forward(request, response);
@@ -38,7 +29,9 @@ public class AdminUserPaymentsServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		RequestDispatcher requestDispatcher = request
+				.getRequestDispatcher(ADMIN_USER_PAYMENTS_JSP);
+		requestDispatcher.forward(request, response);
 	}
 
 }

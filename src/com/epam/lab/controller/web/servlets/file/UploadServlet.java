@@ -17,6 +17,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.exceptions.FileTooLargeException;
+import com.epam.lab.controller.services.file.FileUploadServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 
 @WebServlet("/upload")

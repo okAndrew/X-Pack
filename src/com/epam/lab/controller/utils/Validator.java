@@ -7,7 +7,7 @@ public enum Validator {
 	
 	USER_LOGIN("[A-Za-z0-9]{4,16}$"),
 	USER_EMAIL("^([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$"),
-	USER_PASSWORD("^[0-9A-Za-z]{1,32}$"),
+	USER_PASSWORD("^[0-9A-Za-z]{6,24}$"),
 	MD5_CHECKSUM("[a-fA-F0-9]{32}"),
 	TARIFF_NAME("[A-Za-z]{3,15}$"),
 	INTEGERS("[0-9]{9}"),

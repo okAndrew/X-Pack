@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <script>
 	function toggle(source) {
@@ -49,8 +50,8 @@ function checkBoxes(sourse){
 				<td>${user.id}</td>
 				<td>${user.login}</td>
 				<td>${user.email}</td>
-				<td><script>document.write(bytesToSize(${user.capacity}));</script></td>
-				<td>${user.idTariff}</td>
+				<td><dream:formatSize value="${user.capacity}" /></td>
+				<td>${tariffsNames[user.idTariff].name}</td>
 				<td>${user.role}</td>
 				<td>${user.isActivated}</td>
 				<td>${user.isBanned}</td>

@@ -34,15 +34,15 @@
 			</tr>
 			<tr>
 				<td>Upload last week</td>
-				<td><script>document.write(bytesToSize(${uploadLastWeek}));</script></td>
+				<td><dream:formatSize value="${uploadLastWeek}"/></td>
 			</tr>
 			<tr>
 				<td>Download last day</td>
-				<td><script>document.write(bytesToSize(${downlLastDay}));</script></td>
+				<td><dream:formatSize value="${downlLastDay}"/></td>
 			</tr>
 			<tr>
 				<td>Upload last day</td>
-				<td><script>document.write(bytesToSize(${uploadLastDay}));</script></td>
+				<td><dream:formatSize value="${uploadLastDay}"/></td>
 			</tr>
 		</tbody>
 	</table>

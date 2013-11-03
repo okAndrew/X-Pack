@@ -1,5 +1,6 @@
 package com.epam.lab.controller.services.tariff;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
@@ -156,4 +157,13 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 				language);
 	}
 
+	@Override
+	public HashMap<Long, Tariff> getHashMapNames() {
+		List<Tariff> tariffs = tariffDao.getAll();
+		HashMap<Long, Tariff> map = new HashMap<Long, Tariff>();
+		for (Tariff iter: tariffs){
+			map.put(iter.getId(), iter);
+		}
+		return map;
+	}
 }

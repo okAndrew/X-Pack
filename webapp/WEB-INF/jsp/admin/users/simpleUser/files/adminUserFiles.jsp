@@ -10,17 +10,22 @@
 <link href="res/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/minimalist.css">
 <script src="res/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript">
 
+<script type="text/javascript">
 	function fixedEncodeURIComponent(str) {
 		return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(
 				/\*/g, "%2A");
 	}
 
 	function searchFiles() {
+		var searchText = $("#searchinput").val();
+		
 		$.ajax({
-			type : "GET",
-			url : 'adminsearch?searchtext=' + $("#searchinput").val(),
+			type : "POST",
+			url : 'adminsearch',
+			data : {
+				"searchtext" : searchText,
+			},
 			success : function(data) {
 				$("#filetable").html(data);
 			},
@@ -28,6 +33,7 @@
 				alert('xhr.status ' + xhr.status + '   thrownError:'
 						+ thrownError);
 			}
+
 		});
 	}
 	function disableEnterKey(e) {

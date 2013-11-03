@@ -21,7 +21,7 @@ public class AdminBrowserSearchServlet extends HttpServlet {
 	private static final String BROWSER_JSP = "WEB-INF/jsp/admin/users/simpleUser/files/tableFiles.jsp";
 	private static final String ADMIN_USER_FILES = "adminUserFiles";
 
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("adminUserid");

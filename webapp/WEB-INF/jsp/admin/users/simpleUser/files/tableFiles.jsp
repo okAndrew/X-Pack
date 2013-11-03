@@ -36,7 +36,7 @@
 							<c:choose>
 								<c:when test='${ file.type.equals("IMAGE") }'>
 									<a data-toggle="modal" role="button" href="#ImageModal"
-										onclick="setSRC(${file.name})"> <span
+										onclick="setSRC('${file.name}')"> <span
 										class="glyphicon glyphicon-play"></span>
 									</a>
 								</c:when>
@@ -93,7 +93,9 @@ function checkboxesStatus(source) {
 }
 
 function setSRC(name) {
+	
 	document.getElementById("img").src = "download?file=" + name;
+	debugger;
 }
 </script>
 

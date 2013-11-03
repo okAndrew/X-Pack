@@ -21,6 +21,7 @@ import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.TimeStampManager;
+import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.FileType;
 import com.epam.lab.model.FilesTypesSize;
 import com.epam.lab.model.Folder;
@@ -343,5 +344,15 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 
 	public List<FilesTypesSize> getTypesFiles() {
 		return fileDAO.getFilesGroupType();
+	}
+	public void editFileOrFolder(String name, long fileId, long upperId, long folderId, long userId){
+		FolderServiceImpl service = new FolderServiceImpl();
+		if((fileId == 0) && !service.check(name, userId, upperId) && Validator.FILE_NAME.validate(name)){
+			Folder folder = service.get(folderId);
+			folder.setName(name);
+			service.update(folder);
+		}else if((folderId == 0) && Validator.FILE_NAME.validate(name)){
+			rename(fileId, name);
+		}
 	}
 }

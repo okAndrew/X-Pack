@@ -207,18 +207,10 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		}
 	}
 
-	public String makeFolder(String folderName, long userId, long upperId) {
-		String result = checkParams(folderName);
-		if (result == null) {
-			if (!checkFolderExist(folderName, upperId)) {
+	public void makeFolder(String folderName, long userId, long upperId) {
+		if (Validator.FILE_NAME.validate(folderName) && !checkFolderExist(folderName, upperId)) {
 				createFolder(folderName, userId, upperId);
-			} else {
-				result = "Folder with this name is alredy exists";
-			}
-		} else {
-			result = "Folder name cannot be null";
 		}
-		return result;
 	}
 
 	private boolean checkFolderExist(String folderName, long upperId) {
@@ -229,14 +221,6 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 			if(folder.getName().equals(folderName)){
 				result = true;
 			}
-		}
-		return result;
-	}
-
-	private String checkParams(String folderName) {
-		String result = null;
-		if (!Validator.FILE_NAME.validate(folderName)) {
-			result = "Your folder name format failed";
 		}
 		return result;
 	}

@@ -2,7 +2,6 @@ package com.epam.lab.controller.web.servlets.folder;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,18 +21,9 @@ public class CreateFolderServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		long folderId = (long) session.getAttribute("folderid");
 		long userId = (long) session.getAttribute("userid");
-		RequestDispatcher dispatcher;
-		String validError = null;
 		String folderName = request.getParameter("foldername");
 		FolderServiceImpl service = new FolderServiceImpl();
-		validError = service.makeFolder(folderName, userId, folderId);
-		if (validError == null) {
-			dispatcher = request.getRequestDispatcher(USER_PAGE);
-		} else {
-			request.setAttribute("message", validError);
-			dispatcher = request.getRequestDispatcher(USER_PAGE);
-		}
-
-		dispatcher.forward(request, response);
+		service.makeFolder(folderName, userId, folderId);
+		response.sendRedirect(USER_PAGE);
 	}
 }

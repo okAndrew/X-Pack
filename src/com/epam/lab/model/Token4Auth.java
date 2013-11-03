@@ -1,7 +1,6 @@
 package com.epam.lab.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,12 +27,6 @@ public class Token4Auth {
 
 	@XmlElement(name = "liveTime")
 	private long liveTime;
-
-	public boolean isActive() {
-		boolean isActive = destroyDate
-				.after(new Timestamp(new Date().getTime()));
-		return isActive;
-	}
 
 	public long getId() {
 		return id;

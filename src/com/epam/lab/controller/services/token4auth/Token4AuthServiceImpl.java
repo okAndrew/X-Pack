@@ -10,6 +10,7 @@ import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.User;
@@ -37,7 +38,7 @@ public class Token4AuthServiceImpl extends AbstractServiceImpl<Token4Auth>
 	@Override
 	public Token4Auth getByToken(String token) {
 		Token4Auth token4Auth = tokenDAO.getByToken(token);
-		if (token4Auth.isActive())
+		if (token4Auth != null && isActive(token4Auth))
 			return token4Auth;
 		else {
 			return null;
@@ -45,15 +46,14 @@ public class Token4AuthServiceImpl extends AbstractServiceImpl<Token4Auth>
 	}
 
 	@Override
-	public int deleteNotActiveTokens() {
-		return tokenDAO.deleteNotActiveTokens();
+	public boolean isActive(Token4Auth tokenData) {
+		return tokenData.getDestroyDate().after(
+				TimeStampManager.getCurrentTime());
 	}
 
-	private Timestamp getDestroyDate(long liveTime) {
-		long timeInMiliSeconds = liveTime * 1000;
-		Timestamp result = new Timestamp(new Date().getTime()
-				+ timeInMiliSeconds);
-		return result;
+	@Override
+	public int deleteNotActiveTokens() {
+		return tokenDAO.deleteNotActiveTokens();
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class Token4AuthServiceImpl extends AbstractServiceImpl<Token4Auth>
 		Folder folder = null;
 		Token4AuthService service = new Token4AuthServiceImpl();
 		Token4Auth tokenData = service.getByToken(token);
-		if (tokenData != null) {
+		if (tokenData != null && isActive(tokenData)) {
 			User user = new UserServiceImpl().get(tokenData.getIdUser());
 			if (user != null) {
 				FolderServiceImpl folderService = new FolderServiceImpl();
@@ -81,5 +81,12 @@ public class Token4AuthServiceImpl extends AbstractServiceImpl<Token4Auth>
 			throw new TokenNotFoundException();
 		}
 		return folder;
+	}
+
+	private Timestamp getDestroyDate(long liveTime) {
+		long timeInMiliSeconds = liveTime * 1000;
+		Timestamp result = new Timestamp(new Date().getTime()
+				+ timeInMiliSeconds);
+		return result;
 	}
 }

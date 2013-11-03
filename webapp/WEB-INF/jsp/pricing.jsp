@@ -9,6 +9,11 @@
 <title>DreamHost | Pricing</title>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
+<style type="text/css">
+	body {
+		
+	}
+</style>
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>

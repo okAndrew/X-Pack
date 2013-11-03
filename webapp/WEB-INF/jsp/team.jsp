@@ -15,6 +15,19 @@
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/team.js"></script>
+<style type="text/css">
+.panel-body {
+	margin-right: 15px;
+	margin-left: 15px;
+}
+.panel-person {
+	border: 1px solid #DDD;
+	margin: 15px;
+	border-radius: 3px;
+	min-height: 400px;
+	max-height: 400px;
+}
+</style>
 </head>
 <body onload="initTeamPage()">
 	<jsp:include page="menu.jsp"></jsp:include>

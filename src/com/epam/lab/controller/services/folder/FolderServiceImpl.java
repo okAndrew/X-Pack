@@ -11,6 +11,7 @@ import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
@@ -26,18 +27,12 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 	}
 
 	public Folder createFolder(String folderName, long userId, long upperId) {
-		Folder resultFolder = folderDAO
-				.getByUpperIdAndName(upperId, folderName);
-		if (resultFolder != null) { // if folder has exist
-			return resultFolder;
-		}
 		Folder folder = new Folder();
 		Timestamp currentTS = new Timestamp(new Date().getTime());
 		folder.setDate(currentTS).setIdUpper(upperId).setIdUser(userId)
 				.setName(folderName).setSize(0);
 		dao.insert(folder);
-		resultFolder = folderDAO.getByUpperIdAndName(upperId, folderName);
-		return resultFolder;
+		return folder;
 	}
 
 	public Folder getRoot(long userId) {
@@ -211,4 +206,39 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 			return false;
 		}
 	}
+
+	public String makeFolder(String folderName, long userId, long upperId) {
+		String result = checkParams(folderName);
+		if (result == null) {
+			if (!checkFolderExist(folderName, upperId)) {
+				createFolder(folderName, userId, upperId);
+			} else {
+				result = "Folder with this name is alredy exists";
+			}
+		} else {
+			result = "Folder name cannot be null";
+		}
+		return result;
+	}
+
+	private boolean checkFolderExist(String folderName, long upperId) {
+		boolean result = false;
+		FolderDAOImpl dao = new FolderDAOImpl();
+		List<Folder> folders = dao.getByUpperId(upperId);
+		for (Folder folder : folders) {
+			if(folder.getName().equals(folderName)){
+				result = true;
+			}
+		}
+		return result;
+	}
+
+	private String checkParams(String folderName) {
+		String result = null;
+		if (!Validator.FOLDER_NAME.validate(folderName)) {
+			result = "Your folder name format failed";
+		}
+		return result;
+	}
+
 }

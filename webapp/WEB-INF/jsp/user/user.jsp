@@ -140,9 +140,6 @@ img.img {
 									<span class="glyphicon glyphicon-trash"></span>
 									<fmt:message key="Delete" bundle="${lang}" />
 								</button>
-								<button type="button" onclick="loadBrowserContent()"
-									name="search" class="btn btn-default" id="search">
-									Test dynynamic load</button>
 							</div>
 							<div class="btn-group select-all" data-toggle="buttons">
 								<label class="btn btn-default"><fmt:message key="All" bundle="${lang}" />: <input type="checkbox"

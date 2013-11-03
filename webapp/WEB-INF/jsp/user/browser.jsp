@@ -76,17 +76,6 @@ img.trunc {
 }
 </style>
 
-<div class="btn-group">
-	<button type="button" class="btn btn-primary" onclick="selectAll()">
-		<span class="glyphicon glyphicon-cloud-download"></span>
-		<fmt:message key="All" bundle="${lang}" />
-	</button>
-	<button type="button" class="btn btn-primary" onclick="selectNone()">
-		<span class="glyphicon glyphicon-cloud-download"></span>
-		<fmt:message key="None" bundle="${lang}" />
-	</button>
-</div>
-
 <div id="gallery">
 	<c:if
 		test="${search!=null && search && search_no_result!=null && search_no_result}">
@@ -240,16 +229,6 @@ img.trunc {
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<c:choose>
-				<c:when test="${file.isPublic }">
-					<button id="link-button${file.id }" type="button"
-						onclick="showLink(${file.id })">LINK</button>
-				</c:when>
-				<c:otherwise>
-					<button id="link-button${file.id }" type="button"
-						onclick="showLink(${file.id })" disabled="disabled">LINK</button>
-				</c:otherwise>
-			</c:choose>
 		</div>
 	</c:forEach>
 </div>
@@ -405,7 +384,6 @@ function move(moveable, idtargetFolder) {
 			state = true;
 		}
 		$("#link-button" + id).prop('disabled', !state);
-		debugger;
 		$.ajax({
 			type : "POST",
 			url : 'changepublicstate',
@@ -413,23 +391,11 @@ function move(moveable, idtargetFolder) {
 				'fileId' : id,
 				'state' : state
 			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert('xhr.status ' + xhr.status + '   thrownError:'
-						+ thrownError);
-			}
-		});
-	}
-
-	function showLink(id) {
-		$.ajax({
-			type : "POST",
-			url : 'showlink',
-			data : {
-				'fileId' : id
-			},
-			success : function(data) {
-				$("#link input").val(data);
-				$('#linkModal').modal('show');
+			success: function(data){
+				if(data != null && data != ""){
+					$("#link input").val(data);
+					$('#linkModal').modal('show');
+				}
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'

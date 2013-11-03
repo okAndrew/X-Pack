@@ -1,6 +1,8 @@
 package com.epam.lab.controller.web.servlets.file;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,12 @@ public class ChangePublicStateServlet extends HttpServlet {
 		boolean state = Boolean.parseBoolean(request.getParameter("state"));
 		UserFileService service = new UserFileServiceImpl();
 		service.changePublicState(fileId, state);
+		if (state == true) {
+			String link = service.getLink(fileId);
+			PrintWriter writer = response.getWriter();
+			writer.print(link);
+			writer.close();
+		}
 	}
 
 }

@@ -21,4 +21,8 @@ public interface UserDAO extends GenericDAO<User> {
 
 	long getCount();
 
+	boolean checkEmailById(String email, long userId);
+
+	boolean ckeckLoginById(String login, long userId);
+
 }

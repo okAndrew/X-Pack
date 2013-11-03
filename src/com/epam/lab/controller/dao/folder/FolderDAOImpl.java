@@ -15,6 +15,7 @@ public class FolderDAOImpl implements FolderDAO {
 		return result;
 	}
 
+	@Override
 	public Folder getRoot(long userId) {
 		String sql = "SELECT * FROM folders WHERE id_user = ? AND id_upper = 0";
 		Folder folder = queryExecutor.executeQuerySingle(Folder.class, sql,
@@ -22,6 +23,7 @@ public class FolderDAOImpl implements FolderDAO {
 		return folder;
 	}
 
+	@Override
 	public Folder getByUpperIdAndName(long upperId, String name) {
 		String sql = "SELECT * FROM folders WHERE name = ? AND id_upper = ?";
 		Folder folder = queryExecutor.executeQuerySingle(Folder.class, sql,
@@ -29,6 +31,7 @@ public class FolderDAOImpl implements FolderDAO {
 		return folder;
 	}
 
+	@Override
 	public List<Folder> getByUpperId(long upperId) {
 		String sql = "SELECT * FROM folders WHERE id_upper = ?";
 		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,
@@ -42,6 +45,7 @@ public class FolderDAOImpl implements FolderDAO {
 		return null;
 	}
 
+	@Override
 	public List<Folder> getAll(long userId) {
 		String sql = "SELECT * FROM folders WHERE id_user = ?";
 		List<Folder> resultList = queryExecutor.executeQuery(Folder.class, sql,

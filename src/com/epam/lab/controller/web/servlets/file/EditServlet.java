@@ -22,8 +22,9 @@ public class EditServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("editname");
-		if (name!=null && name.equals("")) {
-			request.getRequestDispatcher(USER_PAGE).forward(request, response);
+		
+		if (name == null || name.equals("")) {
+			response.sendRedirect(USER_PAGE);
 		} else if (request.getParameter("fileid") != null && !request.getParameter("fileid").equals("")) {
 			long fileId = Long.parseLong(request.getParameter("fileid"));
 			long folderId = (long) session.getAttribute("folderid");

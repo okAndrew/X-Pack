@@ -24,10 +24,10 @@
 			.ready(
 					function() {
 						Dropzone.options.myAwesomeDropzone = {
-							parallelUploads : 2,
+							parallelUploads : 1,
 							maxFilesize : <c:out value="${freeSpace}"/>,
 							dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
-							maxFiles : 6,
+							// maxFiles : 6,
 							init : function() {
 								this.on("complete", function(file) {
 									loadBrowserContent();
@@ -48,6 +48,12 @@
 			}
 		});
 	}
+
+	function fixedEncodeURIComponent(str) {
+		return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(
+				/\*/g, "%2A");
+	}
+
 	function searchFiles() {
 		var searchText = $("#searchinput").val();
 		if (searchText.length == 0) {
@@ -137,6 +143,12 @@ img.img {
 								<button type="button" onclick="loadBrowserContent()"
 									name="search" class="btn btn-default" id="search">
 									Test dynynamic load</button>
+							</div>
+							<div class="btn-group select-all" data-toggle="buttons">
+								<label class="btn btn-default"><fmt:message key="All" bundle="${lang}" />: <input type="checkbox"
+									class="select-all-input" onchange="toggle(this)"
+									name="selectAll"> <span
+									class="glyphicon glyphicon-unchecked"></span> </label>
 							</div>
 							<div class="btn-toolbar pull-right">
 								<div class="input-group" style="width: 300px;">

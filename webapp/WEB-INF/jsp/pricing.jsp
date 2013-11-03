@@ -9,6 +9,11 @@
 <title>DreamHost | Pricing</title>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
+<style type="text/css">
+	body {
+		
+	}
+</style>
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
@@ -32,12 +37,11 @@ $("#form_pay_submit").click( function() {
 	<jsp:include page="pricing/modalpay.jsp"></jsp:include>
 	<div class="container">
 		<div class="panel panel-default main">
-			<div class="panel-body">
+			<div class="panel-body" style="padding-right: 0px;">
 			<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<c:forEach var="tariff" items="${tariffs}">
-						<div class="panel panel-default">
+						<div class="panel panel-default" style="float: left; min-width: 546px; margin-right: 15px;">
 							<div class="panel-heading">
 								<h4>
 									<c:choose>
@@ -84,7 +88,6 @@ $("#form_pay_submit").click( function() {
 						</div>
 					</c:forEach>
 				</div>
-				<div class="col-md-3"></div>
 			</div>
 			</div>
 		</div>

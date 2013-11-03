@@ -49,6 +49,8 @@ public class BrowserContentServlet extends HttpServlet {
 		request.setAttribute("files", files);
 		request.setAttribute("currentFolder", currentFolder);
 		request.setAttribute("folderpath", folderPath);
+
+		request.setCharacterEncoding("UTF-8");
 		if (request.getAttribute("parent") == null)
 			request.getRequestDispatcher(BROWSER_JSP)
 					.include(request, response);

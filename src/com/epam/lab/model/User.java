@@ -4,141 +4,143 @@ import com.epam.lab.controller.annotations.TableColumn;
 
 public class User {
 
-        @TableColumn("id")
-        private long id;
+	@TableColumn("id")
+	private long id;
 
-        @TableColumn("login")
-        private String login;
+	@TableColumn("login")
+	private String login;
 
-        @TableColumn("email")
-        private String email;
+	@TableColumn("email")
+	private String email;
 
-        @TableColumn("password")
-        private String password;
+	@TableColumn("password")
+	private String password;
 
-        @TableColumn("id_tariff")
-        private long idTariff;
+	@TableColumn("id_tariff")
+	private long idTariff;
 
-        @TableColumn("capacity")
-        private long capacity;
+	@TableColumn("capacity")
+	private long capacity;
 
-        @TableColumn("is_activated")
-        private boolean isActivated;
-        
-        @TableColumn("is_banned")
-        private boolean isBanned;
+	@TableColumn("is_activated")
+	private boolean isActivated;
 
-		@TableColumn("id_role")
-        private int role;
+	@TableColumn("is_banned")
+	private boolean isBanned;
 
-        public User() {
-        }
+	@TableColumn("id_role")
+	private int role;
 
-        public User(long id, String login, String email, String password,
-                        long idTariff, int capacity, boolean isActivated, boolean isBaned, Role role) {
-                super();
-                this.id = id;
-                this.login = login;
-                this.email = email;
-                this.password = password;
-                this.idTariff = idTariff;
-                this.capacity = capacity;
-                this.isActivated = isActivated;
-                this.role = role.getNumber();
-        }
+	public User() {
+	}
 
-        public String getLogin() {
-                return login;
-        }
+	public User(long id, String login, String email, String password,
+			long idTariff, int capacity, boolean isActivated, boolean isBaned,
+			Role role, String lastVisitLanguage) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.email = email;
+		this.password = password;
+		this.idTariff = idTariff;
+		this.capacity = capacity;
+		this.isActivated = isActivated;
+		this.role = role.getNumber();
+	}
 
-        public User setLogin(String login) {
-                this.login = login;
-                return this;
-        }
+	public String getLogin() {
+		return login;
+	}
 
-        public long getId() {
-                return id;
-        }
+	public User setLogin(String login) {
+		this.login = login;
+		return this;
+	}
 
-        public User setId(long id) {
-                this.id = id;
-                return this;
-        }
+	public long getId() {
+		return id;
+	}
 
-        public String getEmail() {
-                return email;
-        }
+	public User setId(long id) {
+		this.id = id;
+		return this;
+	}
 
-        public User setEmail(String email) {
-                this.email = email;
-                return this;
-        }
+	public String getEmail() {
+		return email;
+	}
 
-        public String getPassword() {
-                return password;
-        }
+	public User setEmail(String email) {
+		this.email = email;
+		return this;
+	}
 
-        public User setPassword(String password) {
-                this.password = password;
-                return this;
-        }
+	public String getPassword() {
+		return password;
+	}
 
-        public long getIdTariff() {
-                return idTariff;
-        }
+	public User setPassword(String password) {
+		this.password = password;
+		return this;
+	}
 
-        public User setIdTariff(long idTariff) {
-                this.idTariff = idTariff;
-                return this;
-        }
+	public long getIdTariff() {
+		return idTariff;
+	}
 
-        public long getCapacity() {
-                return capacity;
-        }
+	public User setIdTariff(long idTariff) {
+		this.idTariff = idTariff;
+		return this;
+	}
 
-        public User setCapacity(long capacity) {
-                this.capacity = capacity;
-                return this;
-        }
+	public long getCapacity() {
+		return capacity;
+	}
 
-        public boolean getIsActivated() {
-                return isActivated;
-        }
+	public User setCapacity(long capacity) {
+		this.capacity = capacity;
+		return this;
+	}
 
-        public User setIsActivated(boolean isActivated) {
-                this.isActivated = isActivated;
-                return this;
-        }
+	public boolean getIsActivated() {
+		return isActivated;
+	}
 
-        public boolean getIsBanned() {
-			return isBanned;
-		}
+	public User setIsActivated(boolean isActivated) {
+		this.isActivated = isActivated;
+		return this;
+	}
 
-		public User setIsBanned(boolean isBanned) {
-			this.isBanned = isBanned;
-			return this;
-		}
+	public boolean getIsBanned() {
+		return isBanned;
+	}
 
-        // one crafty getter...
-        public Role getRole() {
-                return Role.findByNumber(role);
-        }
+	public User setIsBanned(boolean isBanned) {
+		this.isBanned = isBanned;
+		return this;
+	}
 
-        public User setRole(Role role) {
-                this.role = role.getNumber();
-                return this;
-        }
+	// one crafty getter...
+	public Role getRole() {
+		return Role.findByNumber(role);
+	}
 
-        public User setRole(int role) {
-                this.role = role;
-                return this;
-        }
+	public User setRole(Role role) {
+		this.role = role.getNumber();
+		return this;
+	}
 
-        @Override
-        public String toString() {
-                return "User [id=" + id + ", login=" + login + ", email=" + email
-                                + ", password=" + password + ", idTariff=" + idTariff
-                                + ", capacity=" + capacity + ", isActivated=" + isActivated
-                                + ", role=" + role + "]";
-        }
+	public User setRole(int role) {
+		this.role = role;
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", email=" + email
+				+ ", password=" + password + ", idTariff=" + idTariff
+				+ ", capacity=" + capacity + ", isActivated=" + isActivated
+				+ ", isBanned=" + isBanned + ", role=" + role + "]";
+	}
+
 }

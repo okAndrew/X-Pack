@@ -217,14 +217,29 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 	}
 
-	public void changeUserPassword(long userId, String password) {
+	public String changeUserPassword(long userId, String oldPassword, String newPassword, String newPasswordRe) {
+		String msg = null;
 		MD5Encrypter md5 = new MD5Encrypter();
-		String md5Pass = md5.encrypt(password);
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		User user = get(userId);
-
-		user.setPassword(md5Pass);
-		userDaoImpl.update(user);
+		
+		if (user != null) {
+			if (newPassword.equals(newPasswordRe)) {
+				oldPassword = md5.encrypt(oldPassword);
+				if (user.getPassword().equals(oldPassword)) {
+					newPassword = md5.encrypt(newPassword);
+					user.setPassword(newPassword);
+					update(user);
+				} else {
+					msg = "Old password is incorect";
+				}
+			} else {
+				msg = "New passwords are different";
+			}
+		} else {
+			msg = "Internal error. Reload page.";
+		}
+		
+		return msg;
 	}
 
 	public void sendUsersEmail(String[] usersId, String subject, String message) {
@@ -461,4 +476,5 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		}
 		return errmessage;
 	}
+
 }

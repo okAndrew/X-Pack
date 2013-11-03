@@ -32,7 +32,7 @@
 	border: 1px solid #EEEEEE;
 	background: #FBFBF8;
 	line-height: 100%;
-	height: 100px;
+	height: 110px;
 	position: relative;
 }
 
@@ -75,6 +75,18 @@ img.trunc {
 	float: left;
 }
 </style>
+
+<div class="btn-group">
+	<button type="button" class="btn btn-primary" onclick="selectAll()">
+		<span class="glyphicon glyphicon-cloud-download"></span>
+		<fmt:message key="All" bundle="${lang}" />
+	</button>
+	<button type="button" class="btn btn-primary" onclick="selectNone()">
+		<span class="glyphicon glyphicon-cloud-download"></span>
+		<fmt:message key="None" bundle="${lang}" />
+	</button>
+</div>
+
 <div id="gallery">
 	<c:if
 		test="${search!=null && search && search_no_result!=null && search_no_result}">
@@ -312,14 +324,36 @@ function move(moveable, idtargetFolder) {
 	});
 }
 	function toggle(source) {
-		var checkboxes = document.getElementsByName('folders');
-		for ( var i = 0, n = checkboxes.length; i < n; i++) {
-			checkboxes[i].checked = source.checked;
+		$('input.cell-check').prop('checked', source.checked);
+		if (source.checked) {
+			$('.check').find('span').removeClass('glyphicon-unchecked');
+			$('.check').find('span').addClass('glyphicon-check');
+			$('.check').find('label').addClass('active');
+			$('.select-all').find('span').removeClass('glyphicon-unchecked');
+			$('.select-all').find('span').addClass('glyphicon-check');
+		} else {
+			$('.check').find('span').addClass('glyphicon-unchecked');
+			$('.check').find('span').removeClass('glyphicon-check');
+			$('.check').find('label').removeClass('active');
+			$('.select-all').find('span').addClass('glyphicon-unchecked');
+			$('.select-all').find('span').removeClass('glyphicon-check');
 		}
-		var checkboxes = document.getElementsByName('files');
-		for ( var i = 0, n = checkboxes.length; i < n; i++) {
-			checkboxes[i].checked = source.checked;
+		buttonsStatus();
+	}
+
+	function checkboxesStatus() {
+		if ($('input.cell-check:not(:checked)').length === 1) {
+			$('input.select-all-input').prop('checked', false);
+			$('.select-all').find('span').addClass('glyphicon-unchecked');
+			$('.select-all').find('span').removeClass('glyphicon-check');
+			$('.select-all').find('label').removeClass('active');
+		} else if ($('input.cell-check:not(:checked)').length === 0) {
+			$('input.select-all-input').prop('checked', true);
+			$('.select-all').find('span').removeClass('glyphicon-unchecked');
+			$('.select-all').find('span').addClass('glyphicon-check');
+			$('.select-all').find('label').addClass('active');
 		}
+		buttonsStatus();
 	}
 
 	function set(targetElementId, id) {
@@ -329,7 +363,14 @@ function move(moveable, idtargetFolder) {
 		document.getElementById("folderidmove").getAttribute("value");
 	}
 	
-	function checkboxesStatus() {
+	function selectAll() {
+		$('input.cell-check').attr('checked', true);
+		var spans = $('span.glyphicon-unchecked');
+		spans.removeClass('glyphicon-unchecked');
+		spans.addClass('glyphicon-check');
+	}
+	
+	function buttonsStatus() {
 		var checkboxes = document.getElementsByName('folders');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {

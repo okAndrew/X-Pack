@@ -19,6 +19,10 @@ import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.controller.utils.TimeStampManager;
+import com.epam.lab.model.FileType;
+import com.epam.lab.model.FilesTypesSize;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.UserFile;
 
@@ -50,6 +54,30 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	public static final String ROOT_PATH = PROP.getProperty("rootPath");
 
 	public static final int MAX_FILES = 999;
+
+	public UserFile createFileInfo(String nameIncome, Long idFolder,
+			Long idUser, Boolean isPublic, Long size) {
+		UserFile userFile = new UserFile();
+		if (nameIncome == null) {
+			nameIncome = new MD5Encrypter().generateRandomHash();
+		}
+		userFile.setNameIncome(nameIncome);
+		userFile.setIdFolder(idFolder);
+		userFile.setIdUser(idUser);
+		userFile.setIsPublic(isPublic);
+		userFile.setDate(TimeStampManager.getCurrentTime());
+		userFile.setSize(size);
+		userFile.setPath(this.getFolder().getAbsolutePath());
+		String extention = FileType.getExtention(nameIncome);
+		FileType fileType = FileType.findByExtention(extention);
+		userFile.setType(fileType);
+		do {
+			// generate, while name will not be unique
+			userFile.setName(new MD5Encrypter().generateRandomHash()
+					+ extention);
+		} while (fileDAO.insert(userFile) == 0);
+		return fileDAO.getByName(userFile.getName());
+	}
 
 	/*
 	 * return current folder to save files
@@ -254,19 +282,19 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		in.close();
 	}
 
-	@Override
-	public int deleteByUserId(long userId) {
-		FileDAOImpl fileDao = new FileDAOImpl();
-		int result = fileDao.deleteByUserId(userId);
-		return result;
-	}
-
 	private String getExtention(long fileId) {
 		FileDAOImpl dao = new FileDAOImpl();
 		UserFile file = dao.get(fileId);
 		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
 		String extention = file.getNameIncome().substring(lastPointIndex);
 		return extention;
+	}
+
+	@Override
+	public int deleteByUserId(long userId) {
+		FileDAOImpl fileDao = new FileDAOImpl();
+		int result = fileDao.deleteByUserId(userId);
+		return result;
 	}
 
 	@Override
@@ -311,5 +339,9 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	public String getLink(long fileId) {
 		String name = fileDAO.get(fileId).getName();
 		return SITE_LINK + "download?file=" + name;
+	}
+
+	public List<FilesTypesSize> getTypesFiles() {
+		return fileDAO.getFilesGroupType();
 	}
 }

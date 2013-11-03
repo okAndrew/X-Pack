@@ -12,7 +12,7 @@ public enum Validator {
 	TARIFF_NAME("[A-Za-z]{3,15}$"),
 	INTEGERS("[0-9]{9}"),
 	DECIMALS("[0-9]{1,4}.[0-9]{0,2}"),
-	FILE_NAME("^([A-Za-zÀ-ßà-ÿ¨¸²³¯¿Ééªº0-9]+[-._\\s\\(\\)])*[A-Za-zÀ-ßà-ÿ¨¸²³¯¿Ééªº0-9]{1, 50}$");
+	FILE_NAME("[A-Za-zÀ-ßà-ÿ¨¸²³¯¿Ééªº0-9-._\\s\\(\\)]{1,50}$");
 	
 	private String regex;
 	

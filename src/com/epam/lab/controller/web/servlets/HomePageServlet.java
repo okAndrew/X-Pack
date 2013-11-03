@@ -27,11 +27,10 @@ public class HomePageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
 		LocaleServiceImpl locImpl = new LocaleServiceImpl();
 		LanguageServiceImpl impl = new LanguageServiceImpl();
-		
+
 		session.setAttribute("currentLanguage", locImpl.getByLocale(session
 				.getAttribute("sessLocale").toString()));
 		List<Language> list = impl.getAll();

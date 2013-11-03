@@ -7,8 +7,6 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.apache.log4j.Logger;
-
 import com.epam.lab.controller.services.statistics.sessionhistory.SessionHistoryServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.SessionHistory;
@@ -16,8 +14,6 @@ import com.epam.lab.model.SessionHistory;
 @WebListener
 public class UserOnlineListener implements HttpSessionListener,
 		HttpSessionAttributeListener {
-	private static final Logger logger = Logger
-			.getLogger(UserOnlineListener.class);
 	private static int activeSessionsLogged = 0;
 	private static int activeSessions = 0;
 	SessionHistory sessionhistory = null;

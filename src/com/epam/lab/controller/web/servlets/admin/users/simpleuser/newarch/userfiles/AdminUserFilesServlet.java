@@ -19,7 +19,7 @@ public class AdminUserFilesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ADMIN_USER_FILES_JSP = "WEB-INF/jsp/admin/users/simpleUser/files/adminUserFiles.jsp";
 
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserFileServiceImpl fileServiceImpl = new UserFileServiceImpl();

@@ -25,7 +25,7 @@ public class AdminUserActivityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static String ADMIN_USER_ACTIVITY = "WEB-INF/jsp/admin/users/simpleUser/adminUserActivity.jsp";
 	
- 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SessionHistoryServiceImpl historyServiceImpl = new SessionHistoryServiceImpl();
 		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("adminUserid");

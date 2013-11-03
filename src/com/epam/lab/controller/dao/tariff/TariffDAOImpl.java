@@ -1,6 +1,10 @@
 package com.epam.lab.controller.dao.tariff;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.mail.QuotaAwareStore;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.Counter;
@@ -148,6 +152,17 @@ public class TariffDAOImpl implements TariffDAO {
 
 		return queryExecutor.executeQuery(Tariff.class, sql.toString(),
 				language, language);
+	}
+
+	@Override
+	public Map<Long, String> getMapTariff() {
+		Map<Long, String> tariffsMap = new HashMap<Long, String>();
+		String sql = "SELECT id, name FROM tariffs";
+		List<Tariff> tariffs = queryExecutor.executeQuery(Tariff.class, sql);
+		for (Tariff iter: tariffs){
+			tariffsMap.put(iter.getId(), iter.getName());
+		}
+		return tariffsMap;
 	}
 
 }

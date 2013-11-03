@@ -25,7 +25,7 @@
 	<div class="container">
 		<div >
 			<div class="panel-body">
-				<form action="userEmployeeController">
+				<form action="userEmployeeController" method="post">
 					<div class="btn-group">
 						<button type="submit" class="btn btn-default" name="action"
 							value="adminUserInfo">

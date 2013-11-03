@@ -26,8 +26,9 @@ div.alert {
 	margin-top: 15px;
 }
 
-form {
-	
+.rowSpace {
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 span.glyphicon.glyphicon-sort {
@@ -64,12 +65,28 @@ table th,table td {
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
-			<jsp:include page="adminUserHeader.jsp"></jsp:include>
+				<jsp:include page="adminUserHeader.jsp"></jsp:include>
+				<form action="userEmployeeController" method="post">
+					<div class="btn-toolbar pull-right">
+						<c:if test="${notFullList}">
+							<button type="submit" class="btn btn-default" name="action"
+								value="adminUserPayments">
+								<fmt:message key="Back_to_all_payments" bundle="${lang}" />
+							</button>
+						</c:if>
+					</div>
+				</form>
+				<div class="rowSpace">
+					<c:if test="${messagePeriod != null&&listPayments.size()==0}">
+						<div>${messagePeriod}</div>
+					</c:if>
+				</div>
 				<c:choose>
 					<c:when test="${listPayments.size()>0}">
-						<form action="paymentsByDate" method="post" name="paybyDate">
+						<form action="userEmployeeController" method="post"
+							name="paybyDate">
 							<div class="panel-body">
-								<div>
+								<div class="well">
 									<div class="input">
 										<div class="input-append date">
 											<input data-date-format="yyyy-mm-dd" type="text"
@@ -79,25 +96,22 @@ table th,table td {
 												class="span2" name="endDate"
 												placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
 												id="dpd2">
-											<button type="submit" class="btn btn-default">
+											<button type="submit" class="btn btn-default" name="action"
+												value="paymentsByDate">
 												<fmt:message key="Show_payments_for_period" bundle="${lang}" />
 											</button>
 										</div>
 									</div>
 								</div>
-								<c:if test="${notFullList}">
-									<div class="well">
 
-										<a href="adminUserPayments"><fmt:message
-												key="Back_to_all_payments" bundle="${lang}" /></a>
-									</div>
-								</c:if>
 								<c:if test="${message != null}">
 									<div class="alert alert-danger">${message}</div>
 								</c:if>
-								<c:if test="${messagePeriod != null}">
-									<div>${messagePeriod}</div>
-								</c:if>
+								<div class="rowSpace">
+									<c:if test="${messagePeriod != null}">
+										<div>${messagePeriod}</div>
+									</c:if>
+								</div>
 							</div>
 							<c:set var="headerRef" value="${header}" />
 
@@ -135,6 +149,7 @@ table th,table td {
 						</div>
 					</c:otherwise>
 				</c:choose>
+
 			</div>
 		</div>
 	</div>

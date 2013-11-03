@@ -19,11 +19,6 @@ public class AdminSimpleUserInfoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
 		long userId = 0;
 		HttpSession session = request.getSession();
 		if (request.getParameter("userid") == null) {
@@ -36,6 +31,11 @@ public class AdminSimpleUserInfoServlet extends HttpServlet {
 		User user = userService.get(userId);
 		request.setAttribute("adminUser", user);
 		request.getRequestDispatcher(ADMIN_USER_JSP).forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

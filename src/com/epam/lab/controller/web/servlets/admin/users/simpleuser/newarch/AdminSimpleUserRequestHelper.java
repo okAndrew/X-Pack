@@ -9,6 +9,7 @@ import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.usera
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles.AdminSimpleUserFilesCommand;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles.AdminSimpleUserFilesDelCommand;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userinfo.AdminSimpleUserInfoCommand;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userpayments.AdminUserPaymentsByDateCommand;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userpayments.AdminUserPaymentsCommand;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.usertraffic.AdminUserTrafficCommand;
 
@@ -24,6 +25,7 @@ public class AdminSimpleUserRequestHelper {
 		commands.put("adminUserPayments", new AdminUserPaymentsCommand());
 		commands.put("adminUserActivity", new AdminUserActivityCommand());
 		commands.put("adminUserTraffic", new AdminUserTrafficCommand());
+		commands.put("paymentsByDate", new AdminUserPaymentsByDateCommand());
 	}
 
 	public AdminSimpleUserPageCommand getCommand(HttpServletRequest request) {

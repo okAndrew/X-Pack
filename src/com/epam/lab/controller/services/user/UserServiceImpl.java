@@ -3,6 +3,7 @@ package com.epam.lab.controller.services.user;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
@@ -217,11 +218,12 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 	}
 
-	public String changeUserPassword(long userId, String oldPassword, String newPassword, String newPasswordRe) {
+	public String changeUserPassword(long userId, String oldPassword,
+			String newPassword, String newPasswordRe) {
 		String msg = null;
 		MD5Encrypter md5 = new MD5Encrypter();
 		User user = get(userId);
-		
+
 		if (user != null) {
 			if (newPassword.equals(newPasswordRe)) {
 				oldPassword = md5.encrypt(oldPassword);
@@ -230,15 +232,15 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 					user.setPassword(newPassword);
 					update(user);
 				} else {
-					msg = "Old password is incorect";
+					msg = "Old_password_is_incorect";
 				}
 			} else {
-				msg = "New passwords are different";
+				msg = "New_passwords_are_different";
 			}
 		} else {
-			msg = "Internal error. Reload page.";
+			msg = "Internal_error._Reload_page.";
 		}
-		
+
 		return msg;
 	}
 
@@ -453,6 +455,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 	public String checkUpdate(String userEmail, int userId, String userLogin,
 			boolean activated, boolean banned, Role role) {
+		//ResourceBundle rb = ResourceBundle.getBundle("mybundle");
 		String errmessage = null;
 		if (checkEmailById(userEmail, userId)) {
 			if (ckeckLoginById(userLogin, userId)) {
@@ -462,15 +465,15 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 							.setIsBanned(banned).setRole(role);
 					userDaoImpl.update(user);
 				} else {
-					errmessage = "Login must be string without spesial characters";
+					errmessage = "Login_must_be_string_without_spesial_characters";
 					return errmessage;
 				}
 			} else {
-				errmessage = "Login already exists";
+				errmessage = "Login_already_exists";
 				return errmessage;
 			}
 		} else {
-			errmessage = "Email already exists";
+			errmessage = "Email_already_exists";
 			return errmessage;
 
 		}

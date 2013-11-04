@@ -5,7 +5,7 @@
 
 
 <div id="chart1" style="height: 350px; width: 700px;"></div>
-<button class="button-reset">Reset Zoom</button>
+<button class="button-reset"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
 <div id="example"></div>
 
 <div>
@@ -24,15 +24,15 @@
 				<td>${countUsersLogged}</td>
 			</tr>
 			<tr>
-				<td>Visited on last day / logged</td>
+				<td><fmt:message key="Visited_on_last_day_/_logged" bundle="${lang}" /></td>
 				<td>${visitorsByDay}/${loggedVisitorsByDay}</td>
 			</tr>
 			<tr>
-				<td>Visited to last week / logged</td>
+				<td><fmt:message key="Visited_on_last_week_/_logged" bundle="${lang}" /></td>
 				<td>${visitorsByWeek}/${loggedVisitorsByWeek}</td>
 			</tr>
 			<tr>
-				<td>Visited to last month / logged</td>
+				<td><fmt:message key="Visited_on_last_month_/_logged" bundle="${lang}" /></td>
 				<td>${visitorsByMonth}/${loggedVisitorsByMonth}</td>
 			</tr>
 
@@ -56,14 +56,9 @@
 <script type="text/javascript">
 	$(document).ready(
 			function() {
-				// Our ajax data renderer which here retrieves a text file.
-				// it could contact any source and pull data, however.
-				// The options argument isn't used in this renderer.
 				var ajaxDataRenderer = function(url, plot, options) {
 					var ret = null;
 					$.ajax({
-						// have to use synchronous here, else the function 
-						// will return before the data is fetched
 						async : false,
 						url : url,
 						dataType : "json",
@@ -95,7 +90,7 @@
 							},
 							min : 'October 1, 2013',
 							tickOptions : {
-								formatString : '%b %#d, %y'
+								formatString : '%d/%m/%Y'
 							}
 						}
 					},

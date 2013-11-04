@@ -39,11 +39,11 @@ public class ChangePasswordServlet extends HttpServlet {
 			if (Validator.USER_PASSWORD.validate(oldPassword) && Validator.USER_PASSWORD.validate(password) && Validator.USER_PASSWORD.validate(passwordRetype)) {
 				msg = userService.changeUserPassword(userId, oldPassword, password, passwordRetype);
 			} else {
-				msg = "password is incorrect";
+				msg = "password_is_incorrect";
 			}
 		} catch (NumberFormatException e) {
 			logger.error(e);
-			msg = "Internal error. Reload page";
+			msg = "Internal_error._Reload_page";
 		}
 		
 		request.setAttribute("message", msg);

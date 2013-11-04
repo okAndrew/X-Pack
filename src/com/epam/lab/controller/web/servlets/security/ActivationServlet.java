@@ -32,7 +32,7 @@ public class ActivationServlet extends HttpServlet {
 		logger.debug(activation);
 		
 		if (!activation) {
-			request.setAttribute("message", "Failed to activate");
+			request.setAttribute("message", "Failed_to_activate");
 		}
 		
 		requestDispatcher.forward(request, response);

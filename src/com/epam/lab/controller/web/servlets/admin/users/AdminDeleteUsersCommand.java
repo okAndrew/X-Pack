@@ -12,7 +12,7 @@ public class AdminDeleteUsersCommand implements AdminUsersPageCommand {
 			HttpServletResponse response) {
 		String page = null;
 		if (request.getParameterValues("checkUser") == null) {
-			request.setAttribute("message", "Please check users!!!");
+			request.setAttribute("message", "Please_check_users");
 			page = "adminUsersPage";
 			return page;
 		} else {

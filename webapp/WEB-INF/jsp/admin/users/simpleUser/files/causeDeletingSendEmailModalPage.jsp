@@ -20,7 +20,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Send Email with cause of deleting files</h4>
+				<h4 class="modal-title"><fmt:message key="Send_Email_with_cause_of_deleting_files" bundle="${lang}" /></h4>
 			</div>
 			<div class="modal-body">
 				<div class="container">
@@ -29,7 +29,7 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td>Cause</td>
+										<td><fmt:message key="Cause" bundle="${lang}" /></td>
 									</tr>
 									<tr>
 										<td><textarea class="form-control" rows="5"
@@ -45,7 +45,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-primary" name="delete"
-					value="sendEmailUsers">Submit</button>
+					value="sendEmailUsers"><fmt:message key="Submit" bundle="${lang}" /></button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<fmt:message key="Close" bundle="${lang}" />
 				</button>

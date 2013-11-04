@@ -32,7 +32,7 @@
 							<fmt:message key="Info" bundle="${lang}" />
 						</button>
 						<button type="submit" class="btn btn-default" name="action"
-							value="adminUserFiles">Files</button>
+							value="adminUserFiles"><fmt:message key="Files" bundle="${lang}" /></button>
 						<button type="submit" class="btn btn-default" name="action"
 							value="adminUserPayments">
 							<fmt:message key="Payments" bundle="${lang}" />

@@ -23,17 +23,17 @@
 					<div class="form-group">
 						<label><fmt:message key="Enter_your_current_password"
 								bundle="${lang}" /></label> <input type="password" class="form-control"
-							placeholder="Old password" name="old_pass">
+							placeholder=<fmt:message key="Old_password" bundle="${lang}" /> name="old_pass">
 					</div>
 					<div class="form-group">
 						<label><fmt:message key="Choose_a_new_password"
 								bundle="${lang}" /></label> <input type="password" class="form-control"
-							placeholder="New password" name="password">
+							placeholder=<fmt:message key="New_password" bundle="${lang}" /> name="password">
 					</div>
 					<div class="form-group">
 						<label><fmt:message key="Confirm_your_new_password"
 								bundle="${lang}" /></label> <input type="password" class="form-control"
-							placeholder="Confirm new password" name="password_retype">
+							placeholder=<fmt:message key="Confirm_new_password" bundle="${lang}" /> name="password_retype">
 					</div>
 				</div>
 

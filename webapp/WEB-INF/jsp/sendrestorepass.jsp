@@ -38,14 +38,14 @@
 			<h2 class="form-signin-heading"> <fmt:message key="Please_sign_in" bundle="${lang}" /> </h2>
 			<div id="errorinfo" class="alert alert-danger" style="display: none;">
 				<c:if test="${message != null}">
-					${message}
+					<fmt:message key="${message}" bundle="${lang}" />
 				</c:if>
 			</div>
 			<c:if test="${message != null}">
-				<div class="errorinfo">${message}</div>
+				<div class="errorinfo"><fmt:message key="${message}" bundle="${lang}" /></div>
 			</c:if>
 			<input id="emailInput" type="text" name="email"	class="form-control first last" placeholder="Email" autofocus="autofocus">
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="Send" bundle="${lang}" /></button>
 		</form>
 	</div>
 </body>

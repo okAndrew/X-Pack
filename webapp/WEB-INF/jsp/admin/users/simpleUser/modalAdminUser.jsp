@@ -55,7 +55,7 @@
 								<c:if test="${message != null}">
 									<div id="errorinfo" class="alert alert-danger"
 										style="display:${(message != null) ? 'block' : 'none'}">
-										${message}</div>
+										<fmt:message key="${message}" bundle="${lang}" /></div>
 								</c:if>
 
 								<table class="table">

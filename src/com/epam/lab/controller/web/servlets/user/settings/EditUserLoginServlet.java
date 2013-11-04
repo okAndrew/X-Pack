@@ -44,10 +44,10 @@ public class EditUserLoginServlet extends HttpServlet {
 					message = "Error";
 				}
 			} else {
-				message = "You already have that login";
+				message = "You_already_have_that_login";
 			}
 		} else {
-			message = "User with this login is already registered";
+			message = "User_with_this_login_is_already_registered";
 		}
 
 		request.setAttribute("editLoginError", message);

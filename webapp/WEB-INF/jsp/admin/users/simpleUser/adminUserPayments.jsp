@@ -26,11 +26,6 @@ div.alert {
 	margin-top: 15px;
 }
 
-.rowSpace {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
 span.glyphicon.glyphicon-sort {
 	font-size: 8pt;
 	text-align: center;
@@ -78,7 +73,7 @@ table th,table td {
 				</form>
 				<div class="rowSpace">
 					<c:if test="${messagePeriod != null&&listPayments.size()==0}">
-						<div>${messagePeriod}</div>
+						<div><fmt:message key="${messagePeriod}" bundle="${lang}" /></div>
 					</c:if>
 				</div>
 				<c:choose>
@@ -105,11 +100,11 @@ table th,table td {
 								</div>
 
 								<c:if test="${message != null}">
-									<div class="alert alert-danger">${message}</div>
+									<div class="alert alert-danger"><fmt:message key="${message}" bundle="${lang}" /></div>
 								</c:if>
 								<div class="rowSpace">
 									<c:if test="${messagePeriod != null}">
-										<div>${messagePeriod}</div>
+										<div><fmt:message key="${messagePeriod}" bundle="${lang}" /></div>
 									</c:if>
 								</div>
 							</div>

@@ -78,8 +78,8 @@ function checkboxesStatus() {
 					<c:if test="${message != null}">
 						<div class="alert alert-warning">
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h4>Warning</h4>
-							<h5>${message}</h5>
+							<h4><fmt:message key="Warning" bundle="${lang}" /></h4>
+							<h5><fmt:message key="${message}" bundle="${lang}" /></h5>
 						</div>
 					</c:if>
 					<jsp:include page="tableTariffs.jsp"></jsp:include>

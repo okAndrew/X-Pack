@@ -17,7 +17,7 @@
 		<c:forEach var="log" items="${logs}">
 		<tr>
 			<td>${log.id}</td>
-			<td>${log.datetime}</td>
+			<td><fmt:formatDate value="${log.datetime}" /></td>
 			<td>${log.logger}</td>
 			<td>${log.level}</td>
 			<td>${log.message}</td>

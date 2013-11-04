@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
     
 <!DOCTYPE html>
@@ -18,10 +19,10 @@
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
-		<p>At DreamHost we’ve been happily hosting our clients’ dreams (and websites) since April 1997. That was when four Computer Science undergraduates at Harvey Mudd College in Claremont, CA launched this company with no capital apart from a single Pentium 100 web server (Destro was her name), using shared bandwidth on a T1 line that a friend gave us at no cost. By necessity we had to be frugal, but even with our less than ample resources we always did our best to provide a quality service at a reasonable price.</p>
-		<p>Those early days forced us to get creative and use innovative solutions to meet the needs of our customers. It’s a habit that’s stuck with us as we’ve decided to build much of our own technology, and really differentiates us from the competition. Our technology is built by some of the industry’s most clever developers on stable systems that come together to create one amazing user experience. Designed to be easy-to-use, everything at DreamHost is built with the customer in mind.</p>
-		<p>So far, we’ve hit the nail on the head. Over the last decade or so, we’ve grown to more than 1500 servers, state-of-the-art data centers, and a full time staff of more than 100 employees. We now host more than 1 million domains. We’re focused solely on providing a quality customer experience backed by the absolute best web hosting technology in the industry. It’s a never-ending quest, but it’s one we’re happy to take on.</p>
-		<p>We pledge to always take your business seriously. We’re always looking for ways to diversify our offerings, improve reliability, and improve our overall quality of service. After all, your ideas put you online, but we’re the ones that help keep you there.</p>
+		<p><fmt:message key="At_DreamHost_we've_been_happily_hosting_our_clients'_dreams_(and_websites)_since_April_1997._That_was_when_four_Computer_Science_undergraduates_at_Harvey_Mudd_College_in_Claremont,_CA_launched_this_company_with_no_capital_apart_from_a_single_Pentium_100_web_server_(Destro_was_her_name),_using_shared_bandwidth_on_a_T1_line_that_a_friend_gave_us_at_no_cost._By_necessity_we_had_to_be_frugal,_but_even_with_our_less_than_ample_resources_we_always_did_our_best_to_provide_a_quality_service_at_a_reasonable_price." bundle="${lang}"/></p>
+		<p><fmt:message key="Those_early_days_forced_us_to_get_creative_and_use_innovative_solutions_to_meet_the_needs_of_our_customers._It's_a_habit_that's_stuck_with_us_as_we've_decided_to_build_much_of_our_own_technology,_and_really_differentiates_us_from_the_competition._Our_technology_is_built_by_some_of_the_industry's_most_clever_developers_on_stable_systems_that_come_together_to_create_one_amazing_user_experience._Designed_to_be_easy-to-use,_everything_at_DreamHost_is_built_with_the_customer_in_mind." bundle="${lang}" /></p>
+		<p><fmt:message key="So_far,_we've_hit_the_nail_on_the_head._Over_the_last_decade_or_so,_we've_grown_to_more_than_1500_servers,_state-of-the-art_data_centers,_and_a_full_time_staff_of_more_than_100_employees._We_now_host_more_than_1_million_domains._We're_focused_solely_on_providing_a_quality_customer_experience_backed_by_the_absolute_best_web_hosting_technology_in_the_industry._It's_a_never-ending_quest,_but_it's_one_we're_happy_to_take_on." bundle="${lang}" /></p>
+		<p><fmt:message key="We_pledge_to_always_take_your_business_seriously._We're_always_looking_for_ways_to_diversify_our_offerings,_improve_reliability,_and_improve_our_overall_quality_of_service._After_all,_your_ideas_put_you_online,_but_we're_the_ones_that_help_keep_you_there." bundle="${lang}" /></p>
 			</div>
 		</div>
 	</div>

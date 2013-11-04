@@ -31,7 +31,7 @@
 							<c:if test="${messageAddUser != null}">
 								<div id="errorinfo" class="alert alert-danger"
 									style="${(messageAddUser != null) ? 'none' : 'none'}">
-									${messageAddUser}</div>
+									<fmt:message key="${messageAddUser}" bundle="${lang}" /></div>
 							</c:if>
 							<table class="table">
 								<tbody>

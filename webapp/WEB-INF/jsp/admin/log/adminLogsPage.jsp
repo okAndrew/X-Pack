@@ -43,8 +43,8 @@
 				<c:if test="${message != null }">
 					<div class="alert alert-warning">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h4>Warning</h4>
-						<h5>${message}</h5>
+						<h4><fmt:message key="Warning" bundle="${lang}" /></h4>
+						<h5><fmt:message key="${message}" bundle="${lang}" /></h5>
 					</div>
 				</c:if>
 				<table class="table zebra-striped table-hover table-condensed" id="tablesorter">
@@ -76,7 +76,7 @@
 					</div>
 					<div class="page-option">
 						<div class="btn-group">
-							<button type="button" class="btn btn-default">Rows</button>
+							<button type="button" class="btn btn-default"><fmt:message key="Rows" bundle="${lang}" /></button>
 							<button type="button" class="btn btn-default dropdown-toggle"
 								data-toggle="dropdown">
 								<span class="caret"></span>

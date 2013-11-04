@@ -26,15 +26,5 @@ public class AdminSimpleUserInfoCommand implements AdminSimpleUserPageCommand {
 		return page;
 	}
 	
-	/*long userId = 0;
-	HttpSession session = request.getSession();
-	if (request.getParameter("userid") == null) {
-		userId = (long) session.getAttribute("adminUserid");
-	} else {
-		userId = Long.parseLong(request.getParameter("userid"));
-		session.setAttribute("adminUserid", userId);
-	}
-	UserServiceImpl userService = new UserServiceImpl();
-	User user = userService.get(userId);
-	request.setAttribute("adminUser", user);*/
+	
 }

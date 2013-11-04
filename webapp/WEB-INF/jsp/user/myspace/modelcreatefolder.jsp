@@ -11,11 +11,11 @@
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-info">
-					Must consist of symbols only ... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ult
+					<fmt:message key="Must_consist_of_symbols_only" bundle="${lang}" /> ... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ult
 				</div>
 				<form id="form_create_folder" action="createfolder" method="post">
 					<div class="form-group">
-						<label>Folder name</label>
+						<label><fmt:message key="Folder_name" bundle="${lang}" /></label>
 						<input type="text" name="foldername" placeholder="folder name" class="form-control" />
 					</div>
 				</form>

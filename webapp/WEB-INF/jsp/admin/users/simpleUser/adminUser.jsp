@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <!DOCTYPE html>
 <html>
@@ -57,7 +58,7 @@
 							</tr>
 							<tr>
 								<td><fmt:message key="Capacity" bundle="${lang}" /></td>
-								<td><script>document.write(bytesToSize(${adminUser.capacity}));</script></td>
+								<td><dream:formatSize value="${adminUser.capacity}" /></td>
 							</tr>
 							<tr>
 								<td><fmt:message key="Activation" bundle="${lang}" /></td>

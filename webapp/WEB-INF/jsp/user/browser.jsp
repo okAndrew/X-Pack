@@ -90,7 +90,7 @@ img.trunc {
 <div id="gallery">
 	<c:if
 		test="${search!=null && search && search_no_result!=null && search_no_result}">
-		<p>Your search returned no results</p>
+		<p><fmt:message key="Your_search_returned_no_results" bundle="${lang}" /></p>
 	</c:if>
 	<!-- upper -->
 	<c:if test="${currentFolder.idUpper!=0 && (search==null || !search)}">
@@ -104,7 +104,7 @@ img.trunc {
 			<div class="cell-desc">
 				<h4>${currentFolder.name}</h4>
 				<h5>
-					Total size:
+					<fmt:message key="Total_size" bundle="${lang}" />
 					<dream:formatSize value="${currentFolder.size}" />
 				</h5>
 			</div>
@@ -202,11 +202,11 @@ img.trunc {
 					</a>
 				</h5>
 				<h5>
-					Size:
+					<fmt:message key="Size" bundle="${lang}" />
 					<dream:formatSize value="${file.size}" />
 				</h5>
 				<h6>
-					Created at:
+					<fmt:message key="Created_at" bundle="${lang}" />
 					<fmt:formatDate type="date" value="${file.date}" />
 				</h6>
 
@@ -228,7 +228,7 @@ img.trunc {
 					class="glyphicon glyphicon-unchecked"></span> </label>
 			</div>
 			<div class="public">
-				<label>public: </label>
+				<label><fmt:message key="public" bundle="${lang}" /> </label>
 				<c:choose>
 					<c:when test="${file.isPublic }">
 						<input type="checkbox" onchange="setPublic(${file.id})"
@@ -243,11 +243,11 @@ img.trunc {
 			<c:choose>
 				<c:when test="${file.isPublic }">
 					<button id="link-button${file.id }" type="button"
-						onclick="showLink(${file.id })">LINK</button>
+						onclick="showLink(${file.id })"><fmt:message key="LINK" bundle="${lang}" /></button>
 				</c:when>
 				<c:otherwise>
 					<button id="link-button${file.id }" type="button"
-						onclick="showLink(${file.id })" disabled="disabled">LINK</button>
+						onclick="showLink(${file.id })" disabled="disabled"><fmt:message key="LINK" bundle="${lang}" /></button>
 				</c:otherwise>
 			</c:choose>
 		</div>

@@ -26,19 +26,22 @@
 		var dotpos = email.lastIndexOf(".");
 		
 		errorinfo.style.display = "none";
-		
+		<fmt:message key="Not_a_valid_e-mail_address" var="email"/>
+		var msg = "${email}";
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
-			setMessage("Not a valid e-mail address", errorinfo);
+			setMessage(msg, errorinfo);
 			return false;
 		}
-		
+		<fmt:message key="Fields_cannot_be_empty" var="fields"/>
+		var msg1 = "${fields}";
 		if (p1 == "" || p2 == "" || login == "") {
-			setMessage("Fields cannot be empty", errorinfo);
+			setMessage(msg1, errorinfo);
 	  		return false;
 		}
-		
+		<fmt:message key="Passwords_are_different" var="pass"/>
+		var msg2 = "${pass}";
 		if(p1 != p2) {
-			setMessage("Passwords are different", errorinfo);
+			setMessage(msg2, errorinfo);
 			return false;
 		}
 		
@@ -59,9 +62,10 @@
 			<h2 class="form-signin-heading">
 				<fmt:message key="New_to_DreamHost_Sign_up" bundle="${lang}" />
 			</h2>
-			<div id="errorinfo" class="alert alert-danger" style="display:${(message != null) ? 'block' : 'none'}">
+			<div id="errorinfo" class="alert alert-danger"
+				style="display:${(message != null) ? 'block' : 'none'}">
 				<c:if test="${message != null}">
-					${message}
+					<fmt:message key="${message}" bundle="${lang}" />
 				</c:if>
 			</div>
 			<input type="text" name="login" class="form-control first"

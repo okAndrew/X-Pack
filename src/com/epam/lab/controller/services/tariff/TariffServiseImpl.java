@@ -84,7 +84,7 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		if (errorMessage == null) {
 			for (Tariff iter : tariffs) {
 				if (iter.getName().equalsIgnoreCase(name)) {
-					errorMessage = "Tariff with the same name already exists!!!";
+					errorMessage = "Tariff_with_the_same_name_already_exists!!!";
 					return errorMessage;
 				}
 			}
@@ -112,19 +112,19 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 			String position, String description) {
 		String errorMessage = null;
 		if (!Validator.TARIFF_NAME.validate(name)) {
-			errorMessage = "Name tarrif is not correct!! Please use symbols a-z and A-Z";
+			errorMessage = "Name_tarrif_is_not_correct._Please_use_symbols_a-z_and_A-Z";
 			return errorMessage;
 		} else if (!Validator.INTEGERS.validate(maxCapacity)) {
-			errorMessage = "MaxCapacity tarrif is not correct!! Please use symbols 0-9";
+			errorMessage = "MaxCapacity_tarrif_is_not_correct._Please_use_symbols_0-9";
 			return errorMessage;
 		} else if (!Validator.DECIMALS.validate(price)) {
-			errorMessage = "Price tarrif is not correct!! Please use symbols 0-9 and '.' (example XXXX.XX)";
+			errorMessage = "Price_tarrif_is_not_correct._Please_use_symbols_0-9_and_'.'_(example_XXXX.XX)";
 			return errorMessage;
 		} else if (!Validator.INTEGERS.validate(position)) {
-			errorMessage = "Positions tarrif is not correct!! Please use symbols 0-9";
+			errorMessage = "Positions_tarrif_is_not_correct._Please_use_symbols_0-9";
 			return errorMessage;
 		} else if (description == null) {
-			errorMessage = "Description can not is empty!";
+			errorMessage = "Description_can_not_be_empty";
 			return errorMessage;
 		}
 		return errorMessage;

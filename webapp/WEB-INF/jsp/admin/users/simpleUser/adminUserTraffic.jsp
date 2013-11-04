@@ -29,41 +29,45 @@
 				<jsp:include page="adminUserHeader.jsp"></jsp:include>
 				<div class="col-xs-6">
 					<div id="chart1" style="height: 350px; width: 550px;"></div>
-					<button class="button-reset1">Reset Zoom</button>
+					<button class="button-reset1">
+						<fmt:message key="Reset_Zoom" bundle="${lang}" />
+					</button>
 				</div>
 
 				<div class="col-xs-6">
-					<div id="chart2" style="height: 350px; width: 550px;"></div>
-					<button class="button-reset2">Reset Zoom</button>
+						<div id="chart2" style="height: 350px; width: 550px;"></div>
+						<button class="button-reset2">
+							<fmt:message key="Reset_Zoom" bundle="${lang}" />
+						</button>
+					</div>
 				</div>
-
 
 				<div>
 					<table class="table zebra-striped table-hover">
 						<tbody>
 							<tr>
-								<td>Download last month</td>
+								<td><fmt:message key="Download_last_month" bundle="${lang}" /></td>
 								<td><script>document.write(bytesToSize(${downlUserLastMonth}));</script></td>
 							</tr>
 							<tr>
-								<td>Upload last month</td>
+								<td><fmt:message key="Upload_last_month" bundle="${lang}" /></td>
 								<td><script>document.write(bytesToSize(${uploadUserLastMonth}));</script></td>
 							</tr>
 							<tr>
-								<td>Download last week</td>
+								<td><fmt:message key="Download_last_week" bundle="${lang}" /></td>
 								<td><script>document.write(bytesToSize(${downlUserLastWeek}));</script></td>
 							</tr>
 							<tr>
-								<td>Upload last week</td>
+								<td><fmt:message key="Upload_last_week" bundle="${lang}" /></td>
 								<td><script>document.write(bytesToSize(${uploadUserLastWeek}));</script></td>
 
 							</tr>
 							<tr>
-								<td>Download last day</td>
+								<td><fmt:message key="Download_last_day" bundle="${lang}" /></td>
 								<td><script>document.write(bytesToSize(${downlUserLastDay}));</script></td>
 							</tr>
 							<tr>
-								<td>Upload last day</td>
+								<td><fmt:message key="Upload_last_day" bundle="${lang}" /></td>
 								<td><script>document.write(bytesToSize(${uploadUserLastDay}));</script></td>
 							</tr>
 						</tbody>
@@ -81,14 +85,9 @@
 		$(document)
 				.ready(
 						function() {
-							// Our ajax data renderer which here retrieves a text file.
-							// it could contact any source and pull data, however.
-							// The options argument isn't used in this renderer.
 							var ajaxDataRenderer = function(url, plot, options) {
 								var ret = null;
 								$.ajax({
-									// have to use synchronous here, else the function 
-									// will return before the data is fetched
 									async : false,
 									url : url,
 									dataType : "json",
@@ -108,9 +107,10 @@
 							// The url for our json data
 							var jsonurl = "Data4UserTraffic";
 							var jsonurl2 = "Data4UserStatisticsUpload";
-
+							<fmt:message key="Load_server_Download" var="download"/>
+							var msgdownload = "${download}";
 							var plot1 = $.jqplot('chart1', jsonurl,	{
-												title : "Load server(Download)",
+												title : msgdownload,
 												dataRenderer : ajaxDataRenderer,
 												dataRendererOptions : {
 													unusedOptionalUrl : jsonurl
@@ -123,7 +123,7 @@
 														},
 														min : 'October 1, 2013',
 														tickOptions : {
-															formatString : '%b %#d, %y'
+															formatString : '%d/%m/%Y'
 														}
 													}
 												},
@@ -136,9 +136,10 @@
 													showTooltip : false
 												}
 											});
-
+							<fmt:message key="Load_server_Upload" var="upload"/>
+							var msgupload = "${upload}";
 							var plot2 = $.jqplot('chart2', jsonurl2, {
-												title : "Load server(Upload)",
+												title : msgupload,
 												dataRenderer : ajaxDataRenderer,
 												dataRendererOptions : {
 													unusedOptionalUrl : jsonurl2
@@ -149,9 +150,11 @@
 														rendererOptions : {
 															tickRenderer : $.jqplot.CanvasAxisTickRenderer
 														},
+														
 														min : 'October 1, 2013',
 														tickOptions : {
-															formatString : '%b %#d, %y'
+															formatString : '%d/%m/%Y'
+																
 														}
 													}
 												},

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -46,7 +47,7 @@ $("#form_pay_submit").click( function() {
 								<h4>
 									<c:choose>
 										<c:when test="${currentTariff.id == tariff.id}">
-											<b>${tariff.name} - <script>document.write(bytesToSize(${tariff.maxCapacity}));</script> (current)</b>
+											<b>${tariff.name} - <script>document.write(bytesToSize(${tariff.maxCapacity}));</script> (<fmt:message key="current" bundle="${lang}" />)</b>
 										</c:when>
 										<c:otherwise>
 											${tariff.name} - <script>document.write(bytesToSize(${tariff.maxCapacity}));</script>
@@ -66,14 +67,14 @@ $("#form_pay_submit").click( function() {
 											</c:when>
 											<c:when test="${tariff.price == currentTariff.price}">
 												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})">
-													Get more
+													<fmt:message key="Get_more" bundle="${lang}" />
 												</a>
 											</c:when>
 											<c:otherwise>
 												<a data-toggle="modal" href="#createPay" class="btn btn-success pull-right"  onclick="set('tariffId', ${tariff.id})">
 												<c:choose>
 													<c:when test="${savedCash > 0}">
-														${tariff.price}$ - <strong>${savedCash}$ (saved cash)</strong>
+														${tariff.price}$ - <strong>${savedCash}$ (<fmt:message key="saved_cash" bundle="${lang}" />)</strong>
 													</c:when>
 													<c:otherwise>
 														${tariff.price}$

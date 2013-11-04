@@ -27,7 +27,7 @@ public class CreateFolderServlet extends HttpServlet {
 		if (request.getParameter("foldername") == null
 				|| request.getParameter("foldername").equals("")) {
 			request.setAttribute("message",
-					"Please, enter folder's name, before create it");
+					"Please,_enter_folder's_name,_before_create_it");
 			request.getRequestDispatcher(USER_PAGE).forward(request, response);
 		} else {
 			String folderName = request.getParameter("foldername");

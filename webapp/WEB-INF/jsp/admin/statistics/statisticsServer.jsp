@@ -7,30 +7,35 @@
 <script type="text/javascript" src="res/js/utils.js"></script>
 
 <div class="col-xs-6">
-<div id="chart1" style="height: 350px; width: 550px;"></div>
-<button class="button-reset1"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
+	<div id="chart1" style="height: 350px; width: 550px;"></div>
+	<br>
+	<button class="button-reset1 btn btn-default">
+		<fmt:message key="Reset_Zoom" bundle="${lang}" />
+	</button>
 </div>
 
 <div class="col-xs-6">
-<div id="chart2" style="height: 350px; width: 550px;"></div>
-<button class="button-reset2"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
+	<div id="chart2" style="height: 350px; width: 550px;"></div>
+	<br>
+	<button class="button-reset2 btn btn-default">
+		<fmt:message key="Reset_Zoom" bundle="${lang}" />
+	</button>
 </div>
-
 
 <div>
 	<table class="table zebra-striped table-hover">
 		<tbody>
 			<tr>
 				<td><fmt:message key="Download_last_month" bundle="${lang}" /></td>
-				<td><dream:formatSize value="${downlLastMounts}"/></td>
+				<td><dream:formatSize value="${downlLastMounts}" /></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="Upload_last_month" bundle="${lang}" /></td>
-				<td><dream:formatSize value="${uploadLastMounts}"/></td>
+				<td><dream:formatSize value="${uploadLastMounts}" /></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="Download_last_week" bundle="${lang}" /></td>
-				<td><dream:formatSize value="${downlLastWeek}"/></td>
+				<td><dream:formatSize value="${downlLastWeek}" /></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="Upload_last_week" bundle="${lang}" /></td>

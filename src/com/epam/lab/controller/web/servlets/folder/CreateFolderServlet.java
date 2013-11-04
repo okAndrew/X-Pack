@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.model.Folder;
 
 @WebServlet("/createfolder")
 public class CreateFolderServlet extends HttpServlet {
@@ -23,7 +24,10 @@ public class CreateFolderServlet extends HttpServlet {
 		long userId = (long) session.getAttribute("userid");
 		String folderName = request.getParameter("foldername");
 		FolderServiceImpl service = new FolderServiceImpl();
-		service.makeFolder(folderName, userId, folderId);
-		response.sendRedirect(USER_PAGE);
+		Folder folder = service.makeFolder(folderName, userId, folderId);
+		if (folder == null) {
+			request.setAttribute("message", "Folder have already exist");
+		}
+		request.getRequestDispatcher(USER_PAGE).include(request, response);
 	}
 }

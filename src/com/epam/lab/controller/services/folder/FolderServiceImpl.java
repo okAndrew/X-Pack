@@ -207,10 +207,13 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		}
 	}
 
-	public void makeFolder(String folderName, long userId, long upperId) {
-		if (Validator.FILE_NAME.validate(folderName) && !checkFolderExist(folderName, upperId)) {
-				createFolder(folderName, userId, upperId);
+	public Folder makeFolder(String folderName, long userId, long upperId) {
+		Folder resultFolder = null;
+		if (Validator.FILE_NAME.validate(folderName)
+				&& !checkFolderExist(folderName, upperId)) {
+			resultFolder = createFolder(folderName, userId, upperId);
 		}
+		return resultFolder;
 	}
 
 	private boolean checkFolderExist(String folderName, long upperId) {
@@ -218,7 +221,7 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		FolderDAOImpl dao = new FolderDAOImpl();
 		List<Folder> folders = dao.getByUpperId(upperId);
 		for (Folder folder : folders) {
-			if(folder.getName().equals(folderName)){
+			if (folder.getName().equals(folderName)) {
 				result = true;
 			}
 		}

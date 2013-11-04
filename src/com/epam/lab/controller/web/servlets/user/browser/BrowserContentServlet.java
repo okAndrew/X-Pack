@@ -27,6 +27,11 @@ public class BrowserContentServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
+	
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		processRequest(request, response);
+	}
 
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

@@ -31,15 +31,12 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final String SITE_LINK = "http://localhost:8080/dreamhost/";
 	private FileDAO fileDAO = (FileDAO) dao;
 
-	public UserFileServiceImpl() {
-		super(new FileDAOImpl());
-	}
-
 	private static final Logger logger = Logger
 			.getLogger(UserFileServiceImpl.class);
 	private static long count;
-
 	private static final Properties PROP = new Properties();
+	private static final String ROOT_PATH = PROP.getProperty("rootPath");
+	private static final int MAX_FILES = 999;
 	static {
 		try {
 			InputStream is = UserFileServiceImpl.class
@@ -51,9 +48,9 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		}
 	}
 
-	public static final String ROOT_PATH = PROP.getProperty("rootPath");
-
-	public static final int MAX_FILES = 999;
+	public UserFileServiceImpl() {
+		super(new FileDAOImpl());
+	}
 
 	public UserFile createFileInfo(String nameIncome, Long idFolder,
 			Long idUser, Boolean isPublic, Long size) {
@@ -185,17 +182,72 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return dao.get(file.getId());
 	}
 
+	@Override
+	public int deleteByUserId(long userId) {
+		FileDAOImpl fileDao = new FileDAOImpl();
+		int result = fileDao.deleteByUserId(userId);
+		return result;
+	}
+
+	@Override
+	public long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
+		FileDAOImpl fileDaoImpl = new FileDAOImpl();
+		UserFile file = new UserFile();
+		file = fileDaoImpl.getSizeUploadByDates(dataStart, dataEnd);
+		return file.getSize();
+	}
+
+	public boolean isUsersFile(long id, long userId) {
+		FileDAOImpl dao = new FileDAOImpl();
+		UserFile file = dao.get(id);
+		if (file.getIdUser() == userId) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public long getUploadTrafficUserByDates(Timestamp dataStart,
+			Timestamp dataEnd, long userId) {
+		FileDAOImpl fileDaoImpl = new FileDAOImpl();
+		UserFile file = new UserFile();
+		file = fileDaoImpl.getSizeUploadUserByDates(dataStart, dataEnd, userId);
+		return file.getSize();
+	}
+
+	public UserFile getByName(String fileName) {
+		return fileDAO.getByName(fileName);
+	}
+
+	@Override
+	public void changePublicState(long id, boolean state) {
+		UserFile file = fileDAO.get(id);
+		file.setIsPublic(state);
+		fileDAO.update(file);
+	}
+
+	@Override
+	public String getLink(long fileId) {
+		String name = fileDAO.get(fileId).getName();
+		return SITE_LINK + "download?file=" + name;
+	}
+
+	public List<FilesTypesSize> getTypesFiles() {
+		return fileDAO.getFilesGroupType();
+	}
+
 	/*
 	 * return current month/year/day String for folder (2013/11/1, 2013/11/2,
 	 * 2014/1/13 ...)
 	 */
 	private String getCurDatePath() {
 		Calendar now = Calendar.getInstance();
-
+	
 		int year = now.get(Calendar.YEAR);
 		int month = now.get(Calendar.MONTH);
 		int day = now.get(Calendar.DATE);
-
+	
 		StringBuilder temp = new StringBuilder().append(year)
 				.append(File.separator).append(month).append(File.separator)
 				.append(day);
@@ -207,10 +259,10 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		File newFolder = null;
 		StringBuilder path = new StringBuilder().append(ROOT_PATH)
 				.append(getCurDatePath()).append(File.separator);
-
+	
 		while (newFolder == null) {
 			File folder = new File(path.toString() + cur);
-
+	
 			// if folder !exist
 			if (folder.mkdir()) {
 				newFolder = folder;
@@ -218,7 +270,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 				cur++;
 			}
 		}
-
+	
 		return newFolder;
 	}
 
@@ -288,60 +340,5 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
 		String extention = file.getNameIncome().substring(lastPointIndex);
 		return extention;
-	}
-
-	@Override
-	public int deleteByUserId(long userId) {
-		FileDAOImpl fileDao = new FileDAOImpl();
-		int result = fileDao.deleteByUserId(userId);
-		return result;
-	}
-
-	@Override
-	public long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
-		FileDAOImpl fileDaoImpl = new FileDAOImpl();
-		UserFile file = new UserFile();
-		file = fileDaoImpl.getSizeUploadByDates(dataStart, dataEnd);
-		return file.getSize();
-	}
-
-	public boolean isUsersFile(long id, long userId) {
-		FileDAOImpl dao = new FileDAOImpl();
-		UserFile file = dao.get(id);
-		if (file.getIdUser() == userId) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public long getUploadTrafficUserByDates(Timestamp dataStart,
-			Timestamp dataEnd, long userId) {
-		FileDAOImpl fileDaoImpl = new FileDAOImpl();
-		UserFile file = new UserFile();
-		file = fileDaoImpl.getSizeUploadUserByDates(dataStart, dataEnd, userId);
-		return file.getSize();
-	}
-
-	public UserFile getByName(String fileName) {
-		return fileDAO.getByName(fileName);
-	}
-
-	@Override
-	public void changePublicState(long id, boolean state) {
-		UserFile file = fileDAO.get(id);
-		file.setIsPublic(state);
-		fileDAO.update(file);
-	}
-
-	@Override
-	public String getLink(long fileId) {
-		String name = fileDAO.get(fileId).getName();
-		return SITE_LINK + "download?file=" + name;
-	}
-
-	public List<FilesTypesSize> getTypesFiles() {
-		return fileDAO.getFilesGroupType();
 	}
 }

@@ -1,6 +1,7 @@
 package com.epam.lab.controller.web.servlets.file;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
-import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.model.Folder;
 
 @WebServlet("/useredit")
 public class EditServlet extends HttpServlet {
@@ -19,37 +18,24 @@ public class EditServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
 		String name = request.getParameter("editname");
-		
-		if (name == null || name.equals("")) {
-			response.sendRedirect(USER_PAGE);
-		} else if (request.getParameter("fileid") != null && !request.getParameter("fileid").equals("")) {
+		UserFileServiceImpl service = new UserFileServiceImpl();
+		long upperId = (long) session.getAttribute("folderid");
+		long userId = (long) session.getAttribute("userid");
+		boolean result = false;
+		if (request.getParameter("fileid") != null
+				&& !request.getParameter("fileid").equals("")) {
 			long fileId = Long.parseLong(request.getParameter("fileid"));
-			long folderId = (long) session.getAttribute("folderid");
-			UserFileServiceImpl service = new UserFileServiceImpl();
-			if (service.check(folderId, fileId, name)) {
-				request.getRequestDispatcher(USER_PAGE).forward(request,
-						response);
-			} else {
-				service.rename(fileId, name);
-				response.sendRedirect(USER_PAGE);
-			}
-		} else if (request.getParameter("folderid") != null && !request.getParameter("folderid").equals("")) {
-			long userId = (long) session.getAttribute("userid");
-			long upperId = (long) session.getAttribute("folderid");
+			service.editFileOrFolder(name, fileId, upperId, 0, userId);
+		} else if (request.getParameter("folderid") != null
+				&& !request.getParameter("folderid").equals("")) {
 			long folderId = Long.parseLong(request.getParameter("folderid"));
-			FolderServiceImpl service = new FolderServiceImpl();
-			if (service.check(name, userId, upperId)) {
-				request.getRequestDispatcher(USER_PAGE).forward(request,
-						response);
-			} else {
-				Folder folder = service.get(folderId);
-				folder.setName(name);
-				service.update(folder);
-				response.sendRedirect(USER_PAGE);
-			}
+			result = service.editFileOrFolder(name, 0, upperId, folderId, userId);
 		}
+		if(result == true){
+			request.setAttribute("message", "Folder with this name is already exist");
+		}
+		request.getRequestDispatcher(USER_PAGE).include(request, response);
 	}
 }

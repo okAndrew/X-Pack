@@ -39,7 +39,7 @@ function checkBoxes(sourse){
 					bundle="${lang}" /></th>
 			<th onclick="changeOrderBy('is_activated');"><fmt:message
 					key="Activated" bundle="${lang}" /></th>
-			<th onclick="changeOrderBy('is_banned');">Baned</th>
+			<th onclick="changeOrderBy('is_banned');"><fmt:message key="Baned" bundle="${lang}" /></th>
 			<th></th>
 		</tr>
 	</thead>

@@ -8,7 +8,7 @@
 <div>
 	<c:if
 		test="${search!=null && search && search_no_result!=null && search_no_result}">
-		<p>Your search returned no results</p>
+		<p><fmt:message key="Your_search_returned_no_results" bundle="${lang}" /></p>
 	</c:if>
 	<c:if test="${filelist!=null}">
 		<table class="table zebra-striped table-hover table-condensed">
@@ -19,7 +19,7 @@
 					<th><fmt:message key="Path" bundle="${lang}" /></th>
 					<th><fmt:message key="File_name" bundle="${lang}" /></th>
 					<th><fmt:message key="Date" bundle="${lang}" /></th>
-					<th><fmt:message key="Size" bundle="${lang}" /></th>
+					<th><fmt:message key="Size_file" bundle="${lang}" /></th>
 					<th><fmt:message key="Type" bundle="${lang}" /></th>
 				</tr>
 			</thead>

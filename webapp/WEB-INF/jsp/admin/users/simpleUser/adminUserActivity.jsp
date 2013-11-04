@@ -79,11 +79,15 @@ table th,table td {
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
-			<jsp:include page="adminUserHeader.jsp"></jsp:include>
-				<div class="row-fluid">
-					<div class="col-xs-7">
-						<div id="chart1"></div>
-						<button class="button-reset">Reset Zoom</button>
+				<jsp:include page="adminUserHeader.jsp"></jsp:include>
+				<div class="rowSpace">
+					<div class="row-fluid">
+						<div class="col-xs-7">
+							<div id="chart1"></div>
+							<button class="button-reset">
+								<fmt:message key="Reset_Zoom" bundle="${lang}" />
+							</button>
+						</div>
 					</div>
 					<div class="col-xs-4">
 						<div class=Statisticstable>
@@ -116,14 +120,9 @@ table th,table td {
 		$(document)
 				.ready(
 						function() {
-							// Our ajax data renderer which here retrieves a text file.
-							// it could contact any source and pull data, however.
-							// The options argument isn't used in this renderer.
 							var ajaxDataRenderer = function(url, plot, options) {
 								var ret = null;
 								$.ajax({
-									// have to use synchronous here, else the function 
-									// will return before the data is fetched
 									async : false,
 									url : url,
 									dataType : "json",
@@ -142,13 +141,14 @@ table th,table td {
 
 							// The url for our json data
 							var jsonurl = "adminUserActivityGraph";
-
+							<fmt:message key="Visitors" var="name"/>
+							var msg = "${name}";
 							var plot1 = $
 									.jqplot(
 											'chart1',
 											jsonurl,
 											{
-												title : "Visitors",
+												title : msg,
 												dataRenderer : ajaxDataRenderer,
 												dataRendererOptions : {
 													unusedOptionalUrl : jsonurl
@@ -161,7 +161,7 @@ table th,table td {
 														},
 														min : 'October 1, 2013',
 														tickOptions : {
-															formatString : '%b %#d, %y'
+															formatString : '%d/%m/%Y'
 														}
 													}
 												},

@@ -34,10 +34,10 @@
 					class="dropdown-toggle" data-toggle="dropdown"><fmt:message
 							key="About" bundle="${lang}" /> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="about">Project</a></li>
-						<li><a href="team">Team</a></li>
+						<li><a href="about"><fmt:message key="Project" bundle="${lang}" /></a></li>
+						<li><a href="team"><fmt:message key="Team" bundle="${lang}" /></a></li>
 					</ul></li>
-			</ul>
+			</ul><fmt:message key="Logger" bundle="${lang}" />
 
 			<div class="navbar-form navbar-right">
 				<c:if test="${sessionScope.userLogin == null}">
@@ -60,7 +60,7 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="settings">Settings</a></li>
+							<li><a href="settings"><fmt:message key="Settings" bundle="${lang}" /></a></li>
 							<li class="divider"></li>
 							<li><a href="signout"><fmt:message key="signout"
 										bundle="${lang}" /></a></li>

@@ -43,11 +43,11 @@ public class RegistrationService {
 		String result = null;
 
 		if (!Validator.USER_LOGIN.validate(login)) {
-			result = "Your login format filed";
+			result = "Your_login_format_filed";
 		} else if (!Validator.USER_EMAIL.validate(email)) {
-			result = "Your email format filed";
+			result = "Your_email_format_filed";
 		} else if (!Validator.USER_PASSWORD.validate(password)) {
-			result = "Your password format filed";
+			result = "Your_password_format_filed";
 		}
 		return result;
 	}
@@ -65,14 +65,14 @@ public class RegistrationService {
 					createRootFolder(user);
 					sendActivations(user);
 				} else {
-					result = "User with this login is alredy registered";
+					result = "User_with_this_login_is_alredy_registered";
 				}
 
 			} else {
-				result = "User with this email is alredy registered";
+				result = "User_with_this_email_is_alredy_registered";
 			}
 		} else {
-			result = "Fields cannot be null";
+			result = "Fields_cannot_be_null";
 		}
 		return result;
 	}

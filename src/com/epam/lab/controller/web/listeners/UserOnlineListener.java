@@ -1,5 +1,7 @@
 package com.epam.lab.controller.web.listeners;
 
+import java.util.List;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
@@ -7,22 +9,19 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.apache.log4j.Logger;
-
+import com.epam.lab.controller.services.language.LanguageServiceImpl;
 import com.epam.lab.controller.services.statistics.sessionhistory.SessionHistoryServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
+import com.epam.lab.model.Language;
 import com.epam.lab.model.SessionHistory;
 
 @WebListener
 public class UserOnlineListener implements HttpSessionListener,
 		HttpSessionAttributeListener {
-	private static final Logger logger = Logger
-			.getLogger(UserOnlineListener.class);
 	private static int activeSessionsLogged = 0;
 	private static int activeSessions = 0;
 	SessionHistory sessionhistory = null;
 	String browserLocalevalue = null;
-	private static String rememberLocale;
 
 	public void sessionCreated(HttpSessionEvent event) {
 		activeSessions++;
@@ -30,9 +29,11 @@ public class UserOnlineListener implements HttpSessionListener,
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		sessionhistory = historyService.insertSessionWithoutUser(
 				session.getId(), TimeStampManager.getFormatCurrentTimeStamp());
-		if (rememberLocale != null) {
-			session.setAttribute("sessLocale", rememberLocale);
-		}
+		LanguageServiceImpl impl = new LanguageServiceImpl();
+		List<Language> list = impl.getAll();
+		session.setAttribute("languages", list);
+		session.setAttribute("currbrowsLang", "");
+		session.setAttribute("sessLocale", "");
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {
@@ -45,7 +46,6 @@ public class UserOnlineListener implements HttpSessionListener,
 				.getId());
 		sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
 		historyService.update(sessionhistory);
-		rememberLocale = session.getAttribute("sessLocale").toString();
 	}
 
 	public static int getActiveSessionNumberLogged() {
@@ -54,11 +54,6 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	public static int getActiveSessionNumber() {
 		return activeSessions;
-	}
-
-	public static String getLastLanguage() {
-		return rememberLocale;
-
 	}
 
 	@Override

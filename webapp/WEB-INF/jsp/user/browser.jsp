@@ -13,6 +13,10 @@
 	</ol>
 </c:if>
 <style>
+.hidden {
+	display: none;
+}
+
 #gallery {
 	float: left;
 	width: 100%;
@@ -76,21 +80,10 @@ img.trunc {
 }
 </style>
 
-<div class="btn-group">
-	<button type="button" class="btn btn-primary" onclick="selectAll()">
-		<span class="glyphicon glyphicon-cloud-download"></span>
-		<fmt:message key="All" bundle="${lang}" />
-	</button>
-	<button type="button" class="btn btn-primary" onclick="selectNone()">
-		<span class="glyphicon glyphicon-cloud-download"></span>
-		<fmt:message key="None" bundle="${lang}" />
-	</button>
-</div>
-
 <div id="gallery">
 	<c:if
 		test="${search!=null && search && search_no_result!=null && search_no_result}">
-		<p>Your search returned no results</p>
+		<div class="alert alert-info"><h5><fmt:message key="Your_search_returned_no_results" bundle="${lang}" /></h5></div>
 	</c:if>
 	<!-- upper -->
 	<c:if test="${currentFolder.idUpper!=0 && (search==null || !search)}">
@@ -104,7 +97,7 @@ img.trunc {
 			<div class="cell-desc">
 				<h4>${currentFolder.name}</h4>
 				<h5>
-					Total size:
+					<fmt:message key="Total_size" bundle="${lang}" />
 					<dream:formatSize value="${currentFolder.size}" />
 				</h5>
 			</div>
@@ -202,11 +195,11 @@ img.trunc {
 					</a>
 				</h5>
 				<h5>
-					Size:
+					<fmt:message key="Size" bundle="${lang}" />
 					<dream:formatSize value="${file.size}" />
 				</h5>
 				<h6>
-					Created at:
+					<fmt:message key="Created_at" bundle="${lang}" />
 					<fmt:formatDate type="date" value="${file.date}" />
 				</h6>
 
@@ -215,10 +208,21 @@ img.trunc {
 				<h5>
 					<a data-toggle="modal" href="#DeleteModal"
 						onclick="set('fileiddelete', ${file.id})"> <span
-						class="glyphicon glyphicon-trash"></span>
-					</a> <a href="download?file=${file.name}"> <span
-						class="glyphicon glyphicon-download"></span>
-					</a>
+						class="glyphicon glyphicon-trash"></span></a> <a
+						href="download?file=${file.name}"> <span
+						class="glyphicon glyphicon-download"></span></a>
+					<c:choose>
+						<c:when test="${file.isPublic }">
+							<a href="#" id="link-button${file.id }"
+								onclick="showLink(${file.id})"> <span
+								class="glyphicon glyphicon-link"></span></a>
+						</c:when>
+						<c:otherwise>
+							<a href="#" id="link-button${file.id }"
+								onclick="showLink(${file.id})" class="hidden"> <span
+								class="glyphicon glyphicon-link"></span></a>
+						</c:otherwise>
+					</c:choose>
 				</h5>
 			</div>
 			<div class="btn-group check" data-toggle="buttons">
@@ -228,7 +232,7 @@ img.trunc {
 					class="glyphicon glyphicon-unchecked"></span> </label>
 			</div>
 			<div class="public">
-				<label>public: </label>
+				<label><fmt:message key="public" bundle="${lang}" /> </label>
 				<c:choose>
 					<c:when test="${file.isPublic }">
 						<input type="checkbox" onchange="setPublic(${file.id})"
@@ -240,16 +244,7 @@ img.trunc {
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<c:choose>
-				<c:when test="${file.isPublic }">
-					<button id="link-button${file.id }" type="button"
-						onclick="showLink(${file.id })">LINK</button>
-				</c:when>
-				<c:otherwise>
-					<button id="link-button${file.id }" type="button"
-						onclick="showLink(${file.id })" disabled="disabled">LINK</button>
-				</c:otherwise>
-			</c:choose>
+
 		</div>
 	</c:forEach>
 </div>
@@ -391,21 +386,8 @@ function move(moveable, idtargetFolder) {
     	$('#delete').prop('disabled', true);
 	}
 	
-	
-	
-
-	function setSRC(name) {
-		document.getElementById("img").src = "download?file=" + name;
-	}
-
-	function setPublic(id) {
-		var publicCheckbox = $("input[name=publicfiles][value=" + id + "]");
-		var state = false;
-		if (publicCheckbox.is(':checked')) {
-			state = true;
-		}
-		$("#link-button" + id).prop('disabled', !state);
-		debugger;
+	function showLink(id) {
+		var state = $("input[name=publicfiles][value=" + id + "]").is(':checked');
 		$.ajax({
 			type : "POST",
 			url : 'changepublicstate',
@@ -413,23 +395,33 @@ function move(moveable, idtargetFolder) {
 				'fileId' : id,
 				'state' : state
 			},
+			success: function(data){
+				if(data != null && data != ""){
+					$("#link input").val(data);
+					$('#linkModal').modal('show');
+				}
+			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'
 						+ thrownError);
 			}
 		});
 	}
+	
 
-	function showLink(id) {
+	function setSRC(name) {
+		document.getElementById("img").src = "download?file=" + name;
+	}
+
+	function setPublic(id) {
+		var state = $("input[name=publicfiles][value=" + id + "]").is(':checked');
+		$("#link-button" + id).toggleClass("hidden");
 		$.ajax({
 			type : "POST",
-			url : 'showlink',
+			url : 'changepublicstate',
 			data : {
-				'fileId' : id
-			},
-			success : function(data) {
-				$("#link input").val(data);
-				$('#linkModal').modal('show');
+				'fileId' : id,
+				'state' : state
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'

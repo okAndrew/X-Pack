@@ -17,6 +17,11 @@ public class LocaleServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		session.setAttribute("sessLocale", request.getParameter("language"));
-		response.sendRedirect(request.getHeader("referer"));
+		if (request.getHeader("referer").endsWith("signout")) {
+			response.sendRedirect("homepage");
+		} else {
+			response.sendRedirect(request.getHeader("referer"));
+		}
+
 	}
 }

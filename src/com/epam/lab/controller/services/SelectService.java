@@ -69,7 +69,7 @@ public class SelectService<T> {
 		return c;
 	}
 
-	private String getOrderBy(String orderBy, Class type) {
+	private String getOrderBy(String orderBy, Class<?> type) {
 		String order = null;
 		Field[] fields = type.getDeclaredFields();
 

@@ -12,7 +12,9 @@ public interface Token4AuthService extends AbstractService<Token4Auth> {
 
 	public int deleteNotActiveTokens();
 
-	Folder verifyAccessRequest(String token, long idFolder)
+	public Folder verifyAccessRequest(String token, long idFolder)
 			throws TokenNotFoundException;
+
+	public boolean isActive(Token4Auth tokenData);
 
 }

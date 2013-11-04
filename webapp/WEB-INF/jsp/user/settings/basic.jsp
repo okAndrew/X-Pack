@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="row">
 	<div class="col-md-8">
-		<h3>Basic info</h3>
+		<h3><fmt:message key="Basic_info" bundle="${lang}" /></h3>
 		<p>
 			<fmt:message key="Tariff" bundle="${lang}" />
 			: <strong>${tariff.name}</strong>
@@ -24,7 +24,7 @@
 			<div class="panel-body">
 				<c:if test="${message != null}">
 					<div id="errorinfo" class="alert alert-danger">
-						${message}
+						<fmt:message key="${message}" bundle="${lang}" />
 					</div>
 				</c:if>
 				<form action="EditUserLoginServlet" method="post">
@@ -46,7 +46,7 @@
 				</form>
 				<c:if test="${editLoginError != null}">
 					<div class="alert alert-danger">
-						<p>${editLoginError}</p>
+						<p><fmt:message key="${editLoginError}" bundle="${lang}" /></p>
 					</div>
 				</c:if>
 				<form action="EditEmailServlet" method="post">
@@ -67,7 +67,7 @@
 				</form>
 				<c:if test="${editEmailError != null}">
 					<div class="alert alert-danger" >
-						<p>${editEmailError}</p>
+						<p><fmt:message key="${editEmailError}" bundle="${lang}" /></p>
 					</div>
 				</c:if>
 				<!-- <div class="form-group">

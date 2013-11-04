@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <div class="paginator-main">
 	<div class="page-pages">
@@ -8,7 +9,9 @@
 	</div>
 	<div class="page-option">
 		<div class="btn-group">
-			<button type="button" class="btn btn-default">Rows</button>
+			<button type="button" class="btn btn-default">
+				<fmt:message key="Rows" bundle="${lang}" />
+			</button>
 			<button type="button" class="btn btn-default dropdown-toggle"
 				data-toggle="dropdown">
 				<span class="caret"></span>

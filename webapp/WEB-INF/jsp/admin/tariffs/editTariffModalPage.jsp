@@ -21,7 +21,7 @@
 						<div class="navbar-collapse collapse">
 							<c:if test="${editTarMessage != null}">
 								<div id="errorinfo" class="alert alert-danger"
-									style="display: none;">${editTarMessage}</div>
+									style="display: none;"><fmt:message key="${editTarMessage}" bundle="${lang}" /></div>
 							</c:if>
 
 							<table class="table">
@@ -48,7 +48,7 @@
 									</tr>
 
 									<tr>
-										<td><fmt:message key="Add_new_tariff" bundle="${lang}" />Price</td>
+										<td><fmt:message key="Price" bundle="${lang}" /></td>
 										<td><input type="text" name="price"
 											class="form-control midle" placeholder="${tariff.price}" /></td>
 									</tr>

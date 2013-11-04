@@ -77,7 +77,7 @@ function checkboxesStatus() {
 							<fmt:message key="Delete" bundle="${lang}" />
 						</button>
 						<button disabled="disabled" type="submit" class="btn btn-default" id="restore" name="action"
-							value="restore">Restore</button>
+							value="restore"><fmt:message key="Restore" bundle="${lang}" /></button>
 						<button disabled="disabled" type="submit" class="btn btn-default" id="activated" name="action"
 							value="activated">
 							<fmt:message key="Activate" bundle="${lang}" />

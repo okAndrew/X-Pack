@@ -63,3 +63,8 @@ div .panel.panel-default.bottom {
 	width: auto;
 	float: left;
 }
+
+div .rowSpace {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}

@@ -8,12 +8,12 @@
 
 <div class="col-xs-6">
 <div id="chart1" style="height: 350px; width: 550px;"></div>
-<button class="button-reset1">Reset Zoom</button>
+<button class="button-reset1"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
 </div>
 
 <div class="col-xs-6">
 <div id="chart2" style="height: 350px; width: 550px;"></div>
-<button class="button-reset2">Reset Zoom</button>
+<button class="button-reset2"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
 </div>
 
 
@@ -21,15 +21,15 @@
 	<table class="table zebra-striped table-hover">
 		<tbody>
 			<tr>
-				<td>Download last mounth</td>
+				<td><fmt:message key="Download_last_month" bundle="${lang}" /></td>
 				<td><dream:formatSize value="${downlLastMounts}"/></td>
 			</tr>
 			<tr>
-				<td>Upload last mounts</td>
+				<td><fmt:message key="Upload_last_month" bundle="${lang}" /></td>
 				<td><dream:formatSize value="${uploadLastMounts}"/></td>
 			</tr>
 			<tr>
-				<td>Download last week</td>
+				<td><fmt:message key="Download_last_week" bundle="${lang}" /></td>
 				<td><dream:formatSize value="${downlLastWeek}"/></td>
 			</tr>
 			<tr>
@@ -103,7 +103,7 @@
 							},
 							min : 'October 1, 2013',
 							tickOptions : {
-								formatString : '%b %#d, %y'
+								formatString : '%d/%m/%Y'
 							}
 						}
 					},
@@ -131,7 +131,7 @@
 							},
 							min : 'October 1, 2013',
 							tickOptions : {
-								formatString : '%b %#d, %y'
+								formatString : '%d/%m/%Y'
 							},
 						}
 					},

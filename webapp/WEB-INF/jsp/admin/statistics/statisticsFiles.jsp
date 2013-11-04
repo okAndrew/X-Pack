@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script type="text/javascript" src="res/js/utils.js"></script>
 <div id="example"></div>
 
@@ -9,8 +10,8 @@
 	<thead>
 		<tr>
 			<td>#</td>
-			<td>Type</td>
-			<td>Size</td>
+			<td><fmt:message key="Type"	bundle="${lang}" /></td>
+			<td><fmt:message key="Size" bundle="${lang}" /></td>
 		</tr>
 	</thead>
 	<tbody>

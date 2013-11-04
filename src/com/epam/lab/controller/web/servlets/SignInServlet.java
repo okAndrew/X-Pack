@@ -54,12 +54,12 @@ public class SignInServlet extends HttpServlet {
 				response.sendRedirect(USER_PAGE);
 			} else {
 				request.setAttribute("message",
-						"You is not activated. Please check you email");
+						"You_is_not_activated._Please_check_you_email");
 				dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
 				dispatcher.forward(request, response);
 			}
 		} else {
-			request.setAttribute("message", "Check email/password");
+			request.setAttribute("message", "Check_email/password");
 			dispatcher = request.getRequestDispatcher(SIGNIN_JSP);
 			dispatcher.forward(request, response);
 		}

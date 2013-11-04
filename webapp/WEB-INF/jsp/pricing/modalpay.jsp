@@ -8,7 +8,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title">
-					Pay
+					<fmt:message key="Pay" bundle="${lang}" />
 				</h4>
 			</div>
 			<div class="modal-body">
@@ -18,7 +18,7 @@
 				<form action="CreatePaymentServlet" method="post" id="form_pay">
 					<div class="form-group">
 						<input type="text" id="tariffId" name="tariffId" hidden="yes" />
-						<label>Months</label>
+						<label><fmt:message key="Months" bundle="${lang}" /></label>
 						<select name="months">
 							<option>1</option>
 							<option>3</option>
@@ -35,8 +35,8 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<fmt:message key="Close" bundle="${lang}" />
 				</button>
-				<input type="submit" form="form_pay" value="Send" />
-				<button class="btn btn-primary" id="form_pay_submit">Pay</button>
+				<input type="submit" form="form_pay" value=<fmt:message key="Send" bundle="${lang}" /> />
+				<button class="btn btn-primary" id="form_pay_submit"><fmt:message key="Pay" bundle="${lang}" /></button>
 			</div>
 		</div>
 	</div>

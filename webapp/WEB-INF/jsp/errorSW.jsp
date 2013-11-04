@@ -79,7 +79,7 @@
 <body>
 	<h3 id="intro">A long time ago your website page went far, far
 		away...</h3>
-	<audio id="music" preload="auto" autobuffer controls>
+	<audio id="music" preload="auto" autobuffer>
 		<source src="http://dl.dropbox.com/u/16979719/sw_music.ogg"></source>
 	</audio>
 	<div id="logodiv">
@@ -89,7 +89,19 @@
 		<div id="text">
 			<h2>EPISODE 404</h2>
 			<h2>NO HOPE</h2>
-			<p>Go back to the DreamHost home page.</p>
+			<p>
+				Go back to the <a href="homepage">DreamHost</a> home page.
+			</p>
+			<p>Ever feel you're in the wrong place</p>
+			<h3>
+				If you're the <strong>site owner,</strong> one of two things
+				happened:
+			</h3>
+			<ol>
+				<li>1) You entered an incorrect URL into your browser's address
+					bar, or</li>
+				<li>2) You haven't uploaded content.</li>
+			</ol>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi.
 				Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin.

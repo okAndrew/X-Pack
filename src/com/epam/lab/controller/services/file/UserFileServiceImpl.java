@@ -21,6 +21,7 @@ import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.TimeStampManager;
+import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.FileType;
 import com.epam.lab.model.FilesTypesSize;
 import com.epam.lab.model.Folder;
@@ -243,11 +244,11 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	 */
 	private String getCurDatePath() {
 		Calendar now = Calendar.getInstance();
-	
+
 		int year = now.get(Calendar.YEAR);
 		int month = now.get(Calendar.MONTH);
 		int day = now.get(Calendar.DATE);
-	
+
 		StringBuilder temp = new StringBuilder().append(year)
 				.append(File.separator).append(month).append(File.separator)
 				.append(day);
@@ -259,10 +260,10 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		File newFolder = null;
 		StringBuilder path = new StringBuilder().append(ROOT_PATH)
 				.append(getCurDatePath()).append(File.separator);
-	
+
 		while (newFolder == null) {
 			File folder = new File(path.toString() + cur);
-	
+
 			// if folder !exist
 			if (folder.mkdir()) {
 				newFolder = folder;
@@ -270,7 +271,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 				cur++;
 			}
 		}
-	
+
 		return newFolder;
 	}
 
@@ -340,5 +341,18 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
 		String extention = file.getNameIncome().substring(lastPointIndex);
 		return extention;
+	}
+
+	public void editFileOrFolder(String name, long fileId, long upperId,
+			long folderId, long userId) {
+		FolderServiceImpl service = new FolderServiceImpl();
+		if ((fileId == 0) && !service.check(name, userId, upperId)
+				&& Validator.FILE_NAME.validate(name)) {
+			Folder folder = service.get(folderId);
+			folder.setName(name);
+			service.update(folder);
+		} else if ((folderId == 0) && Validator.FILE_NAME.validate(name)) {
+			rename(fileId, name);
+		}
 	}
 }

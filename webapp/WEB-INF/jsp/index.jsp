@@ -29,7 +29,7 @@
 		<div class="row">
 			<div class="col-lg-4">
 				<h2><fmt:message key="Web_Hosting" bundle="${lang}" /></h2>
-				<p><fmt:message key="Cost-effective_web_hosting_for_WordPress_bloggers,_website_designers,_e-commerce_and_small_business." bundle="${lang}" /></p>
+				<p><fmt:message key="Cost-effective_web_hosting_for_WordPress_bloggers,_website_designers,_e-commerce_and_small_business" bundle="${lang}" /></p>
 				<p>
 					<a class="btn btn-default" href="#"><fmt:message key="View_details" bundle="${lang}" /> &raquo;</a>
 				</p>

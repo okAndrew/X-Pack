@@ -77,6 +77,7 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	@Override
 	public boolean checkEmailById(String email, long userId) {
 		String sql = "SELECT * FROM users WHERE email=? AND id!=?";
 		User result = queryExecutor.executeQuerySingle(User.class, sql, email,
@@ -87,6 +88,7 @@ public class UserDAOImpl implements UserDAO {
 		return false;
 	}
 
+	@Override
 	public boolean ckeckLoginById(String login, long userId) {
 		String sql = "SELECT * FROM users WHERE login=? AND id!=?";
 		User result = queryExecutor.executeQuerySingle(User.class, sql, login,

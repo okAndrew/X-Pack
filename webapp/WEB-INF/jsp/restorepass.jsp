@@ -18,7 +18,7 @@
 		var dotpos = email.lastIndexOf(".");
 		
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
-			setMessage("Not_a_valid_e-mail_address", errorinfo);
+			setMessage("Not a valid e-mail address", errorinfo);
 			return false;
 		}
 		
@@ -38,31 +38,17 @@
 			<h2 class="form-signin-heading">Restore password</h2>
 			<div id="errorinfo" class="alert alert-danger" style="display: none;">
 				<c:if test="${message != null}">
-					<fmt:message key="${message}" bundle="${lang}" />
+					${message}
 				</c:if>
 			</div>
 			<c:if test="${message != null}">
 				<div class="errorinfo">${message}</div>
 			</c:if>
-			<input id="emailInput" type="text" name="email"	class="form-control" placeholder="Email" autofocus="autofocus">
+			<input type="hidden" name="email" value="${email}" />
+			<input type="hidden" name="token" value="${token}" />
+			<input type="password" name="password" class="form-control first" placeholder="password" autofocus="autofocus" />
+			<input type="password" name="passwordRetype" class="form-control last" placeholder="password" />
 			<button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="Send" bundle="${lang}" /></button>
-		</form>
-	</div>
-</body>
-	<jsp:include page="menu.jsp"></jsp:include>
-	<div class="container">
-		<form action="SendRestorePass" method="post" class="form-signin" name="form-signup" onsubmit="return validateForm()">
-			<h2 class="form-signin-heading"> <fmt:message key="Please_sign_in" bundle="${lang}" /> </h2>
-			<div id="errorinfo" class="alert alert-danger" style="display: none;">
-				<c:if test="${message != null}">
-					<fmt:message key="${message}" bundle="${lang}" />
-				</c:if>
-			</div>
-			<c:if test="${message != null}">
-				<div class="errorinfo">${message}</div>
-			</c:if>
-			<input id="emailInput" type="text" name="email"	class="form-control first last" placeholder="Email" autofocus="autofocus">
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
 		</form>
 	</div>
 </body>

@@ -17,7 +17,8 @@ public class FileDAOImpl implements FileDAO {
 				id);
 		return result;
 	}
-
+	
+	@Override
 	public UserFile getByName(String fName) {
 		String sql = "SELECT * FROM files WHERE name=?";
 		return queryExecutor.executeQuerySingle(UserFile.class, sql, fName);

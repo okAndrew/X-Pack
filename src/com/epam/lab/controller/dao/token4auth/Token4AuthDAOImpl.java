@@ -45,11 +45,13 @@ public class Token4AuthDAOImpl implements Token4AuthDAO {
 		return queryExecutor.executeUpdate(sql, id);
 	}
 
+	@Override
 	public Token4Auth getByToken(String token) {
 		String sql = "SELECT * FROM tokens4auth WHERE token=?";
 		return queryExecutor.executeQuerySingle(type, sql, token);
 	}
 
+	@Override
 	public int deleteNotActiveTokens() {
 		String sql = "DELETE FROM tokens4auth WHERE destroy_date < ?";
 		Timestamp curTime = new Timestamp(new Date().getTime());

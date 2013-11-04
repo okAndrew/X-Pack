@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.epam.lab.controller.exceptions.FileTooLargeException;
@@ -27,12 +26,11 @@ import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.token4auth.Token4AuthService;
 import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.controller.utils.JSONBuilder;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.User;
 import com.epam.lab.model.UserFile;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 
@@ -42,9 +40,11 @@ public class FilesWebService {
 	private static Logger logger = Logger.getLogger(FilesWebService.class);
 	private static final String TOKEN_NOT_FOUND = "Token not found";
 	private static final String FOLDER_NOT_FOUND = "Folder not found";
+	private static final String FILE_NOT_FOUND = "File not found";
 	private static final String FILE_TOO_LARGE = "File too large for upload";
 	private static final String ERROR_UPLOADING = "Error uploading";
 	private Token4AuthService tokenService = new Token4AuthServiceImpl();
+	private JSONBuilder jsonBuilder = new JSONBuilder();
 
 	@POST
 	@Path("upload/{idFolder}/{token}")
@@ -54,12 +54,16 @@ public class FilesWebService {
 			@PathParam("idFolder") String idFolderStr,
 			FormDataMultiPart multiPart) {
 		JSONArray resultArray = null;
-		long idFolder = Long.valueOf(idFolderStr);
+		Long idFolder = Long.parseLong(idFolderStr);
+		if (idFolder == null) {
+			return Response.status(404).entity(idFolderStr + FOLDER_NOT_FOUND)
+					.build();
+		}
 		Folder folder = null;
 		try {
 			folder = tokenService.verifyAccessRequest(token, idFolder);
 		} catch (TokenNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e);
 			return Response.status(401).entity(TOKEN_NOT_FOUND).build();
 		}
 		if (folder == null) {
@@ -75,20 +79,27 @@ public class FilesWebService {
 	@GET
 	@Path("getfrom/{idfolder}/{token}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONArray getFilesFromFolder(@PathParam("token") String token,
-			@PathParam("idfolder") int idFolder) {
+	public Response getFilesFromFolder(@PathParam("token") String token,
+			@PathParam("idfolder") String idFolderStr) {
 		JSONArray resultArray = null;
+		Long idFolder = Long.parseLong(idFolderStr);
+		if (idFolder == null) {
+			return Response.status(404).entity(idFolderStr + FOLDER_NOT_FOUND)
+					.build();
+		}
 		Folder folder = null;
 		try {
 			folder = tokenService.verifyAccessRequest(token, idFolder);
 		} catch (TokenNotFoundException e) {
 			e.printStackTrace();
+			return Response.status(401).entity(TOKEN_NOT_FOUND).build();
 		}
 		if (folder == null) {
+			return Response.status(404).entity(FOLDER_NOT_FOUND).build();
 		} else {
-			resultArray = getFiles(idFolder);
+			resultArray = getFiles(folder.getId());
 		}
-		return resultArray;
+		return Response.status(201).entity(resultArray).build();
 	}
 
 	@DELETE
@@ -96,16 +107,28 @@ public class FilesWebService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteFiles(@PathParam("token") String token,
-			List<UserFile> files) {
-		Token4AuthServiceImpl tokenService = new Token4AuthServiceImpl();
+			List<Long> idFiles) {
 		Token4Auth tokenData = tokenService.getByToken(token);
-		// tokenData
-		UserFileServiceImpl fileService = new UserFileServiceImpl();
-		for (UserFile file : files) {
-
-			fileService.delete(file.getId());
+		if (tokenData == null || tokenService.isActive(tokenData) == false) {
+			return Response.status(401).entity(TOKEN_NOT_FOUND).build();
 		}
-		return Response.status(200).build();
+		JSONArray errors = new JSONArray();
+		UserFileServiceImpl fileService = new UserFileServiceImpl();
+		for (Long idFile : idFiles) {
+			UserFile userFile = fileService.get(idFile);
+			if (userFile != null
+					&& userFile.getIdUser() == tokenData.getIdUser()) {
+				fileService.delete(idFile);
+			} else {
+				errors.put(jsonBuilder.createJsonQuality("error",
+						FILE_NOT_FOUND + idFile));
+			}
+		}
+		if (errors.length() != 0) {
+			return Response.status(400).entity(errors).build();
+		} else {
+			return Response.status(200).build();
+		}
 	}
 
 	private JSONArray getFiles(long idFolder) {
@@ -113,7 +136,7 @@ public class FilesWebService {
 		List<UserFile> listFiles = fileService.getByFolderId(idFolder);
 		JSONArray jsonArray = new JSONArray();
 		for (UserFile userFile : listFiles) {
-			JSONObject jsonFile = toJson(userFile);
+			JSONObject jsonFile = jsonBuilder.userFileToJson(userFile);
 			jsonArray.put(jsonFile);
 		}
 		return jsonArray;
@@ -154,36 +177,11 @@ public class FilesWebService {
 		}
 		JSONObject jsonObject = null;
 		if (uploadedFile != null) {
-			jsonObject = toJson(uploadedFile);
+			jsonObject = jsonBuilder.userFileToJson(uploadedFile);
 		} else {
-			jsonObject = buildJsonError(message);
+			jsonObject = jsonBuilder.createJsonQuality("error", message);
 		}
 		return jsonObject;
 	}
 
-	private JSONObject buildJsonError(String mes) {
-		JSONObject jsonOb = new JSONObject();
-		try {
-			jsonOb.put("error", mes);
-		} catch (JSONException e) {
-			logger.error(e);
-		}
-		return jsonOb;
-	}
-
-	private JSONObject toJson(UserFile userFile) {
-		Gson jsonOb = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-				.create();
-		String json = jsonOb.toJson(userFile);
-		JSONObject result = null;
-		try {
-			result = new JSONObject(json);
-			result.put("url", "http://localhost:8080/dreamhost/download?file="
-					+ userFile.getName());
-		} catch (JSONException e) {
-			e.printStackTrace();
-			logger.error(e);
-		}
-		return result;
-	}
 }

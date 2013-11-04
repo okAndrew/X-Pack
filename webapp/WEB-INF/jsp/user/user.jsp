@@ -140,13 +140,11 @@ img.img {
 									<span class="glyphicon glyphicon-trash"></span>
 									<fmt:message key="Delete" bundle="${lang}" />
 								</button>
-								<button type="button" onclick="loadBrowserContent()"
-									name="search" class="btn btn-default" id="search">
-									<fmt:message
-										key="Test_dynynamic_load" bundle="${lang}" /></button>
+
 							</div>
 							<div class="btn-group select-all" data-toggle="buttons">
-								<label class="btn btn-default"><fmt:message key="All" bundle="${lang}" />: <input type="checkbox"
+								<label class="btn btn-default"><fmt:message key="All"
+										bundle="${lang}" />: <input type="checkbox"
 									class="select-all-input" onchange="toggle(this)"
 									name="selectAll"> <span
 									class="glyphicon glyphicon-unchecked"></span> </label>
@@ -162,6 +160,11 @@ img.img {
 							</div>
 						</div>
 					</nav>
+					<c:if test="${message!=null }">
+						<div class="alert alert-warning">
+							<p>${message}</p>
+						</div>
+					</c:if>
 					<div id="browser">
 						<jsp:include page="browser.jsp"></jsp:include>
 					</div>

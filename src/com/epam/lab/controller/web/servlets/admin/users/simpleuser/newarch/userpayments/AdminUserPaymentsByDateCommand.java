@@ -29,7 +29,7 @@ public class AdminUserPaymentsByDateCommand implements
 					startdateRequest, enddateRequest);
 			request.setAttribute("listPayments", list);
 			request.setAttribute("notFullList", true);
-			request.setAttribute("messagePeriod", "Your_payments_for_period"+" :  "
+			request.setAttribute("messagePeriod", "Your_payments_for_period"
 					+ startdateRequest + " - " + enddateRequest);
 		} else {
 			request.setAttribute("message", "Please_select_period");

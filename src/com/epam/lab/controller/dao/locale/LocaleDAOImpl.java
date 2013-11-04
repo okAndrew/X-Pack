@@ -32,7 +32,11 @@ public class LocaleDAOImpl implements LocaleDAO {
 
 	@Override
 	public int insert(Locale object) {
-		// TODO Auto-generated method stub
+		try {
+			throw new NoSupportedActionException("No support this method");
+		} catch (NoSupportedActionException e) {
+			logger.error("use no suropted method" + e);
+		}
 		return 0;
 	}
 

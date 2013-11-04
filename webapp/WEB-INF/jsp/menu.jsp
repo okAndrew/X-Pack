@@ -34,10 +34,13 @@
 					class="dropdown-toggle" data-toggle="dropdown"><fmt:message
 							key="About" bundle="${lang}" /> <b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="about"><fmt:message key="Project" bundle="${lang}" /></a></li>
-						<li><a href="team"><fmt:message key="Team" bundle="${lang}" /></a></li>
+						<li><a href="about"><fmt:message key="Project"
+									bundle="${lang}" /></a></li>
+						<li><a href="team"><fmt:message key="Team"
+									bundle="${lang}" /></a></li>
 					</ul></li>
-			</ul><fmt:message key="Logger" bundle="${lang}" />
+			</ul>
+			<fmt:message key="Logger" bundle="${lang}" />
 
 			<div class="navbar-form navbar-right">
 				<c:if test="${sessionScope.userLogin == null}">
@@ -60,24 +63,25 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="settings"><fmt:message key="Settings" bundle="${lang}" /></a></li>
+							<li><a href="settings"><fmt:message key="Settings"
+										bundle="${lang}" /></a></li>
 							<li class="divider"></li>
 							<li><a href="signout"><fmt:message key="signout"
 										bundle="${lang}" /></a></li>
 						</ul>
 					</div>
 				</c:if>
-			
+
 				<div class="btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle"
-						data-toggle="dropdown">${currentLanguage.language}</button>
-					<ul class="dropdown-menu" role="menu">
+					<img src="${currentLanguage.pathImage}" data-toggle="dropdown">
+					<div class="dropdown-menu pull-right">
 						<c:forEach items="${languages}" var="language">
-							<li><a href="locale?language=${language.defaulLocale}">${language.name}</a></li>
+							<li><a href="locale?language=${language.defaulLocale}"><img
+								src="${language.pathImage}" >${language.name}</a></li>
 						</c:forEach>
-					</ul>
+					</div>
 				</div>
-			
+
 			</div>
 		</div>
 	</div>

@@ -15,10 +15,14 @@
 					</h4>
 				</div>
 				<div class="modal-body">
+					<div class="alert alert-info" id="edit-alert">Can only
+						consist of symbols ".","(", ")", "-", digits, and letters of the
+						English, Ukrainian, Russian or German alphabet</div>
 					<input type="hidden" id="fileidedit" name="fileid"> <input
 						type="hidden" id="folderidedit" name="folderid"> <input
 						class="form-control" type="text" name="editname"
-						placeholder="name">
+						placeholder="name"
+						pattern="[A-Za-zА-Яа-яЁёІіЇїЙйЄє0-9-._\\s\\(\\)]{1,50}$">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">

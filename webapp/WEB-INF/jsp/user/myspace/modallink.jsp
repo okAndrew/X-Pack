@@ -15,7 +15,7 @@
 			</div>
 			<div class="modal-body" id="link">
 				<input class="form-control" type="text" name="filelink"
-					placeholder="Link to download file" />
+					placeholder="Link to download file" onClick="this.select();" />
 			</div>
 		</div>
 	</div>

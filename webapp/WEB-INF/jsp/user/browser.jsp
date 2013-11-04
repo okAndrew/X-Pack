@@ -83,7 +83,7 @@ img.trunc {
 <div id="gallery">
 	<c:if
 		test="${search!=null && search && search_no_result!=null && search_no_result}">
-		<p>Your search returned no results</p>
+		<div class="alert alert-info"><h5>Your search returned no results</h5></div>
 	</c:if>
 	<!-- upper -->
 	<c:if test="${currentFolder.idUpper!=0 && (search==null || !search)}">

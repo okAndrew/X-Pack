@@ -10,13 +10,14 @@
 				<h4 class="modal-title"><fmt:message key="Create_folder" bundle="${lang}" /></h4>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-info">
-					Must consist of symbols only ... Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ult
-				</div>
+				<div class="alert alert-info" id="edit-alert">Can only consist
+					of symbols ".","(", ")", "-", digits, and letters of the English,
+					Ukrainian, Russian or German alphabet</div>
 				<form id="form_create_folder" action="createfolder" method="post">
 					<div class="form-group">
-						<label>Folder name</label>
-						<input type="text" name="foldername" placeholder="folder name" class="form-control" />
+						<label>Folder name</label> <input type="text" name="foldername"
+							placeholder="folder name" class="form-control" value=""
+							pattern="[A-Za-zА-Яа-яЁёІіЇїЙйЄє0-9-._\\s\\(\\)]{1,50}$" />
 					</div>
 				</form>
 			</div>

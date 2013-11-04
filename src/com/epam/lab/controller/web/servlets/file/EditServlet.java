@@ -23,6 +23,7 @@ public class EditServlet extends HttpServlet {
 		UserFileServiceImpl service = new UserFileServiceImpl();
 		long upperId = (long) session.getAttribute("folderid");
 		long userId = (long) session.getAttribute("userid");
+		boolean result = false;
 		if (request.getParameter("fileid") != null
 				&& !request.getParameter("fileid").equals("")) {
 			long fileId = Long.parseLong(request.getParameter("fileid"));
@@ -30,8 +31,11 @@ public class EditServlet extends HttpServlet {
 		} else if (request.getParameter("folderid") != null
 				&& !request.getParameter("folderid").equals("")) {
 			long folderId = Long.parseLong(request.getParameter("folderid"));
-			service.editFileOrFolder(name, 0, upperId, folderId, userId);
+			result = service.editFileOrFolder(name, 0, upperId, folderId, userId);
 		}
-		response.sendRedirect(USER_PAGE);
+		if(result == true){
+			request.setAttribute("message", "Folder with this name is already exist");
+		}
+		request.getRequestDispatcher(USER_PAGE).include(request, response);
 	}
 }

@@ -343,16 +343,22 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return extention;
 	}
 
-	public void editFileOrFolder(String name, long fileId, long upperId,
+	public boolean editFileOrFolder(String name, long fileId, long upperId,
 			long folderId, long userId) {
+		boolean result = false;
 		FolderServiceImpl service = new FolderServiceImpl();
 		if ((fileId == 0) && !service.check(name, userId, upperId)
 				&& Validator.FILE_NAME.validate(name)) {
 			Folder folder = service.get(folderId);
 			folder.setName(name);
 			service.update(folder);
-		} else if ((folderId == 0) && Validator.FILE_NAME.validate(name)) {
-			rename(fileId, name);
+		} else {
+			result = true;
 		}
+		if ((folderId == 0) && Validator.FILE_NAME.validate(name)) {
+			rename(fileId, name);
+			result = false;
+		}
+		return result;
 	}
 }

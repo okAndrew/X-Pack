@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.epam.lab.controller.services.locale.LocaleServiceImpl;
+import com.epam.lab.controller.services.language.LanguageServiceImpl;
 
 @WebServlet("/homepage")
 public class HomePageServlet extends HttpServlet {
@@ -24,10 +24,11 @@ public class HomePageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		LocaleServiceImpl locImpl = new LocaleServiceImpl();
+		LanguageServiceImpl langImpl = new LanguageServiceImpl();
 		if (session.getAttribute("sessLocale").toString().equals("")) {
 			session.setAttribute("sessLocale", request.getLocale());
-			session.setAttribute("currentLanguage", locImpl.getByLocale(session
+
+			session.setAttribute("currentLanguage", langImpl.getLang(session
 					.getAttribute("sessLocale").toString()));
 		}
 		RequestDispatcher requestDispatcher = request

@@ -49,4 +49,21 @@
 		</form>
 	</div>
 </body>
+	<jsp:include page="menu.jsp"></jsp:include>
+	<div class="container">
+		<form action="SendRestorePass" method="post" class="form-signin" name="form-signup" onsubmit="return validateForm()">
+			<h2 class="form-signin-heading"> <fmt:message key="Please_sign_in" bundle="${lang}" /> </h2>
+			<div id="errorinfo" class="alert alert-danger" style="display: none;">
+				<c:if test="${message != null}">
+					${message}
+				</c:if>
+			</div>
+			<c:if test="${message != null}">
+				<div class="errorinfo">${message}</div>
+			</c:if>
+			<input id="emailInput" type="text" name="email"	class="form-control first last" placeholder="Email" autofocus="autofocus">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+		</form>
+	</div>
+</body>
 </html>

@@ -17,7 +17,8 @@ public class AdminActivateUsersCommand implements AdminUsersPageCommand {
 			return page;
 		} else {
 			UserServiceImpl service = new UserServiceImpl();
-			service.cancelBanUsers(request.getParameterValues("checkUser"));
+			Long adminId = (Long) request.getSession().getAttribute("userid");
+			service.cancelBanUsers(request.getParameterValues("checkUser"), adminId);
 			page = "adminUsersPage";
 		}
 		return page;

@@ -3,6 +3,7 @@ package com.epam.lab.controller.utils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 public class MD5Encrypter {
 
@@ -28,4 +29,9 @@ public class MD5Encrypter {
 		return hashPass;
 	}
 
+	public String generateRandomHash() {
+		String text = TimeStampManager.getFormatCurrentTimeStamp().toString()
+				+ new Random().nextLong();
+		return encrypt(text);
+	}
 }

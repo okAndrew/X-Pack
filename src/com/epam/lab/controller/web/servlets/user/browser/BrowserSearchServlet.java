@@ -10,32 +10,48 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
-import com.epam.lab.model.UserFile;
+import com.epam.lab.controller.services.user.SearchService;
+import com.epam.lab.controller.services.user.SearchServiceImpl;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.UserFile;
 
 @WebServlet("/search")
 public class BrowserSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SEARCH_JSP = "WEB-INF/jsp/user/search.jsp";
-	private static final String USER_PAGE = "userpage";
+	private static final String BROWSER_JSP = "WEB-INF/jsp/user/browser.jsp";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		long userId = (long) session.getAttribute("userid");
-		if (request.getParameter("searchtext") != null) {
-			String text = request.getParameter("searchtext");
-			List<UserFile> files = new UserFileServiceImpl().getSearchedFiles(userId, text);
-			List<Folder> folders = new FolderServiceImpl().getSearched(
-					userId, text);
-			request.setAttribute("files", files);
-			request.setAttribute("folders", folders);
-			request.getRequestDispatcher(SEARCH_JSP).forward(request, response);
-		} else {
-			response.sendRedirect(USER_PAGE);
+		HttpSession session = request.getSession();
+		long folderId = (long) session.getAttribute("folderid");
+		String searchText = request.getParameter("searchtext");
+		if (searchText != null && !searchText.equals("")) {
+			SearchService service = new SearchServiceImpl();
+			FolderService folderService = new FolderServiceImpl();
+			if (service.prepareLists(folderId, searchText)) {
+				
+				List<UserFile> files = service.getFiles();
+				List<Folder> folders = service.getFolders();
+				Folder currentFolder = folderService.get(folderId);
+				List<Folder> folderPath = folderService.getFolderPath(folderId);
+
+				request.setAttribute("files", files);
+				request.setAttribute("folders", folders);
+				request.setAttribute("currentFolder", currentFolder);
+				request.setAttribute("folderpath", folderPath);
+				request.setAttribute("search", true);
+				request.getRequestDispatcher(BROWSER_JSP).include(request,
+						response);
+				
+			} else {
+				//Your search returned no results
+				request.setAttribute("search", true);
+				request.setAttribute("search_no_result", true);
+				request.getRequestDispatcher(BROWSER_JSP).include(request,
+						response);
+			}
 		}
 	}
-
 }

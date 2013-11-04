@@ -6,80 +6,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DreamHost(Administrator) | Users</title>
 
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
-	type="text/javascript"></script>
-
 <script src="res/js/bootstrap.js"></script>
+<script type="text/javascript" src="res/js/utils.js"></script>
 
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/signui.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/adminuserpage.css" rel="stylesheet" />
 
-<style type="text/css">
-.Container {
-	padding-top: 70px;
-	max-width: 1200px;
-	margin: auto;
-}
-</style>
+<script type="text/javascript">
+	var page = checkPage("${param.page}");
+	var perPage = checkCount("${param.count}");
+	var orderBy = checkOrderBy("${param.orderby}");
+	var sort = checkSort("${param.sop}");
+	var pageCount = Math.ceil(parseInt("${usersCount}") / perPage);
+	var linkVar = "adminUsersPage";
+</script>
+
+<script>
+function checkboxesStatus() {
+	  var checkboxes = document.getElementsByName('checkUser');
+	  for ( var i = 0, n = checkboxes.length; i < n; i++) {
+	   if (checkboxes[i].checked === true) {
+		     $('#delete').prop('disabled', false);
+		     $('#restore').prop('disabled', false);
+		     $('#activated').prop('disabled', false);
+		     $('#baned').prop('disabled', false);
+		     $('#send').prop('disabled', false);
+	    return;
+	   }
+	  }
+	     $('#delete').prop('disabled', true);
+	     $('#restore').prop('disabled', true);
+	     $('#activated').prop('disabled', true);
+	     $('#baned').prop('disabled', true);
+	     $('#send').prop('disabled', true);
+	 }
+</script>
+
+<script type="text/javascript">
+	$("#addNewUserSubmit").click(function() {
+		alert("test");
+		$("#addNewUser").submit();
+	});
+</script>
+
 </head>
-
-<body>
+<body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
-	<jsp:include page="addUserModalPage.jsp"></jsp:include>
+	
 
-	<div class="Container">
-		<div class="panel panel-default">
-			<!-- Default panel contents -->
-			<div class="panel-heading">
-				<fmt:message key="Users" bundle="${lang}" />
-			</div>
+	<c:if test="${messageAddUser != null}">
+		<script>
+			$('#addUserModal').modal('show');
+		</script>
+	</c:if>
 
+	<div class="container">
+		<div class="panel panel-default main">
 			<div class="panel-body">
 				<form action="employeeControllerUsers" method="post">
-					<ul class="nav nav-pills">
-						<li><button type="button" class="btn btn-default"
-								data-toggle="modal" data-target="#addUserModal">
-								<fmt:message key="Add" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="delete">
-								<fmt:message key="Delete" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="restore">Restore</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="activated">
-								<fmt:message key="Activate" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="baned">
-								<fmt:message key="Ban" bundle="${lang}" />
-							</button></li>
-						<li><button type="submit" class="btn btn-default"
-								name="action" value="sendEmailUsers">
-								<fmt:message key="Send_email" bundle="${lang}" />
-							</button></li>
-						<li><input id="filter" type="text" class="form-control"
-							placeholder="Search"></li>
-					</ul>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addUserModal"> <fmt:message key="Add" bundle="${lang}" /> </button>
+						<button disabled="disabled" type="submit" class="btn btn-default" id="delete" name="action"
+							value="delete">
+							<fmt:message key="Delete" bundle="${lang}" />
+						</button>
+						<button disabled="disabled" type="submit" class="btn btn-default" id="restore" name="action"
+							value="restore">Restore</button>
+						<button disabled="disabled" type="submit" class="btn btn-default" id="activated" name="action"
+							value="activated">
+							<fmt:message key="Activate" bundle="${lang}" />
+						</button>
+						<button disabled="disabled" type="submit" class="btn btn-default" id="baned" name="action"
+							value="baned">
+							<fmt:message key="Ban" bundle="${lang}" />
+						</button>
+						<button type="button" class="btn btn-default" data-toggle="modal" id="send" disabled="disabled"
+							data-target="#sendEmailModal">
+							<fmt:message key="Send_email" bundle="${lang}" />
+						</button>
+					</div>
+
 					<c:if test="${message != null}">
-						<div class="alert alert-block">
+						<div class="alert alert-warning">
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h4>Warning!</h4>
+							<h4>Warning</h4>
 							<h5>${message}</h5>
 						</div>
 					</c:if>
-
 					<jsp:include page="tableUsers.jsp"></jsp:include>
+					<jsp:include page="addUserModalPage.jsp"></jsp:include>					
+					<jsp:include page="sendEmailModalPage.jsp"></jsp:include>
 				</form>
-
+				<jsp:include page="../../paginator.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>

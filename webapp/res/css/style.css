@@ -1,29 +1,65 @@
+div.alert {
+	width: auto;
+	margin-top: 15px;
+}
+
+span.glyphicon.glyphicon-sort {
+	font-size: 8pt;
+	text-align: center;
+}
+
+table thead tr th {
+	cursor: pointer;
+}
+
+.blue {
+	color: #428BCA;
+}
+
+table {
+	overflow: hidden;
+}
+
+tr td {
+	overflow: hidden;
+	text-overflow: hidden;
+}
+
 body {
-  padding-top: 50px;
+	background-image: url("../img/fon-background.jpg");
+	padding-top: 50px;
 }
+
 .starter-template {
-  padding: 40px 15px;
-  text-align: center;
+	padding: 40px 15px;
+	text-align: center;
 }
-.admin-user-header{
-	padding: 20px 1px 1px 1px;
-}
-.user-info {
-	padding-top: 70px;
-	max-width: 800px;
-	margin: auto;
-}
-.files-admin-user
-{
-	padding-top: 70px;
-	max-width: 1200px;
-	margin: auto;
-}
-.payments-admin-user{
-	padding-top: 70px;
-	max-width: 1000px;
-	margin: auto;
-}
+
 div .panel.panel-default.main {
 	margin-top: 20px;
+}
+
+div .panel.panel-default.bottom {
+	margin-bottom: 20px;
+}
+
+.paginator-main {
+	width: auto;
+	float: left;
+}
+
+.paginator-main .page-pages {
+	width: auto;
+	float: left;
+}
+
+.paginator-main .page-pages .pagination {
+	margin: 0px;
+	paddign: 0px;
+	padding-right: 10px;
+}
+
+.paginator-main .page-option {
+	width: auto;
+	float: left;
 }

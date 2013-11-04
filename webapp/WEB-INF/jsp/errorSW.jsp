@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,7 +79,7 @@
 <body>
 	<h3 id="intro">A long time ago your website page went far, far
 		away...</h3>
-	<audio id="music" preload="auto" autobuffer controls>
+	<audio id="music" preload="auto" autobuffer>
 		<source src="http://dl.dropbox.com/u/16979719/sw_music.ogg"></source>
 	</audio>
 	<div id="logodiv">
@@ -89,13 +89,23 @@
 		<div id="text">
 			<h2>EPISODE 404</h2>
 			<h2>NO HOPE</h2>
-			<p>Go back to the DreamHost home page.</p>
-			<p>During the battle, Rebel spies managed to steal secret plans
-				to the Empire's ultimate weapon, the Death Star, an armored space
-				station with enough power to destroy an entire planet.</p>
-			<p>Pursued by the Empire's sinister agents, Princess Leia races
-				home aboard her starship, custodian of the stolen plans that can
-				save her people and restore freedom to the galaxy....</p>
+			<p>
+				Go back to the <a href="homepage">DreamHost</a> home page.
+			</p>
+			<p>Ever feel you're in the wrong place</p>
+			<h3>
+				If you're the <strong>site owner,</strong> one of two things
+				happened:
+			</h3>
+			<ol>
+				<li>1) You entered an incorrect URL into your browser's address
+					bar, or</li>
+				<li>2) You haven't uploaded content.</li>
+			</ol>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi.
+				Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin.
+				Pellentesque tristique elementum felis eu fermentum. Maecenas eu.</p>
 		</div>
 	</div>
 	<div id="theend">THE END</div>

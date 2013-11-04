@@ -17,9 +17,12 @@ public class AdminSendEmailCommand implements AdminUsersPageCommand {
 			return page;
 		} else {
 			UserServiceImpl service = new UserServiceImpl();
-			service.sendUsersEmail(request.getParameterValues("checkUser"));
+			String subject = request.getParameter("subject");
+			String message = request.getParameter("email");
+			service.sendUsersEmail(request.getParameterValues("checkUser"), subject, message);
 			page = "adminUsersPage";
 		}
 		return page;
 	}
+
 }

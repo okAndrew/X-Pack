@@ -13,24 +13,21 @@
 
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/signui.css" rel="stylesheet" />
-
+<script type="text/javascript" src="res/js/utils.js"></script>
 
 <style type="text/css">
 .Container {
-	padding-top: 70px;
+	padding-top: 30px;
 	max-width: 1200px;
 	margin: auto;
 }
 </style>
-
 </head>
-
 <body>
-
-	<div class="code prettyprint">
+	<!--<div class="code prettyprint">
 		<pre class="code prettyprint brush: js"></pre>
-	</div>
+	</div>  -->
+
 	<jsp:include page="../../menu.jsp"></jsp:include>
 
 	<div class="Container">
@@ -39,26 +36,27 @@
 			<!-- Default panel contents -->
 
 			<div class="panel-heading">
-				<fmt:message key="Statistics" bundle="${lang}" />
-			</div>
-			<div class="panel-body">
+				<!--<fmt:message key="Statistics" bundle="${lang}" />-->
 				<ul class="nav nav-pills">
 					<li><a href="adminStatisticsPage?page=users"
-						class="btn btn-default""> <fmt:message key="Users"
+						class="btn btn-default"> <fmt:message key="Users"
 								bundle="${lang}" />
 					</a></li>
 					<li><a href="adminStatisticsPage?page=files"
-						class="btn btn-default""> <fmt:message key="Files"
+						class="btn btn-default"> <fmt:message key="Files"
 								bundle="${lang}" />
 					</a></li>
 					<li><a href="adminStatisticsPage?page=server"
-						class="btn btn-default""> <fmt:message key="Server"
+						class="btn btn-default"> <fmt:message key="Server"
 								bundle="${lang}" />
 					</a></li>
 				</ul>
+			</div>
+			<div class="panel-body" >
+				
 				<h1 hidden="false">'${freeSpace}'</h1>
 				<h1 hidden="false">'${totalSpace}'</h1>
-				<div id="dynamicArea">
+				<div id="dynamicArea" >
 					<c:choose>
 						<c:when test="${param.page == 'users'}">
 							<jsp:include page="statisticsUsers.jsp"></jsp:include>

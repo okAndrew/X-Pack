@@ -3,14 +3,18 @@ package com.epam.lab.model;
 import java.sql.Timestamp;
 
 import com.epam.lab.controller.annotations.TableColumn;
+import com.google.gson.annotations.Expose;
 
 public class UserFile {
+	@Expose
 	@TableColumn("id")
-	private long id;
-
+	private Long id;
+	
+	@Expose
 	@TableColumn("id_folder")
-	private long idFolder;
-
+	private Long idFolder;
+	
+	@Expose
 	@TableColumn("name_income")
 	private String nameIncome;
 
@@ -22,7 +26,8 @@ public class UserFile {
 
 	@TableColumn("type")
 	private String type;
-
+	
+	@Expose
 	@TableColumn("size")
 	private long size;
 
@@ -31,21 +36,24 @@ public class UserFile {
 
 	@TableColumn("id_user")
 	private long idUser;
+	
+	@TableColumn("is_public")
+	private Boolean isPublic;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public UserFile setId(long id) {
+	public UserFile setId(Long id) {
 		this.id = id;
 		return this;
 	}
 
-	public long getIdFolder() {
+	public Long getIdFolder() {
 		return idFolder;
 	}
 
-	public UserFile setIdFolder(long idFolder) {
+	public UserFile setIdFolder(Long idFolder) {
 		this.idFolder = idFolder;
 		return this;
 	}
@@ -118,12 +126,20 @@ public class UserFile {
 		return this;
 	}
 
+	public Boolean getIsPublic() {
+		return isPublic;
+	}
+
+	public void setIsPublic(Boolean isPublic) {
+		this.isPublic = isPublic;
+	}
+
 	@Override
 	public String toString() {
 		return "File [id=" + id + ", idFolder=" + idFolder + ", nameIncome="
 				+ nameIncome + ", name=" + name + ", path=" + path + ", type="
 				+ type + ", size=" + size + ", date=" + date + ", idUser="
-				+ idUser + "]";
+				+ idUser + ", isPublic=" + isPublic +"]";
 	}
 
 }

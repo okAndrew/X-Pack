@@ -3,6 +3,7 @@ package com.epam.lab.controller.dao.user;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.model.Counter;
 import com.epam.lab.model.User;
 
 public class UserDAOImpl implements UserDAO {
@@ -16,10 +17,23 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public long getCount() {
+		String sql = "SELECT COUNT(id) AS countUsers FROM users";
+		Counter counter = new DBQueryExecutor<Counter>().executeQuerySingle(
+				Counter.class, sql);
+		return counter.getCountUsers();
+	}
+
+	@Override
 	public List<User> getAll() {
 		String sql = "SELECT * FROM users";
 		List<User> resultList = queryExecutor.executeQuery(User.class, sql);
 		return resultList;
+	}
+
+	@Override
+	public List<User> getBySQL(String sql) {
+		return queryExecutor.executeQuery(User.class, sql);
 	}
 
 	@Override
@@ -34,10 +48,10 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public int update(User user) {
 		String sql = "UPDATE users SET login=?, email=?, password=?, id_tariff=?, capacity=?, is_activated=?, is_banned = ?, id_role=? WHERE id=?";
-		int result = queryExecutor.executeUpdate(sql, user.getLogin(), user
-				.getEmail(), user.getPassword(), user.getIdTariff(), user
-				.getCapacity(), user.getIsActivated(), user.getIsBanned(), user.getRole()
-				.getNumber(), user.getId());
+		int result = queryExecutor.executeUpdate(sql, user.getLogin(),
+				user.getEmail(), user.getPassword(), user.getIdTariff(),
+				user.getCapacity(), user.getIsActivated(), user.getIsBanned(),
+				user.getRole().getNumber(), user.getId());
 
 		return result;
 	}
@@ -56,7 +70,14 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	@Override
+	public User getByLogin(String login) {
+		String sql = "SELECT * FROM users WHERE login=?";
+		User result = queryExecutor.executeQuerySingle(User.class, sql, login);
+		return result;
+	}
 
+	@Override
 	public boolean checkEmailById(String email, long userId) {
 		String sql = "SELECT * FROM users WHERE email=? AND id!=?";
 		User result = queryExecutor.executeQuerySingle(User.class, sql, email,
@@ -67,6 +88,7 @@ public class UserDAOImpl implements UserDAO {
 		return false;
 	}
 
+	@Override
 	public boolean ckeckLoginById(String login, long userId) {
 		String sql = "SELECT * FROM users WHERE login=? AND id!=?";
 		User result = queryExecutor.executeQuerySingle(User.class, sql, login,

@@ -6,20 +6,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.exceptions.notfound.TokenNotFoundException;
-import com.epam.lab.controller.exceptions.notfound.UserNotFoundException;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.services.token4auth.Token4AuthService;
 import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.controller.utils.JSONBuilder;
 import com.epam.lab.model.Folder;
-import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.User;
 
 @Path("folder")
@@ -27,63 +25,29 @@ public class FolderWebService {
 	private static Logger logger = Logger.getLogger(FilesWebService.class);
 	private static final String TOKEN_NOT_FOUND = "Token not found";
 	private static final String FOLDER_NOT_FOUND = "Folder not found";
+	private Token4AuthService tokenService = new Token4AuthServiceImpl();
+	private JSONBuilder jsonBuilder = new JSONBuilder();
 
 	@POST
 	@Path("create/{token}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public JSONObject createFolder(@PathParam("token") String token, Folder folder) {
-		String message = verifyAccessFolderRequest(token, folder.getIdUpper());
-		if (message != null) {
-			try {
-				return new JSONObject().put("error", message);
-			} catch (JSONException e) {
-				logger.error(e);
-				return null;
-			}
-		}
-
-		Token4Auth tokenData = new Token4AuthServiceImpl()
-				.getByToken(token);
-		User user = new UserServiceImpl().get(tokenData	.getIdUser());
-		Folder createdFolder = new FolderServiceImpl().createFolder(
-				folder.getName(), user.getId(), folder.getIdUpper());
-		return toJson(createdFolder);
-	}
-
-	private JSONObject toJson(Folder folder) {
-		JSONObject jsonOb = new JSONObject();
+	public Response createFolder(@PathParam("token") String token, Folder folder) {
+		Folder upperFolder = null;
 		try {
-			jsonOb.put("id", folder.getId());
-			jsonOb.put("name", folder.getName());
-			jsonOb.put("size", folder.getSize());
-			jsonOb.put("changeDate", folder.getDate());
-		} catch (JSONException e) {
-			logger.error(e);
-		}
-		return jsonOb;
-	}
-
-	private String verifyAccessFolderRequest(String token, long idFolder) {
-		String message = null;
-		Token4AuthService service = new Token4AuthServiceImpl();
-		boolean itUserFolder = false;
-		try {
-			itUserFolder = service.verifyAccessToFolder(token, idFolder);
+			upperFolder = tokenService.verifyAccessRequest(token,
+					folder.getIdUpper());
 		} catch (TokenNotFoundException e) {
-			logger.warn(e);
-			message = TOKEN_NOT_FOUND;
-		} catch (UserNotFoundException e) {
-			logger.warn(e);
-			message = TOKEN_NOT_FOUND;
-		} catch (FolderNotFoundException e) {
-			logger.warn(e);
-			message = FOLDER_NOT_FOUND;
+			logger.error(e);
+			return Response.status(401).entity(TOKEN_NOT_FOUND).build();
 		}
-		if (itUserFolder == false) {
-			message = FOLDER_NOT_FOUND;
+		if (upperFolder == null) {
+			return Response.status(404).entity(FOLDER_NOT_FOUND).build();
 		}
-		return message;
+		User user = new UserServiceImpl().get(upperFolder.getIdUser());
+		Folder createdFolder = new FolderServiceImpl().createFolder(
+				folder.getName(), user.getId(), upperFolder.getId());
+		JSONObject jsonResult = jsonBuilder.toJson(createdFolder);
+		return Response.status(201).entity(jsonResult).build();
 	}
-
 }

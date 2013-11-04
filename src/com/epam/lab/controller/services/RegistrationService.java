@@ -11,6 +11,7 @@ import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
+import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Token;
 import com.epam.lab.model.User;
 
@@ -28,14 +29,26 @@ public class RegistrationService {
 		}
 	}
 
+	public User checkLogin(String login) {
+		User user = null;
+		user = new UserDAOImpl().getByLogin(login);
+		if (user != null) {
+			return user;
+		} else {
+			return null;
+		}
+	}
+
 	public String chechParams(String login, String email, String password) {
 		String result = null;
 
-		if (login == null || login == "" || email == null || email == ""
-				|| password == null || password == "") {
-			result = "Fields cannot be empty";
+		if (!Validator.USER_LOGIN.validate(login)) {
+			result = "Your login format filed";
+		} else if (!Validator.USER_EMAIL.validate(email)) {
+			result = "Your email format filed";
+		} else if (!Validator.USER_PASSWORD.validate(password)) {
+			result = "Your password format filed";
 		}
-
 		return result;
 	}
 
@@ -44,19 +57,23 @@ public class RegistrationService {
 
 		if (result == null) {
 			if (checkEmail(email) == null) {
-				MD5Encrypter md5 = new MD5Encrypter();
-				UserServiceImpl userService = new UserServiceImpl();
-				userService.addUser(login, email, md5.encrypt(password));
-				User user = userService.getUserByEmail(email);
-				createRootFolder(user);
-				sendActivations(user);
+				if (checkLogin(login) == null) {
+					MD5Encrypter md5 = new MD5Encrypter();
+					UserServiceImpl userService = new UserServiceImpl();
+					userService.addUser(login, email, md5.encrypt(password));
+					User user = userService.get(email);
+					createRootFolder(user);
+					sendActivations(user);
+				} else {
+					result = "User with this login is alredy registered";
+				}
+
 			} else {
 				result = "User with this email is alredy registered";
 			}
 		} else {
 			result = "Fields cannot be null";
 		}
-
 		return result;
 	}
 
@@ -67,10 +84,11 @@ public class RegistrationService {
 
 	public void sendActivations(User user) {
 		String token = createToken(user);
-		String msg = "http://localhost:8080/dreamhost/activation?token=" + token;
+		MailSender sender = new MailSender();
+		String msg = "http://localhost:8080/dreamhost/activation?token="
+				+ token;
 		String head = "Activation";
-
-		MailSender.send(user.getEmail(), head, msg);
+		sender.send(user.getEmail(), head, msg);
 	}
 
 	private String createToken(User user) {
@@ -95,12 +113,12 @@ public class RegistrationService {
 
 		UserServiceImpl userService = new UserServiceImpl();
 		TokenDAOImpl tokenDAOImpl = new TokenDAOImpl();
-		
+
 		logger.debug(token);
 
 		Token tokenObj = tokenDAOImpl.get(token);
 		User user = userService.get(tokenObj.getIdUser());
-		
+
 		logger.debug(user);
 		logger.debug(tokenObj);
 
@@ -110,8 +128,6 @@ public class RegistrationService {
 			tokenDAOImpl.update(tokenObj);
 			result = true;
 		}
-
 		return result;
 	}
-
 }

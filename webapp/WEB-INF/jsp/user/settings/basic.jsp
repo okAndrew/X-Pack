@@ -11,19 +11,22 @@
 		</p>
 		<p>
 			<fmt:message key="Free_space" bundle="${lang}" />
-			: <strong>${tariff.maxCapacity - user.capacity}</strong>
+			: <strong>
+			<script type="text/javascript">
+				document.write(bytesToSize(${tariff.maxCapacity - user.capacity}));
+			</script>
+			</strong>
 		</p>
 		<h3>
 			<fmt:message key="Edit_profile" bundle="${lang}" />
 		</h3>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<div id="settingsErrorDiv" class="alert alert-danger"
-					style="display: none;">
-					<c:if test="${message != null}">
+				<c:if test="${message != null}">
+					<div id="errorinfo" class="alert alert-danger">
 						${message}
-					</c:if>
-				</div>
+					</div>
+				</c:if>
 				<form action="EditUserLoginServlet" method="post">
 					<div class="form-group">
 						<input type="email" name="email" value="${user.email}"
@@ -63,7 +66,7 @@
 					</div>
 				</form>
 				<c:if test="${editEmailError != null}">
-					<div class="alert alert-danger">
+					<div class="alert alert-danger" >
 						<p>${editEmailError}</p>
 					</div>
 				</c:if>

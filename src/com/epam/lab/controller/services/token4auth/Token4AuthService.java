@@ -1,9 +1,8 @@
 package com.epam.lab.controller.services.token4auth;
 
-import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.exceptions.notfound.TokenNotFoundException;
-import com.epam.lab.controller.exceptions.notfound.UserNotFoundException;
 import com.epam.lab.controller.services.AbstractService;
+import com.epam.lab.model.Folder;
 import com.epam.lab.model.Token4Auth;
 
 public interface Token4AuthService extends AbstractService<Token4Auth> {
@@ -13,7 +12,9 @@ public interface Token4AuthService extends AbstractService<Token4Auth> {
 
 	public int deleteNotActiveTokens();
 
-	public boolean verifyAccessToFolder(String token, long idFolder)
-			throws TokenNotFoundException, UserNotFoundException,
-			FolderNotFoundException;
+	public Folder verifyAccessRequest(String token, long idFolder)
+			throws TokenNotFoundException;
+
+	public boolean isActive(Token4Auth tokenData);
+
 }

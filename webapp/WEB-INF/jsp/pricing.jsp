@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -9,9 +9,16 @@
 <title>DreamHost | Pricing</title>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
+<style type="text/css">
+	body {
+		
+	}
+</style>
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
+<script src="res/js/utils.js"></script>
+
 <script type="text/javascript">
 window.onload = function() {
 	var el = document.getElementById("menu_pricing");
@@ -30,20 +37,19 @@ $("#form_pay_submit").click( function() {
 	<jsp:include page="pricing/modalpay.jsp"></jsp:include>
 	<div class="container">
 		<div class="panel panel-default main">
-			<div class="panel-body">
+			<div class="panel-body" style="padding-right: 0px;">
 			<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<c:forEach var="tariff" items="${tariffs}">
-						<div class="panel panel-default">
+						<div class="panel panel-default" style="float: left; min-width: 546px; margin-right: 15px;">
 							<div class="panel-heading">
 								<h4>
 									<c:choose>
 										<c:when test="${currentTariff.id == tariff.id}">
-											<b>${tariff.name} - ${tariff.maxCapacity}Mb (current)</b>
+											<b>${tariff.name} - <script>document.write(bytesToSize(${tariff.maxCapacity}));</script> (current)</b>
 										</c:when>
 										<c:otherwise>
-											${tariff.name} - ${tariff.maxCapacity}Mb
+											${tariff.name} - <script>document.write(bytesToSize(${tariff.maxCapacity}));</script>
 										</c:otherwise>
 									</c:choose>
 								</h4>
@@ -82,7 +88,6 @@ $("#form_pay_submit").click( function() {
 						</div>
 					</c:forEach>
 				</div>
-				<div class="col-md-3"></div>
 			</div>
 			</div>
 		</div>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.model.Folder;
 
 @WebServlet("/createfolder")
 public class CreateFolderServlet extends HttpServlet {
@@ -18,27 +19,15 @@ public class CreateFolderServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		FolderServiceImpl service = new FolderServiceImpl();
 		HttpSession session = request.getSession(false);
-		request.setCharacterEncoding("UTF-8");
 		long folderId = (long) session.getAttribute("folderid");
 		long userId = (long) session.getAttribute("userid");
-		if (request.getParameter("foldername") == null
-				|| request.getParameter("foldername").equals("")) {
-			request.setAttribute("message",
-					"Please, enter folder's name, before create it");
-			request.getRequestDispatcher(USER_PAGE).forward(request, response);
-		} else {
-			String folderName = request.getParameter("foldername");
-			if (service.check(folderName, userId, folderId)) {
-				request.setAttribute("message", "Folder exist");
-				request.getRequestDispatcher(USER_PAGE).forward(request,
-						response);
-			} else {
-				service.create(folderName, userId, folderId);
-				response.sendRedirect(USER_PAGE);
-			}
+		String folderName = request.getParameter("foldername");
+		FolderServiceImpl service = new FolderServiceImpl();
+		Folder folder = service.makeFolder(folderName, userId, folderId);
+		if (folder == null) {
+			request.setAttribute("message", "Folder have already exist");
 		}
+		request.getRequestDispatcher(USER_PAGE).include(request, response);
 	}
 }

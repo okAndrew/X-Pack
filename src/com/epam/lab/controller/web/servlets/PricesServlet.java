@@ -1,7 +1,6 @@
 package com.epam.lab.controller.web.servlets;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,14 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.payment.PaymentServiceImpl;
-import com.epam.lab.controller.services.pricing.PricingService;
-import com.epam.lab.controller.services.tariff.TariffServiseImpl;
-import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.utils.TimeStampManager;
-import com.epam.lab.model.User;
+import com.epam.lab.controller.services.pricing.PricingServiceImpl;
 
 @WebServlet("/pricing")
 public class PricesServlet extends HttpServlet {
@@ -26,7 +19,7 @@ public class PricesServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(PRICES_JSP);
-		request = new PricingService().initialize(request);
+		request = new PricingServiceImpl().initialize(request);
 		requestDispatcher.forward(request, response);
 	}
 

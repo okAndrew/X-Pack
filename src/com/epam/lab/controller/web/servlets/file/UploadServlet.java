@@ -17,38 +17,37 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.exceptions.FileTooLargeException;
-import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
-import com.epam.lab.controller.services.file.UserFileUploader;
+import com.epam.lab.controller.services.file.FileUploadServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(UploadServlet.class);
-	private static final String USER_PAGE = "userpage";
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		if (ServletFileUpload.isMultipartContent(request)) {
 			try {
-				HttpSession session = request.getSession(false);
-				long folderId = (long) session.getAttribute("folderid");
+				HttpSession session = request.getSession();
+				Long folderId = (Long) session.getAttribute("folderid");
+				Long userId = (Long) session.getAttribute("userid");
 				ServletFileUpload upload = new ServletFileUpload(
 						new DiskFileItemFactory());
 				upload.setHeaderEncoding("UTF-8");
+				UserServiceImpl userService = new UserServiceImpl();
+				upload.setSizeMax(userService.getFreeSize(userId));
 				List<FileItem> items = upload.parseRequest(request);
-				UserFileUploader uploader = new UserFileUploader();
-				uploader.uploadFiles(items, folderId);
-			} catch (FileUploadException e) {
-				logger.error(e);
+				FileUploadServiceImpl uploadService = new FileUploadServiceImpl();
+				uploadService.uploadUserFiles(folderId, userId, items);
+			} catch (FileUploadException | FileTooLargeException e) {
+				logger.warn(e);
 				e.printStackTrace();
-			} catch (FolderNotFoundException e) {
-				logger.error(e);
-				e.printStackTrace();
-			} catch (FileTooLargeException e) {
-				logger.error(e);
-				e.printStackTrace();
+				// 'have no free space' message
 			}
+		} else {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
-		response.sendRedirect(USER_PAGE);
 	}
+
 }

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <nav class="navbar navbar-inverse" role="navigation">
 	<!-- Brand and toggle get grouped for better mobile display -->

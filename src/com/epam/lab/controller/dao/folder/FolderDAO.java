@@ -7,11 +7,13 @@ import com.epam.lab.model.Folder;
 
 public interface FolderDAO extends GenericDAO<Folder> {
 
-	public int deleteByUserId(long userId);
+	int deleteByUserId(long userId);
 
-	public Folder getByUpperIdAndName(long upperId, String folderName);
+	Folder getByUpperIdAndName(long upperId, String folderName);
 
-	public List<Folder> getByUpperId(long upperId);
+	List<Folder> getByUpperId(long upperId);
 
-	public List<Folder> getAll(long userId);
+	List<Folder> getAll(long userId);
+
+	Folder getRoot(long userId);
 }

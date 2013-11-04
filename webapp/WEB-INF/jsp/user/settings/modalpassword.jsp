@@ -18,11 +18,7 @@
 					</h4>
 				</div>
 				<div class="modal-body">
-					<div id="errorinfo" class="alert alert-danger"
-						style="display: none;">
-						<c:if test="${message != null}">
-							${message}
-						</c:if>
+					<div id="errorinfomodal" class="alert alert-danger" style="display: none;">
 					</div>
 					<div class="form-group">
 						<label><fmt:message key="Enter_your_current_password"

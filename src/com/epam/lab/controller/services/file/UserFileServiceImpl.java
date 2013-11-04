@@ -4,33 +4,78 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.dao.file.FileDAO;
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.controller.utils.TimeStampManager;
+import com.epam.lab.controller.utils.Validator;
+import com.epam.lab.model.FileType;
+import com.epam.lab.model.FilesTypesSize;
 import com.epam.lab.model.Folder;
 import com.epam.lab.model.UserFile;
 
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
+	private static final String SITE_LINK = "http://localhost:8080/dreamhost/";
+	private FileDAO fileDAO = (FileDAO) dao;
+
+	private static final Logger logger = Logger
+			.getLogger(UserFileServiceImpl.class);
+	private static long count;
+	private static final Properties PROP = new Properties();
+	private static final String ROOT_PATH = PROP.getProperty("rootPath");
+	private static final int MAX_FILES = 999;
+	static {
+		try {
+			InputStream is = UserFileServiceImpl.class
+					.getResourceAsStream("path.properties");
+			PROP.load(is);
+		} catch (IOException e) {
+			logger.error(e);
+			e.printStackTrace();
+		}
+	}
 
 	public UserFileServiceImpl() {
 		super(new FileDAOImpl());
 	}
 
-	private static final Logger logger = Logger
-			.getLogger(UserFileServiceImpl.class);
-	private static long count;
-	public static final String ROOT_PATH = "C:/files/";
-	public static final int MAX_FILES = 999;
+	public UserFile createFileInfo(String nameIncome, Long idFolder,
+			Long idUser, Boolean isPublic, Long size) {
+		UserFile userFile = new UserFile();
+		if (nameIncome == null) {
+			nameIncome = new MD5Encrypter().generateRandomHash();
+		}
+		userFile.setNameIncome(nameIncome);
+		userFile.setIdFolder(idFolder);
+		userFile.setIdUser(idUser);
+		userFile.setIsPublic(isPublic);
+		userFile.setDate(TimeStampManager.getCurrentTime());
+		userFile.setSize(size);
+		userFile.setPath(this.getFolder().getAbsolutePath());
+		String extention = FileType.getExtention(nameIncome);
+		FileType fileType = FileType.findByExtention(extention);
+		userFile.setType(fileType);
+		do {
+			// generate, while name will not be unique
+			userFile.setName(new MD5Encrypter().generateRandomHash()
+					+ extention);
+		} while (fileDAO.insert(userFile) == 0);
+		return fileDAO.getByName(userFile.getName());
+	}
 
 	/*
 	 * return current folder to save files
@@ -107,54 +152,90 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		return new File(getArchivePath(filesIds, foldersIds));
 	}
 
-	public List<UserFile> getSearchedFiles(long userId, String text) {
-		UserFileServiceImpl service = new UserFileServiceImpl();
-		List<UserFile> files = service.getByUserId(userId);
-		List<UserFile> result = new ArrayList<UserFile>();
-		for (UserFile file : files) {
-			if (file.getNameIncome().contains(text)) {
-				result.add(file);
-			}
-		}
-		return result;
-	}
-
-	public boolean check(long folderId, String name) {
+	public boolean check(long folderId, long fileId, String name) {
 		FileDAOImpl dao = new FileDAOImpl();
+		String fullNewNameIncome = name + getExtention(fileId);
 		List<UserFile> files = dao.getAllByFolderId(folderId);
 		for (UserFile file : files) {
-			if (file.getNameIncome().equals(name)) {
+			if (file.getNameIncome().equals(fullNewNameIncome)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	// IT'S AWFUL!!
-	// public long update(UserFile file) {
-	// FileDAOImpl dao = new FileDAOImpl();
-	// dao.update(file);
-	// return dao.get(file.getId()).getId();
-	// }
-
-	public void movefile(long fileidmove, long folderidtarget) {
+	public void moveFile(long fileIdMove, long folderIdTarget) {
 		FileDAOImpl dao = new FileDAOImpl();
-		UserFile file = dao.get(fileidmove);
+		UserFile file = dao.get(fileIdMove);
 		FolderServiceImpl service = new FolderServiceImpl();
 		service.updateSize(file.getIdFolder(), -file.getSize());
-		file.setIdFolder(folderidtarget);
-		service.updateSize(folderidtarget, file.getSize());
+		file.setIdFolder(folderIdTarget);
+		service.updateSize(folderIdTarget, file.getSize());
 		dao.update(file);
 	}
 
 	public UserFile rename(long fileId, String newNameIncome) {
 		FileDAOImpl dao = new FileDAOImpl();
 		UserFile file = dao.get(fileId);
-		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
-		String extention = file.getNameIncome().substring(lastPointIndex);
+		String extention = getExtention(fileId);
 		file.setNameIncome(newNameIncome + extention);
 		dao.update(file);
 		return dao.get(file.getId());
+	}
+
+	@Override
+	public int deleteByUserId(long userId) {
+		FileDAOImpl fileDao = new FileDAOImpl();
+		int result = fileDao.deleteByUserId(userId);
+		return result;
+	}
+
+	@Override
+	public long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
+		FileDAOImpl fileDaoImpl = new FileDAOImpl();
+		UserFile file = new UserFile();
+		file = fileDaoImpl.getSizeUploadByDates(dataStart, dataEnd);
+		return file.getSize();
+	}
+
+	public boolean isUsersFile(long id, long userId) {
+		FileDAOImpl dao = new FileDAOImpl();
+		UserFile file = dao.get(id);
+		if (file.getIdUser() == userId) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public long getUploadTrafficUserByDates(Timestamp dataStart,
+			Timestamp dataEnd, long userId) {
+		FileDAOImpl fileDaoImpl = new FileDAOImpl();
+		UserFile file = new UserFile();
+		file = fileDaoImpl.getSizeUploadUserByDates(dataStart, dataEnd, userId);
+		return file.getSize();
+	}
+
+	public UserFile getByName(String fileName) {
+		return fileDAO.getByName(fileName);
+	}
+
+	@Override
+	public void changePublicState(long id, boolean state) {
+		UserFile file = fileDAO.get(id);
+		file.setIsPublic(state);
+		fileDAO.update(file);
+	}
+
+	@Override
+	public String getLink(long fileId) {
+		String name = fileDAO.get(fileId).getName();
+		return SITE_LINK + "download?file=" + name;
+	}
+
+	public List<FilesTypesSize> getTypesFiles() {
+		return fileDAO.getFilesGroupType();
 	}
 
 	/*
@@ -254,11 +335,24 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		in.close();
 	}
 
-	@Override
-	public int deleteByUserId(long userId) {
-		FileDAOImpl fileDao = new FileDAOImpl();
-		int result = fileDao.deleteByUserId(userId);
-		return result;
+	private String getExtention(long fileId) {
+		FileDAOImpl dao = new FileDAOImpl();
+		UserFile file = dao.get(fileId);
+		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
+		String extention = file.getNameIncome().substring(lastPointIndex);
+		return extention;
 	}
 
+	public void editFileOrFolder(String name, long fileId, long upperId,
+			long folderId, long userId) {
+		FolderServiceImpl service = new FolderServiceImpl();
+		if ((fileId == 0) && !service.check(name, userId, upperId)
+				&& Validator.FILE_NAME.validate(name)) {
+			Folder folder = service.get(folderId);
+			folder.setName(name);
+			service.update(folder);
+		} else if ((folderId == 0) && Validator.FILE_NAME.validate(name)) {
+			rename(fileId, name);
+		}
+	}
 }

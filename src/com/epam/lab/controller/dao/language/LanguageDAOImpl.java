@@ -60,4 +60,12 @@ public class LanguageDAOImpl implements LanguageDAO {
 		return 0;
 	}
 
+	@Override
+	public Language getByLang(String language) {
+		String sql = "SELECT * FROM languages where name=?";
+		Language result = queryExecutor.executeQuerySingle(Language.class, sql,
+				language);
+		return result;
+	}
+
 }

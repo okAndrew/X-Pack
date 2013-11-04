@@ -13,13 +13,17 @@ public class Language {
 	@TableColumn("defaultlocale")
 	private String defaultLocale;
 
+	@TableColumn("path_image")
+	private String pathImage;
+
 	public Language() {
 	}
 
-	public Language(long id, String name, String defaultLocale) {
+	public Language(long id, String name, String defaultLocale, String pathImage) {
 		this.id = id;
 		this.name = name;
 		this.defaultLocale = defaultLocale;
+		this.pathImage = pathImage;
 	}
 
 	public long getId() {
@@ -49,10 +53,19 @@ public class Language {
 		return this;
 	}
 
+	public String getPathImage() {
+		return pathImage;
+	}
+
+	public Language setPathImage(String pathImage) {
+		this.pathImage = pathImage;
+		return this;
+	}
+
 	@Override
 	public String toString() {
 		return "Language [id=" + id + ", name=" + name + ", defaultLocale="
-				+ defaultLocale + "]";
+				+ defaultLocale + ", pathImage=" + pathImage + "]";
 	}
 
 }

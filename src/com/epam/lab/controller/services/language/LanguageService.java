@@ -5,4 +5,6 @@ import com.epam.lab.model.Language;
 
 public interface LanguageService extends AbstractService<Language> {
 
+	Language getLang(String locale);
+
 }

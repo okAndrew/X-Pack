@@ -37,7 +37,7 @@
 						<li><a href="about"><fmt:message key="Project" bundle="${lang}" /></a></li>
 						<li><a href="team"><fmt:message key="Team" bundle="${lang}" /></a></li>
 					</ul></li>
-			</ul><fmt:message key="Logger" bundle="${lang}" />
+			</ul>
 
 			<div class="navbar-form navbar-right">
 				<c:if test="${sessionScope.userLogin == null}">

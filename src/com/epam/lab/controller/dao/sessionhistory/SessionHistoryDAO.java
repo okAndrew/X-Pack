@@ -19,8 +19,4 @@ public interface SessionHistoryDAO extends GenericDAO<SessionHistory> {
 
 	List<SessionHistory> getAllVisitorsByDate(Timestamp startDate,
 			Timestamp endtDate);
-
-	List<SessionHistory> getVisitsPerDayByUserId(long userId);
-
-	Timestamp getAvarageTimeSessionByUserId(long userId);
 }

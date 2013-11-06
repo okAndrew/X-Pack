@@ -17,7 +17,7 @@ import com.epam.lab.controller.exceptions.NoSuchDAOObjectException;
 
 /*
  * T - type of the returned list (need only for executeQuery)
- * Class<?> type - temp. argument... need for reflection... later it will be taken away
+ * Class<?> type - temp. argument... need for reflection... i hope, later it will be taken away
  */
 
 public class DBQueryExecutor<T> {
@@ -26,8 +26,7 @@ public class DBQueryExecutor<T> {
 	private static Logger logger = Logger.getLogger(DBQueryExecutor.class);
 
 	/*
-	 * INSERT, UPDATE, DELETE
-	 * with parameters
+	 * INSERT, UPDATE, DELETE with parameters
 	 */
 	public int executeUpdate(String sql, Object... args) {
 		int result = 0;
@@ -45,39 +44,36 @@ public class DBQueryExecutor<T> {
 		}
 		return result;
 	}
-	
+
 	public boolean executeTransaction(String[] sql, Object[][] args) {
 		boolean result = false;
-		
 		PreparedStatement pst = null;
 		Connection connection = null;
-		
 		try {
 			connection = connManager.getConnection();
 			connection.setAutoCommit(false);
-			
 			for (int i = 0; i < sql.length; i++) {
 				pst = connection.prepareStatement(sql[i]);
 				new PSTManager().putArgs(pst, args[i]);
-				
-				if (pst.execute()) {
-					result = false;
-				}
+				pst.execute();
 			}
-			
 			connection.commit();
+			result = true;
 		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				logger.error(e1);
+			}
 			throw new RuntimeException(e);
 		} finally {
 			connManager.closeQuality(connection);
 		}
-		
 		return result;
 	}
 
 	/*
-	 * SELECT
-	 * with parameters
+	 * SELECT with parameters
 	 */
 	public List<T> executeQuery(Class<?> type, String sql, Object... args) {
 		List<T> resultList = new ArrayList<T>();
@@ -103,8 +99,7 @@ public class DBQueryExecutor<T> {
 	}
 
 	/*
-	 * SELECT
-	 * without parameters
+	 * SELECT without parameters
 	 */
 	public List<T> executeQuery(Class<?> type, String sql) {
 		List<T> resultList = new ArrayList<T>();
@@ -128,11 +123,9 @@ public class DBQueryExecutor<T> {
 	}
 
 	/*
-	 * SELECT
-	 * with parameters
-	 * return only one object
+	 * SELECT with parameters return only one object
 	 */
-	public T executeQuerySingle(Class<?> type, String sql, Object...args) {
+	public T executeQuerySingle(Class<?> type, String sql, Object... args) {
 		T result = null;
 		PreparedStatement pst = null;
 		Connection connection = null;
@@ -154,5 +147,5 @@ public class DBQueryExecutor<T> {
 		}
 		return result;
 	}
-	
+
 }

@@ -30,7 +30,7 @@
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${currentFolder.idUpper}"
 					title="To up"><img
-					src="../../../res/img/arrow-up-icon.png"
+					src="res/img/browser/arrow-up-icon.png"
 					height="70px"></a>
 			</div>
 			<div class="cell-desc">
@@ -48,7 +48,7 @@
 			id="${folder.id}">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${folder.id}" title="${folder.name}"><img
-					src="http://www.whatthetech.com/blog/wp-content/uploads/2010/08/leopard-folder.png"
+					src="res/img/browser/leopard-folder.png"
 					height="70px"></a>
 			</div>
 			<div class="cell-desc">
@@ -97,26 +97,26 @@
 						<a data-toggle="modal" role="button" href="#ImageModal"
 							onclick="setSRC('${file.name}')"><img class="trunc"
 							title="${file.nameIncome}"
-							src="http://icons.iconarchive.com/icons/treetog/junior/256/document-picture-png-icon.png">
+							src="res/img/browser/image-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">
 						<a data-toggle="modal" role="button" href="#videoModal"
 							onclick="loadVideoContent('${file.name}')"><img class="trunc"
 							title="${file.nameIncome}"
-							src="http://www.icon2s.com/wp-content/uploads/2013/01/Blue-File-Video-icon.png">
+							src="res/img/browser/video-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('AUDIO') }">
 						<a data-toggle="modal" role="button" href="#audioModal"
 							onclick="loadAudioContent('${file.name}')"> <img
 							class="trunc" title="${file.nameIncome}"
-							src="https://cdn1.iconfinder.com/data/icons/camill-icons/256/camill_file_mp3.png">
+							src="res/img/browser/music-icon.png">
 						</a>
 					</c:when>
 					<c:otherwise>
 						<img class="trunc" title="${file.nameIncome}"
-							src="http://download.easyicon.net/png/30357/128/">
+							src="res/img/browser/default-icon.png">
 					</c:otherwise>
 				</c:choose>
 			</div>

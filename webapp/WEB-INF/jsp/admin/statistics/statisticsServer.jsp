@@ -7,15 +7,6 @@
 <script type="text/javascript" src="res/js/utils.js"></script>
 
 <div class="col-xs-6">
-<<<<<<< HEAD
-<div id="chart1" style="height: 350px; width: 550px;"></div>
-<button class="button-reset1 btn btn-default"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
-</div>
-
-<div class="col-xs-6">
-<div id="chart2" style="height: 350px; width: 550px;"></div>
-<button class="button-reset2 btn btn-default"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
-=======
 	<div id="chart1" style="height: 350px; width: 550px;"></div>
 	<br>
 	<button class="button-reset1 btn btn-default">
@@ -29,7 +20,6 @@
 	<button class="button-reset2 btn btn-default">
 		<fmt:message key="Reset_Zoom" bundle="${lang}" />
 	</button>
->>>>>>> 30eec61184300f48856a6f7a8ccfe5ad248f0127
 </div>
 
 <div>

@@ -8,12 +8,12 @@
 
 <div class="col-xs-6">
 <div id="chart1" style="height: 350px; width: 550px;"></div>
-<button class="button-reset1"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
+<button class="button-reset1 btn btn-default"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
 </div>
 
 <div class="col-xs-6">
 <div id="chart2" style="height: 350px; width: 550px;"></div>
-<button class="button-reset2"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
+<button class="button-reset2 btn btn-default"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
 </div>
 
 

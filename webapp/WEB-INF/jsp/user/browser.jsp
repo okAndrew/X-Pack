@@ -91,7 +91,7 @@ img.trunc {
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${currentFolder.idUpper}"
 					title="To up"><img
-					src="http://icons.iconarchive.com/icons/icojam/blue-bits/64/arrow-up-icon.png"
+					src="../../../res/img/arrow-up-icon.png"
 					height="70px"></a>
 			</div>
 			<div class="cell-desc">

@@ -21,6 +21,9 @@
 	max-width: 1200px;
 	margin: auto;
 }
+.button-reset1.btn.btn-default, .button-reset2.btn.btn-default{
+	margin: 10px;
+}
 </style>
 </head>
 <body>
@@ -37,20 +40,20 @@
 
 			<div class="panel-heading">
 				<!--<fmt:message key="Statistics" bundle="${lang}" />-->
-				<ul class="nav nav-pills">
-					<li><a href="adminStatisticsPage?page=users"
+				<div class="btn-group">
+					<a href="adminStatisticsPage?page=users"
 						class="btn btn-default"> <fmt:message key="Users"
 								bundle="${lang}" />
-					</a></li>
-					<li><a href="adminStatisticsPage?page=files"
+					</a>
+					<a href="adminStatisticsPage?page=files"
 						class="btn btn-default"> <fmt:message key="Files"
 								bundle="${lang}" />
-					</a></li>
-					<li><a href="adminStatisticsPage?page=server"
+					</a>
+					<a href="adminStatisticsPage?page=server"
 						class="btn btn-default"> <fmt:message key="Server"
 								bundle="${lang}" />
-					</a></li>
-				</ul>
+					</a>
+				</div>
 			</div>
 			<div class="panel-body" >
 				

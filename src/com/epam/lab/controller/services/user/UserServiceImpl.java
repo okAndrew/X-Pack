@@ -3,7 +3,6 @@ package com.epam.lab.controller.services.user;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 

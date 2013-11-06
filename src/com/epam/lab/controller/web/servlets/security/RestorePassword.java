@@ -17,7 +17,6 @@ public class RestorePassword extends HttpServlet {
 	private static final String RESTORE_JSP = "";
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String token = ATR
 	}
 
 }

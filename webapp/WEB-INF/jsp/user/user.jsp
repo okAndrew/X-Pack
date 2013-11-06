@@ -97,13 +97,13 @@ img.img {
 </head>
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>
-	<jsp:include page="myspace/modelcreatefolder.jsp"></jsp:include>
-	<jsp:include page="myspace/modeledit.jsp"></jsp:include>
-	<jsp:include page="myspace/modeldelete.jsp"></jsp:include>
-	<jsp:include page="myspace/modelimage.jsp"></jsp:include>
-	<jsp:include page="myspace/modelvideo.jsp"></jsp:include>
-	<jsp:include page="myspace/modelaudio.jsp"></jsp:include>
-	<jsp:include page="myspace/modallink.jsp"></jsp:include>
+	<jsp:include page="modals/modalCreatefolder.jsp"></jsp:include>
+	<jsp:include page="modals/modalEdit.jsp"></jsp:include>
+	<jsp:include page="modals/modalDelete.jsp"></jsp:include>
+	<jsp:include page="modals/modalImage.jsp"></jsp:include>
+	<jsp:include page="modals/modalVideo.jsp"></jsp:include>
+	<jsp:include page="modals/modalAudio.jsp"></jsp:include>
+	<jsp:include page="modals/modellink.jsp"></jsp:include>
 
 	<c:choose>
 		<c:when test="${isbanned }">

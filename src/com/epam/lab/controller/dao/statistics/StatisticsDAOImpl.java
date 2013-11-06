@@ -1,15 +1,12 @@
 package com.epam.lab.controller.dao.statistics;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.controller.exceptions.NoSupportedActionException;
-import com.epam.lab.model.SessionHistory;
 import com.epam.lab.model.Statistics;
-import com.epam.lab.model.TrafficHistory;
 
 public class StatisticsDAOImpl implements StatisticsDAO {
 

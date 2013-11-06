@@ -22,7 +22,7 @@
 						type="hidden" id="folderidedit" name="folderid"> <input
 						class="form-control" type="text" name="editname"
 						placeholder="name"
-						pattern="[A-Za-zА-Яа-яЁёІіЇїЙйЄє0-9-._\\s\\(\\)]{1,50}$">
+						pattern="[A-Za-zА-Яа-яЁёІіЇїЙйЄє0-9-._\s\(\)]{1,50}$">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">

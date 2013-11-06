@@ -24,7 +24,7 @@
 						<label><fmt:message key="Folder_name" bundle="${lang}" /></label></label>
 						<input type="text" name="foldername" placeholder="folder name"
 							class="form-control" value=""
-							pattern="[A-Za-zА-Яа-яЁёІіЇїЙйЄє0-9-._\\s\\(\\)]{1,50}$" />
+							pattern="[A-Za-zА-Яа-яЁёІіЇїЙйЄє0-9-._\s\(\)]{1,50}$" />
 					</div>
 				</form>
 			</div>

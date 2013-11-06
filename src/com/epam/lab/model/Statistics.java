@@ -7,7 +7,7 @@ import com.epam.lab.controller.annotations.TableColumn;
 public class Statistics {
 
 	@TableColumn("number")
-	private long number;
+	private double number;
 
 	@TableColumn("day")
 	private Timestamp day;
@@ -15,7 +15,7 @@ public class Statistics {
 	public Statistics() {
 	}
 
-	public Statistics(long number, Timestamp day) {
+	public Statistics(double number, Timestamp day) {
 		super();
 		this.number = number;
 		this.day = day;
@@ -30,11 +30,11 @@ public class Statistics {
 		return this;
 	}
 
-	public long getNumber() {
+	public double getNumber() {
 		return number;
 	}
 
-	public Statistics setNumber(long number) {
+	public Statistics setNumber(double number) {
 		this.number = number;
 		return this;
 	}

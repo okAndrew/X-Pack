@@ -20,4 +20,6 @@ public interface UserService extends AbstractService<User> {
 
 	void deleteFiles(String[] filesId, Long userId, String message);
 
+	void setLastLocale(String locale, long userId);
+
 }

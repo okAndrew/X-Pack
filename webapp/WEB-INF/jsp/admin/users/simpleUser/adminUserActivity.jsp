@@ -96,7 +96,7 @@ table th,table td {
 									<tr>
 										<td><fmt:message key="Average_time_of_sessions"
 												bundle="${lang}" /></td>
-										<td>${avarageSession}n/a</td>
+										<td>${avarageSession}</td>
 									</tr>
 									<tr>
 										<td><fmt:message key="Average_number_visits_per_day"

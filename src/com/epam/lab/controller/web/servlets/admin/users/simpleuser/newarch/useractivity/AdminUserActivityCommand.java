@@ -1,13 +1,14 @@
 package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.useractivity;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.statistics.sessionhistory.SessionHistoryServiceImpl;
+import com.epam.lab.controller.services.statistics.StatisticsServiceImpl;
 import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
 
 public class AdminUserActivityCommand implements AdminSimpleUserPageCommand {
@@ -25,11 +26,9 @@ public class AdminUserActivityCommand implements AdminSimpleUserPageCommand {
 
 	private void setData(HttpServletRequest request,
 			HttpServletResponse response, long userId) {
-		SessionHistoryServiceImpl historyServiceImpl = new SessionHistoryServiceImpl();
-		long visitsByUserId = historyServiceImpl
-				.getVisitsPerDayByUserId(userId);
-		Timestamp avarageSession = historyServiceImpl
-				.getAvarageTimeSessionByUserId(userId);
+		StatisticsServiceImpl serviceImpl = new StatisticsServiceImpl();
+		double visitsByUserId = serviceImpl.getVisitsPerDayByUserId(userId);
+		String avarageSession = serviceImpl.getAvarageTimeSessionByUserId(userId);
 		request.setAttribute("visitsByUserId", visitsByUserId);
 		request.setAttribute("avarageSession", avarageSession);
 	}

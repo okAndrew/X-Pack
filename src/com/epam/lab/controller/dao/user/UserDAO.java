@@ -25,4 +25,6 @@ public interface UserDAO extends GenericDAO<User> {
 
 	boolean ckeckLoginById(String login, long userId);
 
+	int setLastLocale(long locId, long userId);
+
 }

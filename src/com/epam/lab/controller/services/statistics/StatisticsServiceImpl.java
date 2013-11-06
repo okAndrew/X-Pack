@@ -1,6 +1,8 @@
 package com.epam.lab.controller.services.statistics;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -65,5 +67,20 @@ public class StatisticsServiceImpl extends AbstractServiceImpl<Statistics>
 	public List<Statistics> getAllUploadStatisticByUserId(long userId) {
 		StatisticsDAOImpl sessStatistics = new StatisticsDAOImpl();
 		return sessStatistics.getAllUploadStatisticByUserId(userId);
+	}
+
+	public double getVisitsPerDayByUserId(long userId) {
+		StatisticsDAOImpl sessdaoimpl = new StatisticsDAOImpl();
+		Statistics stat = sessdaoimpl.getVisitsPerDayByUserId(userId);
+		return stat.getNumber();
+
+	}
+
+	public String getAvarageTimeSessionByUserId(long userId) {
+		StatisticsDAOImpl sessdaoimpl = new StatisticsDAOImpl();
+		Statistics result = sessdaoimpl.getAvarageTimeSessionByUserId(userId);
+		Date date = new Date((long)(result.getNumber()*1000));
+		String dateresult = new SimpleDateFormat("HH:mm:ss").format(date);
+		return dateresult;
 	}
 }

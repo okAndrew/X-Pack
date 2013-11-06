@@ -5,7 +5,7 @@
 <%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <div id="chart1" style="height: 350px; width: 700px;"></div>
-<button class="button-reset"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
+<button class="button-reset btn btn-default"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
 <div id="example"></div>
 
 <div>

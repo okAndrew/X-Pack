@@ -40,7 +40,6 @@
 									bundle="${lang}" /></a></li>
 					</ul></li>
 			</ul>
-			<fmt:message key="Logger" bundle="${lang}" />
 
 			<div class="navbar-form navbar-right">
 				<c:if test="${sessionScope.userLogin == null}">

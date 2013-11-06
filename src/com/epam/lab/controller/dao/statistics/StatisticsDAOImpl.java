@@ -124,4 +124,24 @@ public class StatisticsDAOImpl implements StatisticsDAO {
 				+ "where selected_date between '2013-09-01' and  CURRENT_DATE() AND (id is null or id_user=?) group by selected_date";
 		return queryExecutor.executeQuery(Statistics.class, sql, userId);
 	}
+
+	@Override
+	public Statistics getVisitsPerDayByUserId(long userId) {
+		String sql = "select avg(countid) as number from(select count(id) as countid  FROM session_history "
+				+ "where user_id = ? group by date(startdate)) as a ;";
+		Statistics result = queryExecutor.executeQuerySingle(
+				Statistics.class, sql, userId);
+		return result;
+
+	}
+
+	@Override
+	public Statistics getAvarageTimeSessionByUserId(long userId) {
+		String sql = "select avg(to_seconds(enddate) - to_seconds(startdate))as number from session_history where user_id = ? and enddate is not null;";
+		Statistics result = queryExecutor.executeQuerySingle(Statistics.class,
+				sql, userId);
+		return result;
+
+	}
+
 }

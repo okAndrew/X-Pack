@@ -14,12 +14,14 @@ import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
+import com.epam.lab.controller.services.locale.LocaleServiceImpl;
 import com.epam.lab.controller.services.payment.PaymentServiceImpl;
 import com.epam.lab.controller.utils.MD5Encrypter;
 import com.epam.lab.controller.utils.MailSender;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Folder;
+import com.epam.lab.model.Locale;
 import com.epam.lab.model.Payment;
 import com.epam.lab.model.Role;
 import com.epam.lab.model.Tariff;
@@ -454,7 +456,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 	public String checkUpdate(String userEmail, int userId, String userLogin,
 			boolean activated, boolean banned, Role role) {
-		//ResourceBundle rb = ResourceBundle.getBundle("mybundle");
 		String errmessage = null;
 		if (checkEmailById(userEmail, userId)) {
 			if (ckeckLoginById(userLogin, userId)) {
@@ -479,4 +480,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		return errmessage;
 	}
 
+	@Override
+	public void setLastLocale(String locale, long userId) {
+		LocaleServiceImpl locImpl = new LocaleServiceImpl();
+		Locale localeObj = locImpl.getByLocale(locale.toString());
+		UserDAOImpl ui = new UserDAOImpl();
+		ui.setLastLocale(localeObj.getId(), userId);
+	}
 }

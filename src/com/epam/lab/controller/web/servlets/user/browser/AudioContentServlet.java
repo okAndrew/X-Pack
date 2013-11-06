@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AudioContentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String AUDIO_CONTENT_JSP = "WEB-INF/jsp/user/myspace/audiocontent.jsp";
+	private static final String AUDIO_CONTENT_JSP = "WEB-INF/jsp/user/modals/audioContent.jsp";
 	private static final String DOWNLOAD_SERVLET = "download?file=";
 
 	protected void doGet(HttpServletRequest request,

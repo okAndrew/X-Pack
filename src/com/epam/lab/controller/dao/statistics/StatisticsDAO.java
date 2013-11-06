@@ -17,4 +17,8 @@ public interface StatisticsDAO extends GenericDAO<Statistics> {
 	
 	List<Statistics> getAllByUserId(long userid);
 
+	Statistics getVisitsPerDayByUserId(long userId);
+
+	Statistics getAvarageTimeSessionByUserId(long userId);
+
 }

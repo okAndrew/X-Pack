@@ -18,12 +18,11 @@ public class LanguageServiceImpl extends AbstractServiceImpl<Language>
 
 	@Override
 	public Language getLang(String locale) {
-		Language languageImg = null;
 		LocaleServiceImpl locImpl = new LocaleServiceImpl();
 		Locale language = locImpl.getByLocale(locale);
 		LanguageDAOImpl daoimpl = new LanguageDAOImpl();
-		languageImg = daoimpl.getByLang(language.getLanguage());
-		return languageImg;
+		Language languageObj = daoimpl.getByLang(language.getLanguage());
+		return languageObj;
 
 	}
 

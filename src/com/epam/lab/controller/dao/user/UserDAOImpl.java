@@ -11,7 +11,10 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User get(long id) {
-		String sql = "SELECT * FROM users WHERE id=?";
+		String sql = "SELECT users.id as id, users.login as login, users.email as email, users.password as password, "
+				+ "users.id_tariff as id_tariff, users.capacity as capacity, users.is_activated as is_activated, "
+				+ "users.is_banned as is_banned, users.id_role as id_role, locale.locale as last_locale "
+				+ "FROM users left join locale on users.last_locale=locale.id WHERE users.id=?;";
 		User result = queryExecutor.executeQuerySingle(User.class, sql, id);
 		return result;
 	}
@@ -116,6 +119,13 @@ public class UserDAOImpl implements UserDAO {
 		String sql = "SELECT * FROM users WHERE is_banned = 1";
 		List<User> resultList = queryExecutor.executeQuery(User.class, sql);
 		return resultList;
+	}
+
+	@Override
+	public int setLastLocale(long locId, long userId) {
+		String sql = "UPDATE users SET last_locale=? WHERE id=?";
+		return queryExecutor.executeUpdate(sql, locId, userId);
+
 	}
 
 }

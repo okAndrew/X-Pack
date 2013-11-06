@@ -11,9 +11,11 @@ import javax.servlet.http.HttpSessionListener;
 
 import com.epam.lab.controller.services.language.LanguageServiceImpl;
 import com.epam.lab.controller.services.statistics.sessionhistory.SessionHistoryServiceImpl;
+import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.TimeStampManager;
 import com.epam.lab.model.Language;
 import com.epam.lab.model.SessionHistory;
+import com.epam.lab.model.User;
 
 @WebListener
 public class UserOnlineListener implements HttpSessionListener,
@@ -46,6 +48,9 @@ public class UserOnlineListener implements HttpSessionListener,
 				.getId());
 		sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
 		historyService.update(sessionhistory);
+		UserServiceImpl ui = new UserServiceImpl();
+		ui.setLastLocale(session.getAttribute("sessLocale").toString(),
+				(long) session.getAttribute("userid"));
 	}
 
 	public static int getActiveSessionNumberLogged() {
@@ -58,7 +63,7 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
-
+		UserServiceImpl ui = new UserServiceImpl();
 		HttpSession session = event.getSession();
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		if (event.getName().equals("userid")
@@ -68,6 +73,10 @@ public class UserOnlineListener implements HttpSessionListener,
 					.getSessionHistBySessIdTomcat(session.getId());
 			sessionhistory.setUserid((long) session.getAttribute("userid"));
 			historyService.setUserId(sessionhistory);
+			User user = ui.get((long) session.getAttribute("userid"));
+			if (user.getLastLocale() != null) {
+				session.setAttribute("sessLocale", user.getLastLocale());
+			}
 		}
 
 	}
@@ -84,6 +93,11 @@ public class UserOnlineListener implements HttpSessionListener,
 
 	@Override
 	public void attributeReplaced(HttpSessionBindingEvent event) {
-
+		HttpSession session = event.getSession();
+		if (event.getName().equals("sessLocale")) {
+			LanguageServiceImpl langImpl = new LanguageServiceImpl();
+			session.setAttribute("currentLanguage", langImpl.getLang(session
+					.getAttribute("sessLocale").toString()));
+		}
 	}
 }

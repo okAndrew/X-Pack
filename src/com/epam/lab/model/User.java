@@ -31,12 +31,15 @@ public class User {
 	@TableColumn("id_role")
 	private int role;
 
+	@TableColumn("last_locale")
+	private String lastLocale;
+
 	public User() {
 	}
 
 	public User(long id, String login, String email, String password,
 			long idTariff, int capacity, boolean isActivated, boolean isBaned,
-			Role role, String lastVisitLanguage) {
+			Role role, String lastLocale) {
 		super();
 		this.id = id;
 		this.login = login;
@@ -46,6 +49,7 @@ public class User {
 		this.capacity = capacity;
 		this.isActivated = isActivated;
 		this.role = role.getNumber();
+		this.lastLocale = lastLocale;
 	}
 
 	public String getLogin() {
@@ -120,6 +124,15 @@ public class User {
 		return this;
 	}
 
+	public String getLastLocale() {
+		return lastLocale;
+	}
+
+	public User setLastLanguage(String lastLocale) {
+		this.lastLocale = lastLocale;
+		return this;
+	}
+
 	// one crafty getter...
 	public Role getRole() {
 		return Role.findByNumber(role);
@@ -140,7 +153,8 @@ public class User {
 		return "User [id=" + id + ", login=" + login + ", email=" + email
 				+ ", password=" + password + ", idTariff=" + idTariff
 				+ ", capacity=" + capacity + ", isActivated=" + isActivated
-				+ ", isBanned=" + isBanned + ", role=" + role + "]";
+				+ ", isBanned=" + isBanned + ", role=" + role + ", lastLocale="
+				+ lastLocale + "]";
 	}
 
 }

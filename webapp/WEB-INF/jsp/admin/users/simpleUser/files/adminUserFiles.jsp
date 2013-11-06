@@ -59,14 +59,16 @@ img.img {
 </head>
 <body>
 	<jsp:include page="../../../../menu.jsp"></jsp:include>
-	<jsp:include page="../adminUserHeader.jsp"></jsp:include>
-	<jsp:include page="causeDeletingSendEmailModalPage.jsp"></jsp:include>
-	<jsp:include page="../../../../user/modals/modalImage.jsp"></jsp:include>
-	<jsp:include page="../../../../user/modals/modalVideo.jsp"></jsp:include>
-	<jsp:include page="../../../../user/modals/modalAudio.jsp"></jsp:include>
+
 
 	<div class="container">
 		<div class="panel panel-default main">
+			<div class="panel-heading"><jsp:include
+					page="../adminUserHeader.jsp"></jsp:include>
+				<jsp:include page="causeDeletingSendEmailModalPage.jsp"></jsp:include>
+				<jsp:include page="../../../../user/modals/modalImage.jsp"></jsp:include>
+				<jsp:include page="../../../../user/modals/modalVideo.jsp"></jsp:include>
+				<jsp:include page="../../../../user/modals/modalAudio.jsp"></jsp:include></div>
 			<div class="panel-body">
 				<form action="adminUsercontroller" method="post">
 					<nav class="navbar navbar-default controlmenu" role="navigation">

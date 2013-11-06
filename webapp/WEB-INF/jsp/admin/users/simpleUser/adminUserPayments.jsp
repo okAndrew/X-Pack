@@ -59,8 +59,9 @@ table th,table td {
 	</c:if>
 	<div class="container">
 		<div class="panel panel-default main">
+		<div class="panel-heading"><jsp:include
+					page="adminUserHeader.jsp"></jsp:include></div>
 			<div class="panel-body">
-				<jsp:include page="adminUserHeader.jsp"></jsp:include>
 				<form action="userEmployeeController" method="post">
 					<div class="btn-toolbar pull-right">
 						<c:if test="${notFullList}">

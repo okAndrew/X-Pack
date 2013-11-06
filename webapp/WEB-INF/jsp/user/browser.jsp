@@ -24,7 +24,7 @@
 			</h5>
 		</div>
 	</c:if>
-	<!-- upper -->
+	<!--           upper           -->
 	<c:if test="${currentFolder.idUpper!=0 && (search==null || !search)}">
 		<div class="cell droppable" id="${currentFolder.idUpper}">
 			<div class="thumb">
@@ -42,7 +42,7 @@
 			</div>
 		</div>
 	</c:if>
-	<!-- folders -->
+	<!--         folders           -->
 	<c:forEach items="${folders}" var="folder">
 		<div class="cell draggable droppable" name="folder-${folder.id}"
 			id="${folder.id}">
@@ -52,18 +52,9 @@
 					height="70px"></a>
 			</div>
 			<div class="cell-desc">
-				<h5>
+				<h5 class="title-name">
 					<a href="userfoldernav?folderid=${folder.id}"
-						title="${folder.name}"> <c:set var="formatName"
-							value="${folder.name}"></c:set> <c:if
-							test="${fn:length(folder.name) > 16}">
-							<c:set var="formatName"
-								value="${fn:substring(folder.name, 0, 13)}..."></c:set>
-						</c:if> <c:out value="${formatName}"></c:out>
-					</a> <a data-toggle="modal" role="button" href="#EditModal"
-						onmousedown="set('folderidedit', '${folder.id}')"> <span
-						class="glyphicon glyphicon-pencil"></span>
-					</a>
+						title="${folder.name}">${folder.name} </a>
 				</h5>
 				<h5>
 					<dream:formatSize value="${folder.size}" />
@@ -72,23 +63,27 @@
 					<fmt:formatDate type="date" value="${folder.date}" />
 				</h6>
 			</div>
-			<div class="btn-group">
-				<h5>
-					<a data-toggle="modal" role="button" href="#DeleteModal"
-						onclick="set('folderiddelete', ${folder.id})"> <span
-						class="glyphicon glyphicon-trash"></span>
-					</a>
-				</h5>
-			</div>
 			<div class="btn-group check" data-toggle="buttons">
 				<label class="btn btn-default"><input type="checkbox"
 					class="cell-check" onchange="checkboxesStatus()" name="folders"
 					value="${folder.id}"> <span
 					class="glyphicon glyphicon-unchecked"></span> </label>
 			</div>
+			<div class="btn-group">
+				<h5>
+					<a data-toggle="modal" role="button" href="#EditModal"
+						onmousedown="set('folderidedit', '${folder.id}')"> <span
+						class="glyphicon glyphicon-pencil"></span>
+					</a> <a data-toggle="modal" role="button" href="#DeleteModal"
+						onclick="set('folderiddelete', ${folder.id})"> <span
+						class="glyphicon glyphicon-trash"></span>
+					</a>
+				</h5>
+			</div>
+
 		</div>
 	</c:forEach>
-	<!-- files -->
+	<!--           files         -->
 	<c:forEach items="${files}" var="file">
 		<div class="cell draggable" name="file-${file.id}">
 			<div class="thumb">
@@ -119,19 +114,28 @@
 							src="http://download.easyicon.net/png/30357/128/">
 					</c:otherwise>
 				</c:choose>
+				<div class="file-buttons">
+					<h5>
+						<a href="download?file=${file.name}"> <span
+							class="glyphicon glyphicon-download"></span></a>
+						<c:choose>
+							<c:when test="${file.isPublic }">
+								<a href="#" id="link-button${file.id }"
+									onclick="showLink(${file.id})"> <span
+									class="glyphicon glyphicon-link"></span></a>
+							</c:when>
+							<c:otherwise>
+								<a href="#" id="link-button${file.id }"
+									onclick="showLink(${file.id})" class="hidden"> <span
+									class="glyphicon glyphicon-link"></span></a>
+							</c:otherwise>
+						</c:choose>
+					</h5>
+				</div>
 			</div>
 			<div class="cell-desc">
-				<h5>
-					<a href="" title="${file.nameIncome}"> <c:set var="formatName"
-							value="${file.nameIncome}"></c:set> <c:if
-							test="${fn:length(file.nameIncome) > 16}">
-							<c:set var="formatName"
-								value="${fn:substring(file.nameIncome, 0, 13)}..."></c:set>
-						</c:if> <c:out value="${formatName}"></c:out>
-					</a> <a data-toggle="modal" role="button" href="#EditModal"
-						onmousedown="set('fileidedit', '${file.id}')"> <span
-						class="glyphicon glyphicon-pencil"></span>
-					</a>
+				<h5 class="title-name">
+					<a title="${file.nameIncome}">${file.nameIncome} </a>
 				</h5>
 				<h5>
 					<fmt:message key="Size" bundle="${lang}" />
@@ -141,28 +145,6 @@
 					<fmt:message key="Created_at" bundle="${lang}" />
 					<fmt:formatDate type="date" value="${file.date}" />
 				</h6>
-
-			</div>
-			<div class="btn-group">
-				<h5>
-					<a data-toggle="modal" href="#DeleteModal"
-						onclick="set('fileiddelete', ${file.id})"> <span
-						class="glyphicon glyphicon-trash"></span></a> <a
-						href="download?file=${file.name}"> <span
-						class="glyphicon glyphicon-download"></span></a>
-					<c:choose>
-						<c:when test="${file.isPublic }">
-							<a href="#" id="link-button${file.id }"
-								onclick="showLink(${file.id})"> <span
-								class="glyphicon glyphicon-link"></span></a>
-						</c:when>
-						<c:otherwise>
-							<a href="#" id="link-button${file.id }"
-								onclick="showLink(${file.id})" class="hidden"> <span
-								class="glyphicon glyphicon-link"></span></a>
-						</c:otherwise>
-					</c:choose>
-				</h5>
 			</div>
 			<div class="btn-group check" data-toggle="buttons">
 				<label class="btn btn-default"><input type="checkbox"
@@ -170,6 +152,17 @@
 					value="${file.id}"> <span
 					class="glyphicon glyphicon-unchecked"></span> </label>
 			</div>
+			<div class="btn-group">
+				<h5>
+					<a data-toggle="modal" role="button" href="#EditModal"
+						onmousedown="set('fileidedit', '${file.id}')"> <span
+						class="glyphicon glyphicon-pencil"></span>
+					</a> <a data-toggle="modal" href="#DeleteModal"
+						onclick="set('fileiddelete', ${file.id})"> <span
+						class="glyphicon glyphicon-trash"></span></a>
+				</h5>
+			</div>
+
 			<div class="public">
 				<label><fmt:message key="public" bundle="${lang}" /> </label>
 				<c:choose>

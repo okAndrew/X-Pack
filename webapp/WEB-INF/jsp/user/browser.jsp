@@ -92,7 +92,7 @@
 						<a data-toggle="modal" role="button" href="#ImageModal"
 							onclick="setSRC('${file.name}')"><img class="trunc"
 							title="${file.nameIncome}"
-							src="http://icons.iconarchive.com/icons/treetog/junior/256/document-picture-png-icon.png">
+							src="res/img/browser/image-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">

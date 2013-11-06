@@ -63,9 +63,12 @@ public class LocaleDAOImpl implements LocaleDAO {
 	@Override
 	public Locale getByLocale(String locale) {
 		String sql = "SELECT lo.id, locale, la.name as language FROM locale lo join languages la"
-				+ " on lo.language=la.id where locale=?";
+				+ " on lo.language=la.id where locale=? union "
+				+ "SELECT lo.id, locale, la.name as language FROM locale lo join languages la"
+				+ " on lo.language=la.id where locale='en' and not exists(SELECT lo.id, locale, la.name "
+				+ "as language FROM locale lo join languages la on lo.language=la.id where locale=?)";
 		Locale result = queryExecutor.executeQuerySingle(Locale.class, sql,
-				locale);
+				locale, locale);
 		return result;
 	}
 

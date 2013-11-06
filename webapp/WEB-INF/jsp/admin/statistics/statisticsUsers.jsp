@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <div id="chart1" style="height: 350px; width: 700px;"></div>
 <button class="button-reset btn btn-default"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>

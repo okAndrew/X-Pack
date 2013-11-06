@@ -11,9 +11,9 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User get(long id) {
-		String sql = "SELECT users.id as id, users.login as login, users.email as email, users.password as password, "
-				+ "users.id_tariff as id_tariff, users.capacity as capacity, users.is_activated as is_activated, "
-				+ "users.is_banned as is_banned, users.id_role as id_role, locale.locale as last_locale "
+		String sql = "SELECT users.id, users.login, users.email, users.password, "
+				+ "users.id_tariff, users.capacity, users.is_activated, "
+				+ "users.is_banned, users.id_role, locale.locale as last_locale "
 				+ "FROM users left join locale on users.last_locale=locale.id WHERE users.id=?;";
 		User result = queryExecutor.executeQuerySingle(User.class, sql, id);
 		return result;

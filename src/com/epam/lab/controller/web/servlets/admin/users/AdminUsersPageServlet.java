@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.SelectService;
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.model.User;
 
@@ -22,9 +23,8 @@ public class AdminUsersPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		getUsers(request, response);
-		if (request.getParameter("message") != null) {
-			request.setAttribute("message", null);
-		}
+		getNamesTariffs(request, response);
+		
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
 		dispatcher.forward(request, response);
@@ -51,5 +51,11 @@ public class AdminUsersPageServlet extends HttpServlet {
 				request.getParameter("orderby"), request.getParameter("sop"));
 		request.setAttribute("users", users);
 		request.setAttribute("usersCount", service.getCount());
+	}
+
+	private void getNamesTariffs(HttpServletRequest request,
+			HttpServletResponse response){
+		TariffServiseImpl service = new TariffServiseImpl();
+		request.setAttribute("tariffsNames", service.getHashMapNames());
 	}
 }

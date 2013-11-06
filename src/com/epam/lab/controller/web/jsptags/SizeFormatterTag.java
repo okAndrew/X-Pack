@@ -23,9 +23,13 @@ public class SizeFormatterTag extends SimpleTagSupport {
 	@Override
 	public void doTag() throws JspException, IOException {
 		try {
-			System.out.println(value);
-			Double tmp = Double.parseDouble(value);
-			Long bytes = tmp.longValue();
+			Long bytes = null;
+			try {
+				Double tmp = Double.parseDouble(value);
+				bytes = tmp.longValue();
+			} catch (NumberFormatException e) {
+				System.out.println(e.getMessage());
+			}
 
 			String[] units = { "Bytes", "KB", "MB", "GB", "TB" };
 
@@ -44,7 +48,7 @@ public class SizeFormatterTag extends SimpleTagSupport {
 				result = String.format("%.2f %s", resSize, units[unitN]);
 			}
 			getJspContext().getOut().write(result);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			throw new SkipPageException("Exception in formatting " + value);
 		}

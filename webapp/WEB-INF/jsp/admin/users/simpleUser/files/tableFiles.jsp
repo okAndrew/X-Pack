@@ -55,7 +55,7 @@
 								</c:choose>
 							</div></td>
 						<td><fmt:formatDate value="${file.date}" /></td>
-						<td>${file.size}</td>
+						<td><dream:formatSize value="${file.size}" /></td>
 						<td>${file.type}</td>
 					</tr>
 				</c:forEach>

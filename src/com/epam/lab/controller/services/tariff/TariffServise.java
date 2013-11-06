@@ -1,5 +1,6 @@
 package com.epam.lab.controller.services.tariff;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.epam.lab.controller.services.AbstractService;
@@ -27,4 +28,5 @@ public interface TariffServise extends AbstractService<Tariff> {
 	List<Tariff> getByParam(String page, String count, String orderBy,
 			String sop, String language);
 
+	HashMap<Long, Tariff> getHashMapNames();
 }

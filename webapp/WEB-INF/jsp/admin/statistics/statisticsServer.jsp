@@ -38,16 +38,16 @@
 				<td><dream:formatSize value="${downlLastWeek}" /></td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Upload_last_week" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${uploadLastWeek}));</script></td>
+				<td>Upload last week</td>
+				<td><dream:formatSize value="${uploadLastWeek}"/></td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Download_last_day" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${downlLastDay}));</script></td>
+				<td>Download last day</td>
+				<td><dream:formatSize value="${downlLastDay}"/></td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Upload_last_day" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${uploadLastDay}));</script></td>
+				<td>Upload last day</td>
+				<td><dream:formatSize value="${uploadLastDay}"/></td>
 			</tr>
 		</tbody>
 	</table>

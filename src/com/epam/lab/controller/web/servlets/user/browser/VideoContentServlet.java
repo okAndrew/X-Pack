@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/videocontent")
 public class VideoContentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String VIDEO_CONTENT_JSP = "WEB-INF/jsp/user/myspace/videocontent.jsp";
+	private static final String VIDEO_CONTENT_JSP = "WEB-INF/jsp/user/modals/videoContent.jsp";
 	private static final String DOWNLOAD_SERVLET = "download?file=";
 
 	protected void doGet(HttpServletRequest request,

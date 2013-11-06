@@ -35,10 +35,12 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final Logger logger = Logger
 			.getLogger(UserFileServiceImpl.class);
 	private static long count;
-	private static final Properties PROP = new Properties();
-	private static final String ROOT_PATH = PROP.getProperty("rootPath");
-	private static final int MAX_FILES = 999;
+	private static final Properties PROP;
+	private static final int MAX_FILES;
+	private static final String ROOT_PATH;
 	static {
+		PROP = new Properties();
+		MAX_FILES = 1000;
 		try {
 			InputStream is = UserFileServiceImpl.class
 					.getResourceAsStream("path.properties");
@@ -47,6 +49,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			logger.error(e);
 			e.printStackTrace();
 		}
+		ROOT_PATH = PROP.getProperty("rootPath");
 	}
 
 	public UserFileServiceImpl() {

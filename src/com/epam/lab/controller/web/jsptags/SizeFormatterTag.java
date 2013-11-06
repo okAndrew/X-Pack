@@ -23,6 +23,7 @@ public class SizeFormatterTag extends SimpleTagSupport {
 	@Override
 	public void doTag() throws JspException, IOException {
 		try {
+			System.out.println(value);
 			Double tmp = Double.parseDouble(value);
 			Long bytes = tmp.longValue();
 

@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.model.UserFile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,8 +29,7 @@ public class JSONBuilder {
 		JSONObject result = null;
 		try {
 			result = new JSONObject(json);
-			result.put("url", "http://localhost:8080/dreamhost/download?file="
-					+ userFile.getName());
+			result.put("url", new UserFileServiceImpl().getLink(userFile.getId()));
 		} catch (JSONException e) {
 			e.printStackTrace();
 			logger.error(e);

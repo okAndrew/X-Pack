@@ -29,7 +29,6 @@ import com.epam.lab.model.UserFile;
 
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
-	private static final String SITE_LINK = "http://localhost:8080/dreamhost/";
 	private FileDAO fileDAO = (FileDAO) dao;
 
 	private static final Logger logger = Logger
@@ -38,6 +37,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final Properties PROP;
 	private static final int MAX_FILES;
 	private static final String ROOT_PATH;
+	private static final String HOST;
 	static {
 		PROP = new Properties();
 		MAX_FILES = 1000;
@@ -50,6 +50,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			e.printStackTrace();
 		}
 		ROOT_PATH = PROP.getProperty("rootPath");
+		HOST = PROP.getProperty("host");
 	}
 
 	public UserFileServiceImpl() {
@@ -234,7 +235,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	@Override
 	public String getLink(long fileId) {
 		String name = fileDAO.get(fileId).getName();
-		return SITE_LINK + "download?file=" + name;
+		return HOST + "download?file=" + name;
 	}
 
 	public List<FilesTypesSize> getTypesFiles() {
@@ -363,5 +364,16 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			result = false;
 		}
 		return result;
+	}
+
+	@Override
+	public void refresh(long folderId) {
+		List<UserFile> files = fileDAO.getAllByFolderId(folderId);
+		for (UserFile file: files) {
+			File f = new File(file.getPath() + File.separator + file.getName());
+			if (!f.exists()) {
+				fileDAO.delete(file.getId());
+			}
+		}
 	}
 }

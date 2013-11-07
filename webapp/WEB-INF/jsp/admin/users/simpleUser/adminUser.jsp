@@ -2,83 +2,76 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>DreamHost(Administrator) | Users</title>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
-	type="text/javascript"></script>
-<script src="res/js/bootstrap.js"></script>
-<script src="res/js/utils.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>DreamHost(Administrator) | Simple User</title>
 
+<script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
+<link href="res/css/bootstrap.css" rel="stylesheet" />
+<link href="res/css/style.css" rel="stylesheet" />
 <script type="text/javascript" src="res/js/utils.js"></script>
-<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
-<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 
+<style type="text/css">
+.Container {
+	padding-top: 30px;
+	max-width: 1200px;
+	margin: auto;
+}
+
+.button-reset1.btn.btn-default,.button-reset2.btn.btn-default {
+	margin: 10px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
-	<jsp:include page="modalAdminUser.jsp"></jsp:include>
-	<c:if test="${message != null}">
-		<script>
-			$('#myModal').modal('show')
-		</script>
-	</c:if>
-	<div class="container">
-		<div class="panel panel-default main">
-		
+	<div class="Container">
+		<!-- Panel -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="btn-group">
+					<a href="adminUser?page=adminUserInfo" class="btn btn-default">
+						<fmt:message key="Info" bundle="${lang}" />
+					</a> <a href="adminUser?page=adminUserFiles" class="btn btn-default">
+						<fmt:message key="Files" bundle="${lang}" />
+					</a> <a href="adminUser?page=adminUserPayments" class="btn btn-default">
+						<fmt:message key="Payments" bundle="${lang}" />
+					</a> <a href="adminUser?page=adminUserActivity" class="btn btn-default">
+						<fmt:message key="Activity" bundle="${lang}" />
+					</a> <a href="adminUser?page=adminUserTraffic" class="btn btn-default">
+						<fmt:message key="Traffic" bundle="${lang}" />
+					</a>
+				</div>
+			</div>
 			<div class="panel-body">
-			
-			<jsp:include page="adminUserHeader.jsp"></jsp:include>
-				<form action="adminSimpleEmployeeController">
-					<table class="table zebra-striped table-hover table-condensed"
-						id="tablesorter">
-						<tbody class="avoid-sort">
-							<tr>
-								<td><fmt:message key="User_id" bundle="${lang}" /></td>
-								<td>${adminUser.id}</td>
-							</tr>
-							<tr>
-								<td><fmt:message key="User_login" bundle="${lang}" /></td>
-								<td>${adminUser.login}</td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Email" bundle="${lang}" /></td>
-								<td>${adminUser.email}</td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Tariff" bundle="${lang}" /></td>
-								<td>${adminUser.idTariff}</td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Capacity" bundle="${lang}" /></td>
-								<td><dream:formatSize value="${adminUser.capacity}" /></td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Activation" bundle="${lang}" /></td>
-								<td>${adminUser.isActivated}</td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Banned" bundle="${lang}" /></td>
-								<td>${adminUser.isBanned}</td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Role" bundle="${lang}" /></td>
-								<td>${adminUser.role}</td>
-							</tr>
-						</tbody>
-					</table>
-					<button type="button" class="btn btn-default" data-toggle="modal"
-						data-target="#myModal">
-						<fmt:message key="Edit" bundle="${lang}" />
-					</button>
-				</form>
+				<div id="dynamicArea">
+					<c:choose>
+						<c:when test="${param.page == 'adminUserInfo'}">
+							<jsp:include page="adminUserInfo.jsp"></jsp:include>
+						</c:when>
+						<c:when test="${param.page == 'adminUserFiles'}">
+							<jsp:include page="files/adminUserFiles.jsp"></jsp:include>
+						</c:when>
+						<c:when test="${param.page == 'adminUserPayments'}">
+							<jsp:include page="adminUserPayments.jsp"></jsp:include>
+						</c:when>
+						<c:when test="${param.page == 'paymentsByDate'}">
+							<jsp:include page="adminUserPayments.jsp"></jsp:include>
+						</c:when>
+						<c:when test="${param.page == 'adminUserActivity'}">
+							<jsp:include page="adminUserActivity.jsp"></jsp:include>
+						</c:when>
+						<c:when test="${param.page == 'adminUserTraffic'}">
+							<jsp:include page="adminUserTraffic.jsp"></jsp:include>
+						</c:when>
+						<c:otherwise>
+							<jsp:include page="adminUserInfo.jsp"></jsp:include>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 		</div>
 	</div>

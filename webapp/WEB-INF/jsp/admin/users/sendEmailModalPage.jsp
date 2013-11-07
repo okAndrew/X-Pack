@@ -3,30 +3,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
-	type="text/javascript"></script>
 <script type="text/javascript" src="res/js/modal.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <link href="res/css/style.css" rel="stylesheet" />
 
-<div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="sendEmailModal" tabindex="-1">
 
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">Send Email</h4>
 			</div>
 			<div class="modal-body">
 				<div class="container">
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-
 							<table class="table">
 								<tbody>
 									<tr>
@@ -42,7 +34,6 @@
 								</tbody>
 							</table>
 						</div>
-						<!--/.nav-collapse -->
 					</div>
 				</div>
 			</div>
@@ -54,8 +45,5 @@
 				</button>
 			</div>
 		</div>
-		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->

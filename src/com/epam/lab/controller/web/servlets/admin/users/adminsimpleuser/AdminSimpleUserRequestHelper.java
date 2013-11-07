@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh;
+package com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.info.AdminSimpleUserInfoCommand;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.payments.AdminUserPaymentsByDateCommand;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.payments.AdminUserPaymentsCommand;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.useractivity.AdminUserActivityCommand;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles.AdminSimpleUserFilesCommand;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userfiles.AdminSimpleUserFilesDelCommand;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.usertraffic.AdminUserTrafficCommand;
+import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.useractivity.AdminUserActivityCommand;
+import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userfiles.AdminSimpleUserFilesCommand;
+import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userfiles.AdminSimpleUserFilesDelCommand;
+import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userinfo.AdminSimpleUserInfoCommand;
+import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userpayments.AdminUserPaymentsByDateCommand;
+import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userpayments.AdminUserPaymentsCommand;
+import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.usertraffic.AdminUserTrafficCommand;
+
 
 public class AdminSimpleUserRequestHelper {
 

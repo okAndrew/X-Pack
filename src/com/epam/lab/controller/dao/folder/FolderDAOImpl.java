@@ -3,9 +3,11 @@ package com.epam.lab.controller.dao.folder;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.controller.exceptions.NoSupportedActionException;
 import com.epam.lab.model.Folder;
 
 public class FolderDAOImpl implements FolderDAO {
+
 	private DBQueryExecutor<Folder> queryExecutor = new DBQueryExecutor<Folder>();
 
 	@Override
@@ -41,8 +43,7 @@ public class FolderDAOImpl implements FolderDAO {
 
 	@Override
 	public List<Folder> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new NoSupportedActionException("FileDao.getAll() not supported");
 	}
 
 	@Override

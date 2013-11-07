@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.model.Role;
@@ -37,9 +38,9 @@ public class AdminVerifyFilter implements Filter {
 			}
 		}
 		chain.doFilter(request, response);
-		//Natalya's comment
-//		HttpServletResponse httpResponse = (HttpServletResponse) response;
-//		httpResponse.sendRedirect("signin");
+//		Natalya's comment
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		httpResponse.sendRedirect("signin");
 	}
 
 	@Override

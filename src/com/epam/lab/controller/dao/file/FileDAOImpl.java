@@ -4,12 +4,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.controller.exceptions.NoSupportedActionException;
 import com.epam.lab.model.FilesTypesSize;
 import com.epam.lab.model.UserFile;
 
 public class FileDAOImpl implements FileDAO {
+	
 	private DBQueryExecutor<UserFile> queryExecutor = new DBQueryExecutor<UserFile>();
-
+	
 	@Override
 	public UserFile get(long id) {
 		String sql = "SELECT * FROM files WHERE id=?";
@@ -41,7 +43,7 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public List<UserFile> getAll() {
-		return null;
+			throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override

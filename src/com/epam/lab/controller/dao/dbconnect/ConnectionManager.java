@@ -1,6 +1,7 @@
 package com.epam.lab.controller.dao.dbconnect;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,29 +25,39 @@ public class ConnectionManager {
 
 	public static ConnectionManager newInstance() {
 		connManager = new ConnectionManager();
-		try {
-			connManager.initContext = new InitialContext();
-			Context envContext = (Context) connManager.initContext.lookup("java:/comp/env");
-			connManager.dataSource = (DataSource) envContext.lookup("datasource");
-		} catch (NamingException e) {
-			logger.error(e);
-			e.printStackTrace();
-			connManager = null;
-		}
+//		try {
+//			connManager.initContext = new InitialContext();
+//			Context envContext = (Context) connManager.initContext
+//					.lookup("java:/comp/env");
+//			connManager.dataSource = (DataSource) envContext
+//					.lookup("datasource");
+//		} catch (NamingException e) {
+//			logger.error(e);
+//			e.printStackTrace();
+//			connManager = null;
+//		}
 		return connManager;
 	}
 
-	public static ConnectionManager getInstance() {
+	public static ConnectionManager  getInstance() {
 		if (connManager == null) {
 			connManager = newInstance();
 		}
 		return connManager;
 	}
-
+	
 	public Connection getConnection() throws SQLException {
 		Connection result = null;
-		if (connManager != null)
-			result = dataSource.getConnection();
+		// if (connManager != null)
+		// result = dataSource.getConnection();
+		// for tests
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			result = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/dreamhost", "root", "1111");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 

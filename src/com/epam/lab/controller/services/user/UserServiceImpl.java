@@ -446,7 +446,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public long getFreeSize(long userId) {
-		refresh(userId);
 		UserDAOImpl dao = new UserDAOImpl();
 		User user = dao.get(userId);
 		TariffDAOImpl tariffDao = new TariffDAOImpl();
@@ -490,7 +489,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		ui.setLastLocale(localeObj.getId(), userId);
 	}
 
-	private void refresh(long userId) {
+	public void refresh(long userId) {
 		FolderService folderService = new FolderServiceImpl();
 		folderService.refresh(userId);
 		User user = this.userDaoImpl.get(userId);

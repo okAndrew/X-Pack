@@ -4,13 +4,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<style>
+.collapse.navbar-collapse {
+	padding-top: 12px;
+}
+.navbar-brand{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+</style>
+
 <div class="navbar navbar-fixed-top navbar-inverse">
 
 	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="homepage">DREAMHOST</a>
+			<a class="navbar-brand" href="homepage"><img width="120px"
+				src="res/img/LOGO.png"></a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -76,7 +87,7 @@
 					<div class="dropdown-menu pull-right">
 						<c:forEach items="${languages}" var="language">
 							<li><a href="locale?language=${language.defaulLocale}"><img
-								src="${language.pathImage}" >${language.name}</a></li>
+									src="${language.pathImage}">${language.name}</a></li>
 						</c:forEach>
 					</div>
 				</div>

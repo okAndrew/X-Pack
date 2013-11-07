@@ -34,7 +34,7 @@
 					height="70px"></a>
 			</div>
 			<div class="cell-desc">
-				<h4>${currentFolder.name}</h4>
+				<h4 class="title-name">${currentFolder.name}</h4>
 				<h5>
 					<fmt:message key="Total_size" bundle="${lang}" />
 					<dream:formatSize value="${currentFolder.size}" />

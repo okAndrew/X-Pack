@@ -14,8 +14,7 @@
 		<table class="table zebra-striped table-hover table-condensed">
 			<thead>
 				<tr>
-					<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
-							key="All" bundle="${lang}" /></th>
+					<th><input type="checkbox" onClick="toggle(this)" /> </th>
 					<th><fmt:message key="Path" bundle="${lang}" /></th>
 					<th><fmt:message key="File_name" bundle="${lang}" /></th>
 					<th><fmt:message key="Date" bundle="${lang}" /></th>

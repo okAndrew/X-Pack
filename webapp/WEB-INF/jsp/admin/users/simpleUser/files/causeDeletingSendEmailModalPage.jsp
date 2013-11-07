@@ -46,8 +46,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" name="delete"
-					value="sendEmailUsers">
+				<button type="submit" class="btn btn-primary" name="action"
+					value="deleteWithSendEmail">
 					<fmt:message key="Submit" bundle="${lang}" />
 				</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">

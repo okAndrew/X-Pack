@@ -20,7 +20,7 @@ import com.epam.lab.model.Role;
 		"/adminUsersPage", "/employeeControllerUsers", "/adminTariffsPage",
 		"/employeeControllerTariffs", "/adminStatisticsPage", "/adminLogsPage",
 		"/adminUser", "/userEmployeeController", "/adminUserActivity",
-		"/adminUserActivityGraph" })
+		"/adminUserActivityGraph", "/adminUsercontroller" })
 public class AdminVerifyFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,

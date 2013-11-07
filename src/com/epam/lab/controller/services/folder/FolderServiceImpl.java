@@ -10,6 +10,7 @@ import com.epam.lab.controller.dao.folder.FolderDAO;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
+import com.epam.lab.controller.services.file.UserFileService;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.utils.Validator;
 import com.epam.lab.model.Folder;
@@ -228,4 +229,28 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		return result;
 	}
 
+	public void refresh(long userId) {
+		Folder root = getRoot(userId);
+		long size = refreshSizes(root.getId());
+		root.setSize(size);
+		folderDAO.update(root);
+	}
+
+	private long refreshSizes(long id) {
+		long result = 0;
+		UserFileService fileService = new UserFileServiceImpl();
+		fileService.refresh(id);
+		List<Folder> subFolders = folderDAO.getByUpperId(id);
+		for (Folder subFolder: subFolders) {
+			long size = refreshSizes(subFolder.getId());
+			subFolder.setSize(size);
+			folderDAO.update(subFolder);
+			result += size;
+		}
+		List<UserFile> files = fileService.getByFolderId(id);
+		for (UserFile file: files) {
+			result += file.getSize();
+		}
+		return result;
+	}
 }

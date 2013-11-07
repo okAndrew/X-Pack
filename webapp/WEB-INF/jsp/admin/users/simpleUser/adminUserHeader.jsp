@@ -17,13 +17,22 @@
 <script type="text/javascript" src="res/js/utils.js"></script>
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-
+<style type="text/css">
+.Container {
+	padding-top: 30px;
+	max-width: 1200px;
+	margin: auto;
+}
+.button-reset1.btn.btn-default, .button-reset2.btn.btn-default{
+	margin: 10px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
 	<jsp:include page="modalAdminUser.jsp"></jsp:include>
 	<div class="container">
-		<div >
+		<div>
 			<div class="panel-body">
 				<form action="userEmployeeController" method="post">
 					<div class="btn-group">
@@ -32,7 +41,9 @@
 							<fmt:message key="Info" bundle="${lang}" />
 						</button>
 						<button type="submit" class="btn btn-default" name="action"
-							value="adminUserFiles"><fmt:message key="Files" bundle="${lang}" /></button>
+							value="adminUserFiles">
+							<fmt:message key="Files" bundle="${lang}" />
+						</button>
 						<button type="submit" class="btn btn-default" name="action"
 							value="adminUserPayments">
 							<fmt:message key="Payments" bundle="${lang}" />

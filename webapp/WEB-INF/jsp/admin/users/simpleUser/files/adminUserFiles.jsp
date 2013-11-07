@@ -59,8 +59,6 @@ img.img {
 </head>
 <body>
 	<jsp:include page="../../../../menu.jsp"></jsp:include>
-
-
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-heading"><jsp:include
@@ -71,10 +69,17 @@ img.img {
 				<jsp:include page="../../../../user/modals/modalAudio.jsp"></jsp:include></div>
 			<div class="panel-body">
 				<form action="adminUsercontroller" method="post">
-					<nav class="navbar navbar-default controlmenu" role="navigation">
-						<div class="collapse navbar-collapse controlmenu">
+						<div class="panel-body">
 							<div class="btn-group">
-
+							<div class="btn-toolbar pull-left">
+								<div class="input-group" style="width: 300px;">
+									<input type="text" onkeyup="searchFiles()" class="form-control"
+										id="searchinput" onKeyPress="return disableEnterKey(event)">
+									<span class="input-group-addon"> <span
+										class="glyphicon glyphicon-search"></span>
+									</span>
+								</div>
+							</div>
 								<button type="submit" name="download" class="btn btn-default"
 									disabled="disabled" id="download">
 									<fmt:message key="Download" bundle="${lang}" />
@@ -84,20 +89,9 @@ img.img {
 									data-target="#causeDeletingSendEmailModal">
 									<fmt:message key="Delete" bundle="${lang}" />
 								</button>
-
 							</div>
-
-							<div class="btn-toolbar pull-right">
-								<div class="input-group" style="width: 300px;">
-									<input type="text" onkeyup="searchFiles()" class="form-control"
-										id="searchinput" onKeyPress="return disableEnterKey(event)">
-									<span class="input-group-addon"> <span
-										class="glyphicon glyphicon-search"></span>
-									</span>
-								</div>
-							</div>
+							
 						</div>
-					</nav>
 					<div id="filetable">
 						<jsp:include page="tableFiles.jsp"></jsp:include>
 					</div>

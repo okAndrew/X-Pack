@@ -59,7 +59,7 @@ table th,table td {
 	</c:if>
 	<div class="container">
 		<div class="panel panel-default main">
-		<div class="panel-heading"><jsp:include
+			<div class="panel-heading"><jsp:include
 					page="adminUserHeader.jsp"></jsp:include></div>
 			<div class="panel-body">
 				<form action="userEmployeeController" method="post">
@@ -72,9 +72,11 @@ table th,table td {
 						</c:if>
 					</div>
 				</form>
-				<div class="rowSpace">
+				<div>
 					<c:if test="${messagePeriod != null&&listPayments.size()==0}">
-						<div><fmt:message key="${messagePeriod}" bundle="${lang}" /></div>
+						<div>
+							<fmt:message key="${messagePeriod}" bundle="${lang}" />
+						</div>
 					</c:if>
 				</div>
 				<c:choose>
@@ -82,7 +84,7 @@ table th,table td {
 						<form action="userEmployeeController" method="post"
 							name="paybyDate">
 							<div class="panel-body">
-								<div class="well">
+								<div>
 									<div class="input">
 										<div class="input-append date">
 											<input data-date-format="yyyy-mm-dd" type="text"
@@ -101,11 +103,17 @@ table th,table td {
 								</div>
 
 								<c:if test="${message != null}">
-									<div class="alert alert-danger"><fmt:message key="${message}" bundle="${lang}" /></div>
+									<div class="alert alert-danger">
+										<fmt:message key="${message}" bundle="${lang}" />
+									</div>
 								</c:if>
-								<div class="rowSpace">
+								<div>
 									<c:if test="${messagePeriod != null}">
-										<div><fmt:message key="${messagePeriod}" bundle="${lang}" /></div>
+										<div>
+											<fmt:message key="${messagePeriod}" bundle="${lang}" />
+											<fmt:formatDate value="${startperiod}" />-
+											<fmt:formatDate value="${endperiod}" />
+										</div>
 									</c:if>
 								</div>
 							</div>

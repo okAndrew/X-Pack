@@ -16,9 +16,15 @@
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
-
+<link href="res/css/jquery.jqplot.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
+<style type="text/css">
+.button-reset {
+	margin: 30px;
+	margin-left: 90px;
+}
+</style>
 
 <style type="text/css">
 div.alert {
@@ -86,7 +92,7 @@ table th,table td {
 					<div class="row-fluid">
 						<div class="col-xs-7">
 							<div id="chart1"></div>
-							<button class="button-reset">
+							<button class="button-reset  btn btn-default">
 								<fmt:message key="Reset_Zoom" bundle="${lang}" />
 							</button>
 						</div>

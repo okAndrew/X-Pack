@@ -16,10 +16,15 @@
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
-
+<link href="res/css/jquery.jqplot.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-
+<style type="text/css">
+.button-reset {
+	margin: 30px;
+	margin-left: 90px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../../../menu.jsp"></jsp:include>
@@ -29,15 +34,15 @@
 					page="adminUserHeader.jsp"></jsp:include></div>
 			<div class="panel-body">
 				<div class="col-xs-6">
-					<div id="chart1" style="height: 350px; width: 550px;"></div>
-					<button class="button-reset1">
+					<div id="chart1" style="height: 350px; width: 535px;"></div>
+					<button class="button-reset1 btn btn-default">
 						<fmt:message key="Reset_Zoom" bundle="${lang}" />
 					</button>
 				</div>
 
 				<div class="col-xs-6">
-						<div id="chart2" style="height: 350px; width: 550px;"></div>
-						<button class="button-reset2">
+						<div id="chart2" style="height: 350px; width: 535px;"></div>
+						<button class="button-reset2 btn btn-default">
 							<fmt:message key="Reset_Zoom" bundle="${lang}" />
 						</button>
 					</div>

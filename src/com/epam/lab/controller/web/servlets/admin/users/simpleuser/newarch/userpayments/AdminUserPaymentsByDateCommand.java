@@ -1,6 +1,8 @@
 package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userpayments;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -19,6 +21,7 @@ public class AdminUserPaymentsByDateCommand implements
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		PaymentServiceImpl psevrive = new PaymentServiceImpl();
 		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("adminUserid");
@@ -29,8 +32,14 @@ public class AdminUserPaymentsByDateCommand implements
 					startdateRequest, enddateRequest);
 			request.setAttribute("listPayments", list);
 			request.setAttribute("notFullList", true);
-			request.setAttribute("messagePeriod", "Your_payments_for_period"
-					+ startdateRequest + " - " + enddateRequest);
+			request.setAttribute("messagePeriod", "Your_payments_for_period");
+			try {
+				request.setAttribute("startperiod", sf.parseObject(startdateRequest));
+				request.setAttribute("endperiod", sf.parseObject(enddateRequest));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
 		} else {
 			request.setAttribute("message", "Please_select_period");
 		}

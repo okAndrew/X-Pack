@@ -35,6 +35,7 @@ public class UserPageServlet extends HttpServlet {
 		request.setAttribute("isbanned", isBanned);
 		request.setAttribute("parent", "userpage");
 		UserServiceImpl service = new UserServiceImpl();
+		service.refresh(userId);
 		request.setAttribute("freeSpace", service.getFreeSize(userId)/1024/1024);
 		request.getRequestDispatcher("BrowserContent").include(request,
 				response);

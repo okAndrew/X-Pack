@@ -364,4 +364,15 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		}
 		return result;
 	}
+
+	@Override
+	public void refresh(long folderId) {
+		List<UserFile> files = fileDAO.getAllByFolderId(folderId);
+		for (UserFile file: files) {
+			File f = new File(file.getPath() + File.separator + file.getName());
+			if (!f.exists()) {
+				fileDAO.delete(file.getId());
+			}
+		}
+	}
 }

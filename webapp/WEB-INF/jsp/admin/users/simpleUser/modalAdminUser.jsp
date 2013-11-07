@@ -50,7 +50,7 @@
 					<!-- Static navbar -->
 					<div class="navbar navbar-default">
 						<div>
-							<form action="updateUser" method="post">
+							<form action="adminUser">
 								<c:if test="${message != null}">
 									<div id="errorinfo" class="alert alert-danger"
 										style="display:${(message != null) ? 'block' : 'none'}">
@@ -111,7 +111,7 @@
 										</tr>
 									</tbody>
 								</table>
-								<button type="submit" class="btn btn-primary" name="action"
+								<button type="submit" class="btn btn-primary" name="page"
 									value="updateUser">
 									<fmt:message key="Save_changes" bundle="${lang}" />
 								</button>

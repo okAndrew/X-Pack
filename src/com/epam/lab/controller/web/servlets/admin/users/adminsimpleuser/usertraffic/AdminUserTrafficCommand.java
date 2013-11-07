@@ -19,7 +19,7 @@ public class AdminUserTrafficCommand implements AdminSimpleUserPageCommand {
 		HttpSession session = request.getSession();
 		long userId = (long) session.getAttribute("adminUserid");
 		setDataDownload(request, response, userId);
-		setDataDownload(request, response, userId);
+		setDataUpload(request, response, userId);
 		page = "WEB-INF/jsp/admin/users/simpleUser/adminUser.jsp";
 		return page;
 
@@ -36,4 +36,15 @@ public class AdminUserTrafficCommand implements AdminSimpleUserPageCommand {
 				traffisService.getDownloadTrafficUserByLastMounth(userId));
 	}
 
+	private void setDataUpload(HttpServletRequest request,
+			HttpServletResponse response, long userId) {
+		TrafficHistoryServiceImpl traffisService = new TrafficHistoryServiceImpl();
+		request.setAttribute("uploadUserLastDay",
+				traffisService.getUploadTrafficUserByLastDay(userId));
+		request.setAttribute("uploadUserLastWeek",
+				traffisService.getUploadTrafficUserByLastWeek(userId));
+		request.setAttribute("uploadUserLastMonth",
+				traffisService.getUploadTrafficUserByLastMounth(userId));
+
+	}
 }

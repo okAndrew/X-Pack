@@ -29,7 +29,6 @@ import com.epam.lab.model.UserFile;
 
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
-	private static final String SITE_LINK = "http://localhost:8080/dreamhost/";
 	private FileDAO fileDAO = (FileDAO) dao;
 
 	private static final Logger logger = Logger
@@ -232,9 +231,9 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	}
 
 	@Override
-	public String getLink(long fileId) {
+	public String getLink(long fileId, String host) {
 		String name = fileDAO.get(fileId).getName();
-		return SITE_LINK + "download?file=" + name;
+		return host + "/download?file=" + name;
 	}
 
 	public List<FilesTypesSize> getTypesFiles() {

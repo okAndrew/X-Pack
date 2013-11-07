@@ -2,11 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>DreamHost |Admin User Files</title>
+
 <link href="res/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/minimalist.css">
 <script src="res/js/jquery-1.10.2.min.js"></script>
@@ -55,46 +51,37 @@ img.img {
 	margin-bottom: 3px;
 }
 </style>
-
-</head>
-<body>
-	<div class="container">
-		<div class="panel panel-default main">
-				<jsp:include page="causeDeletingSendEmailModalPage.jsp"></jsp:include>
-				<jsp:include page="../../../../user/modals/modalImage.jsp"></jsp:include>
-				<jsp:include page="../../../../user/modals/modalVideo.jsp"></jsp:include>
-				<jsp:include page="../../../../user/modals/modalAudio.jsp"></jsp:include></div>
-			<div class="panel-body">
-				<form action="adminUsercontroller" method="post">
-						<div class="panel-body">
-							<div class="btn-group">
-							<div class="btn-toolbar pull-left">
-								<div class="input-group" style="width: 300px;">
-									<input type="text" onkeyup="searchFiles()" class="form-control"
-										id="searchinput" onKeyPress="return disableEnterKey(event)">
-									<span class="input-group-addon"> <span
-										class="glyphicon glyphicon-search"></span>
-									</span>
-								</div>
-							</div>
-								<button type="submit" name="download" class="btn btn-default"
-									disabled="disabled" id="download">
-									<fmt:message key="Download" bundle="${lang}" />
-								</button>
-								<button type="submit" name="causeDelete" class="btn btn-default"
-									data-toggle="modal" disabled="disabled" id="delete"
-									data-target="#causeDeletingSendEmailModal">
-									<fmt:message key="Delete" bundle="${lang}" />
-								</button>
-							</div>
-							
-						</div>
-					<div id="filetable">
-						<jsp:include page="tableFiles.jsp"></jsp:include>
+	<form action="adminUsercontroller" method="post">
+		<jsp:include page="causeDeletingSendEmailModalPage.jsp"></jsp:include>
+		<jsp:include page="../../../../user/modals/modalImage.jsp"></jsp:include>
+		<jsp:include page="../../../../user/modals/modalVideo.jsp"></jsp:include>
+		<jsp:include page="../../../../user/modals/modalAudio.jsp"></jsp:include>
+		<div class="panel-body">
+			<div class="btn-group">
+				<div class="btn-toolbar pull-left">
+					<div class="input-group" style="width: 300px;">
+						<input type="text" onkeyup="searchFiles()" class="form-control"
+							id="searchinput" onKeyPress="return disableEnterKey(event)">
+						<span class="input-group-addon"> <span
+							class="glyphicon glyphicon-search"></span>
+						</span>
 					</div>
-				</form>
+				</div>
+				<button type="submit" name="action" value="download"
+					class="btn btn-default" disabled="disabled" id="download">
+					<fmt:message key="Download" bundle="${lang}" />
+				</button>
+				<button type="submit" name="causeDelete" class="btn btn-default"
+					data-toggle="modal" disabled="disabled" id="delete"
+					data-target="#causeDeletingSendEmailModal">
+					<fmt:message key="Delete" bundle="${lang}" />
+				</button>
 			</div>
+
 		</div>
-	</div>
+		<div id="filetable">
+			<jsp:include page="tableFiles.jsp"></jsp:include>
+		</div>
+	</form>
 </body>
 </html>

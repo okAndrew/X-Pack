@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.useractivity.AdminUserActivityCommand;
 import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userfiles.AdminSimpleUserFilesCommand;
-import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userfiles.AdminSimpleUserFilesDelCommand;
 import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userinfo.AdminSimpleUserInfoCommand;
+import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userinfo.AdminSimpleUserUpdateCommand;
 import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userpayments.AdminUserPaymentsByDateCommand;
 import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.userpayments.AdminUserPaymentsCommand;
 import com.epam.lab.controller.web.servlets.admin.users.adminsimpleuser.usertraffic.AdminUserTrafficCommand;
@@ -26,11 +26,11 @@ public class AdminSimpleUserRequestHelper {
 	private AdminSimpleUserRequestHelper() {
 		commands.put("adminUserInfo", new AdminSimpleUserInfoCommand());
 		commands.put("adminUserFiles", new AdminSimpleUserFilesCommand());
-		commands.put("admindelete", new AdminSimpleUserFilesDelCommand());
 		commands.put("adminUserPayments", new AdminUserPaymentsCommand());
 		commands.put("adminUserActivity", new AdminUserActivityCommand());
 		commands.put("adminUserTraffic", new AdminUserTrafficCommand());
 		commands.put("paymentsByDate", new AdminUserPaymentsByDateCommand());
+		commands.put("updateUser", new AdminSimpleUserUpdateCommand());
 	}
 
 	public AdminSimpleUserPageCommand parseCommand(HttpServletRequest request) {

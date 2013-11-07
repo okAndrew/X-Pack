@@ -13,6 +13,7 @@ import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
+import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
 import com.epam.lab.controller.services.locale.LocaleServiceImpl;
 import com.epam.lab.controller.services.payment.PaymentServiceImpl;
@@ -445,6 +446,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public long getFreeSize(long userId) {
+		refresh(userId);
 		UserDAOImpl dao = new UserDAOImpl();
 		User user = dao.get(userId);
 		TariffDAOImpl tariffDao = new TariffDAOImpl();
@@ -486,5 +488,13 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		Locale localeObj = locImpl.getByLocale(locale.toString());
 		UserDAOImpl ui = new UserDAOImpl();
 		ui.setLastLocale(localeObj.getId(), userId);
+	}
+
+	private void refresh(long userId) {
+		FolderService folderService = new FolderServiceImpl();
+		folderService.refresh(userId);
+		User user = this.userDaoImpl.get(userId);
+		user.setCapacity(folderService.getRoot(userId).getSize());
+		this.userDaoImpl.update(user);
 	}
 }

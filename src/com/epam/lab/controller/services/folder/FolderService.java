@@ -14,4 +14,6 @@ public interface FolderService extends AbstractService<Folder> {
 	Folder getRoot(long userId);
 
 	List<Folder> getFolderPath(long id);
+
+	void refresh(long userId);
 }

@@ -23,5 +23,5 @@ public interface UserFileService extends AbstractService<UserFile> {
 
 	void refresh(long folderId);
 
-	String getLink(long fileId, String host);
+	String getLink(long fileId);
 }

@@ -23,20 +23,10 @@ public class ChangePublicStateServlet extends HttpServlet {
 		UserFileService service = new UserFileServiceImpl();
 		service.changePublicState(fileId, state);
 		if (state == true) {
-			String url = getURLWithContextPath(request);
-			String link = service.getLink(fileId, url);
+			String link = service.getLink(fileId);
 			PrintWriter writer = response.getWriter();
 			writer.print(link);
 			writer.close();
 		}
-	}
-
-	private static String getURLWithContextPath(HttpServletRequest request) {
-		StringBuilder siteLink = new StringBuilder();
-		siteLink.append(request.getScheme()).append("://")
-				.append(request.getServerName()).append(":")
-				.append(request.getServerPort())
-				.append(request.getContextPath());
-		return siteLink.toString();
 	}
 }

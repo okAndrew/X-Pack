@@ -37,6 +37,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	private static final Properties PROP;
 	private static final int MAX_FILES;
 	private static final String ROOT_PATH;
+	private static final String HOST;
 	static {
 		PROP = new Properties();
 		MAX_FILES = 1000;
@@ -49,6 +50,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			e.printStackTrace();
 		}
 		ROOT_PATH = PROP.getProperty("rootPath");
+		HOST = PROP.getProperty("host");
 	}
 
 	public UserFileServiceImpl() {
@@ -231,9 +233,9 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	}
 
 	@Override
-	public String getLink(long fileId, String host) {
+	public String getLink(long fileId) {
 		String name = fileDAO.get(fileId).getName();
-		return host + "/download?file=" + name;
+		return HOST + "download?file=" + name;
 	}
 
 	public List<FilesTypesSize> getTypesFiles() {

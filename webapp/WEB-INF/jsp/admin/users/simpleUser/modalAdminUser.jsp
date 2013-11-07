@@ -27,10 +27,8 @@
 			setMessage("Fields cannot be empty", errorinfo);
 	  		return false;
 		}
-		
 		return true;
 	}
-	
 	function setMessage(message, block) {
 		block.style.display = "block";
 		block.innerHTML = message;
@@ -56,7 +54,8 @@
 								<c:if test="${message != null}">
 									<div id="errorinfo" class="alert alert-danger"
 										style="display:${(message != null) ? 'block' : 'none'}">
-										<fmt:message key="${message}" bundle="${lang}" /></div>
+										<fmt:message key="${message}" bundle="${lang}" />
+									</div>
 								</c:if>
 
 								<table class="table">
@@ -88,7 +87,8 @@
 										<tr>
 											<td><fmt:message key="Capacity" bundle="${lang}" /></td>
 											<td><input type="text" class="form-control first"
-												value='<dream:formatSize value="${adminUser.capacity}" />' autofocus="autofocus" disabled></td>
+												value='<dream:formatSize value="${adminUser.capacity}" />'
+												autofocus="autofocus" disabled></td>
 										</tr>
 
 										<tr>

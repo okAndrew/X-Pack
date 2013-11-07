@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.lab.controller.services.user.UserServiceImpl;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.AdminSimpleUserPageCommand;
 
 public class AdminSimpleUserFilesDelCommand implements
 		AdminSimpleUserPageCommand {

@@ -3,91 +3,65 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>DreamHost(Administrator) | Users</title>
 
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
-	type="text/javascript"></script>
-<script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
+<div class="col-xs-6">
+	<div id="chart1" style="height: 330px; width: 500px;"></div>
+	<button class="button-reset1 btn btn-default">
+		<fmt:message key="Reset_Zoom" bundle="${lang}" />
+	</button>
+</div>
+
+<div class="col-xs-6">
+	<div id="chart2" style="height: 330px; width: 500px;"></div>
+	<button class="button-reset2 btn btn-default">
+		<fmt:message key="Reset_Zoom" bundle="${lang}" />
+	</button>
+</div>
+
+<div>
+	<table class="table zebra-striped table-hover">
+		<tbody>
+			<tr>
+				<td><fmt:message key="Download_last_month" bundle="${lang}" /></td>
+				<td><script>document.write(bytesToSize(${downlUserLastMonth}));</script></td>
+			</tr>
+			<tr>
+				<td><fmt:message key="Upload_last_month" bundle="${lang}" /></td>
+				<td><script>document.write(bytesToSize(${uploadUserLastMonth}));</script></td>
+			</tr>
+			<tr>
+				<td><fmt:message key="Download_last_week" bundle="${lang}" /></td>
+				<td><script>document.write(bytesToSize(${downlUserLastWeek}));</script></td>
+			</tr>
+			<tr>
+				<td><fmt:message key="Upload_last_week" bundle="${lang}" /></td>
+				<td><script>document.write(bytesToSize(${uploadUserLastWeek}));</script></td>
+
+			</tr>
+			<tr>
+				<td><fmt:message key="Download_last_day" bundle="${lang}" /></td>
+				<td><script>document.write(bytesToSize(${downlUserLastDay}));</script></td>
+			</tr>
+			<tr>
+				<td><fmt:message key="Upload_last_day" bundle="${lang}" /></td>
+				<td><script>document.write(bytesToSize(${uploadUserLastDay}));</script></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 <link href="res/css/jquery.jqplot.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
-<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 <style type="text/css">
 .button-reset {
 	margin: 30px;
 	margin-left: 90px;
 }
 </style>
-</head>
-<body>
-	<jsp:include page="../../../menu.jsp"></jsp:include>
-	<div class="container">
-		<div class="panel panel-default main">
-		<div class="panel-heading"><jsp:include
-					page="adminUserHeader.jsp"></jsp:include></div>
-			<div class="panel-body">
-				<div class="col-xs-6">
-					<div id="chart1" style="height: 350px; width: 535px;"></div>
-					<button class="button-reset1 btn btn-default">
-						<fmt:message key="Reset_Zoom" bundle="${lang}" />
-					</button>
-				</div>
-
-				<div class="col-xs-6">
-						<div id="chart2" style="height: 350px; width: 535px;"></div>
-						<button class="button-reset2 btn btn-default">
-							<fmt:message key="Reset_Zoom" bundle="${lang}" />
-						</button>
-					</div>
-				</div>
-
-				<div>
-					<table class="table zebra-striped table-hover">
-						<tbody>
-							<tr>
-								<td><fmt:message key="Download_last_month" bundle="${lang}" /></td>
-								<td><script>document.write(bytesToSize(${downlUserLastMonth}));</script></td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Upload_last_month" bundle="${lang}" /></td>
-								<td><script>document.write(bytesToSize(${uploadUserLastMonth}));</script></td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Download_last_week" bundle="${lang}" /></td>
-								<td><script>document.write(bytesToSize(${downlUserLastWeek}));</script></td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Upload_last_week" bundle="${lang}" /></td>
-								<td><script>document.write(bytesToSize(${uploadUserLastWeek}));</script></td>
-
-							</tr>
-							<tr>
-								<td><fmt:message key="Download_last_day" bundle="${lang}" /></td>
-								<td><script>document.write(bytesToSize(${downlUserLastDay}));</script></td>
-							</tr>
-							<tr>
-								<td><fmt:message key="Upload_last_day" bundle="${lang}" /></td>
-								<td><script>document.write(bytesToSize(${uploadUserLastDay}));</script></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
-	<script type="text/javascript"
-		src="res/js/jqplot.dateAxisRenderer.min.js"></script>
-	<script type="text/javascript" src="res/js/jqplot.cursor.min.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript" src="res/js/jquery.jqplot.min.js"></script>
+<script type="text/javascript"
+	src="res/js/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="res/js/jqplot.cursor.min.js"></script>
+<script type="text/javascript">
 		$(document)
 				.ready(
 						function() {
@@ -183,5 +157,3 @@
 							
 						});
 	</script>
-</body>
-</html>

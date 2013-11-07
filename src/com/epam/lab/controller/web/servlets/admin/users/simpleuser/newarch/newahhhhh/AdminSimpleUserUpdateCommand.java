@@ -1,12 +1,10 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userinfo;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh;
 
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
 
 public class AdminSimpleUserUpdateCommand implements AdminSimpleUserPageCommand{
 

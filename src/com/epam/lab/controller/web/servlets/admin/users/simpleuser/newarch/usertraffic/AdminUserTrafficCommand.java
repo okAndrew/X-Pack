@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.statistics.traffichistory.TrafficHistoryServiceImpl;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.AdminSimpleUserPageCommand;
 
 public class AdminUserTrafficCommand implements AdminSimpleUserPageCommand {
 
@@ -20,7 +20,7 @@ public class AdminUserTrafficCommand implements AdminSimpleUserPageCommand {
 		long userId = (long) session.getAttribute("adminUserid");
 		setDataDownload(request, response, userId);
 		setDataDownload(request, response, userId);
-		page = "adminUserTraffic";
+		page = "WEB-INF/jsp/admin/users/simpleUser/adminUser.jsp";
 		return page;
 
 	}

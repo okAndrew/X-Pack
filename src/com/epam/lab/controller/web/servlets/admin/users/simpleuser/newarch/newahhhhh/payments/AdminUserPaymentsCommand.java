@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userpayments;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.payments;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.payment.PaymentServiceImpl;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.AdminSimpleUserPageCommand;
 import com.epam.lab.model.Payment;
 
 public class AdminUserPaymentsCommand implements AdminSimpleUserPageCommand {
@@ -23,7 +23,7 @@ public class AdminUserPaymentsCommand implements AdminSimpleUserPageCommand {
 		List<Payment> list = psevrive.getAllPayByUserId((long) session
 				.getAttribute("adminUserid"));
 		request.setAttribute("listPayments", list);
-		page = "adminUserPayments";
+		page = "WEB-INF/jsp/admin/users/simpleUser/adminUser.jsp";
 		return page;
 
 	}

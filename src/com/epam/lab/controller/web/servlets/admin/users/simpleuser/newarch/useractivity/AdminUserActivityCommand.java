@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.epam.lab.controller.services.statistics.StatisticsServiceImpl;
-import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.AdminSimpleUserPageCommand;
+import com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.AdminSimpleUserPageCommand;
 
 public class AdminUserActivityCommand implements AdminSimpleUserPageCommand {
 
@@ -20,7 +20,7 @@ public class AdminUserActivityCommand implements AdminSimpleUserPageCommand {
 		HttpSession session = request.getSession(false);
 		long userId = (long) session.getAttribute("adminUserid");
 		setData(request, response, userId);
-		page = "adminUserActivity";
+		page = "WEB-INF/jsp/admin/users/simpleUser/adminUser.jsp";
 		return page;
 	}
 

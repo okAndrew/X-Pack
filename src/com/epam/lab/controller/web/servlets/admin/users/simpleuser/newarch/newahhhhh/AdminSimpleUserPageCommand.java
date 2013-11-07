@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh;
 
 import java.io.IOException;
 

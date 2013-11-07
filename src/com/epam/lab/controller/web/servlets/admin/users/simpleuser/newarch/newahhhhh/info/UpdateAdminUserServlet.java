@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.userinfo;
+package com.epam.lab.controller.web.servlets.admin.users.simpleuser.newarch.newahhhhh.info;
 
 import java.io.IOException;
 

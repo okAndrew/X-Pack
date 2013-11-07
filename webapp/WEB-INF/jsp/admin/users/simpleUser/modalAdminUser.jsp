@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -87,7 +88,7 @@
 										<tr>
 											<td><fmt:message key="Capacity" bundle="${lang}" /></td>
 											<td><input type="text" class="form-control first"
-												value="${adminUser.capacity}" autofocus="autofocus" disabled></td>
+												value='<dream:formatSize value="${adminUser.capacity}" />' autofocus="autofocus" disabled></td>
 										</tr>
 
 										<tr>

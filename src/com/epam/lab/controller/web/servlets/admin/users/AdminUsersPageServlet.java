@@ -36,7 +36,6 @@ public class AdminUsersPageServlet extends HttpServlet {
 		if (request.getParameter("message") != null) {
 			request.setAttribute("message", null);
 		}
-
 		RequestDispatcher dispatcher = request
 				.getRequestDispatcher(ADMIN_USERS_PAGE_JSP);
 		dispatcher.forward(request, response);

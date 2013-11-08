@@ -5,17 +5,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
+<style type="text/css">
+.title-name {
+	max-width: 200px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+</style>
+
 <div>
 	<c:if
 		test="${search!=null && search && search_no_result!=null && search_no_result}">
-		<p><fmt:message key="Your_search_returned_no_results" bundle="${lang}" /></p>
+		<p>
+			<fmt:message key="Your_search_returned_no_results" bundle="${lang}" />
+		</p>
 	</c:if>
 	<c:if test="${filelist!=null}">
 		<table class="table zebra-striped table-hover table-condensed">
 			<thead>
 				<tr>
-					<th><input type="checkbox" onClick="toggle(this)" /> <fmt:message
-							key="All" bundle="${lang}" /></th>
+					<th><input type="checkbox" onClick="toggle(this)" /></th>
 					<th><fmt:message key="Path" bundle="${lang}" /></th>
 					<th><fmt:message key="File_name" bundle="${lang}" /></th>
 					<th><fmt:message key="Date" bundle="${lang}" /></th>
@@ -26,37 +36,35 @@
 			<tbody>
 				<c:forEach items="${filelist}" var="file">
 					<tr>
-						<td><label class="checkbox-inline"> <input
+						<td width="50px"><label class="checkbox-inline"> <input
 								type="checkbox" name="files" onchange="checkboxesStatus()"
 								value="${file.id}">
 						</label></td>
 						<td>${file.path}</td>
-						<td><a href="download?file=${file.name}">${file.nameIncome}</a>
-							<div class="cell draggable" name="file-${file.id}">
-								<c:choose>
-									<c:when test='${ file.type.equals("IMAGE") }'>
-										<a data-toggle="modal" role="button" href="#ImageModal"
-											onclick="setSRC('${file.name}')"> <span
-											class="glyphicon glyphicon-play"></span>
-										</a>
-									</c:when>
-									<c:when test='${ file.type.equals("VIDEO") }'>
-										<a data-toggle="modal" role="button" href="#videoModal"
-											onclick="loadVideoContent('${file.name}')"> <span
-											class="glyphicon glyphicon-play"></span>
-										</a>
-									</c:when>
-									<c:when test='${ file.type.equals("AUDIO") }'>
-										<a data-toggle="modal" role="button" href="#audioModal"
-											onclick="loadAudioContent('${file.name}')"> <span
-											class="glyphicon glyphicon-play"></span>
-										</a>
-									</c:when>
-								</c:choose>
-							</div></td>
+						<td class="title-name"><a href="download?file=${file.name}">${file.nameIncome}</a>
 						<td><fmt:formatDate value="${file.date}" /></td>
 						<td><dream:formatSize value="${file.size}" /></td>
 						<td>${file.type}</td>
+						<td><c:choose>
+								<c:when test='${ file.type.equals("IMAGE") }'>
+									<a data-toggle="modal" role="button" href="#ImageModal"
+										onclick="setSRC('${file.name}')"> <span
+										class="glyphicon glyphicon-play"></span>
+									</a>
+								</c:when>
+								<c:when test='${ file.type.equals("VIDEO") }'>
+									<a data-toggle="modal" role="button" href="#videoModal"
+										onclick="loadVideoContent('${file.name}')"> <span
+										class="glyphicon glyphicon-play"></span>
+									</a>
+								</c:when>
+								<c:when test='${ file.type.equals("AUDIO") }'>
+									<a data-toggle="modal" role="button" href="#audioModal"
+										onclick="loadAudioContent('${file.name}')"> <span
+										class="glyphicon glyphicon-play"></span>
+									</a>
+								</c:when>
+							</c:choose></td>
 					</tr>
 				</c:forEach>
 			</tbody>

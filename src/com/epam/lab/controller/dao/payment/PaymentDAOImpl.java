@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.controller.exceptions.NoSupportedActionException;
 import com.epam.lab.model.Payment;
 
 public class PaymentDAOImpl implements PaymentDAO {
@@ -12,12 +13,12 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	@Override
 	public Payment get(long id) {
-		return null;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override
 	public List<Payment> getAll() {
-		return null;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class PaymentDAOImpl implements PaymentDAO {
 
 	@Override
 	public int delete(long id) {
-		return 0;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override

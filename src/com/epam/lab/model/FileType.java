@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum FileType {
 	IMAGE("IMAGE", ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".tif"), AUDIO("AUDIO",
-			".mp3", ".wav", ".wma"), VIDEO("VIDEO", ".avi", ".mp4", ".3gp", ".flv", ".mpg", ".wmv"), TEXT(
+			".mp3", ".wav", ".wma"), VIDEO("VIDEO",".mp4", ".flv"), TEXT(
 			"TEXT", ".txt", ".log"), ARCHIVE("ARCHIVE", ".zip", ".rar"), OTHERTYPE(
 			"OTHERTYPE");
 

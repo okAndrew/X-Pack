@@ -29,5 +29,4 @@ public class ChangePublicStateServlet extends HttpServlet {
 			writer.close();
 		}
 	}
-
 }

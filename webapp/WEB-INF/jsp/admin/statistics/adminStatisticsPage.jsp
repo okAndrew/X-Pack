@@ -61,15 +61,15 @@
 				<h1 hidden="false">'${totalSpace}'</h1>
 				<div id="dynamicArea" >
 					<c:choose>
-						<c:when test="${param.page == 'users'}">
-							<jsp:include page="statisticsUsers.jsp"></jsp:include>
-						</c:when>
 						<c:when test="${param.page == 'files'}">
 							<jsp:include page="statisticsFiles.jsp"></jsp:include>
 						</c:when>
 						<c:when test="${param.page == 'server'}">
 							<jsp:include page="statisticsServer.jsp"></jsp:include>
 						</c:when>
+						<c:otherwise>
+							<jsp:include page="statisticsUsers.jsp"></jsp:include>
+						</c:otherwise>
 					</c:choose>
 				</div>
 			</div>

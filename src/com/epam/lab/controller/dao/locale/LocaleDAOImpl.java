@@ -14,12 +14,7 @@ public class LocaleDAOImpl implements LocaleDAO {
 
 	@Override
 	public Locale get(long id) {
-		try {
-			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return null;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override
@@ -32,32 +27,17 @@ public class LocaleDAOImpl implements LocaleDAO {
 
 	@Override
 	public int insert(Locale object) {
-		try {
-			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return 0;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override
 	public int update(Locale object) {
-		try {
-			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return 0;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override
 	public int delete(long id) {
-		try {
-			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return 0;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override

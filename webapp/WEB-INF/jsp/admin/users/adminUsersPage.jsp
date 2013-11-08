@@ -16,7 +16,6 @@
 
 <link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="res/css/adminuserpage.css" rel="stylesheet" />
 
 <script type="text/javascript">
 	var page = checkPage("${param.page}");
@@ -28,24 +27,24 @@
 </script>
 
 <script>
-function checkboxesStatus() {
-	  var checkboxes = document.getElementsByName('checkUser');
-	  for ( var i = 0, n = checkboxes.length; i < n; i++) {
-	   if (checkboxes[i].checked === true) {
-		     $('#delete').prop('disabled', false);
-		     $('#restore').prop('disabled', false);
-		     $('#activated').prop('disabled', false);
-		     $('#baned').prop('disabled', false);
-		     $('#send').prop('disabled', false);
-	    return;
-	   }
-	  }
-	     $('#delete').prop('disabled', true);
-	     $('#restore').prop('disabled', true);
-	     $('#activated').prop('disabled', true);
-	     $('#baned').prop('disabled', true);
-	     $('#send').prop('disabled', true);
-	 }
+	function checkboxesStatus() {
+		var checkboxes = document.getElementsByName('checkUser');
+		for ( var i = 0, n = checkboxes.length; i < n; i++) {
+			if (checkboxes[i].checked === true) {
+				$('#delete').prop('disabled', false);
+				$('#restore').prop('disabled', false);
+				$('#activated').prop('disabled', false);
+				$('#baned').prop('disabled', false);
+				$('#send').prop('disabled', false);
+				return;
+			}
+		}
+		$('#delete').prop('disabled', true);
+		$('#restore').prop('disabled', true);
+		$('#activated').prop('disabled', true);
+		$('#baned').prop('disabled', true);
+		$('#send').prop('disabled', true);
+	}
 </script>
 
 <script type="text/javascript">
@@ -55,39 +54,37 @@ function checkboxesStatus() {
 	});
 </script>
 
+
 </head>
 <body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
-	
-
-	<c:if test="${messageAddUser != null}">
-		<script>
-			$('#addUserModal').modal('show');
-		</script>
-	</c:if>
-
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">
 				<form action="employeeControllerUsers" method="post">
 					<div class="btn-group">
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addUserModal"> <fmt:message key="Add" bundle="${lang}" /> </button>
-						<button disabled="disabled" type="submit" class="btn btn-default" id="delete" name="action"
-							value="delete">
+						<button type="button" class="btn btn-default" data-toggle="modal"
+							data-target="#addUserModal">
+							<fmt:message key="Add" bundle="${lang}" />
+						</button>
+						<button disabled="disabled" type="submit" class="btn btn-default"
+							id="delete" name="action" value="delete">
 							<fmt:message key="Delete" bundle="${lang}" />
 						</button>
-						<button disabled="disabled" type="submit" class="btn btn-default" id="restore" name="action"
-							value="restore"><fmt:message key="Restore" bundle="${lang}" /></button>
-						<button disabled="disabled" type="submit" class="btn btn-default" id="activated" name="action"
-							value="activated">
+						<button disabled="disabled" type="submit" class="btn btn-default"
+							id="restore" name="action" value="restore">
+							<fmt:message key="Restore" bundle="${lang}" />
+						</button>
+						<button disabled="disabled" type="submit" class="btn btn-default"
+							id="activated" name="action" value="activated">
 							<fmt:message key="Activate" bundle="${lang}" />
 						</button>
-						<button disabled="disabled" type="submit" class="btn btn-default" id="baned" name="action"
-							value="baned">
+						<button disabled="disabled" type="submit" class="btn btn-default"
+							id="baned" name="action" value="baned">
 							<fmt:message key="Ban" bundle="${lang}" />
 						</button>
-						<button type="button" class="btn btn-default" data-toggle="modal" id="send" disabled="disabled"
-							data-target="#sendEmailModal">
+						<button type="button" class="btn btn-default" data-toggle="modal"
+							id="send" disabled="disabled" data-target="#sendEmailModal">
 							<fmt:message key="Send_email" bundle="${lang}" />
 						</button>
 					</div>
@@ -95,17 +92,28 @@ function checkboxesStatus() {
 					<c:if test="${message != null}">
 						<div class="alert alert-warning">
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
-							<h4>Warning</h4>
-							<h5>${message}</h5>
+							<h4>
+								<fmt:message key="Warning" bundle="${lang}" />
+							</h4>
+							<h5>
+								<fmt:message key="${message}" bundle="${lang}" />
+							</h5>
 						</div>
 					</c:if>
 					<jsp:include page="tableUsers.jsp"></jsp:include>
-					<jsp:include page="addUserModalPage.jsp"></jsp:include>					
+					<jsp:include page="addUserModalPage.jsp"></jsp:include>
 					<jsp:include page="sendEmailModalPage.jsp"></jsp:include>
+					<c:if test="${messageAddUser != null}">
+						<script>
+							$('#addUserModal').modal('show');
+						</script>
+					</c:if>
+
 				</form>
 				<jsp:include page="../../paginator.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>

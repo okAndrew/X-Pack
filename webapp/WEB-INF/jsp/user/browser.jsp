@@ -29,8 +29,7 @@
 		<div class="cell droppable" id="${currentFolder.idUpper}">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${currentFolder.idUpper}"
-					title="To up"><img
-					src="res/img/browser/arrow-up-icon.png"
+					title="To up"><img src="res/img/browser/arrow-up-icon.png"
 					height="70px"></a>
 			</div>
 			<div class="cell-desc">
@@ -48,8 +47,7 @@
 			id="${folder.id}">
 			<div class="thumb">
 				<a href="userfoldernav?folderid=${folder.id}" title="${folder.name}"><img
-					src="res/img/browser/leopard-folder.png"
-					height="70px"></a>
+					src="res/img/browser/leopard-folder.png" height="70px"></a>
 			</div>
 			<div class="cell-desc">
 				<h5 class="title-name">
@@ -91,15 +89,13 @@
 					<c:when test="${ file.type.equals('IMAGE') }">
 						<a data-toggle="modal" role="button" href="#ImageModal"
 							onclick="setSRC('${file.name}')"><img class="trunc"
-							title="${file.nameIncome}"
-							src="res/img/browser/image-icon.png">
+							title="${file.nameIncome}" src="res/img/browser/image-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('VIDEO') }">
 						<a data-toggle="modal" role="button" href="#videoModal"
 							onclick="loadVideoContent('${file.name}')"><img class="trunc"
-							title="${file.nameIncome}"
-							src="res/img/browser/video-icon.png">
+							title="${file.nameIncome}" src="res/img/browser/video-icon.png">
 						</a>
 					</c:when>
 					<c:when test="${ file.type.equals('AUDIO') }">
@@ -180,4 +176,60 @@
 		</div>
 	</c:forEach>
 </div>
-<script type="text/javascript" src="res/js/browser.js"> </script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".draggable").draggable(
+			{
+				revert : "invalid",
+				scroll : true,
+				distance : 20,
+				opacity : 0.9,
+				helper : function() {
+					var cellCheckBox = $(this).find('input.cell-check');
+					if (!cellCheckBox.is(':checked')) {
+						cellCheckBox.prop('checked', true);
+						var check = $(this).find('.check');
+						check.find('span').removeClass('glyphicon-unchecked');
+						check.find('span').addClass('glyphicon-check');
+						check.find('label').addClass('active');
+						buttonsStatus();
+					}
+					var selected = $('#gallery input.cell-check:checked')
+							.parents('.draggable');
+					var container = $('<div/>').attr('class', 'dropable');
+					container.append(selected.clone()).css('z-index', 9999);
+					return container;
+				}
+			});
+
+	$(".droppable").droppable(
+			{
+				tolerance : 'pointer',
+				drop : function(event, ui) {
+					var moveable = [];
+					$(ui.helper.children()).each(function() {
+						moveable.push($(this).attr('name'));
+					});
+					var idTargetFolder = $(this).attr("id");
+					move(moveable, idTargetFolder);
+					$('#gallery input.cell-check:checked')
+							.parents('.draggable').each(function() {
+								if ($(this).attr('id') != idTargetFolder)
+									$(this).remove();
+							});
+				},
+				hoverClass : "hover-drop",
+			});
+});
+$('.check').click(function() {
+	var cb = $(this).find('input:checkbox').is(":checked");
+	var span = $(this).find('span');
+	if (cb) {
+		span.removeClass('glyphicon-check');
+		span.addClass('glyphicon-unchecked');
+	} else {
+		span.addClass('glyphicon-check');
+		span.removeClass('glyphicon-unchecked');
+	}
+});
+</script>

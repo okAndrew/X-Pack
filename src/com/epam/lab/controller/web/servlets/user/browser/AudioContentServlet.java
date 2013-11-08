@@ -1,6 +1,8 @@
 package com.epam.lab.controller.web.servlets.user.browser;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,9 +23,12 @@ public class AudioContentServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		String audioSRC = DOWNLOAD_SERVLET + request.getParameter("name");
-		request.setAttribute("audioSRC", audioSRC);
-		request.getRequestDispatcher(AUDIO_CONTENT_JSP).include(request,
-				response);
+		PrintWriter writer = response.getWriter();
+		writer.write("<audio controls src=\"");
+		writer.write(audioSRC);
+		writer.write("\"></audio>");
+		// request.setAttribute("audioSRC", audioSRC);
+//		request.getRequestDispatcher(AUDIO_CONTENT_JSP).include(request,
+//				response);
 	}
-
 }

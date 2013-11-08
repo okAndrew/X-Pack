@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
@@ -136,6 +137,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		List<UserFile> files = null;
 		FileDAOImpl dao = new FileDAOImpl();
 		files = dao.getAllByFolderId(folderId);
+		Collections.sort(files);
 		return files;
 	}
 

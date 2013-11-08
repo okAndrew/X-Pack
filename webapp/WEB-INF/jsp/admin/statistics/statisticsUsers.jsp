@@ -75,9 +75,10 @@
 
 				// The url for our json data
 				var jsonurl = "Data4StatisticUsers";
-
+				<fmt:message key="Visitors" var="visitors" bundle="${lang}"/>
+				var visitors = "${visitors}";
 				var plot1 = $.jqplot('chart1', jsonurl, {
-					title : "Visitors",
+					title : visitors,
 					dataRenderer : ajaxDataRenderer,
 					dataRendererOptions : {
 						unusedOptionalUrl : jsonurl

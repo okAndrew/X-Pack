@@ -20,21 +20,25 @@
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/utils.js"></script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						Dropzone.options.myAwesomeDropzone = {
-							parallelUploads : 1,
-							maxFilesize : <c:out value="${freeSpace}"/>,
-							dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
-							// maxFiles : 6,
-							init : function() {
-								this.on("complete", function(file) {
-									loadBrowserContent();
-								});
-							}
-						}
-					})
+	$(document).ready(
+			function() {
+				<fmt:message key="File_is_too_big" var="file" bundle="${lang}"/>
+				var file = "${file}";
+				<fmt:message key="Max_free_space" var="space" bundle="${lang}"/>
+				var space = "${space}";
+				Dropzone.options.myAwesomeDropzone = {
+					parallelUploads : 1,
+					maxFilesize : <c:out value="${freeSpace}"/>,
+					dictFileTooBig : file + " ({{filesize}}MB). " + space
+							+ ": {{maxFilesize}}MB.",
+					// maxFiles : 6,
+					init : function() {
+						this.on("complete", function(file) {
+							loadBrowserContent();
+						});
+					}
+				}
+			})
 	function loadBrowserContent() {
 		$.ajax({
 			type : "GET",
@@ -162,7 +166,7 @@ img.img {
 					</nav>
 					<c:if test="${message!=null }">
 						<div class="alert alert-warning">
-							<p>${message}</p>
+							<p><fmt:message key="${message}" bundle="${lang}" /></p>
 						</div>
 					</c:if>
 					<div id="browser">
@@ -172,7 +176,5 @@ img.img {
 			</div>
 		</div>
 	</div>
-
-
 </body>
 </html>

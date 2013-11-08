@@ -87,7 +87,8 @@
 							// The url for our json data
 							var jsonurl = "Data4UserTraffic";
 							var jsonurl2 = "Data4UserStatisticsUpload";
-							<fmt:message key="Load_server_Download" var="download"/>
+						
+							<fmt:message key="Load_server_Download" var="download" bundle="${lang}"/>
 							var msgdownload = "${download}";
 							var plot1 = $.jqplot('chart1', jsonurl,	{
 												title : msgdownload,
@@ -116,7 +117,7 @@
 													showTooltip : false
 												}
 											});
-							<fmt:message key="Load_server_Upload" var="upload"/>
+							<fmt:message key="Load_server_Upload" var="upload" bundle="${lang}"/>
 							var msgupload = "${upload}";
 							var plot2 = $.jqplot('chart2', jsonurl2, {
 												title : msgupload,

@@ -21,55 +21,63 @@
 			<fmt:message key="Your_search_returned_no_results" bundle="${lang}" />
 		</p>
 	</c:if>
-	<c:if test="${filelist!=null}">
-		<table class="table zebra-striped table-hover table-condensed">
-			<thead>
-				<tr>
-					<th><input type="checkbox" onClick="toggle(this)" /></th>
-					<th><fmt:message key="Path" bundle="${lang}" /></th>
-					<th><fmt:message key="File_name" bundle="${lang}" /></th>
-					<th><fmt:message key="Date" bundle="${lang}" /></th>
-					<th><fmt:message key="Size_file" bundle="${lang}" /></th>
-					<th><fmt:message key="Type" bundle="${lang}" /></th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${filelist}" var="file">
+	<c:choose>
+		<c:when
+			test="${(filelist!=null)||(filelist==null&&(search!=null && search && search_no_result!=null && search_no_result))}">
+			<table class="table zebra-striped table-hover table-condensed">
+				<thead>
 					<tr>
-						<td width="50px"><label class="checkbox-inline"> <input
-								type="checkbox" name="files" onchange="checkboxesStatus()"
-								value="${file.id}">
-						</label></td>
-						<td>${file.path}</td>
-						<td class="title-name"><a href="download?file=${file.name}">${file.nameIncome}</a>
-						<td><fmt:formatDate value="${file.date}" /></td>
-						<td><dream:formatSize value="${file.size}" /></td>
-						<td>${file.type}</td>
-						<td><c:choose>
-								<c:when test='${ file.type.equals("IMAGE") }'>
-									<a data-toggle="modal" role="button" href="#ImageModal"
-										onclick="setSRC('${file.name}')"> <span
-										class="glyphicon glyphicon-play"></span>
-									</a>
-								</c:when>
-								<c:when test='${ file.type.equals("VIDEO") }'>
-									<a data-toggle="modal" role="button" href="#videoModal"
-										onclick="loadVideoContent('${file.name}')"> <span
-										class="glyphicon glyphicon-play"></span>
-									</a>
-								</c:when>
-								<c:when test='${ file.type.equals("AUDIO") }'>
-									<a data-toggle="modal" role="button" href="#audioModal"
-										onclick="loadAudioContent('${file.name}')"> <span
-										class="glyphicon glyphicon-play"></span>
-									</a>
-								</c:when>
-							</c:choose></td>
+						<th><input type="checkbox" onClick="toggle(this)" /></th>
+						<th><fmt:message key="Path" bundle="${lang}" /></th>
+						<th><fmt:message key="File_name" bundle="${lang}" /></th>
+						<th><fmt:message key="Date" bundle="${lang}" /></th>
+						<th><fmt:message key="Size_file" bundle="${lang}" /></th>
+						<th><fmt:message key="Type" bundle="${lang}" /></th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</c:if>
+				</thead>
+				<tbody>
+					<c:forEach items="${filelist}" var="file">
+						<tr>
+							<td width="50px"><label class="checkbox-inline"> <input
+									type="checkbox" name="files" onchange="checkboxesStatus()"
+									value="${file.id}">
+							</label></td>
+							<td>${file.path}</td>
+							<td class="title-name"><a href="download?file=${file.name}">${file.nameIncome}</a>
+							<td><fmt:formatDate value="${file.date}" /></td>
+							<td><dream:formatSize value="${file.size}" /></td>
+							<td>${file.type}</td>
+							<td><c:choose>
+									<c:when test='${ file.type.equals("IMAGE") }'>
+										<a data-toggle="modal" href="#ImageModal"
+											onclick="setSRC('${file.name}')"> <span
+											class="glyphicon glyphicon-play"></span>
+										</a>
+									</c:when>
+									<c:when test='${ file.type.equals("VIDEO") }'>
+										<a data-toggle="modal" href="#videoModal"
+											onclick="loadVideoContent('${file.name}')"> <span
+											class="glyphicon glyphicon-play"></span>
+										</a>
+									</c:when>
+									<c:when test='${ file.type.equals("AUDIO") }'>
+										<a data-toggle="modal" href="#audioModal"
+											onclick="loadAudioContent('${file.name}')"> <span
+											class="glyphicon glyphicon-play"></span>
+										</a>
+									</c:when>
+								</c:choose></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:when>
+		<c:otherwise>
+			<div class="well">
+				<fmt:message key="There_is_no_files_yet" bundle="${lang}" />
+			</div>
+		</c:otherwise>
+	</c:choose>
 </div>
 
 <script>

@@ -72,13 +72,13 @@
 					});
 					return ret;
 				};
-
+			
 				// The url for our json data
 				var jsonurl = "adminUserActivityGraph";
-				<fmt:message key="Visitors" var="name"/>
-				var msg = "${name}";
+				<fmt:message key="Visitors" var="visitors" bundle="${lang}"/>
+				var visitors="${visitors}"
 				var plot1 = $.jqplot('chart1', jsonurl, {
-					title : msg,
+					title : visitors,
 					dataRenderer : ajaxDataRenderer,
 					dataRendererOptions : {
 						unusedOptionalUrl : jsonurl

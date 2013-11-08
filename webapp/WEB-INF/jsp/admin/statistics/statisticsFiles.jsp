@@ -31,12 +31,18 @@
 <script type="text/javascript">
 	$(document).ready(
 			function plotGist() {
+				<fmt:message key="Free_space" var="freespace" bundle="${lang}"/>
+				var freespace = "${freespace}";
+				<fmt:message key="Employed_space" var="employedspace" bundle="${lang}"/>
+				var employedspace = "${employedspace}";
 				var free = ${freeSpace};
 				var employed = ${totalSpace} - free;
-				line1 = [ [ "Free space " + free + "GB", free ],
-						[ "Employed space" + employed + "GB", employed ] ];
+				line1 = [ [ freespace +" - "+free + "GB", free ],
+						[ employedspace +" - "+ employed + "GB", employed ] ];
+				<fmt:message key="Space" var="space" bundle="${lang}"/>
+				var space = "${space}";
 				$.jqplot("example", [ line1 ], {
-					title : "Space",
+					title : space,
 					grid : {
 						gridLineColor : '#cccccc',
 						background : '#ffffff',

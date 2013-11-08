@@ -68,3 +68,8 @@ div .rowSpace {
 	margin-top: 25px;
 	margin-bottom: 25px;
 }
+
+div.alert.admin {
+	width: auto;
+	margin-top: 8px;
+}

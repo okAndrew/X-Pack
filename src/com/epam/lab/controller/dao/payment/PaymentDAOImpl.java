@@ -132,4 +132,13 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return resultList;
 	}
 
+	@Override
+	public Payment getLastUserPayment(long userId) {
+		String sql = "SELECT * FROM payments WHERE user = ? AND available = 0 ORDER BY date_created DESC LIMIT 1";
+		Payment result = queryExecutor.executeQuerySingle(Payment.class, sql,
+				userId);
+
+		return result;
+	}
+
 }

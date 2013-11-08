@@ -29,4 +29,5 @@ public interface PaymentDAO extends GenericDAO<Payment> {
 
 	List<Payment> getAvailableEndedPays();
 
+	Payment getLastUserPayment(long userId);
 }

@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="res/css/jquery-ui.css" />
 <style type="text/css">
 img.img {
-	max-height: auto;
+	max-height: 1000px;
 	max-width: 538px;
 	margin-bottom: 3px;
 }

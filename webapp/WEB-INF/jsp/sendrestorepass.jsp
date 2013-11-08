@@ -18,7 +18,9 @@
 		var dotpos = email.lastIndexOf(".");
 		
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
-			setMessage("Not_a_valid_e-mail_address", errorinfo);
+			<fmt:message key="Not_a_valid_e-mail_address" var="email" bundle="${lang}"/>
+			var email = "${email}";
+			setMessage(email, errorinfo);
 			return false;
 		}
 		
@@ -42,7 +44,7 @@
 				</c:if>
 			</div>
 			<c:if test="${message != null}">
-				<div class="errorinfo">${message}</div>
+				<div class="errorinfo"><fmt:message key="${message}" bundle="${lang}" /></div>
 			</c:if>
 			<input id="emailInput" type="text" name="email"	class="form-control" placeholder="Email" autofocus="autofocus">
 			<button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="Send" bundle="${lang}" /></button>
@@ -59,10 +61,10 @@
 				</c:if>
 			</div>
 			<c:if test="${message != null}">
-				<div class="errorinfo">${message}</div>
+				<div class="errorinfo"><fmt:message key="${message}" bundle="${lang}" /></div>
 			</c:if>
 			<input id="emailInput" type="text" name="email"	class="form-control first last" placeholder="Email" autofocus="autofocus">
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="Send" bundle="${lang}" /></button>
 		</form>
 	</div>
 </body>

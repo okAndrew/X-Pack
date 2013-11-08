@@ -48,12 +48,12 @@ public class TokenDAOTest {
 		tokenDao.getAll();
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testInsert() {
 		assertEquals(1, tokenDao.insert(token));
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testUpdate() {
 		assertEquals(1, tokenDao.update(token));
 	}

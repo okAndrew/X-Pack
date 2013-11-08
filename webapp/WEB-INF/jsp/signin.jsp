@@ -19,12 +19,14 @@
 		var dotpos = email.lastIndexOf(".");
 		
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
-			setMessage("Not a valid e-mail address", errorinfo);
+			
+			setMessage("email", errorinfo);
 			return false;
 		}
 		
 		if (p1 == "") {
-			setMessage("Fields cannot be empty", errorinfo);
+			
+			setMessage("fields", errorinfo);
 	  		return false;
 		}
 		

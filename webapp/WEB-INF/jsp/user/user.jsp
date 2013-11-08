@@ -88,7 +88,9 @@ img.img {
 					</nav>
 					<c:if test="${message!=null }">
 						<div class="alert alert-warning">
-							<p>${message}</p>
+							<p>
+								<fmt:message key="${message}" bundle="${lang}" />
+							</p>
 						</div>
 					</c:if>
 					<div id="browser">

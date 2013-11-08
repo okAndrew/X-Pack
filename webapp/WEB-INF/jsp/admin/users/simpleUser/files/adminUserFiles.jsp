@@ -51,11 +51,12 @@ img.img {
 	margin-bottom: 3px;
 }
 </style>
-	<form action="adminUsercontroller" method="post">
-		<jsp:include page="causeDeletingSendEmailModalPage.jsp"></jsp:include>
-		<jsp:include page="../../../../user/modals/modalImage.jsp"></jsp:include>
-		<jsp:include page="../../../../user/modals/modalVideo.jsp"></jsp:include>
-		<jsp:include page="../../../../user/modals/modalAudio.jsp"></jsp:include>
+<form action="adminUsercontroller" method="post">
+	<jsp:include page="causeDeletingSendEmailModalPage.jsp"></jsp:include>
+	<jsp:include page="../../../../user/modals/modalImage.jsp"></jsp:include>
+	<jsp:include page="../../../../user/modals/modalVideo.jsp"></jsp:include>
+	<jsp:include page="../../../../user/modals/modalAudio.jsp"></jsp:include>
+	<c:if test="${filelist.size() > 0}">
 		<div class="panel-body">
 			<div class="btn-group">
 				<div class="btn-toolbar pull-left">
@@ -77,11 +78,11 @@ img.img {
 					<fmt:message key="Delete" bundle="${lang}" />
 				</button>
 			</div>
-
 		</div>
-		<div id="filetable">
-			<jsp:include page="tableFiles.jsp"></jsp:include>
-		</div>
-	</form>
+	</c:if>
+	<div id="filetable">
+		<jsp:include page="tableFiles.jsp"></jsp:include>
+	</div>
+</form>
 </body>
 </html>

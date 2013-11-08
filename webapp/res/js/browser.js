@@ -1,47 +1,3 @@
-$(function() {
-	$(".draggable").draggable(
-			{
-				revert : "invalid",
-				scroll : true,
-				distance : 20,
-				opacity : 0.9,
-				helper : function() {
-					var cellCheckBox = $(this).find('input.cell-check');
-					if (!cellCheckBox.is(':checked')) {
-						cellCheckBox.prop('checked', true);
-						var check = $(this).find('.check');
-						check.find('span').removeClass('glyphicon-unchecked');
-						check.find('span').addClass('glyphicon-check');
-						check.find('label').addClass('active');
-						buttonsStatus();
-					}
-					var selected = $('#gallery input.cell-check:checked')
-							.parents('.draggable');
-					var container = $('<div/>').attr('class', 'dropable');
-					container.append(selected.clone()).css('z-index', 9999);
-					return container;
-				}
-			});
-
-	$(".droppable").droppable(
-			{
-				tolerance : 'pointer',
-				drop : function(event, ui) {
-					var moveable = [];
-					$(ui.helper.children()).each(function() {
-						moveable.push($(this).attr('name'));
-					});
-					var idTargetFolder = $(this).attr("id");
-					move(moveable, idTargetFolder);
-					$('#gallery input.cell-check:checked')
-							.parents('.draggable').each(function() {
-								if ($(this).attr('id') != idTargetFolder)
-									$(this).remove();
-							});
-				},
-				hoverClass : "hover-drop",
-			});
-});
 function move(moveable, idtargetFolder) {
 	$
 			.ajax({
@@ -60,17 +16,6 @@ function move(moveable, idtargetFolder) {
 			});
 }
 
-$('.check').click(function() {
-	var cb = $(this).find('input:checkbox').is(":checked");
-	var span = $(this).find('span');
-	if (cb) {
-		span.removeClass('glyphicon-check');
-		span.addClass('glyphicon-unchecked');
-	} else {
-		span.addClass('glyphicon-check');
-		span.removeClass('glyphicon-unchecked');
-	}
-});
 function toggle(source) {
 	$('input.cell-check').prop('checked', source.checked);
 	if (source.checked) {

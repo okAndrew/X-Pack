@@ -21,17 +21,16 @@ img.img {
 	margin-bottom: 3px;
 }
 </style>
+
+<script src="res/js/jquery-1.10.2.min.js"></script>
+<script src="res/js/jquery-ui.js"></script>
+<script src="res/js/dropzone.min.js"></script>
+<script src="res/js/bootstrap.js"></script>
+<script src="res/js/utils.js"></script>
+<script src="res/js/browser.js"></script>
 </head>
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>
-	<jsp:include page="modals/modalCreatefolder.jsp"></jsp:include>
-	<jsp:include page="modals/modalEdit.jsp"></jsp:include>
-	<jsp:include page="modals/modalDelete.jsp"></jsp:include>
-	<jsp:include page="modals/modalImage.jsp"></jsp:include>
-	<jsp:include page="modals/modalVideo.jsp"></jsp:include>
-	<jsp:include page="modals/modalAudio.jsp"></jsp:include>
-	<jsp:include page="modals/modellink.jsp"></jsp:include>
-
 	<c:choose>
 		<c:when test="${isbanned }">
 			<div class="alert alert-danger">
@@ -99,11 +98,6 @@ img.img {
 			</div>
 		</div>
 	</div>
-	<script src="res/js/jquery-1.10.2.min.js"></script>
-	<script src="res/js/jquery-ui.js"></script>
-	<script src="res/js/dropzone.min.js"></script>
-	<script src="res/js/bootstrap.js"></script>
-	<script src="res/js/utils.js"></script>
 	<script type="text/javascript">
 		function loadBrowserContent() {
 			$.ajax({
@@ -177,6 +171,12 @@ img.img {
 			$('.dz-message').remove();
 		});
 	</script>
-
+	<jsp:include page="modals/modalCreatefolder.jsp"></jsp:include>
+	<jsp:include page="modals/modalEdit.jsp"></jsp:include>
+	<jsp:include page="modals/modalDelete.jsp"></jsp:include>
+	<jsp:include page="modals/modalImage.jsp"></jsp:include>
+	<jsp:include page="modals/modalVideo.jsp"></jsp:include>
+	<jsp:include page="modals/modalAudio.jsp"></jsp:include>
+	<jsp:include page="modals/modellink.jsp"></jsp:include>
 </body>
 </html>

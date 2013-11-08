@@ -6,7 +6,7 @@ function checkChangeLoginForm() {
 	var errorinfo = document.getElementById("settingsErrorDiv");
 
 	if (login == "") {
-		setMessage("Field cannot be empty", errorinfo);
+		setMessage("Field_cannot_be_empty", errorinfo);
 		return false;
 	}
 
@@ -23,12 +23,12 @@ function validatePasswords() {
 	var errorinfomodal = document.getElementById("errorinfomodal");
 
 	if (p1 == "" || p2 == "" || p3 == "") {
-		setMessage("Fields cannot be empty", errorinfomodal);
+		setMessage("Fields_cannot_be_empty", errorinfomodal);
 		return false;
 	}
 
 	if (p2 != p3) {
-		setMessage("New passwords are different", errorinfomodal);
+		setMessage("New_passwords_are_different", errorinfomodal);
 		return false;
 	}
 

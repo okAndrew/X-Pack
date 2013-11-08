@@ -3,70 +3,59 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script type="text/javascript" src="res/js/utils.js"></script>
-
+<script src="res/js/bootstrap.js"></script>
 <c:if test="${message != null}">
 	<script>
 		$('#myModal').modal('show')
 	</script>
 </c:if>
-<form action="adminUser">
-	<div class="btn-toolbar pull-right">
-		<c:if test="${notFullList}">
-			<button type="submit" class="btn btn-default" name="page"
-				value="adminUserPayments">
-				<fmt:message key="Back_to_all_payments" bundle="${lang}" />
-			</button>
-		</c:if>
-	</div>
-</form>
-<div>
-	<c:if test="${messagePeriod != null&&listPayments.size()==0}">
-		<div>
-			<fmt:message key="${messagePeriod}" bundle="${lang}" />
-		</div>
-	</c:if>
-</div>
-<c:choose>
-	<c:when test="${listPayments.size()>0}">
-		<form action="adminUser">
-			<div class="panel-body">
-				<div>
-					<div class="input">
-						<div class="input-append date">
-							<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-								name="startDate" id="dpd1"
-								placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
-							<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-								name="endDate"
-								placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
-								id="dpd2">
-								
-							<button type="submit" class="btn btn-default" name="page"
-								value="paymentsByDate">
-								<fmt:message key="Show_payments_for_period" bundle="${lang}" />
-							</button>
-						</div>
-					</div>
-				</div>
 
-				<c:if test="${message != null}">
-					<div class="alert alert-danger">
-						<fmt:message key="${message}" bundle="${lang}" />
-					</div>
-				</c:if>
-				<div>
-					<c:if test="${messagePeriod != null}">
-						<div>
-							<fmt:message key="${messagePeriod}" bundle="${lang}" />
-							<fmt:formatDate value="${startperiod}" />
-							-
-							<fmt:formatDate value="${endperiod}" />
-						</div>
+<form action="adminUser">
+	<div class="panel-body">
+		<div>
+			<div class="input">
+				<div class="input-append date">
+					<input data-date-format="yyyy-mm-dd" type="text" class="span2"
+						name="startDate" id="dpd1"
+						placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
+					<input data-date-format="yyyy-mm-dd" type="text" class="span2"
+						name="endDate"
+						placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
+						id="dpd2">
+
+					<button type="submit" class="btn btn-default" name="page"
+						value="paymentsByDate" id="button" disabled="disabled">
+						<fmt:message key="Show_payments_for_period" bundle="${lang}" />
+					</button>
+					<c:if test="${notFullList}">
+						<button type="submit" class="btn btn-default" name="page"
+							value="adminUserPayments">
+							<fmt:message key="Back_to_all_payments" bundle="${lang}" />
+						</button>
 					</c:if>
 				</div>
 			</div>
-			<c:set var="headerRef" value="${header}" />
+		</div>
 
+		<c:if test="${message != null}">
+			<div class="alert alert-danger">
+				<fmt:message key="${message}" bundle="${lang}" />
+			</div>
+		</c:if>
+		<div>
+			<c:if test="${messagePeriod != null}">
+				<div>
+					<fmt:message key="${messagePeriod}" bundle="${lang}" />
+					<fmt:formatDate value="${startperiod}" />
+					-
+					<fmt:formatDate value="${endperiod}" />
+				</div>
+			</c:if>
+		</div>
+	</div>
+	<c:set var="headerRef" value="${header}" />
+	<c:choose>
+		<c:when test="${listPayments.size()>0}">
 			<table class="table table-condensed">
 				<thead>
 					<tr>
@@ -93,14 +82,15 @@
 					</c:forEach>
 				</tbody>
 			</table>
-		</form>
-	</c:when>
-	<c:otherwise>
-		<div class="well">
-			<fmt:message key="There_is_no_payments_yet" bundle="${lang}" />
-		</div>
-	</c:otherwise>
-</c:choose>
+		</c:when>
+		<c:otherwise>
+			<div class="well">
+				<fmt:message key="There_is_no_payments_yet" bundle="${lang}" />
+			</div>
+		</c:otherwise>
+	</c:choose>
+</form>
+
 
 <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
 <script src="res/js/bootstrap-datepicker.js"></script>
@@ -132,5 +122,6 @@
 		}
 	}).on('changeDate', function(ev) {
 		checkout.hide();
+		$('#button').prop('disabled', false);
 	}).data('datepicker');
 </script>

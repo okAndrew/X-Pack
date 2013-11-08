@@ -27,7 +27,7 @@ tr td {
 
 body {
 	background-image: url("../img/fon-background.jpg");
-	padding-top: 65px;
+	padding-top: 63px;
 }
 
 .starter-template {
@@ -67,4 +67,9 @@ div .panel.panel-default.bottom {
 div .rowSpace {
 	margin-top: 25px;
 	margin-bottom: 25px;
+}
+
+div.alert.admin {
+	width: auto;
+	margin-top: 8px;
 }

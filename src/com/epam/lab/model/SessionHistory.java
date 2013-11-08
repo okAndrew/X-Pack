@@ -42,6 +42,54 @@ public class SessionHistory {
 		return userid;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((enddate == null) ? 0 : enddate.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result
+				+ ((sessIdTomcat == null) ? 0 : sessIdTomcat.hashCode());
+		result = prime * result
+				+ ((startdate == null) ? 0 : startdate.hashCode());
+		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SessionHistory other = (SessionHistory) obj;
+		if (enddate == null) {
+			if (other.enddate != null)
+				return false;
+		} else if (!enddate.equals(other.enddate))
+			return false;
+		if (id != other.id)
+			return false;
+		if (sessIdTomcat == null) {
+			if (other.sessIdTomcat != null)
+				return false;
+		} else if (!sessIdTomcat.equals(other.sessIdTomcat))
+			return false;
+		if (startdate == null) {
+			if (other.startdate != null)
+				return false;
+		} else if (!startdate.equals(other.startdate))
+			return false;
+		if (userid == null) {
+			if (other.userid != null)
+				return false;
+		} else if (!userid.equals(other.userid))
+			return false;
+		return true;
+	}
+
 	public SessionHistory setUserid(Long userid) {
 		this.userid = userid;
 		return this;

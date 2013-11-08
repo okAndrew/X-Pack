@@ -38,15 +38,15 @@
 				<td><dream:formatSize value="${downlLastWeek}" /></td>
 			</tr>
 			<tr>
-				<td>Upload last week</td>
+				<td><fmt:message key="Upload_last_week" bundle="${lang}" /></td>
 				<td><dream:formatSize value="${uploadLastWeek}"/></td>
 			</tr>
 			<tr>
-				<td>Download last day</td>
+				<td><fmt:message key="Download_last_day" bundle="${lang}" /></td>
 				<td><dream:formatSize value="${downlLastDay}"/></td>
 			</tr>
 			<tr>
-				<td>Upload last day</td>
+				<td><fmt:message key="Upload_last_day" bundle="${lang}" /></td>
 				<td><dream:formatSize value="${uploadLastDay}"/></td>
 			</tr>
 		</tbody>
@@ -94,8 +94,11 @@
 				var jsonurlD = "Data4StatisticTrafficDownload";
 				var jsonurlU = "Data4StatisticTrafficUpload";
 
+				<fmt:message key="Load_server_Download" var="download" bundle="${lang}"/>
+				var msgdownload = "${download}";
+				
 				var plot1 = $.jqplot('chart1', jsonurlD,{
-					title : "Load server(Download)",
+					title : msgdownload,
 					dataRenderer : ajaxDataRenderer,
 					dataRendererOptions : {
 						unusedOptionalUrl : jsonurlD
@@ -121,9 +124,10 @@
 						showTooltip : false,
 					}
 				});
-				
+				<fmt:message key="Load_server_Upload" var="upload" bundle="${lang}"/>
+				var msgupload = "${upload}";
 				var plot2 = $.jqplot('chart2', jsonurlU,{
-					title : "Load server(Upload)",
+					title : msgupload,
 					dataRenderer : ajaxDataRenderer,
 					dataRendererOptions : {
 						unusedOptionalUrl : jsonurlU

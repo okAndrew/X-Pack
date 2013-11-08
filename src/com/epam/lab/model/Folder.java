@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import com.epam.lab.controller.annotations.TableColumn;
 import com.google.gson.annotations.Expose;
 
-public class Folder {
+public class Folder implements Comparable<Folder> {
 	@Expose
 	@TableColumn("id")
 	private long id;
@@ -20,11 +20,11 @@ public class Folder {
 	@Expose
 	@TableColumn("id_upper")
 	private long idUpper;
-	
+
 	@Expose
 	@TableColumn("size")
 	private long size;
-	
+
 	@TableColumn("date")
 	private Timestamp date;
 
@@ -132,6 +132,20 @@ public class Folder {
 				+ "]";
 	}
 
-
-
+	@Override
+	public int compareTo(Folder folder) {
+		if (this.getName().compareTo(folder.getName()) != 0) {
+			return this.getName().compareTo(folder.getName());
+		} else if (this.getDate().compareTo(folder.getDate()) != 0) {
+			return this.getDate().compareTo(folder.getDate());
+		} else {
+			if (this.getSize() - folder.getSize() < 0) {
+				return -1;
+			} else if (this.getSize() - folder.getSize() > 0) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+	}
 }

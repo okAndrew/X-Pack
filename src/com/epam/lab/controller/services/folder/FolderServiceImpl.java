@@ -1,6 +1,7 @@
 package com.epam.lab.controller.services.folder;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +51,9 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 	}
 
 	public List<Folder> getByUpperId(long upperId) {
-		return folderDAO.getByUpperId(upperId);
+		List<Folder> resultList = folderDAO.getByUpperId(upperId);
+		Collections.sort(resultList);
+		return resultList;
 	}
 
 	public List<Folder> getFolderPath(long id) {

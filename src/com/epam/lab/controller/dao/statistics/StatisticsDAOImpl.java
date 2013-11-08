@@ -15,23 +15,18 @@ public class StatisticsDAOImpl implements StatisticsDAO {
 
 	@Override
 	public Statistics get(long id) {
-		try {
 			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return null;
 	}
 
 	@Override
 	public List<Statistics> getAll() {
-		String sql = "SELECT count(id) as number, timestamp(selected_date) as day FROM session_history  "
-				+ "right join (select * from (select adddate('2013-01-01',t4*1000 + t3*100 + t2*10 + t1*1) selected_date "
-				+ "from (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1, "
-				+ "(select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2, "
-				+ "(select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3, "
-				+ "(select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v) as dates on selected_date=date(startdate) "
-				+ "where selected_date between '2013-09-01' and  CURRENT_DATE() group by selected_date";
+		String sql = "SELECT COUNT(id) AS number, TIMESTAMP(selected_date) AS day FROM session_history  "
+				+ "RIGHT JOIN (SELECT * FROM (SELECT adddate('2013-01-01',t4*1000 + t3*100 + t2*10 + t1*1) selected_date "
+				+ "FROM (SELECT 0 t1 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t1, "
+				+ "(SELECT 0 t2 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t2, "
+				+ "(SELECT 0 t3 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t3, "
+				+ "(SELECT 0 t4 UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t4) v) AS dates on selected_date=date(startdate) "
+				+ "WHERE selected_date BETWEEN '2013-09-01' AND  CURRENT_DATE() GROUP BY selected_date";
 		return queryExecutor.executeQuery(Statistics.class, sql);
 	}
 

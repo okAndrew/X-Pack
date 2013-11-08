@@ -1,6 +1,7 @@
 package com.epam.lab.controller.services.user;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
@@ -19,6 +20,8 @@ public class SearchServiceImpl implements SearchService {
 		this.folders = find(upperId, searched);
 		if ((folders != null && folders.size() > 0)
 				|| (files != null && files.size() > 0)) {
+			Collections.sort(this.folders);
+			Collections.sort(this.files);
 			return true;
 		} else
 			return false;

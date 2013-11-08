@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import com.epam.lab.controller.annotations.TableColumn;
 import com.google.gson.annotations.Expose;
 
-public class UserFile {
+public class UserFile implements Comparable<UserFile> {
 	@Expose
 	@TableColumn("id")
 	private Long id;
@@ -216,6 +216,25 @@ public class UserFile {
 		} else if (!type.equals(other.type))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(UserFile file) {
+		if (this.getType().compareTo(file.getType()) != 0) {
+			return this.getType().compareTo(file.getType());
+		} else if (this.getNameIncome().compareTo(file.getNameIncome()) != 0) {
+			return this.getNameIncome().compareTo(file.getNameIncome());
+		} else if (this.getDate().compareTo(file.getDate()) != 0) {
+			return this.getDate().compareTo(file.getDate());
+		} else {
+			if (this.getSize() - file.getSize() < 0) {
+				return -1;
+			} else if (this.getSize() - file.getSize() > 0) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
 	}
 
 }

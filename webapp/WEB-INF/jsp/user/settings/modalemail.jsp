@@ -23,7 +23,8 @@
 						<label><fmt:message key="Old_email_address"
 								bundle="${lang}" /></label>
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="email"
+							<input type="text" class="form-control" placeholder=<fmt:message key="email"
+								bundle="${lang}" />
 								value="${user.email}" disabled="disabled">
 							<span class="input-group-btn">
 								<button class="btn btn-primary" type="button" id="sendCode">
@@ -37,7 +38,8 @@
 					<div class="form-group">
 						<label><fmt:message key="New_email_address"
 								bundle="${lang}" /></label> <input name="email" type="email"
-							class="form-control" placeholder="New email address"
+							class="form-control" placeholder=<fmt:message key="New_email_address"
+								bundle="${lang}" />
 							id="newEmailAddress">
 					</div>
 					<div class="form-group">

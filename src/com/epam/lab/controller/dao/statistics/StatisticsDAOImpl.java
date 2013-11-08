@@ -138,5 +138,4 @@ public class StatisticsDAOImpl implements StatisticsDAO {
 		return result;
 
 	}
-
 }

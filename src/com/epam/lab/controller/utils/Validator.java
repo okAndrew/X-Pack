@@ -19,6 +19,7 @@ public enum Validator {
                 this.regex = regex;
         }
 
+        
         public boolean validate(String string) {
                 boolean res = false;
 

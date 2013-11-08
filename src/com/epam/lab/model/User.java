@@ -157,4 +157,67 @@ public class User {
 				+ lastLocale + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (capacity ^ (capacity >>> 32));
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + (int) (idTariff ^ (idTariff >>> 32));
+		result = prime * result + (isActivated ? 1231 : 1237);
+		result = prime * result + (isBanned ? 1231 : 1237);
+		result = prime * result
+				+ ((lastLocale == null) ? 0 : lastLocale.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + role;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (capacity != other.capacity)
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (id != other.id)
+			return false;
+		if (idTariff != other.idTariff)
+			return false;
+		if (isActivated != other.isActivated)
+			return false;
+		if (isBanned != other.isBanned)
+			return false;
+		if (lastLocale == null) {
+			if (other.lastLocale != null)
+				return false;
+		} else if (!lastLocale.equals(other.lastLocale))
+			return false;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (role != other.role)
+			return false;
+		return true;
+	}
+
 }

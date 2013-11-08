@@ -13,7 +13,7 @@ public class TariffDaoTest {
 	private static Tariff tariff = new Tariff();
 
 	@BeforeClass
-	public static void setLocale() {
+	public static void setTariff() {
 		tariff.setId(3).setName("Gold").setMaxCapacity(2097152000)
 				.setPosition(4).setPrice(4.99).setDescription("Third tariff")
 				.setIsDelete(false);
@@ -39,8 +39,6 @@ public class TariffDaoTest {
 		assertEquals(5, tariffDao.getAll("Ukranian").size());
 	}
 
-	
-
 	@Test
 	public void testGetAvailableTariffs() {
 		assertEquals(5, tariffDao.getAvailableTariffs().size());
@@ -60,17 +58,14 @@ public class TariffDaoTest {
 	public void testGetCount() {
 		assertEquals(5, tariffDao.getCount());
 	}
-	@Test
+
+	@Test(expected = RuntimeException.class)
 	public void testInsert() {
 		assertEquals(1, tariffDao.insert(tariff));
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testUpdate() {
 		assertEquals(1, tariffDao.update(tariff));
 	}
-	// public void testGetByParam() {
-	// assertEquals(5, tariffDao.getByParam(page, count, orderBy, sop,
-	// language));
-	// }
 }

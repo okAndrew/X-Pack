@@ -53,11 +53,6 @@ public class PaymentDAOTest {
 	}
 
 	@Test
-	public void testInsert() {
-		assertEquals(1, paymentDao.insert(payment));
-	}
-
-	@Test
 	public void testUpdate() {
 		assertEquals(1, paymentDao.update(payment));
 	}
@@ -101,13 +96,5 @@ public class PaymentDAOTest {
 	public void testGetAvailableEndedPays() {
 		assertEquals(0, paymentDao.getAvailableEndedPays().size());
 	}
-	@Test
-	public void testGetLastUserPayment() {
-		assertEquals(payment, paymentDao.getLastUserPayment(83));
-	}
-	// @Test
-	// public void testExecuteTransaction(String[] sql, Object[][] args) {
-	// paymentDao.executeTransaction(sql, args);
-	// }
 
 }

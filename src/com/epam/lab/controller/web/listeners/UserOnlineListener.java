@@ -48,9 +48,9 @@ public class UserOnlineListener implements HttpSessionListener,
 				.getId());
 		sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
 		historyService.update(sessionhistory);
-		UserServiceImpl ui = new UserServiceImpl();
-		ui.setLastLocale(session.getAttribute("sessLocale").toString(),
-				(long) session.getAttribute("userid"));
+//		UserServiceImpl ui = new UserServiceImpl();
+//		ui.setLastLocale(session.getAttribute("sessLocale").toString(),
+//				(long) session.getAttribute("userid"));
 	}
 
 	public static int getActiveSessionNumberLogged() {
@@ -98,6 +98,14 @@ public class UserOnlineListener implements HttpSessionListener,
 			LanguageServiceImpl langImpl = new LanguageServiceImpl();
 			session.setAttribute("currentLanguage", langImpl.getLang(session
 					.getAttribute("sessLocale").toString()));
+		}
+		if (event.getName().equals("userid")) {
+			if (activeSessionsLogged > 0) {
+				activeSessionsLogged--;
+				UserServiceImpl ui = new UserServiceImpl();
+				ui.setLastLocale(session.getAttribute("sessLocale").toString(),
+						(long) session.getAttribute("userid"));
+			}
 		}
 	}
 }

@@ -38,16 +38,8 @@
 						var freespace = "${freespace}";
 						<fmt:message key="Employed_space" var="employedspace" bundle="${lang}"/>
 						var employedspace = "${employedspace}";
-						var free = $
-						{
-							freeSpace
-						}
-						;
-						var employed = $
-						{
-							totalSpace
-						}
-						-free;
+						var free = ${freeSpace}	;
+						var employed = ${totalSpace}-free;
 						line1 = [
 								[ freespace + " - " + free + "GB", free ],
 								[ employedspace + " - " + employed + "GB",

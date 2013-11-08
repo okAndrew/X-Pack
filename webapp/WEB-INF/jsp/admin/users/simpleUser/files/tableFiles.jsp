@@ -15,15 +15,8 @@
 </style>
 
 <div>
-	<c:if
-		test="${search!=null && search && search_no_result!=null && search_no_result}">
-		<p>
-			<fmt:message key="Your_search_returned_no_results" bundle="${lang}" />
-		</p>
-	</c:if>
 	<c:choose>
-		<c:when
-			test="${(filelist!=null)||(filelist==null&&(search!=null && search && search_no_result!=null && search_no_result))}">
+		<c:when test="${filelist.size() > 0}">
 			<table class="table zebra-striped table-hover table-condensed">
 				<thead>
 					<tr>
@@ -72,9 +65,15 @@
 				</tbody>
 			</table>
 		</c:when>
+		<c:when
+			test="${search!=null && search && search_no_result!=null && search_no_result}">
+			<div class="well">
+				<fmt:message key="Your_search_returned_no_results" bundle="${lang}" />
+			</div>
+		</c:when>
 		<c:otherwise>
 			<div class="well">
-				<fmt:message key="There_is_no_files_yet" bundle="${lang}" />
+				<fmt:message key="There_is_no_files" bundle="${lang}" />
 			</div>
 		</c:otherwise>
 	</c:choose>

@@ -13,6 +13,7 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import com.epam.lab.controller.dao.file.FileDAO;
@@ -376,6 +377,20 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			if (!f.exists()) {
 				fileDAO.delete(file.getId());
 			}
+		}
+	}
+
+	@Override
+	public void cleanTempDirectory() {
+		File temp = new File(ROOT_PATH + "/tmp");
+		if (temp.isDirectory()) {
+			try {
+				FileUtils.cleanDirectory(temp);
+			} catch (IOException e) {
+				logger.warn(e);
+			}
+		} else {
+			temp.mkdirs();
 		}
 	}
 }

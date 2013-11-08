@@ -77,6 +77,8 @@ public class UserOnlineListener implements HttpSessionListener,
 			if (user.getLastLocale() != null) {
 				session.setAttribute("sessLocale", user.getLastLocale());
 			}
+			ui.setLastLocale(session.getAttribute("sessLocale").toString(),
+					(long) session.getAttribute("userid"));
 		}
 
 	}
@@ -98,6 +100,8 @@ public class UserOnlineListener implements HttpSessionListener,
 			LanguageServiceImpl langImpl = new LanguageServiceImpl();
 			session.setAttribute("currentLanguage", langImpl.getLang(session
 					.getAttribute("sessLocale").toString()));
+		
+			
 		}
 		if (event.getName().equals("userid")) {
 			if (activeSessionsLogged > 0) {

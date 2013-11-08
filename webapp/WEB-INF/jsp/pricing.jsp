@@ -42,7 +42,7 @@ $("#form_pay_submit").click( function() {
 			<div class="row">
 				<div class="col-md-12">
 					<c:forEach var="tariff" items="${tariffs}">
-						<div class="panel panel-default" style="float: left; min-width: 546px; margin-right: 15px;">
+						<div class="panel panel-default" style="float: left; width: 546px; margin-right: 15px;">
 							<div class="panel-heading">
 								<h4>
 									<c:choose>

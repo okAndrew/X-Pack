@@ -26,7 +26,7 @@ public class AdminSimpleUserUpdateCommand implements AdminSimpleUserPageCommand 
 		String errmessage = userService.checkUpdate(userEmail, userId,
 				userLogin, activated, banned, role);
 		request.setAttribute("message", errmessage);
-		page = "WEB-INF/jsp/admin/users/simpleUser/adminUser.jsp";
+		page = "adminUser?page=adminUserInfo";
 		return page;
 	}
 

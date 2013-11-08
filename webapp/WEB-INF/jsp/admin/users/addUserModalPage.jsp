@@ -12,13 +12,11 @@
 <script src="res/js/bootstrap.js"></script>
 <link href="res/css/style.css" rel="stylesheet" />
 
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="addUserModal" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
 				<h4 class="modal-title">
 					<fmt:message key="Add_new_user" bundle="${lang}" />
 				</h4>

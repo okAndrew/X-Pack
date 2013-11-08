@@ -3,6 +3,7 @@ package com.epam.lab.controller.dao.token;
 import java.util.List;
 
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
+import com.epam.lab.controller.exceptions.NoSupportedActionException;
 import com.epam.lab.model.Token;
 
 public class TokenDAOImpl implements TokenDAO {
@@ -26,7 +27,7 @@ public class TokenDAOImpl implements TokenDAO {
 
 	@Override
 	public List<Token> getAll() {
-		return null;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override

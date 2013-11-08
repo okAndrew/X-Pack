@@ -143,7 +143,7 @@ public class DBQueryExecutor<T> {
 		} catch (SQLException | NoSuchDAOObjectException e) {
 			logger.error(e);
 		} finally {
-			connManager.closeQuality(connection);
+	//		connManager.closeQuality(connection);
 		}
 		return result;
 	}

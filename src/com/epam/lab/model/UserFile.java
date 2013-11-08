@@ -9,11 +9,11 @@ public class UserFile {
 	@Expose
 	@TableColumn("id")
 	private Long id;
-	
+
 	@Expose
 	@TableColumn("id_folder")
 	private Long idFolder;
-	
+
 	@Expose
 	@TableColumn("name_income")
 	private String nameIncome;
@@ -26,7 +26,7 @@ public class UserFile {
 
 	@TableColumn("type")
 	private String type;
-	
+
 	@Expose
 	@TableColumn("size")
 	private long size;
@@ -36,7 +36,7 @@ public class UserFile {
 
 	@TableColumn("id_user")
 	private long idUser;
-	
+
 	@TableColumn("is_public")
 	private Boolean isPublic;
 
@@ -139,7 +139,83 @@ public class UserFile {
 		return "File [id=" + id + ", idFolder=" + idFolder + ", nameIncome="
 				+ nameIncome + ", name=" + name + ", path=" + path + ", type="
 				+ type + ", size=" + size + ", date=" + date + ", idUser="
-				+ idUser + ", isPublic=" + isPublic +"]";
+				+ idUser + ", isPublic=" + isPublic + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((idFolder == null) ? 0 : idFolder.hashCode());
+		result = prime * result + (int) (idUser ^ (idUser >>> 32));
+		result = prime * result
+				+ ((isPublic == null) ? 0 : isPublic.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((nameIncome == null) ? 0 : nameIncome.hashCode());
+		result = prime * result + ((path == null) ? 0 : path.hashCode());
+		result = prime * result + (int) (size ^ (size >>> 32));
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserFile other = (UserFile) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (idFolder == null) {
+			if (other.idFolder != null)
+				return false;
+		} else if (!idFolder.equals(other.idFolder))
+			return false;
+		if (idUser != other.idUser)
+			return false;
+		if (isPublic == null) {
+			if (other.isPublic != null)
+				return false;
+		} else if (!isPublic.equals(other.isPublic))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (nameIncome == null) {
+			if (other.nameIncome != null)
+				return false;
+		} else if (!nameIncome.equals(other.nameIncome))
+			return false;
+		if (path == null) {
+			if (other.path != null)
+				return false;
+		} else if (!path.equals(other.path))
+			return false;
+		if (size != other.size)
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		return true;
 	}
 
 }

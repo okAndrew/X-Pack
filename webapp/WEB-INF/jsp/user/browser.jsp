@@ -181,5 +181,3 @@
 	</c:forEach>
 </div>
 <script type="text/javascript" src="res/js/browser.js"> </script>
-
-

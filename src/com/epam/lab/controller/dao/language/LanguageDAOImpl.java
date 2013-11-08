@@ -14,12 +14,7 @@ public class LanguageDAOImpl implements LanguageDAO {
 
 	@Override
 	public Language get(long id) {
-		try {
 			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return null;
 	}
 
 	@Override

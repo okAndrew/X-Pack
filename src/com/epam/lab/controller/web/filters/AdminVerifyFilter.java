@@ -40,8 +40,8 @@ public class AdminVerifyFilter implements Filter {
 				}
 			}
 		}
-			HttpServletResponse httpResponse = (HttpServletResponse) response;
-			httpResponse.sendRedirect("signin");
+		   HttpServletResponse httpResponse = (HttpServletResponse) response;
+		   httpResponse.sendRedirect("signin");
 	}
 
 	@Override

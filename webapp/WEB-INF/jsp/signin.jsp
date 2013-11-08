@@ -19,16 +19,14 @@
 		var dotpos = email.lastIndexOf(".");
 		
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
-			<fmt:message key="Not_a_valid_e-mail_address" var="email" bundle="${lang}"/>
-			var email = "${email}";
-			setMessage(email, errorinfo);
+			
+			setMessage("email", errorinfo);
 			return false;
 		}
 		
 		if (p1 == "") {
-			<fmt:message key="Field_cannot_be_empty" var="fields" bundle="${lang}"/>
-			var fields = "${fields}";
-			setMessage(fields, errorinfo);
+			
+			setMessage("fields", errorinfo);
 	  		return false;
 		}
 		

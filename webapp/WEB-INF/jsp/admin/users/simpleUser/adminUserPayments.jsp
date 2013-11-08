@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script type="text/javascript" src="res/js/utils.js"></script>
-
+<script src="res/js/bootstrap.js"></script>
 <c:if test="${message != null}">
 	<script>
 		$('#myModal').modal('show')

@@ -8,9 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Statistics</title>
-
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
-
+<script src="res/js/bootstrap.js"></script>
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <script type="text/javascript" src="res/js/utils.js"></script>
@@ -21,10 +22,19 @@
 	max-width: 1200px;
 	margin: auto;
 }
-.button-reset1.btn.btn-default, .button-reset2.btn.btn-default{
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	height: 350px;
+	width: 700px;
+}
+
+.button-reset1.btn.btn-default,.button-reset2.btn.btn-default {
 	margin: 10px;
 }
 </style>
+
 </head>
 <body>
 	<!--<div class="code prettyprint">
@@ -41,26 +51,24 @@
 			<div class="panel-heading">
 				<!--<fmt:message key="Statistics" bundle="${lang}" />-->
 				<div class="btn-group">
-					<a href="adminStatisticsPage?page=users"
-						class="btn btn-default"> <fmt:message key="Users"
-								bundle="${lang}" />
-					</a>
-					<a href="adminStatisticsPage?page=files"
-						class="btn btn-default"> <fmt:message key="Files"
-								bundle="${lang}" />
-					</a>
-					<a href="adminStatisticsPage?page=server"
-						class="btn btn-default"> <fmt:message key="Server"
-								bundle="${lang}" />
+					<a href="adminStatisticsPage?page=users" class="btn btn-default">
+						<fmt:message key="Users" bundle="${lang}" />
+					</a> <a href="adminStatisticsPage?page=files" class="btn btn-default">
+						<fmt:message key="Files" bundle="${lang}" />
+					</a> <a href="adminStatisticsPage?page=server" class="btn btn-default">
+						<fmt:message key="Server" bundle="${lang}" />
 					</a>
 				</div>
 			</div>
-			<div class="panel-body" >
-				
+			<div class="panel-body">
+
 				<h1 hidden="false">'${freeSpace}'</h1>
 				<h1 hidden="false">'${totalSpace}'</h1>
-				<div id="dynamicArea" >
+				<div id="dynamicArea">
 					<c:choose>
+						<c:when test="${param.page == 'users'}">
+							<jsp:include page="statisticsUsers.jsp"></jsp:include>
+						</c:when>
 						<c:when test="${param.page == 'files'}">
 							<jsp:include page="statisticsFiles.jsp"></jsp:include>
 						</c:when>
@@ -68,7 +76,9 @@
 							<jsp:include page="statisticsServer.jsp"></jsp:include>
 						</c:when>
 						<c:otherwise>
-							<jsp:include page="statisticsUsers.jsp"></jsp:include>
+							<div style="margin-left: auto; margin-right: auto;">
+								<img src="res/img/grahps.png">
+							</div>
 						</c:otherwise>
 					</c:choose>
 				</div>

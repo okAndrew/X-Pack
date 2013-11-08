@@ -5,6 +5,7 @@
 
 
 <script type="text/javascript" src="res/js/utils.js"></script>
+<script src="res/js/bootstrap.js"></script>
 <div class="col-xs-6">
 	<div id="chart1" style="height: 330px; width: 500px;"></div>
 	<button class="button-reset1 btn btn-default">

@@ -4,8 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
-<div id="chart1" style="height: 350px; width: 700px;"></div>
-<button class="button-reset btn btn-default"><fmt:message key="Reset_Zoom" bundle="${lang}" /></button>
+<div id="chart1" class="center"></div>
+<button class="button-reset btn btn-default">
+	<fmt:message key="Reset_Zoom" bundle="${lang}" />
+</button>
 <div id="example"></div>
 
 <div>
@@ -24,15 +26,18 @@
 				<td>${countUsersLogged}</td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Visited_on_last_day_/_logged" bundle="${lang}" /></td>
+				<td><fmt:message key="Visited_on_last_day_/_logged"
+						bundle="${lang}" /></td>
 				<td>${visitorsByDay}/${loggedVisitorsByDay}</td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Visited_on_last_week_/_logged" bundle="${lang}" /></td>
+				<td><fmt:message key="Visited_on_last_week_/_logged"
+						bundle="${lang}" /></td>
 				<td>${visitorsByWeek}/${loggedVisitorsByWeek}</td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Visited_on_last_month_/_logged" bundle="${lang}" /></td>
+				<td><fmt:message key="Visited_on_last_month_/_logged"
+						bundle="${lang}" /></td>
 				<td>${visitorsByMonth}/${loggedVisitorsByMonth}</td>
 			</tr>
 
@@ -54,6 +59,9 @@
 <script type="text/javascript" src="res/js/jqplot.pieRenderer.min.js"></script>
 <script type="text/javascript" src="res/js/jqplot.cursor.min.js"></script>
 <script type="text/javascript">
+	$(document).ready(function timedRefresh() {
+		setTimeout("location.reload(true);", 10000);
+	});
 	$(document).ready(
 			function() {
 				var ajaxDataRenderer = function(url, plot, options) {

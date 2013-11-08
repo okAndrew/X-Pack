@@ -12,7 +12,7 @@
 					aria-hidden="true">&times;</button>
 			</div>
 			<div class="modal-body">
-				<div id="audio-player"></div>
+				<div id="audio-container" align="center"></div>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -21,13 +21,19 @@
 </div>
 <!-- /.modal -->
 
+<script src="res/js/audio.min.js"></script>
+
+
 <script type="text/javascript">
 	function loadAudioContent(name) {
 		$.ajax({
 			type : "GET",
 			url : 'audiocontent?name=' + name,
-			success : function(data) {
-				$("#audio-player").html(data);
+			success : function(url) {
+				$('#audio-container').html(
+						$('<audio  id="audio-player" preload="none"></audio>'));
+				$("#audio-player").attr('src', url);
+				audiojs.createAll();
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
 				alert('xhr.status ' + xhr.status + '   thrownError:'
@@ -41,9 +47,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#audioModal').on('hidden.bs.modal', function() {
-			$("#audio-player").html('');
+			$('audio').stop();
+			$('audio').remove();
 		});
 	});
 </script>
 
-<script src="res/js/jquery.iwish.js"></script>

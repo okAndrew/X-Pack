@@ -56,7 +56,7 @@
 								bundle="${lang}" /></label>
 						<div class="input-group">
 							<input id="email" type="newEmail" class="form-control"
-								placeholder="New email" name="newEmail"> <span
+								placeholder=<fmt:message key="New_email" bundle="${lang}" /> name="newEmail"> <span
 								class="input-group-btn">
 								<button class="btn btn-primary" type="submit">
 									<fmt:message key="Edit" bundle="${lang}" />

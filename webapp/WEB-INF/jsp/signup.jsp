@@ -26,19 +26,20 @@
 		var dotpos = email.lastIndexOf(".");
 		
 		errorinfo.style.display = "none";
-		<fmt:message key="Not_a_valid_e-mail_address" var="email"/>
+		
+		<fmt:message key="Not_a_valid_e-mail_address" var="email" bundle="${lang}"/>
 		var msg = "${email}";
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
 			setMessage(msg, errorinfo);
 			return false;
 		}
-		<fmt:message key="Fields_cannot_be_empty" var="fields"/>
+		<fmt:message key="Fields_cannot_be_empty" var="fields" bundle="${lang}"/>
 		var msg1 = "${fields}";
 		if (p1 == "" || p2 == "" || login == "") {
 			setMessage(msg1, errorinfo);
 	  		return false;
 		}
-		<fmt:message key="Passwords_are_different" var="pass"/>
+		<fmt:message key="Passwords_are_different" var="pass" bundle="${lang}"/>
 		var msg2 = "${pass}";
 		if(p1 != p2) {
 			setMessage(msg2, errorinfo);

@@ -13,8 +13,7 @@
 	border: 0px solid gray;
 }
 
-.cell { 
-/* 	-webkit-border-radius: 5px 5px 5px 5px; */
+.cell { /* 	-webkit-border-radius: 5px 5px 5px 5px; */
 	/* 	border-radius: 5px 5px 5px 5px; */
 	margin: 0px 8px 15px 8px;
 	padding: 10px 0px 10px 10px;
@@ -51,9 +50,9 @@ img.trunc {
 }
 
 .title-name {
-	white-space: nowrap; /* Запрещаем перенос строк */
-	overflow: hidden; /* Обрезаем все, что не помещается в область */
-	text-overflow: ellipsis; /* Добавляем многоточие */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .hover-drop {

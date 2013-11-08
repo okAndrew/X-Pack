@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
 
 <style type="text/css">
@@ -72,13 +72,13 @@
 					});
 					return ret;
 				};
-
+			
 				// The url for our json data
 				var jsonurl = "adminUserActivityGraph";
-				<fmt:message key="Visitors" var="name"/>
-				var msg = "${name}";
+				<fmt:message key="Visitors" var="visitors" bundle="${lang}"/>
+				var visitors="${visitors}"
 				var plot1 = $.jqplot('chart1', jsonurl, {
-					title : msg,
+					title : visitors,
 					dataRenderer : ajaxDataRenderer,
 					dataRendererOptions : {
 						unusedOptionalUrl : jsonurl

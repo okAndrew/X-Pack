@@ -1,15 +1,16 @@
 package com.epam.lab.controller.dao.dbconnect;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
 import org.apache.log4j.Logger;
 
 public class ConnectionManager {
@@ -39,25 +40,25 @@ public class ConnectionManager {
 		return connManager;
 	}
 
-	public static ConnectionManager  getInstance() {
+	public static ConnectionManager getInstance() {
 		if (connManager == null) {
 			connManager = newInstance();
 		}
 		return connManager;
 	}
-	
+
 	public Connection getConnection() throws SQLException {
 		Connection result = null;
-		 if (connManager != null)
-		 result = dataSource.getConnection();
-//		 for tests
-//		try {
-//			Class.forName("com.mysql.jdbc.Driver");
-//			result = DriverManager.getConnection(
-//					"jdbc:mysql://localhost:3306/dreamhost", "root", "1111");
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		if (connManager != null)
+			result = dataSource.getConnection();
+		// for testing
+		// try {
+		// Class.forName("com.mysql.jdbc.Driver");
+		// result = DriverManager.getConnection(
+		// "jdbc:mysql://localhost:3306/dreamhost", "root", "1111");
+		// } catch (ClassNotFoundException e) {
+		// e.printStackTrace();
+		// }
 		return result;
 	}
 

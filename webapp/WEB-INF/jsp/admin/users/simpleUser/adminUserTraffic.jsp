@@ -2,9 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 
 <script type="text/javascript" src="res/js/utils.js"></script>
+<script src="res/js/bootstrap.js"></script>
 <div class="col-xs-6">
 	<div id="chart1" style="height: 330px; width: 500px;"></div>
 	<button class="button-reset1 btn btn-default">
@@ -24,28 +26,28 @@
 		<tbody>
 			<tr>
 				<td><fmt:message key="Download_last_month" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${downlUserLastMonth}));</script></td>
+				<td><dream:formatSize value="${downlUserLastMonth}" /></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="Upload_last_month" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${uploadUserLastMonth}));</script></td>
+				<td><dream:formatSize value="${uploadUserLastMonth}" /></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="Download_last_week" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${downlUserLastWeek}));</script></td>
+				<td><dream:formatSize value="${downlUserLastWeek}" /></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="Upload_last_week" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${uploadUserLastWeek}));</script></td>
+				<td><dream:formatSize value="${uploadUserLastWeek}" />)</td>
 
 			</tr>
 			<tr>
 				<td><fmt:message key="Download_last_day" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${downlUserLastDay}));</script></td>
+				<td><dream:formatSize value="${downlUserLastDay}" /></td>
 			</tr>
 			<tr>
 				<td><fmt:message key="Upload_last_day" bundle="${lang}" /></td>
-				<td><script>document.write(bytesToSize(${uploadUserLastDay}));</script></td>
+				<td><dream:formatSize value="${uploadUserLastDay}" /></td>
 			</tr>
 		</tbody>
 	</table>
@@ -87,7 +89,8 @@
 							// The url for our json data
 							var jsonurl = "Data4UserTraffic";
 							var jsonurl2 = "Data4UserStatisticsUpload";
-							<fmt:message key="Load_server_Download" var="download"/>
+						
+							<fmt:message key="Load_server_Download" var="download" bundle="${lang}"/>
 							var msgdownload = "${download}";
 							var plot1 = $.jqplot('chart1', jsonurl,	{
 												title : msgdownload,
@@ -116,7 +119,7 @@
 													showTooltip : false
 												}
 											});
-							<fmt:message key="Load_server_Upload" var="upload"/>
+							<fmt:message key="Load_server_Upload" var="upload" bundle="${lang}"/>
 							var msgupload = "${upload}";
 							var plot2 = $.jqplot('chart2', jsonurl2, {
 												title : msgupload,

@@ -10,101 +10,27 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/myspace.css" rel="stylesheet" />
-<link href="res/css/dropzone/dropzone.css" rel="stylesheet" />
+<link href="res/css/dropzone.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/minimalist.css">
 
 <link rel="stylesheet" href="res/css/jquery-ui.css" />
+<style type="text/css">
+img.img {
+	max-height: 1000px;
+	max-width: 538px;
+	margin-bottom: 3px;
+}
+</style>
+
 <script src="res/js/jquery-1.10.2.min.js"></script>
 <script src="res/js/jquery-ui.js"></script>
 <script src="res/js/dropzone.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/utils.js"></script>
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						Dropzone.options.myAwesomeDropzone = {
-							parallelUploads : 1,
-							maxFilesize : <c:out value="${freeSpace}"/>,
-							dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
-							// maxFiles : 6,
-							init : function() {
-								this.on("complete", function(file) {
-									loadBrowserContent();
-								});
-							}
-						}
-					})
-	function loadBrowserContent() {
-		$.ajax({
-			type : "GET",
-			url : 'BrowserContent',
-			success : function(data) {
-				$("#browser").html(data);
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				alert('xhr.status ' + xhr.status + '   thrownError:'
-						+ thrownError);
-			}
-		});
-	}
-
-	function fixedEncodeURIComponent(str) {
-		return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(
-				/\*/g, "%2A");
-	}
-
-	function searchFiles() {
-		var searchText = $("#searchinput").val();
-		if (searchText.length == 0) {
-			loadBrowserContent();
-		} else {
-			$.ajax({
-				type : "POST",
-				url : 'search',
-				data : {
-					"searchtext" : searchText
-				},
-				success : function(data) {
-					$("#browser").html(data);
-				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert('xhr.status ' + xhr.status + '   thrownError:'
-							+ thrownError);
-				}
-			});
-		}
-	}
-	function disableEnterKey(e) {
-		var key;
-		if (window.event)
-			key = window.event.keyCode; //IE
-		else
-			key = e.which; //firefox
-		if (key == 13)
-			return false;
-		else
-			return true;
-	}
-</script>
-<style type="text/css">
-img.img {
-	max-height: auto;
-	max-width: 538px;
-	margin-bottom: 3px;
-}
-</style>
+<script src="res/js/browser.js"></script>
 </head>
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>
-	<jsp:include page="modals/modalCreatefolder.jsp"></jsp:include>
-	<jsp:include page="modals/modalEdit.jsp"></jsp:include>
-	<jsp:include page="modals/modalDelete.jsp"></jsp:include>
-	<jsp:include page="modals/modalImage.jsp"></jsp:include>
-	<jsp:include page="modals/modalVideo.jsp"></jsp:include>
-	<jsp:include page="modals/modalAudio.jsp"></jsp:include>
-	<jsp:include page="modals/modellink.jsp"></jsp:include>
-
 	<c:choose>
 		<c:when test="${isbanned }">
 			<div class="alert alert-danger">
@@ -162,7 +88,9 @@ img.img {
 					</nav>
 					<c:if test="${message!=null }">
 						<div class="alert alert-warning">
-							<p>${message}</p>
+							<p>
+								<fmt:message key="${message}" bundle="${lang}" />
+							</p>
 						</div>
 					</c:if>
 					<div id="browser">
@@ -172,7 +100,85 @@ img.img {
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		function loadBrowserContent() {
+			$.ajax({
+				type : "GET",
+				url : 'BrowserContent',
+				success : function(data) {
+					$("#browser").html(data);
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					alert('xhr.status ' + xhr.status + '   thrownError:'
+							+ thrownError);
+				}
+			});
+		}
 
+		function fixedEncodeURIComponent(str) {
+			return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(
+					/\*/g, "%2A");
+		}
 
+		function searchFiles() {
+			var searchText = $("#searchinput").val();
+			if (searchText.length == 0) {
+				loadBrowserContent();
+			} else {
+				$.ajax({
+					type : "POST",
+					url : 'search',
+					data : {
+						"searchtext" : searchText
+					},
+					success : function(data) {
+						$("#browser").html(data);
+					},
+					error : function(xhr, ajaxOptions, thrownError) {
+						alert('xhr.status ' + xhr.status + '   thrownError:'
+								+ thrownError);
+					}
+				});
+			}
+		}
+		function disableEnterKey(e) {
+			var key;
+			if (window.event)
+				key = window.event.keyCode; //IE
+			else
+				key = e.which; //firefox
+			if (key == 13)
+				return false;
+			else
+				return true;
+		}
+	</script>
+	<script type="text/javascript">
+		var options = {
+			url : "upload",
+			previewsContainer : "#my-awesome-dropzone",
+			parallelUploads : 1,
+			maxFilesize : <c:out value="${freeSpace}"/>,
+			dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
+			init : function() {
+				this.on("complete", function(file) {
+					loadBrowserContent();
+				});
+			},
+			dictResponseError : "Error uploading. Please try again."
+		}
+		Dropzone.options.myAwesomeDropzone = options;
+		var awsomeDropzone = new Dropzone(document.body, options);
+		awsomeDropzone.on("drop", function() {
+			$('.dz-message').remove();
+		});
+	</script>
+	<jsp:include page="modals/modalCreatefolder.jsp"></jsp:include>
+	<jsp:include page="modals/modalEdit.jsp"></jsp:include>
+	<jsp:include page="modals/modalDelete.jsp"></jsp:include>
+	<jsp:include page="modals/modalImage.jsp"></jsp:include>
+	<jsp:include page="modals/modalVideo.jsp"></jsp:include>
+	<jsp:include page="modals/modalAudio.jsp"></jsp:include>
+	<jsp:include page="modals/modellink.jsp"></jsp:include>
 </body>
 </html>

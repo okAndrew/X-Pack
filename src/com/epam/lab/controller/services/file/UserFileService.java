@@ -24,4 +24,6 @@ public interface UserFileService extends AbstractService<UserFile> {
 	void refresh(long folderId);
 
 	String getLink(long fileId);
+
+	void cleanTempDirectory();
 }

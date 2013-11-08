@@ -16,12 +16,7 @@ public class LogDAOImpl implements LogDAO {
 
 	@Override
 	public Log get(long id) {
-		try {
-			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return null;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override
@@ -33,22 +28,12 @@ public class LogDAOImpl implements LogDAO {
 
 	@Override
 	public int insert(Log object) {
-		try {
-			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return 0;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override
 	public int update(Log object) {
-		try {
-			throw new NoSupportedActionException("No support this method");
-		} catch (NoSupportedActionException e) {
-			logger.error("use no suropted method" + e);
-		}
-		return 0;
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override

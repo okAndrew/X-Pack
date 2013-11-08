@@ -154,12 +154,17 @@ img.img {
 		}
 	</script>
 	<script type="text/javascript">
+	<fmt:message key="File_is_too_big" var="file" bundle="${lang}"/>
+	var file = "${file}";
+	<fmt:message key="Max_free_space" var="space" bundle="${lang}"/>
+	var space = "${space}";
 		var options = {
 			url : "upload",
 			previewsContainer : "#my-awesome-dropzone",
 			parallelUploads : 1,
 			maxFilesize : <c:out value="${freeSpace}"/>,
-			dictFileTooBig : "File is too big ({{filesize}}MB). Max free space: {{maxFilesize}}MB.",
+			
+			dictFileTooBig : file+" ({{filesize}}MB). "+space+": {{maxFilesize}}MB.",
 			init : function() {
 				this.on("complete", function(file) {
 					loadBrowserContent();

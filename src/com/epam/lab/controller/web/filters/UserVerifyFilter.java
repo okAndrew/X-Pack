@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.epam.lab.model.Role;
 
-@WebFilter(urlPatterns = { "/userpage", "/pricing", "/settings",
+@WebFilter(urlPatterns = { "/userpage", "/pricing", "/settings","/usercontroller",
 		"/EditUserLoginServlet", "/EditEmailServlet" })
 public class UserVerifyFilter implements Filter {
 

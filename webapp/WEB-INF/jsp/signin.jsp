@@ -8,9 +8,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DreamHost | Sign in</title>
+
+
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+<script	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="res/js/bootstrap.js"></script>
 <script type="text/javascript">
 	function validateForm() {
 		var p1 = document.forms["form-signup"]["password"].value;

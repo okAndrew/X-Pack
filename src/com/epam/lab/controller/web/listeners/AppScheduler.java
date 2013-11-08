@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebListener;
 
 import org.apache.log4j.Logger;
 
+import com.epam.lab.controller.services.file.UserFileService;
+import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 
@@ -32,6 +34,7 @@ public class AppScheduler implements ServletContextListener {
 		scheduler.scheduleWithFixedDelay(new setUsersForFree(), 0, 5, TimeUnit.MINUTES);
 		scheduler.scheduleWithFixedDelay(new deactivateOverdues(), 0, 15, TimeUnit.MINUTES);
 		scheduler.scheduleWithFixedDelay(new deleteNoActiveTokens4Auth(), 0, 60, TimeUnit.MINUTES);
+		scheduler.scheduleWithFixedDelay(new cleanTempDirectory(), 0, 1, TimeUnit.DAYS);
 	}
 
 	private class setUsersForFree implements Runnable {
@@ -52,6 +55,14 @@ public class AppScheduler implements ServletContextListener {
 		public void run() {
 			int numDeletedTokens = new Token4AuthServiceImpl().deleteNotActiveTokens();
 			logger.debug("Deleted no active tokens for authentication: " + numDeletedTokens);
+		}
+	}
+
+	private class cleanTempDirectory implements Runnable {
+		public void run() {
+			UserFileService service = new UserFileServiceImpl();
+			service.cleanTempDirectory();
+			logger.debug("Clean temp directory");
 		}
 	}
 }

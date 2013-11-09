@@ -126,6 +126,12 @@ function setVisible(checkbox) {
 					'fileId' : id,
 					'state' : state
 				},
+				success : function(data) {
+					if (data != null && data != "") {
+						$("#link input").val(data);
+						$('#linkModal').modal('show');
+					}
+				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert('xhr.status ' + xhr.status + '   thrownError:'
 							+ thrownError);

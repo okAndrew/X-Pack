@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.folder;
+package com.epam.lab.controller.web.servlets.user.folder;
 
 import java.io.IOException;
 

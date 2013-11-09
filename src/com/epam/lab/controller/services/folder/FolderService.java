@@ -16,4 +16,6 @@ public interface FolderService extends AbstractService<Folder> {
 	List<Folder> getFolderPath(long id);
 
 	void refresh(long userId);
+
+	void moveFilesAndFolders(String[] moveAble, long idTarget, long userId);
 }

@@ -7,7 +7,8 @@ function move(moveable, idtargetFolder) {
 					'moveable[]' : moveable,
 					'idTarget' : idtargetFolder
 				},
-				success : function(data) {
+				success : function() {
+					loadBrowserContent();
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert('xhr.status ' + xhr.status + '   thrownError:'

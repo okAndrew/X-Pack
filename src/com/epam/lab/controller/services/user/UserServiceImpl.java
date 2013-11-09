@@ -328,23 +328,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		return res;
 	}
 
-	private String createToken(User user) {
-		Token token = new Token();
-		MD5Encrypter md5 = new MD5Encrypter();
-		String sToken = null;
-		Timestamp timestamp = TimeStampManager.getCurrentTime();
-
-		sToken = md5.encrypt(user.getEmail() + timestamp);
-
-		token.setIdUser(user.getId());
-		token.setDate(timestamp);
-		token.setToken(sToken);
-
-		new TokenDAOImpl().insert(token);
-
-		return sToken;
-	}
-
 	public boolean editUserEmail(String oldEmail, String newEmail, String token) {
 		boolean res = false;
 		TokenDAOImpl tokenDAO = new TokenDAOImpl();
@@ -426,25 +409,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		return userDaoImpl.get(userId).getIsBanned();
 	}
 
-	public void moveFilesAndFolders(String[] moveAble, long idTarget,
-			long userId) {
-		for (String move : moveAble) {
-			String type = move.split("-")[0];
-			long id = Long.parseLong(move.split("-")[1]);
-			if (type.equals("file")) {
-				UserFileServiceImpl fileService = new UserFileServiceImpl();
-				if (fileService.isUsersFile(id, userId)) {
-					fileService.moveFile(id, idTarget);
-				}
-			} else if (type.equals("folder")) {
-				FolderServiceImpl folderService = new FolderServiceImpl();
-				if (folderService.isUsersFolder(id, userId) && id != idTarget) {
-					folderService.movefolder(id, idTarget);
-				}
-			}
-		}
-	}
-
 	public long getFreeSize(long userId) {
 		UserDAOImpl dao = new UserDAOImpl();
 		User user = dao.get(userId);
@@ -495,5 +459,22 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		User user = this.userDaoImpl.get(userId);
 		user.setCapacity(folderService.getRoot(userId).getSize());
 		this.userDaoImpl.update(user);
+	}
+
+	private String createToken(User user) {
+		Token token = new Token();
+		MD5Encrypter md5 = new MD5Encrypter();
+		String sToken = null;
+		Timestamp timestamp = TimeStampManager.getCurrentTime();
+	
+		sToken = md5.encrypt(user.getEmail() + timestamp);
+	
+		token.setIdUser(user.getId());
+		token.setDate(timestamp);
+		token.setToken(sToken);
+	
+		new TokenDAOImpl().insert(token);
+	
+		return sToken;
 	}
 }

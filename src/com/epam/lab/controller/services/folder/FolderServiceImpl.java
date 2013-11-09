@@ -195,6 +195,26 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 	}
 
 	@Override
+	public void moveFilesAndFolders(String[] moveAble, long idTarget,
+			long userId) {
+		for (String move : moveAble) {
+			String type = move.split("-")[0];
+			long id = Long.parseLong(move.split("-")[1]);
+			if (type.equals("file")) {
+				UserFileServiceImpl fileService = new UserFileServiceImpl();
+				if (fileService.isUsersFile(id, userId)) {
+					fileService.moveFile(id, idTarget);
+				}
+			} else if (type.equals("folder")) {
+				FolderServiceImpl folderService = new FolderServiceImpl();
+				if (folderService.isUsersFolder(id, userId) && id != idTarget) {
+					folderService.movefolder(id, idTarget);
+				}
+			}
+		}
+	}
+
+	@Override
 	public int deleteByUserId(long userId) {
 		FolderDAOImpl folderDao = new FolderDAOImpl();
 		int result = folderDao.deleteByUserId(userId);
@@ -244,14 +264,14 @@ public class FolderServiceImpl extends AbstractServiceImpl<Folder> implements
 		UserFileService fileService = new UserFileServiceImpl();
 		fileService.refresh(id);
 		List<Folder> subFolders = folderDAO.getByUpperId(id);
-		for (Folder subFolder: subFolders) {
+		for (Folder subFolder : subFolders) {
 			long size = refreshSizes(subFolder.getId());
 			subFolder.setSize(size);
 			folderDAO.update(subFolder);
 			result += size;
 		}
 		List<UserFile> files = fileService.getByFolderId(id);
-		for (UserFile file: files) {
+		for (UserFile file : files) {
 			result += file.getSize();
 		}
 		return result;

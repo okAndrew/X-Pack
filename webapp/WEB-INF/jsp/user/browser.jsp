@@ -6,6 +6,9 @@
 <%@ taglib uri="http://dreamhost.com/jsp/tags/" prefix="dream"%>
 
 <link type="text/css" href="res/css/browser.css" rel="stylesheet">
+<link type="text/css" href="res/css/bootstrap-switch.css"
+	rel="stylesheet">
+<script type="text/javascript" src="res/js/bootstrap-switch.min.js"></script>
 
 <c:if test="${search==null || !search}">
 	<ol class="breadcrumb">
@@ -61,22 +64,24 @@
 					<fmt:formatDate type="date" value="${folder.date}" />
 				</h6>
 			</div>
-			<div class="btn-group check" data-toggle="buttons">
-				<label class="btn btn-default"><input type="checkbox"
-					class="cell-check" onchange="checkboxesStatus()" name="folders"
-					value="${folder.id}"> <span
-					class="glyphicon glyphicon-unchecked"></span> </label>
-			</div>
-			<div class="btn-group">
-				<h5>
-					<a data-toggle="modal" role="button" href="#EditModal"
-						onmousedown="set('folderidedit', '${folder.id}')"> <span
-						class="glyphicon glyphicon-pencil"></span>
-					</a> <a data-toggle="modal" role="button" href="#DeleteModal"
-						onclick="set('folderiddelete', ${folder.id})"> <span
-						class="glyphicon glyphicon-trash"></span>
-					</a>
-				</h5>
+			<div class="file-buttons">
+				<div class="btn-group">
+					<h5>
+						<a data-toggle="modal" role="button" href="#EditModal"
+							onmousedown="set('folderidedit', '${folder.id}')"> <span
+							class="glyphicon glyphicon-pencil"></span>
+						</a> <a data-toggle="modal" role="button" href="#DeleteModal"
+							onclick="set('folderiddelete', ${folder.id})"> <span
+							class="glyphicon glyphicon-trash"></span>
+						</a>
+					</h5>
+				</div>
+				<div class="btn-group check" data-toggle="buttons">
+					<label class="btn btn-default btn-lg check-label"><input
+						type="checkbox" class="cell-check" onchange="checkboxesStatus()"
+						name="folders" value="${folder.id}"> <span
+						class="check-span"></span> </label>
+				</div>
 			</div>
 
 		</div>
@@ -110,28 +115,11 @@
 							src="res/img/browser/default-icon.png">
 					</c:otherwise>
 				</c:choose>
-				<div class="file-buttons">
-					<h5>
-						<a href="download?file=${file.name}"> <span
-							class="glyphicon glyphicon-download"></span></a>
-						<c:choose>
-							<c:when test="${file.isPublic }">
-								<a href="#" id="link-button${file.id }"
-									onclick="showLink(${file.id})"> <span
-									class="glyphicon glyphicon-link"></span></a>
-							</c:when>
-							<c:otherwise>
-								<a href="#" id="link-button${file.id }"
-									onclick="showLink(${file.id})" class="hidden"> <span
-									class="glyphicon glyphicon-link"></span></a>
-							</c:otherwise>
-						</c:choose>
-					</h5>
-				</div>
 			</div>
 			<div class="cell-desc">
 				<h5 class="title-name">
-					<a title="${file.nameIncome}">${file.nameIncome} </a>
+					<a href="download?file=${file.name}" title="${file.nameIncome}">${file.nameIncome}
+					</a>
 				</h5>
 				<h5>
 					<fmt:message key="Size" bundle="${lang}" />
@@ -142,41 +130,56 @@
 					<fmt:formatDate type="date" value="${file.date}" />
 				</h6>
 			</div>
-			<div class="btn-group check" data-toggle="buttons">
-				<label class="btn btn-default"><input type="checkbox"
-					class="cell-check" onchange="checkboxesStatus()" name="files"
-					value="${file.id}"> <span
-					class="glyphicon glyphicon-unchecked"></span> </label>
-			</div>
-			<div class="btn-group">
+			<div class="file-buttons">
+				<div class="btn-group">
+					<h5>
+						<a data-toggle="modal" role="button" href="#EditModal"
+							onmousedown="set('fileidedit', '${file.id}')"> <span
+							class="glyphicon glyphicon-pencil"></span>
+						</a> <a data-toggle="modal" href="#DeleteModal"
+							onclick="set('fileiddelete', ${file.id})"> <span
+							class="glyphicon glyphicon-trash"></span></a>
+					</h5>
+				</div>
+				<div class="btn-group check" data-toggle="buttons">
+					<label class="btn btn-default btn-lg check-label"><input
+						type="checkbox" class="cell-check" onchange="checkboxesStatus()"
+						name="files" value="${file.id}"> <span class="check-span"></span>
+					</label>
+				</div>
+				<div class="make-switch switch-mini" data-on="info"
+					data-off="success"
+					data-on-label="<fmt:message key='public' bundle='${lang}' />"
+					data-off-label="private">
+					<c:choose>
+						<c:when test="${file.isPublic }">
+							<input type="checkbox" onchange="setVisible(this)"
+								data-file-id="${file.id}" checked="checked">
+						</c:when>
+						<c:otherwise>
+							<input type="checkbox" onchange="setVisible(this)"
+								data-file-id="${file.id}">
+						</c:otherwise>
+					</c:choose>
+				</div>
 				<h5>
-					<a data-toggle="modal" role="button" href="#EditModal"
-						onmousedown="set('fileidedit', '${file.id}')"> <span
-						class="glyphicon glyphicon-pencil"></span>
-					</a> <a data-toggle="modal" href="#DeleteModal"
-						onclick="set('fileiddelete', ${file.id})"> <span
-						class="glyphicon glyphicon-trash"></span></a>
+					<a class="label-file-link" href="#" id="link-button${file.id }"
+						onclick="showLink(this)" data-file-id="${file.id}"
+						<c:if test="${file.isPublic==false}">
+								hidden="hidden"
+							</c:if>><span
+						class="label label-default">link</span></a>
 				</h5>
-			</div>
-
-			<div class="public">
-				<label><fmt:message key="public" bundle="${lang}" /> </label>
-				<c:choose>
-					<c:when test="${file.isPublic }">
-						<input type="checkbox" onchange="setPublic(${file.id})"
-							name="publicfiles" value="${file.id}" checked="checked">
-					</c:when>
-					<c:otherwise>
-						<input type="checkbox" onchange="setPublic(${file.id})"
-							name="publicfiles" value="${file.id}">
-					</c:otherwise>
-				</c:choose>
 			</div>
 
 		</div>
 	</c:forEach>
 </div>
 <script type="text/javascript">
+$('.label-toggle-switch').on('switch-change', function (e, data) {
+    alert(data.value);
+});
+
 $(document).ready(function() {
 	$(".draggable").draggable(
 			{
@@ -189,8 +192,7 @@ $(document).ready(function() {
 					if (!cellCheckBox.is(':checked')) {
 						cellCheckBox.prop('checked', true);
 						var check = $(this).find('.check');
-						check.find('span').removeClass('glyphicon-unchecked');
-						check.find('span').addClass('glyphicon-check');
+						check.find('span').addClass('glyphicon glyphicon-chevron-down');
 						check.find('label').addClass('active');
 						buttonsStatus();
 					}
@@ -225,11 +227,9 @@ $('.check').click(function() {
 	var cb = $(this).find('input:checkbox').is(":checked");
 	var span = $(this).find('span');
 	if (cb) {
-		span.removeClass('glyphicon-check');
-		span.addClass('glyphicon-unchecked');
+		span.removeClass('glyphicon glyphicon-chevron-down');
 	} else {
-		span.addClass('glyphicon-check');
-		span.removeClass('glyphicon-unchecked');
+		span.addClass('glyphicon glyphicon-chevron-down');
 	}
 });
 </script>

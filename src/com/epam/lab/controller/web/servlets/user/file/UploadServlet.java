@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.file;
+package com.epam.lab.controller.web.servlets.user.file;
 
 import java.io.IOException;
 import java.util.List;

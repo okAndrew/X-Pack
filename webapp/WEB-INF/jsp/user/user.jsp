@@ -38,7 +38,7 @@ img.img {
 			</div>
 		</c:when>
 		<c:otherwise>
-			<form id="my-awesome-dropzone" action="upload" class="dropzone">
+			<form id="my-awesome-dropzone" action="upload" class="dropzone dropzone-preview">
 				<div class="fallback">
 					<input name="file" type="file" multiple />
 				</div>
@@ -154,29 +154,43 @@ img.img {
 		}
 	</script>
 	<script type="text/javascript">
-	<fmt:message key="File_is_too_big" var="file" bundle="${lang}"/>
-	var file = "${file}";
-	<fmt:message key="Max_free_space" var="space" bundle="${lang}"/>
-	var space = "${space}";
+		<fmt:message key="File_is_too_big" var="file" bundle="${lang}"/>
+		var file = "${file}";
+		<fmt:message key="Max_free_space" var="space" bundle="${lang}"/>
+		var space = "${space}";
 		var options = {
 			url : "upload",
 			previewsContainer : "#my-awesome-dropzone",
+			addRemoveLinks: true,
 			parallelUploads : 1,
+			maxFiles : 50,
 			maxFilesize : <c:out value="${freeSpace}"/>,
-			
-			dictFileTooBig : file+" ({{filesize}}MB). "+space+": {{maxFilesize}}MB.",
+			dictFileTooBig : file + " ({{filesize}}MB). " + space
+					+ ": {{maxFilesize}}MB.",
 			init : function() {
 				this.on("complete", function(file) {
+					this.removeFile(file);
 					loadBrowserContent();
 				});
+				this.on("maxfilesexceeded", function() {
+					alert("No moar files please!");
+				});
+				this.on('reset', function(file) {
+					$('.dz-message').show(200);
+				});
+				 
 			},
+			dictRemoveFile: 'Clear',
+			clickable: false,
 			dictResponseError : "Error uploading. Please try again."
 		}
-		Dropzone.options.myAwesomeDropzone = options;
-		var awsomeDropzone = new Dropzone(document.body, options);
-		awsomeDropzone.on("drop", function() {
-			$('.dz-message').remove();
+		var bodyDropzoneOptions = options;
+		var bodyDropzone = new Dropzone(document.body, bodyDropzoneOptions);
+		bodyDropzone.on("drop", function() {
+			$('.dz-message').hide(200);
 		});
+		options.clickable = true;
+		Dropzone.options.myAwesomeDropzone = options;
 	</script>
 	<jsp:include page="modals/modalCreatefolder.jsp"></jsp:include>
 	<jsp:include page="modals/modalEdit.jsp"></jsp:include>

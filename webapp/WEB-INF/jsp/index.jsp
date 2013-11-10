@@ -74,5 +74,35 @@
 			class="glyphicon glyphicon-chevron-right"></span>
 		</a>
 	</div>
+	<div class="main-body">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<h2>Web Hosting</h2>
+					<p>Cost-effective web hosting for WordPress bloggers, website
+						designers, e-commerce and small business.</p>
+					<p>
+						<a class="btn btn-default" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<div class="col-lg-4">
+					<h2>Dedicated Hosting</h2>
+					<p>>High-performance, business class web hosting services that
+						are ideal for enterprise or advanced users.</p>
+					<p>
+						<a class="btn btn-default" href="#">View details &raquo;</a>
+					</p>
+				</div>
+				<div class="col-lg-4">
+					<h2>Virtual Private Server</h2>
+					<p>Web hosting resources allocated only to you, for improved
+						performance and scalability as your website grows.</p>
+					<p>
+						<a class="btn btn-default" href="#">View details &raquo;</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

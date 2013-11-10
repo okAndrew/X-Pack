@@ -19,22 +19,30 @@ public class EditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String name = request.getParameter("editname");
-		UserFileServiceImpl service = new UserFileServiceImpl();
-		long upperId = (long) session.getAttribute("folderid");
-		long userId = (long) session.getAttribute("userid");
-		boolean result = false;
-		if (request.getParameter("fileid") != null
-				&& !request.getParameter("fileid").equals("")) {
-			long fileId = Long.parseLong(request.getParameter("fileid"));
-			service.editFileOrFolder(name, fileId, upperId, 0, userId);
-		} else if (request.getParameter("folderid") != null
-				&& !request.getParameter("folderid").equals("")) {
-			long folderId = Long.parseLong(request.getParameter("folderid"));
-			result = service.editFileOrFolder(name, 0, upperId, folderId, userId);
-		}
-		if(result == true){
-			request.setAttribute("message", "Folder with this name is already exist");
+		String name = request.getParameter("editname").replaceAll("\\s+", " ")
+				.trim();
+		if (name.equals("")) {
+			request.setAttribute("message", "Name_can_not_be_empty");
+		} else {
+			UserFileServiceImpl service = new UserFileServiceImpl();
+			long upperId = (long) session.getAttribute("folderid");
+			long userId = (long) session.getAttribute("userid");
+			boolean result = false;
+			if (request.getParameter("fileid") != null
+					&& !request.getParameter("fileid").equals("")) {
+				long fileId = Long.parseLong(request.getParameter("fileid"));
+				service.editFileOrFolder(name, fileId, upperId, 0, userId);
+			} else if (request.getParameter("folderid") != null
+					&& !request.getParameter("folderid").equals("")) {
+				long folderId = Long
+						.parseLong(request.getParameter("folderid"));
+				result = service.editFileOrFolder(name, 0, upperId, folderId,
+						userId);
+			}
+			if (result == true) {
+				request.setAttribute("message",
+						"Folder with this name is already exist");
+			}
 		}
 		request.getRequestDispatcher(USER_PAGE).include(request, response);
 	}

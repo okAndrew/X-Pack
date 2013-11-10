@@ -175,9 +175,6 @@ img.img {
 				this.on("maxfilesexceeded", function() {
 					alert("No moar files please!");
 				});
-				this.on('canceled', function(file) {
-					this.removeFile(file);
-				});
 				this.on('reset', function(file) {
 					$('.dz-message').show(200);
 				});

@@ -6,11 +6,29 @@
 
 <style>
 .collapse.navbar-collapse {
-	padding-top: 12px;
+	height: 50px;
 }
-.navbar-brand{
+
+.navbar-brand {
 	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-bottom: 0px;
+}
+
+/* .navbar-brand:HOVER { */
+/* 	background-image: url('res/img/LOGO.png'); */
+/* } */
+
+.nav.navbar-nav>li>a {
+	padding-top: 22px;
+	height: 60px;
+}
+
+.navbar-form.navbar-right {
+	margin-top: 13px;
+}
+
+#dream-logo {
+	height: 50px;
 }
 </style>
 
@@ -20,8 +38,8 @@
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="homepage"><img width="120px"
-				src="res/img/LOGO.png"></a>
+			<a class="navbar-brand" href="homepage"><img id="dream-logo"
+				src="res/img/dream-logo.png"></a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">

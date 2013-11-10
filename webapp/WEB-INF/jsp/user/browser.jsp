@@ -163,7 +163,7 @@
 					</c:choose>
 				</div>
 				<h5>
-					<a class="label-file-link" href="#" id="link-button${file.id }"
+					<a class="label-file-link" href="#linkModal" id="link-button${file.id }"
 						onclick="showLink(this)" data-file-id="${file.id}"
 						<c:if test="${file.isPublic==false}">
 								hidden="hidden"

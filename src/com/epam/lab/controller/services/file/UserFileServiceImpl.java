@@ -372,7 +372,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	@Override
 	public void refresh(long folderId) {
 		List<UserFile> files = fileDAO.getAllByFolderId(folderId);
-		for (UserFile file: files) {
+		for (UserFile file : files) {
 			File f = new File(file.getPath() + File.separator + file.getName());
 			if (!f.exists()) {
 				fileDAO.delete(file.getId());
@@ -393,4 +393,6 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			temp.mkdirs();
 		}
 	}
+
+	
 }

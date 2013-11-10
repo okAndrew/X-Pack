@@ -8,7 +8,8 @@
 .collapse.navbar-collapse {
 	padding-top: 12px;
 }
-.navbar-brand{
+
+.navbar-brand {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
@@ -17,6 +18,9 @@
 <div class="navbar navbar-fixed-top navbar-inverse">
 
 	<fmt:setLocale value="${sessionScope.sessLocale}" scope="session" />
+	<c:if test="${sessionScope.sessLocale==null}">
+		<fmt:setLocale value="${pageContext.request.locale}" scope="session" />
+	</c:if>
 	<fmt:setBundle basename="locale.messages" var="lang" scope="session" />
 	<div class="container">
 		<div class="navbar-header">

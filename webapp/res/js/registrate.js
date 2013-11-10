@@ -13,17 +13,17 @@ function mainFunc() {
 		errorinfo.style.display = "none";
 		
 		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
-			setMessage("Not a valid e-mail address", errorinfo);
+			setMessage(strings_loc['Not_a_valid_e-mail_address'], errorinfo);
 			return false;
 		}
 		
 		if (p1 == "" || p2 == "" || login == "") {
-			setMessage("Fields cannot be empty", errorinfo);
+			setMessage(strings_loc['Fields_cannot_be_empty'], errorinfo);
 	  		return false;
 		}
 		
 		if(p1 != p2) {
-			setMessage("Passwords are different", errorinfo);
+			setMessage(strings_loc['Passwords_are_different'], errorinfo);
 			return false;
 		}
 		

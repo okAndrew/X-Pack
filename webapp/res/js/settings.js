@@ -6,7 +6,7 @@ function checkChangeLoginForm() {
 	var errorinfo = document.getElementById("settingsErrorDiv");
 
 	if (login == "") {
-		setMessage("Field_cannot_be_empty", errorinfo);
+		setMessage(strings_loc['Fields_cannot_be_empty'], errorinfo);
 		return false;
 	}
 
@@ -23,12 +23,12 @@ function validatePasswords() {
 	var errorinfomodal = document.getElementById("errorinfomodal");
 
 	if (p1 == "" || p2 == "" || p3 == "") {
-		setMessage("Fields_cannot_be_empty", errorinfomodal);
+		setMessage(strings_loc['Fields_cannot_be_empty'], errorinfomodal);
 		return false;
 	}
 
 	if (p2 != p3) {
-		setMessage("New_passwords_are_different", errorinfomodal);
+		setMessage(strings_loc['New_passwords_are_different'], errorinfomodal);
 		return false;
 	}
 

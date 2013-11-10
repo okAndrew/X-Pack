@@ -60,7 +60,7 @@
 <script type="text/javascript" src="res/js/jqplot.cursor.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function timedRefresh() {
-		setTimeout("location.reload(true);", 10000);
+		setTimeout("location.reload(true);", 100000);
 	});
 	$(document).ready(
 			function() {

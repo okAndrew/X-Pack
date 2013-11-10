@@ -13,7 +13,9 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Send Email</h4>
+				<h4 class="modal-title">
+					<fmt:message key="Send_Email" bundle="${lang}" />
+				</h4>
 			</div>
 			<div class="modal-body">
 				<div class="container">
@@ -22,27 +24,31 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<td>Subject</td>
+										<td><fmt:message key="Subject" bundle="${lang}" /></td>
 										<td><input type="text" name="subject"
-											class="form-control midle" placeholder="Subject" /></td>
+											class="form-control midle"
+											placeholder=<fmt:message key="Subject" bundle="${lang}" /> /></td>
 									</tr>
 									<tr>
-										<td>Message</td>
+										<td><fmt:message key="Message" bundle="${lang}" /></td>
 										<td><textarea class="form-control" rows="5" name="email"
-											class="form-control last" placeholder="Message"> </textarea></td>
+												class="form-control last"
+												placeholder=<fmt:message key="Message" bundle="${lang}" />> </textarea></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
+					<button type="button" class="btn btn-default pull-right"
+						data-dismiss="modal">
+						<fmt:message key="Close" bundle="${lang}" />
+					</button>
+					<button type="submit" class="btn btn-primary pull-right"
+						name="action" value="sendEmailUsers">
+						<fmt:message key="Send" bundle="${lang}" />
+					</button>
+
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" name="action"
-					value="sendEmailUsers">Send</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">
-					<fmt:message key="Close" bundle="${lang}" />
-				</button>
 			</div>
 		</div>
 	</div>

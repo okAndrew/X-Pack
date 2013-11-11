@@ -61,18 +61,15 @@
 							</table>
 
 						</div>
-						<!--/.nav-collapse -->
 					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" name="action"
+					<button type="button" class="btn btn-default  pull-right" data-dismiss="modal">
+					<fmt:message key="Close" bundle="${lang}" />
+				</button>
+				<button type="submit" class="btn btn-primary  pull-right" name="action"
 					value="add">
 					<fmt:message key="Add_new_user" bundle="${lang}" />
 				</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">
-					<fmt:message key="Close" bundle="${lang}" />
-				</button>
+				</div>
 			</div>
 		</div>
 	</div>

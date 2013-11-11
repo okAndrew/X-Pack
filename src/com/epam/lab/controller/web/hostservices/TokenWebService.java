@@ -11,18 +11,21 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONObject;
 
+import com.epam.lab.controller.services.tariff.TariffServise;
+import com.epam.lab.controller.services.tariff.TariffServiseImpl;
 import com.epam.lab.controller.services.token4auth.Token4AuthService;
 import com.epam.lab.controller.services.token4auth.Token4AuthServiceImpl;
 import com.epam.lab.controller.services.user.UserServiceImpl;
 import com.epam.lab.controller.utils.JSONBuilder;
 import com.epam.lab.controller.utils.MD5Encrypter;
+import com.epam.lab.model.Tariff;
 import com.epam.lab.model.Token4Auth;
 import com.epam.lab.model.User;
 
 @Path("token")
 public class TokenWebService {
 	private static Logger logger = Logger.getLogger(TokenWebService.class);
-	private static final String USER_NOT_FOUND = "User not found";
+	private static final String USER_NOT_FOUND = "Incorrect username or password.";
 	private Token4AuthService tokenService = new Token4AuthServiceImpl();
 	private JSONBuilder jsonBuilder = new JSONBuilder();
 
@@ -49,6 +52,13 @@ public class TokenWebService {
 		UserServiceImpl userService = new UserServiceImpl();
 		String encryptPass = new MD5Encrypter().encrypt(password);
 		User user = userService.get(email, encryptPass);
-		return user;
+		TariffServise tariffServise = new TariffServiseImpl();
+		Tariff tariff = tariffServise.get(user.getIdTariff());
+		if (user.getIsActivated() && !user.getIsBanned()
+				&& tariff.getPosition() >= 5) {
+			return user;
+		} else {
+			return null;
+		}
 	}
 }

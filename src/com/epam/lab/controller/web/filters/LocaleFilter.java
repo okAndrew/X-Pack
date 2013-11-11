@@ -31,9 +31,8 @@ public class LocaleFilter implements Filter {
 		//if user change it's browser language, language of site changing
 		if ((session.getAttribute("sessLocale").toString().equals("") && session
 				.getAttribute("currbrowsLang").toString().equals(""))
-				|| (!session.getAttribute("currbrowsLang").toString()
-						.equals("") && (!(session.getAttribute("currbrowsLang")
-						.toString().equals(request.getLocale().toString()))))) {
+				|| (!(session.getAttribute("currbrowsLang")
+						.toString().equals(request.getLocale().toString())))) {
 			session.setAttribute("currbrowsLang", request.getLocale());
 			session.setAttribute("sessLocale", request.getLocale());
 		}

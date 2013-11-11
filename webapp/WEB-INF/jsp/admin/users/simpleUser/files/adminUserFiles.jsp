@@ -3,10 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+
 <link href="res/css/style.css" rel="stylesheet" />
 <link rel="stylesheet" href="res/css/minimalist.css">
 <script src="res/js/jquery-1.10.2.min.js"></script>
-
 <script type="text/javascript">
 	function fixedEncodeURIComponent(str) {
 		return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(
@@ -84,5 +84,3 @@ img.img {
 		<jsp:include page="tableFiles.jsp"></jsp:include>
 	</div>
 </form>
-</body>
-</html>

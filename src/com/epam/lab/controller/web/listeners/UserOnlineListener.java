@@ -28,14 +28,15 @@ public class UserOnlineListener implements HttpSessionListener,
 	public void sessionCreated(HttpSessionEvent event) {
 		activeSessions++;
 		HttpSession session = event.getSession();
-		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
-		sessionhistory = historyService.insertSessionWithoutUser(
-				session.getId(), TimeStampManager.getFormatCurrentTimeStamp());
+		session.setAttribute("currbrowsLang", "");
+		session.setAttribute("sessLocale", "");
 		LanguageServiceImpl impl = new LanguageServiceImpl();
 		List<Language> list = impl.getAll();
 		session.setAttribute("languages", list);
-		session.setAttribute("currbrowsLang", "");
-		session.setAttribute("sessLocale", "");
+		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
+		sessionhistory = historyService.insertSessionWithoutUser(
+				session.getId(), TimeStampManager.getCurrentTime());
+		
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {
@@ -46,11 +47,8 @@ public class UserOnlineListener implements HttpSessionListener,
 		HttpSession session = event.getSession();
 		sessionhistory = historyService.getSessionHistBySessIdTomcat(session
 				.getId());
-		sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
+		sessionhistory.setEnddate(TimeStampManager.getCurrentTime());
 		historyService.update(sessionhistory);
-//		UserServiceImpl ui = new UserServiceImpl();
-//		ui.setLastLocale(session.getAttribute("sessLocale").toString(),
-//				(long) session.getAttribute("userid"));
 	}
 
 	public static int getActiveSessionNumberLogged() {
@@ -95,16 +93,19 @@ public class UserOnlineListener implements HttpSessionListener,
 	public void attributeReplaced(HttpSessionBindingEvent event) {
 		HttpSession session = event.getSession();
 		if (event.getName().equals("sessLocale")) {
+			if (session.getAttribute("userid") != null) {
+				UserServiceImpl ui = new UserServiceImpl();
+				ui.setLastLocale(session.getAttribute("sessLocale").toString(),
+						(long) session.getAttribute("userid"));
+			}
 			LanguageServiceImpl langImpl = new LanguageServiceImpl();
 			session.setAttribute("currentLanguage", langImpl.getLang(session
 					.getAttribute("sessLocale").toString()));
+
 		}
 		if (event.getName().equals("userid")) {
 			if (activeSessionsLogged > 0) {
 				activeSessionsLogged--;
-				UserServiceImpl ui = new UserServiceImpl();
-				ui.setLastLocale(session.getAttribute("sessLocale").toString(),
-						(long) session.getAttribute("userid"));
 			}
 		}
 	}

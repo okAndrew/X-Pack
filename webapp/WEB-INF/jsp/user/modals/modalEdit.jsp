@@ -15,13 +15,15 @@
 					</h4>
 				</div>
 				<div class="modal-body">
-					<div class="alert alert-info" id="edit-alert">Can only
-						consist of symbols ".","(", ")", "-", digits, and letters of the
-						English, Ukrainian, Russian or German alphabet</div>
+					<div class="alert alert-info" id="edit-alert">
+						<fmt:message
+							key="Can_only_consist_of_symbols_'.','(',_')',_'-',_digits,_and_letters_of_the_English,_Ukrainian,_Russian"
+							bundle="${lang}" />
+					</div>
 					<input type="hidden" id="fileidedit" name="fileid"> <input
 						type="hidden" id="folderidedit" name="folderid"> <input
 						class="form-control" type="text" name="editname"
-						placeholder="name"
+						placeholder="<fmt:message key='Name' bundle='${lang}' />"
 						pattern="[A-Za-zА-Яа-яЁёІіЇїЙйЄє0-9-._\s\(\)]{1,50}$">
 				</div>
 				<div class="modal-footer">
@@ -29,7 +31,7 @@
 						<fmt:message key="Close" bundle="${lang}" />
 					</button>
 					<button type="submit" class="btn btn-primary">
-						<fmt:message key="Edit" bundle="${lang}" />
+						<fmt:message key="Save" bundle="${lang}" />
 					</button>
 				</div>
 			</div>

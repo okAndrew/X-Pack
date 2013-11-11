@@ -1,6 +1,9 @@
 package com.epam.lab.controller.services.statistics.sessionhistory;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.epam.lab.controller.dao.sessionhistory.SessionHistoryDAOImpl;
@@ -33,8 +36,7 @@ public class SessionHistoryServiceImpl extends
 
 	public SessionHistory getSessionHistBySessIdTomcat(String sessId) {
 		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
-		return sessdaoimpl
-				.getSessionHistBySessIdTomcat(sessId);
+		return sessdaoimpl.getSessionHistBySessIdTomcat(sessId);
 	}
 
 	public int setUserId(SessionHistory sessionHistory) {

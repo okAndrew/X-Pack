@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.file;
+package com.epam.lab.controller.web.servlets.user.file;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,8 +42,6 @@ public class UploadServlet extends HttpServlet {
 				uploadService.uploadUserFiles(folderId, userId, items);
 			} catch (FileUploadException | FileTooLargeException e) {
 				logger.warn(e);
-				e.printStackTrace();
-				// 'have no free space' message
 			}
 		} else {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);

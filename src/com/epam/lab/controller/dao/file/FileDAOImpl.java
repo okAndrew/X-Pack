@@ -9,9 +9,9 @@ import com.epam.lab.model.FilesTypesSize;
 import com.epam.lab.model.UserFile;
 
 public class FileDAOImpl implements FileDAO {
-	
+
 	private DBQueryExecutor<UserFile> queryExecutor = new DBQueryExecutor<UserFile>();
-	
+
 	@Override
 	public UserFile get(long id) {
 		String sql = "SELECT * FROM files WHERE id=?";
@@ -19,7 +19,7 @@ public class FileDAOImpl implements FileDAO {
 				id);
 		return result;
 	}
-	
+
 	@Override
 	public UserFile getByName(String fName) {
 		String sql = "SELECT * FROM files WHERE name=?";
@@ -43,7 +43,7 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public List<UserFile> getAll() {
-			throw new NoSupportedActionException("No support this method");
+		throw new NoSupportedActionException("No support this method");
 	}
 
 	@Override
@@ -72,10 +72,11 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public int insert(UserFile object) {
-		String sql = "INSERT INTO files (id_folder, name_income, name, path, type, size, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO files (id_folder, name_income, name, path, type, size, id_user, is_public) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		int result = queryExecutor.executeUpdate(sql, object.getIdFolder(),
 				object.getNameIncome(), object.getName(), object.getPath(),
-				object.getType(), object.getSize(), object.getIdUser());
+				object.getType(), object.getSize(), object.getIdUser(),
+				object.getIsPublic());
 		return result;
 	}
 
@@ -115,4 +116,6 @@ public class FileDAOImpl implements FileDAO {
 		int result = queryExecutor.executeUpdate(sql, userId);
 		return result;
 	}
+	
+
 }

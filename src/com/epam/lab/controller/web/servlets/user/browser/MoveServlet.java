@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.lab.controller.services.user.UserServiceImpl;
+import com.epam.lab.controller.services.folder.FolderService;
+import com.epam.lab.controller.services.folder.FolderServiceImpl;
 
 @WebServlet("/move")
 public class MoveServlet extends HttpServlet {
@@ -24,8 +25,8 @@ public class MoveServlet extends HttpServlet {
 		if (idTargetStr != null && !idTargetStr.equals("") && moveables != null
 				&& !moveables[0].equals("")) {
 			long idTarget = Long.parseLong(idTargetStr);
-			UserServiceImpl service = new UserServiceImpl();
-			service.moveFilesAndFolders(moveables, idTarget, userId);
+			FolderService folderService = new FolderServiceImpl();
+			folderService.moveFilesAndFolders(moveables, idTarget, userId);
 		}
 	}
 }

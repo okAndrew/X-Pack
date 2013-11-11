@@ -37,8 +37,8 @@ public class FileUploadServiceImpl implements FileUploadService {
 	@Override
 	public void uploadFile(FileItem fileItem, UserFile fileInfo, User user)
 			throws FileTooLargeException, IOException {
-		long maxCapacity = new UserServiceImpl().getFreeSize(user.getId());
-		if (user.getCapacity() + fileItem.getSize() > maxCapacity) {
+		long freeCapacity = new UserServiceImpl().getFreeSize(user.getId());
+		if (fileItem.getSize() > freeCapacity) {
 			throw new FileTooLargeException();
 		}
 		File uploadedFile = new File(getUploadFileLocation(fileInfo));

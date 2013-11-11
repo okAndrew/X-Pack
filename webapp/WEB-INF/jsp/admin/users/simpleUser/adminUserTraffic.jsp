@@ -38,7 +38,7 @@
 			</tr>
 			<tr>
 				<td><fmt:message key="Upload_last_week" bundle="${lang}" /></td>
-				<td><dream:formatSize value="${uploadUserLastWeek}" />)</td>
+				<td><dream:formatSize value="${uploadUserLastWeek}" /></td>
 
 			</tr>
 			<tr>

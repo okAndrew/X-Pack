@@ -11,7 +11,9 @@ public enum Validator {
         TARIFF_NAME("[A-Za-z]{3,15}$"), 
         INTEGERS("[0-9]{9}"), 
         DECIMALS("[0-9]{1,4}.[0-9]{0,2}"), 
-        FILE_NAME("[A-Za-zА-Яа-яЁёІіЇїЙйЄєÄäÖöÜü0-9-._\\s\\(\\)]{1,50}$");
+        FILE_NAME("[A-Za-z\u0410-\u042F\u0430-\u044F\u0401\u0451\u0406\u0456\u0407" +
+        		"\u0457\u0419\u0439\u0404\u0454\u00C4\u00E4\u00D6\u00F6\u00DC\u00FC" +
+        		"0-9-._\\s\\(\\)]{1,50}$");
 
         private String regex;
 
@@ -19,6 +21,7 @@ public enum Validator {
                 this.regex = regex;
         }
 
+        
         public boolean validate(String string) {
                 boolean res = false;
 

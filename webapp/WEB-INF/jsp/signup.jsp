@@ -12,6 +12,8 @@
 <link href="res/css/bootstrap.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
 <link href="res/css/signui.css" rel="stylesheet" />
+<script	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="res/js/bootstrap.js"></script>
 <script type="text/javascript">
 	function mainFunc() {
 		alert("on load();");
@@ -27,17 +29,17 @@
 		
 		errorinfo.style.display = "none";
 		
-		<fmt:message key="Not_a_valid_e-mail_address" var="email" bundle="${lang}"/>
-		var msg = "${email}";
-		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
-			setMessage(msg, errorinfo);
-			return false;
-		}
 		<fmt:message key="Fields_cannot_be_empty" var="fields" bundle="${lang}"/>
 		var msg1 = "${fields}";
 		if (p1 == "" || p2 == "" || login == "") {
 			setMessage(msg1, errorinfo);
 	  		return false;
+		}
+		<fmt:message key="Not_a_valid_e-mail_address" var="email" bundle="${lang}"/>
+		var msg = "${email}";
+		if (atpos < 1 || dotpos < atpos+2 || dotpos + 2 > email.length) {
+			setMessage(msg, errorinfo);
+			return false;
 		}
 		<fmt:message key="Passwords_are_different" var="pass" bundle="${lang}"/>
 		var msg2 = "${pass}";

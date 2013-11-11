@@ -13,7 +13,6 @@
 	</script>
 </c:if>
 
-<form action="adminSimpleEmployeeController">
 	<table class="table zebra-striped table-hover table-condensed"
 		id="tablesorter">
 		<tbody class="avoid-sort">
@@ -55,4 +54,3 @@
 		data-target="#myModal">
 		<fmt:message key="Edit" bundle="${lang}" />
 	</button>
-</form>

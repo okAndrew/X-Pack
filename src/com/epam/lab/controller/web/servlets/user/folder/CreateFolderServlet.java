@@ -1,4 +1,4 @@
-package com.epam.lab.controller.web.servlets.folder;
+package com.epam.lab.controller.web.servlets.user.folder;
 
 import java.io.IOException;
 
@@ -22,11 +22,16 @@ public class CreateFolderServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		long folderId = (long) session.getAttribute("folderid");
 		long userId = (long) session.getAttribute("userid");
-		String folderName = request.getParameter("foldername");
-		FolderServiceImpl service = new FolderServiceImpl();
-		Folder folder = service.makeFolder(folderName, userId, folderId);
-		if (folder == null) {
-			request.setAttribute("message", "Folder_already_exists");
+		String folderName = request.getParameter("foldername")
+				.replaceAll("\\s+", " ").trim();
+		if (folderName.equals("")) {
+			request.setAttribute("message", "Name_can_not_be_empty");
+		} else {
+			FolderServiceImpl service = new FolderServiceImpl();
+			Folder folder = service.makeFolder(folderName, userId, folderId);
+			if (folder == null) {
+				request.setAttribute("message", "Folder_already_exists");
+			}
 		}
 		request.getRequestDispatcher(USER_PAGE).include(request, response);
 	}

@@ -1,10 +1,9 @@
 package com.epam.lab.controller.services.statistics;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 
@@ -79,8 +78,10 @@ public class StatisticsServiceImpl extends AbstractServiceImpl<Statistics>
 	public String getAvarageTimeSessionByUserId(long userId) {
 		StatisticsDAOImpl sessdaoimpl = new StatisticsDAOImpl();
 		Statistics result = sessdaoimpl.getAvarageTimeSessionByUserId(userId);
-		Date date = new Date((long)(result.getNumber()*1000));
-		String dateresult = new SimpleDateFormat("HH:mm:ss").format(date);
-		return dateresult;
+		TimeZone tz = TimeZone.getTimeZone("UTC");
+	    SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+	    df.setTimeZone(tz);
+		String time = df.format((long)(result.getNumber()*1000));
+		return time;
 	}
 }

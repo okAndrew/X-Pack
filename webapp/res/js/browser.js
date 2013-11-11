@@ -7,7 +7,8 @@ function move(moveable, idtargetFolder) {
 					'moveable[]' : moveable,
 					'idTarget' : idtargetFolder
 				},
-				success : function(data) {
+				success : function() {
+					loadBrowserContent();
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert('xhr.status ' + xhr.status + '   thrownError:'
@@ -19,14 +20,13 @@ function move(moveable, idtargetFolder) {
 function toggle(source) {
 	$('input.cell-check').prop('checked', source.checked);
 	if (source.checked) {
-		$('.check').find('span').removeClass('glyphicon-unchecked');
-		$('.check').find('span').addClass('glyphicon-check');
+		$('.check').find('span').addClass('glyphicon glyphicon-chevron-down');
 		$('.check').find('label').addClass('active');
 		$('.select-all').find('span').removeClass('glyphicon-unchecked');
 		$('.select-all').find('span').addClass('glyphicon-check');
 	} else {
-		$('.check').find('span').addClass('glyphicon-unchecked');
-		$('.check').find('span').removeClass('glyphicon-check');
+		$('.check').find('span')
+				.removeClass('glyphicon glyphicon-chevron-down');
 		$('.check').find('label').removeClass('active');
 		$('.select-all').find('span').addClass('glyphicon-unchecked');
 		$('.select-all').find('span').removeClass('glyphicon-check');
@@ -58,9 +58,8 @@ function getCurFolderId() {
 
 function selectAll() {
 	$('input.cell-check').attr('checked', true);
-	var spans = $('span.glyphicon-unchecked');
-	spans.removeClass('glyphicon-unchecked');
-	spans.addClass('glyphicon-check');
+	var spans = $('span.check-span');
+	spans.addClass('glyphicon glyphicon-chevron-down');
 }
 
 function buttonsStatus() {
@@ -84,15 +83,15 @@ function buttonsStatus() {
 	$('#delete').prop('disabled', true);
 }
 
-function showLink(id) {
-	var state = $("input[name=publicfiles][value=" + id + "]").is(':checked');
+function showLink(label) {
+	var id = $(label).attr('data-file-id');
 	$
 			.ajax({
 				type : "POST",
 				url : 'changepublicstate',
 				data : {
 					'fileId' : id,
-					'state' : state
+					'state' : 'true'
 				},
 				success : function(data) {
 					if (data != null && data != "") {
@@ -111,9 +110,14 @@ function setSRC(name) {
 	document.getElementById("img").src = "download?file=" + name;
 }
 
-function setPublic(id) {
-	var state = $("input[name=publicfiles][value=" + id + "]").is(':checked');
-	$("#link-button" + id).toggleClass("hidden");
+function setVisible(checkbox) {
+	var id = $(checkbox).attr('data-file-id');
+	var state = $(checkbox).is(':checked');
+	if (state == false) {
+		$("#link-button" + id).attr('hidden', 'hidden');
+	} else {
+		$("#link-button" + id).removeAttr('hidden');
+	}
 	$
 			.ajax({
 				type : "POST",
@@ -121,6 +125,12 @@ function setPublic(id) {
 				data : {
 					'fileId' : id,
 					'state' : state
+				},
+				success : function(data) {
+					if (data != null && data != "") {
+						$("#link input").val(data);
+						$('#linkModal').modal('show');
+					}
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
 					alert('xhr.status ' + xhr.status + '   thrownError:'

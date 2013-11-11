@@ -13,7 +13,7 @@ import com.epam.lab.model.Statistics;
 
 public class StatisticsServiceImpl extends AbstractServiceImpl<Statistics>
 		implements StatisticsService {
-
+	private StatisticsDAOImpl statisticsDAOImpl = (StatisticsDAOImpl) dao;
 	public StatisticsServiceImpl() {
 		super(new StatisticsDAOImpl());
 	}
@@ -41,43 +41,36 @@ public class StatisticsServiceImpl extends AbstractServiceImpl<Statistics>
 
 	@Override
 	public List<Statistics> getAllDownloadStatistic() {
-		StatisticsDAOImpl statisticsDaoImpl = new StatisticsDAOImpl();
-		return statisticsDaoImpl.getAllDownloadStatistic();
+		return statisticsDAOImpl.getAllDownloadStatistic();
 	}
 
 	@Override
 	public List<Statistics> getAllDownloadStatisticByUserId(long id) {
-		StatisticsDAOImpl statisticsDaoImpl = new StatisticsDAOImpl();
-		return statisticsDaoImpl.getAllDownloadStatisticByUserId(id);
+		return statisticsDAOImpl.getAllDownloadStatisticByUserId(id);
 	}
 
 	public List<Statistics> getAllByUserId(long userid) {
-		StatisticsDAOImpl sessStatistics = new StatisticsDAOImpl();
-		return sessStatistics.getAllByUserId(userid);
+		return statisticsDAOImpl.getAllByUserId(userid);
 	}
 
 	@Override
 	public List<Statistics> getAllUploadStatistic() {
-		StatisticsDAOImpl sessStatistics = new StatisticsDAOImpl();
-		return sessStatistics.getAllUploadStatistic();
+		return statisticsDAOImpl.getAllUploadStatistic();
 	}
 
 	@Override
 	public List<Statistics> getAllUploadStatisticByUserId(long userId) {
-		StatisticsDAOImpl sessStatistics = new StatisticsDAOImpl();
-		return sessStatistics.getAllUploadStatisticByUserId(userId);
+		return statisticsDAOImpl.getAllUploadStatisticByUserId(userId);
 	}
 
 	public double getVisitsPerDayByUserId(long userId) {
-		StatisticsDAOImpl sessdaoimpl = new StatisticsDAOImpl();
-		Statistics stat = sessdaoimpl.getVisitsPerDayByUserId(userId);
+		Statistics stat = statisticsDAOImpl.getVisitsPerDayByUserId(userId);
 		return stat.getNumber();
 
 	}
 
 	public String getAvarageTimeSessionByUserId(long userId) {
-		StatisticsDAOImpl sessdaoimpl = new StatisticsDAOImpl();
-		Statistics result = sessdaoimpl.getAvarageTimeSessionByUserId(userId);
+		Statistics result = statisticsDAOImpl.getAvarageTimeSessionByUserId(userId);
 		TimeZone tz = TimeZone.getTimeZone("UTC");
 	    SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
 	    df.setTimeZone(tz);

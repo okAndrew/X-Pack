@@ -11,7 +11,7 @@ import com.epam.lab.model.Locale;
 public class LanguageServiceImpl extends AbstractServiceImpl<Language>
 		implements LanguageService {
 	static Logger logger = Logger.getLogger(LanguageServiceImpl.class);
-
+	private LanguageDAOImpl languageDAOImpl = (LanguageDAOImpl) dao;
 	public LanguageServiceImpl() {
 		super(new LanguageDAOImpl());
 	}
@@ -20,8 +20,7 @@ public class LanguageServiceImpl extends AbstractServiceImpl<Language>
 	public Language getLang(String locale) {
 		LocaleServiceImpl locImpl = new LocaleServiceImpl();
 		Locale language = locImpl.getByLocale(locale);
-		LanguageDAOImpl daoimpl = new LanguageDAOImpl();
-		Language languageObj = daoimpl.getByLang(language.getLanguage());
+		Language languageObj = languageDAOImpl.getByLang(language.getLanguage());
 		return languageObj;
 
 	}

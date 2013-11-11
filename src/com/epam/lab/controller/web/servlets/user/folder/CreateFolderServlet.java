@@ -35,4 +35,10 @@ public class CreateFolderServlet extends HttpServlet {
 		}
 		request.getRequestDispatcher(USER_PAGE).include(request, response);
 	}
+
+	@Override
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher(USER_PAGE).include(request, response);
+	}
 }

@@ -16,7 +16,6 @@ public class AdminSimpleUserRequestHelperFile {
 	private AdminSimpleUserRequestHelperFile() {
 		commands.put("deleteWithSendEmail",
 				new AdminSimpleUserFilesDelCommand());
-		commands.put("download", new AdminSimpleUserFilesDownloadCommand());
 	}
 
 	public AdminSimpleUserPageCommand parseCommand(HttpServletRequest request) {

@@ -36,26 +36,26 @@
 									<tr>
 										<td><fmt:message key="Login" bundle="${lang}" /></td>
 										<td><input type="text" name="login"
-											class="form-control first" placeholder="Login"
+											class="form-control first" placeholder=<fmt:message key="Login" bundle="${lang}" />
 											autofocus="autofocus" /></td>
 									</tr>
 
 									<tr>
 										<td><fmt:message key="Email" bundle="${lang}" /></td>
 										<td><input type="email" name="email"
-											class="form-control midle" placeholder="Email" /></td>
+											class="form-control midle" placeholder=<fmt:message key="Email" bundle="${lang}" /> /></td>
 									</tr>
 
 									<tr>
 										<td><fmt:message key="Password" bundle="${lang}" /></td>
 										<td><input type="password" name="password"
-											class="form-control midle" placeholder="Password" /></td>
+											class="form-control midle" placeholder=<fmt:message key="Password" bundle="${lang}" /> /></td>
 									</tr>
 
 									<tr>
 										<td><fmt:message key="Repeat_password" bundle="${lang}" /></td>
 										<td><input type="password" name="passwordVerify"
-											class="form-control last" placeholder="Password" /></td>
+											class="form-control last" placeholder=<fmt:message key="Password" bundle="${lang}" /> /></td>
 									</tr>
 								</tbody>
 							</table>

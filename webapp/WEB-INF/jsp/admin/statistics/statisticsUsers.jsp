@@ -110,4 +110,5 @@
 					plot1.resetZoom()
 				});
 			});
+	
 </script>

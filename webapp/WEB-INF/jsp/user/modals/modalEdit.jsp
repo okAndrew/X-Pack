@@ -15,9 +15,11 @@
 					</h4>
 				</div>
 				<div class="modal-body">
-					<div class="alert alert-info" id="edit-alert">Can only
-						consist of symbols ".","(", ")", "-", digits, and letters of the
-						English, Ukrainian, Russian or German alphabet</div>
+					<div class="alert alert-info" id="edit-alert">
+						<fmt:message
+							key="Can_only_consist_of_symbols_'.','(',_')',_'-',_digits,_and_letters_of_the_English,_Ukrainian,_Russian"
+							bundle="${lang}" />
+					</div>
 					<input type="hidden" id="fileidedit" name="fileid"> <input
 						type="hidden" id="folderidedit" name="folderid"> <input
 						class="form-control" type="text" name="editname"

@@ -13,6 +13,17 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
+<script src="res/js/string_en.js"></script>
+<c:choose>
+	<c:when
+		test="${(sessionScope.sessLocale=='uk')||(sessionScope.sessLocale=='uk_UA')}">
+		<script src="res/js/string_uk.js"></script>
+	</c:when>
+	<c:when
+		test="${(sessionScope.sessLocale=='ru')||(sessionScope.sessLocale=='ru_RU')}">
+		<script src="res/js/string_ru.js"></script>
+	</c:when>
+</c:choose>
 <script src="res/js/settings.js"></script>
 <script src="res/js/utils.js"></script>
 </head>
@@ -20,6 +31,7 @@
 	<jsp:include page="/WEB-INF/jsp/menu.jsp"></jsp:include>
 	<jsp:include page="settings/modalemail.jsp"></jsp:include>
 	<jsp:include page="settings/modalpassword.jsp"></jsp:include>
+
 	<div class="container">
 		<div class="panel panel-default main">
 			<div class="panel-body">

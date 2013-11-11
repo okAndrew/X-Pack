@@ -28,14 +28,15 @@ public class UserOnlineListener implements HttpSessionListener,
 	public void sessionCreated(HttpSessionEvent event) {
 		activeSessions++;
 		HttpSession session = event.getSession();
-		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
-		sessionhistory = historyService.insertSessionWithoutUser(
-				session.getId(), TimeStampManager.getFormatCurrentTimeStamp());
+		session.setAttribute("currbrowsLang", "");
+		session.setAttribute("sessLocale", "");
 		LanguageServiceImpl impl = new LanguageServiceImpl();
 		List<Language> list = impl.getAll();
 		session.setAttribute("languages", list);
-		session.setAttribute("currbrowsLang", "");
-		session.setAttribute("sessLocale", "");
+		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
+		sessionhistory = historyService.insertSessionWithoutUser(
+				session.getId(), TimeStampManager.getFormatCurrentTimeStamp());
+		
 	}
 
 	public void sessionDestroyed(HttpSessionEvent event) {

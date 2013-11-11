@@ -25,7 +25,7 @@ import com.epam.lab.model.User;
 @Path("token")
 public class TokenWebService {
 	private static Logger logger = Logger.getLogger(TokenWebService.class);
-	private static final String USER_NOT_FOUND = "User not found";
+	private static final String USER_NOT_FOUND = "Incorrect username or password.";
 	private Token4AuthService tokenService = new Token4AuthServiceImpl();
 	private JSONBuilder jsonBuilder = new JSONBuilder();
 

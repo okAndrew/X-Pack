@@ -168,7 +168,7 @@ img.img {
 			dictFileTooBig : file + " ({{filesize}}MB). " + space
 					+ ": {{maxFilesize}}MB.",
 			init : function() {
-				this.on("complete", function(file) {
+				this.on("success", function(file) {
 					this.removeFile(file);
 					loadBrowserContent();
 				});

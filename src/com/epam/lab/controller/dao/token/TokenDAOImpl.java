@@ -41,10 +41,9 @@ public class TokenDAOImpl implements TokenDAO {
 
 	@Override
 	public int update(Token object) {
-		String sql = "UPDATE tokens SET id_user=?, date=?, token=?, available=? WHERE id=?";
+		String sql = "UPDATE tokens SET id_user=?, date=?, token=? WHERE id=?";
 		int result = queryExecutor.executeUpdate(sql, object.getIdUser(),
-				object.getDate(), object.getToken(), object.getAvailable(),
-				object.getId());
+				object.getDate(), object.getToken(), object.getId());
 		return result;
 	}
 

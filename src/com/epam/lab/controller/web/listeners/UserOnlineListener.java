@@ -35,7 +35,7 @@ public class UserOnlineListener implements HttpSessionListener,
 		session.setAttribute("languages", list);
 		SessionHistoryServiceImpl historyService = new SessionHistoryServiceImpl();
 		sessionhistory = historyService.insertSessionWithoutUser(
-				session.getId(), TimeStampManager.getFormatCurrentTimeStamp());
+				session.getId(), TimeStampManager.getCurrentTime());
 		
 	}
 
@@ -47,7 +47,7 @@ public class UserOnlineListener implements HttpSessionListener,
 		HttpSession session = event.getSession();
 		sessionhistory = historyService.getSessionHistBySessIdTomcat(session
 				.getId());
-		sessionhistory.setEnddate(TimeStampManager.getFormatCurrentTimeStamp());
+		sessionhistory.setEnddate(TimeStampManager.getCurrentTime());
 		historyService.update(sessionhistory);
 	}
 

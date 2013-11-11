@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.FileUtils;
@@ -333,7 +334,11 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			ZipOutputStream out) throws IOException {
 		String filePath = file.getPath() + File.separator + file.getName();
 		FileInputStream in = new FileInputStream(filePath);
-		out.putNextEntry(new ZipEntry(path + file.getNameIncome()));
+		try {
+			out.putNextEntry(new ZipEntry(path + file.getNameIncome()));
+		} catch (ZipException e) {
+			return;
+		}
 		byte[] b = new byte[1024];
 		int count;
 		while ((count = in.read(b)) > 0) {

@@ -42,7 +42,7 @@ public class SearchServiceImpl implements SearchService {
 		this.files.addAll(findFiles(upperId, searched));
 		List<Folder> folders = folderService.getByUpperId(upperId);
 		for (Folder folder : folders) {
-			if (folder.getName().contains(searched)) {
+			if (folder.getName().toLowerCase().contains(searched.toLowerCase())) {
 				result.add(folder);
 			}
 			result.addAll(find(folder.getId(), searched));
@@ -54,7 +54,7 @@ public class SearchServiceImpl implements SearchService {
 		List<UserFile> files = fileService.getByFolderId(folderId);
 		List<UserFile> result = new ArrayList<UserFile>();
 		for (UserFile file : files) {
-			if (file.getNameIncome().contains(searched)) {
+			if (file.getNameIncome().toLowerCase().contains(searched.toLowerCase())) {
 				result.add(file);
 			}
 		}

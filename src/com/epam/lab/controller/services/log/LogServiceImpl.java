@@ -9,7 +9,7 @@ import com.epam.lab.model.Log;
 public class LogServiceImpl extends AbstractServiceImpl<Log> implements
 		LogService {
 
-	private LogDAOImpl logDAO = new LogDAOImpl();
+	private LogDAOImpl logDAO = (LogDAOImpl) dao;
 
 	public LogServiceImpl() {
 		super(new LogDAOImpl());

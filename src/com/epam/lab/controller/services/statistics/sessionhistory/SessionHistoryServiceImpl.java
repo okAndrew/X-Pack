@@ -12,7 +12,7 @@ import com.epam.lab.model.SessionHistory;
 
 public class SessionHistoryServiceImpl extends
 		AbstractServiceImpl<SessionHistory> implements SessionHistoryService {
-
+	private SessionHistoryDAOImpl sessionHistoryDAOImpl = (SessionHistoryDAOImpl) dao;
 	public SessionHistoryServiceImpl() {
 		super(new SessionHistoryDAOImpl());
 	}
@@ -29,33 +29,28 @@ public class SessionHistoryServiceImpl extends
 			Timestamp startDate) {
 		SessionHistory sessionhistory = new SessionHistory().setStartdate(
 				startDate).setSessIdTomcat(sessIdTomcat);
-		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
-		sessdaoimpl.insertWithoutUser(sessionhistory);
+		sessionHistoryDAOImpl.insertWithoutUser(sessionhistory);
 		return sessionhistory;
 	}
 
 	public SessionHistory getSessionHistBySessIdTomcat(String sessId) {
-		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
-		return sessdaoimpl.getSessionHistBySessIdTomcat(sessId);
+		return sessionHistoryDAOImpl.getSessionHistBySessIdTomcat(sessId);
 	}
 
 	public int setUserId(SessionHistory sessionHistory) {
-		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
-		return sessdaoimpl.setUserId(sessionHistory);
+		return sessionHistoryDAOImpl.setUserId(sessionHistory);
 	}
 
 	public List<SessionHistory> getLoggedVisitorsByDate(Timestamp startDate,
 			Timestamp endtDate) {
-		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
-		List<SessionHistory> sessionhistory = sessdaoimpl
+		List<SessionHistory> sessionhistory = sessionHistoryDAOImpl
 				.getLoggedVisitorsByDate(startDate, endtDate);
 		return sessionhistory;
 	}
 
 	public List<SessionHistory> getAllVisitorsByDate(Timestamp startDate,
 			Timestamp endtDate) {
-		SessionHistoryDAOImpl sessdaoimpl = new SessionHistoryDAOImpl();
-		List<SessionHistory> sessionhistory = sessdaoimpl.getAllVisitorsByDate(
+		List<SessionHistory> sessionhistory = sessionHistoryDAOImpl.getAllVisitorsByDate(
 				startDate, endtDate);
 		return sessionhistory;
 	}

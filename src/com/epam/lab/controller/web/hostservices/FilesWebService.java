@@ -38,7 +38,7 @@ import com.sun.jersey.multipart.FormDataMultiPart;
 public class FilesWebService {
 
 	private static Logger logger = Logger.getLogger(FilesWebService.class);
-	private static final String TOKEN_NOT_FOUND = "Token not found";
+	private static final String TOKEN_NOT_FOUND = "Invalid token";
 	private static final String FOLDER_NOT_FOUND = "Folder not found";
 	private static final String FILE_NOT_FOUND = "File not found";
 	private static final String FILE_TOO_LARGE = "File too large for upload";

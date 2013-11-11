@@ -154,6 +154,7 @@ img.img {
 		}
 	</script>
 	<script type="text/javascript">
+		var moreFiles = false;
 		<fmt:message key="File_is_too_big" var="file" bundle="${lang}"/>
 		var file = "${file}";
 		<fmt:message key="Max_free_space" var="space" bundle="${lang}"/>
@@ -172,8 +173,12 @@ img.img {
 					this.removeFile(file);
 					loadBrowserContent();
 				});
-				this.on("maxfilesexceeded", function() {
-					alert("No moar files please!");
+				this.on("maxfilesexceeded", function(file) {
+					this.removeFile(file);
+					if(moreFiles == false){
+						moreFiles = true;
+						alert('Please no more ' + this.options.maxFiles + ' files');
+					}					
 				});
 				this.on('reset', function(file) {
 					$('.dz-message').show(200);

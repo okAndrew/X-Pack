@@ -108,7 +108,8 @@
 					<div class="dropdown-menu pull-right">
 						<c:forEach items="${languages}" var="language">
 							<li><a href="locale?language=${language.defaulLocale}"><img
-									src="${language.pathImage}">${language.name}</a></li>
+									src="${language.pathImage}"><fmt:message key="${language.name}"
+										bundle="${lang}" /></a></li>
 						</c:forEach>
 					</div>
 				</div>

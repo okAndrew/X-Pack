@@ -27,10 +27,8 @@ public class RestorePassword {
 		MD5Encrypter md5 = new MD5Encrypter();
 			
 		if (user != null && tokenObj != null && tokenObj.getIdUser() == user.getId()) {
-			tokenObj.setAvailable(false);
 			user.setPassword(md5.encrypt(password));
 			userService.update(user);
-			tokenDAO.update(tokenObj);
 		}
 		
 		return msg;

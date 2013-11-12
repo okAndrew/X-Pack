@@ -334,13 +334,9 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 			User user = get(oldEmail);
 			Token tokenObj = tokenDAO.get(token);
 
-			if (tokenObj != null && tokenObj.getAvailable()
-					&& tokenObj.getIdUser() == user.getId()) {
+			if (tokenObj != null && tokenObj.getIdUser() == user.getId()) {
 				user.setEmail(newEmail);
-				tokenObj.setAvailable(false);
-
 				update(user);
-				tokenDAO.update(tokenObj);
 				res = true;
 			} else {
 				res = false;

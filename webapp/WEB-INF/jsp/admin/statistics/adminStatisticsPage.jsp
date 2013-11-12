@@ -30,6 +30,11 @@
 	width: 700px;
 }
 
+.centerDiv {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .button-reset1.btn.btn-default,.button-reset2.btn.btn-default {
 	margin: 10px;
 }
@@ -77,7 +82,17 @@
 						</c:when>
 						<c:otherwise>
 							<div style="margin-left: auto; margin-right: auto;">
-								<img src="res/img/grahps.png">
+								<div class="row-fluid">
+									<div class="col-xs-4">
+										<img src="res/img/statistics.png">
+									</div>
+									<div class="col-xs-4">
+										<img src="res/img/statisticsFiles.png">
+									</div>
+									<div class="col-xs-4">
+										<img src="res/img/statistics3.png">
+									</div>
+								</div>
 							</div>
 						</c:otherwise>
 					</c:choose>

@@ -3,7 +3,7 @@ package com.epam.lab.controller.utils;
 import java.io.File;
 
 public class DiskSpaceUtil {
-	private File disk = new File("d:");
+	private File disk = new File("c:");
 	
 	public float getFreeSpace(){
 		return disk.getFreeSpace()/1024/1024/1024;

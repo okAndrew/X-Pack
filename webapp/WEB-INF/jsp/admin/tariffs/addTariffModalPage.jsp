@@ -16,69 +16,85 @@
 			</div>
 			<div class="modal-body">
 				<div class="container">
-					<!-- Static navbar -->
+		
 					<div class="navbar navbar-default">
 						<div class="navbar-collapse collapse">
-							<form action="employeeControllerTariffs" method="post">
 
-								<c:if test="${addTarMessage != null}">
-									<div id="errorinfo" class="alert alert-danger"
-										style="display: none;"><fmt:message key="${addTarMessage}" bundle="${lang}" /></div>
-								</c:if>
+							<c:if test="${addTarMessage != null}">
+								<div id="errorinfo" class="alert alert-danger"
+									style="display: none;">
+									<fmt:message key="${addTarMessage}" bundle="${lang}" />
+								</div>
+							</c:if>
+							<table class="table">
+								<tbody>
+									<tr>
+										<td><fmt:message key="Name" bundle="${lang}" /></td>
+										<td><input type="text" name="name"
+											class="form-control first"
+											placeholder=<fmt:message key="Name" bundle="${lang}" />
+											autofocus="autofocus" /></td>
+									</tr>
 
-								<table class="table">
-									<tbody>
-										<tr>
-											<td><fmt:message key="Name" bundle="${lang}" /></td>
-											<td><input type="text" name="name"
-												class="form-control first" placeholder=<fmt:message key="Name" bundle="${lang}" />
-												autofocus="autofocus" /></td>
-										</tr>
+									<tr>
+										<td><fmt:message key="Max_Capacity" bundle="${lang}" /> (MB)</td>
+										<td><input type="text" name="maxCapacity"
+											class="form-control midle"
+											placeholder=<fmt:message key="Max_Capacity" bundle="${lang}" /> /></td>
+									</tr>
 
-										<tr>
-											<td><fmt:message key="Max_Capacity" bundle="${lang}" /></td>
-											<td><input type="text" name="maxCapacity"
-												class="form-control midle" placeholder=<fmt:message key="Max_Capacity" bundle="${lang}" />(MB) /></td>
-										</tr>
+									<tr>
+										<td><fmt:message key="Price" bundle="${lang}" /></td>
+										<td><input type="text" name="price"
+											class="form-control midle"
+											placeholder=<fmt:message key="Price" bundle="${lang}" /> /></td>
+									</tr>
 
-										<tr>
-											<td><fmt:message key="Price" bundle="${lang}" /></td>
-											<td><input type="text" name="price"
-												class="form-control midle" placeholder=<fmt:message key="Price" bundle="${lang}" /> /></td>
-										</tr>
+									<tr>
+										<td><fmt:message key="Position" bundle="${lang}" /></td>
+										<td><input type="text" name="position"
+											class="form-control midle"
+											placeholder=<fmt:message key="Position" bundle="${lang}" /> /></td>
+									</tr>
 
-										<tr>
-											<td><fmt:message key="Position" bundle="${lang}" /></td>
-											<td><input type="text" name="position"
-												class="form-control midle" placeholder=<fmt:message key="Position" bundle="${lang}" /> /></td>
-										</tr>
+									<tr>
+										<td><fmt:message key="Description" bundle="${lang}" /> US</td>
+										<td><textarea  rows="2"
+												name="descriptionUS" class="form-control midle"
+												placeholder=<fmt:message key="Description" bundle="${lang}" />></textarea></td>
+									</tr>
+									<tr>
+										<td><fmt:message key="Description" bundle="${lang}" /> UA</td>
+										<td><textarea  rows="2"
+												name="descriptionUA" class="form-control midle"
+												placeholder=<fmt:message key="Description" bundle="${lang}" />></textarea></td>
+									</tr>
+									<tr>
+										<td><fmt:message key="Description" bundle="${lang}" /> RU</td>
+										<td><textarea  rows="2"
+												name="descriptionRU" class="form-control last"
+												placeholder=<fmt:message key="Description" bundle="${lang}" /> autofocus="autofocus"></textarea></td>
+									</tr>
 
-										<tr>
-											<td><fmt:message key="Description" bundle="${lang}" /></td>
-											<td><textarea class="form-control" rows="5" name="description"
-												class="form-control midle" placeholder=<fmt:message key="Description" bundle="${lang}" />></textarea></td>
-										</tr>
+								</tbody>
+							</table>
 
-									</tbody>
-								</table>
-								<button type="submit" class="btn btn-primary" name="action"
-									value="addTariff">
-									<fmt:message key="Add_new_tariff" bundle="${lang}" />
-								</button>
-							</form>
 						</div>
-						<!--/.nav-collapse -->
+						
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary" name="action"
+					value="addTariff">
+					<fmt:message key="Add_new_tariff" bundle="${lang}" />
+				</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<fmt:message key="Close" bundle="${lang}" />
 				</button>
 			</div>
 		</div>
-		<!-- /.modal-content -->
+
 	</div>
-	<!-- /.modal-dialog -->
+
 </div>
-<!-- /.modal -->

@@ -56,6 +56,9 @@ img.img {
 	<jsp:include page="../../../../user/modals/modalImage.jsp"></jsp:include>
 	<jsp:include page="../../../../user/modals/modalVideo.jsp"></jsp:include>
 	<jsp:include page="../../../../user/modals/modalAudio.jsp"></jsp:include>
+	<c:if test="${filelist.size() == 0}">
+	<div class="rowSpace"></div>
+	</c:if>
 	<c:if test="${filelist.size() > 0}">
 		<div class="panel-body">
 			<div class="btn-group">

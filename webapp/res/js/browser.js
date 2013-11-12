@@ -10,10 +10,6 @@ function move(moveable, idtargetFolder) {
 				success : function() {
 					loadBrowserContent();
 				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert('xhr.status ' + xhr.status + '   thrownError:'
-							+ thrownError);
-				}
 			});
 }
 
@@ -99,10 +95,6 @@ function showLink(label) {
 						$('#linkModal').modal('show');
 					}
 				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert('xhr.status ' + xhr.status + '   thrownError:'
-							+ thrownError);
-				}
 			});
 }
 
@@ -132,9 +124,5 @@ function setVisible(checkbox) {
 						$('#linkModal').modal('show');
 					}
 				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert('xhr.status ' + xhr.status + '   thrownError:'
-							+ thrownError);
-				}
 			});
 }

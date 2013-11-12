@@ -115,10 +115,6 @@ window.onload = function() {
 				success : function(data) {
 					$("#browser").html(data);
 				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert('xhr.status ' + xhr.status + '   thrownError:'
-							+ thrownError);
-				}
 			});
 		}
 
@@ -141,10 +137,6 @@ window.onload = function() {
 					success : function(data) {
 						$("#browser").html(data);
 					},
-					error : function(xhr, ajaxOptions, thrownError) {
-						alert('xhr.status ' + xhr.status + '   thrownError:'
-								+ thrownError);
-					}
 				});
 			}
 		}

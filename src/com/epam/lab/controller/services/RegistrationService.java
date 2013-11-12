@@ -115,7 +115,7 @@ public class RegistrationService {
 	}
 
 	public boolean activateUser(String token) {
-		boolean result = false;
+		boolean result = true;
 
 		UserServiceImpl userService = new UserServiceImpl();
 		TokenDAOImpl tokenDAOImpl = new TokenDAOImpl();
@@ -128,12 +128,8 @@ public class RegistrationService {
 		logger.debug(user);
 		logger.debug(tokenObj);
 
-		if (tokenObj.getAvailable()) {
-			userService.activateUser(user);
-			tokenObj.setAvailable(false);
-			tokenDAOImpl.update(tokenObj);
-			result = true;
-		}
+		userService.activateUser(user);
+
 		return result;
 	}
 }

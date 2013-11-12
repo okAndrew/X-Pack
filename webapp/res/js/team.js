@@ -3,32 +3,32 @@ function initTeamPage() {
 			{
 				name : "Roma",
 				photo : "res/img/team/korol.png",
-				about : "Roman Korol likes to spent his time by playing a Prince of Persia. His best hero is Korol Artyr"
+				about : "Roman Korol likes to spent his time playing a Prince of Persia. He likes to be called the King of Persia"
 			},
 			{
 				name : "Andrew",
 				photo : "res/img/team/kravchuk.png",
-				about : "Andrew likes to watch interesting video. His best friend is a captain."
+				about : "Andrew went to the neighbour to make 'git push'. He likes to watch interesting video. His fovourite song is 'What Does the Fox Say'. His best friend is a captain."
 			},
 			{
-				name : "Natalya",
+				name : "Natalia",
 				photo : "res/img/team/romanenko.jpg",
-				about : "Natalja is a pretty girl. She usually stend up at 7 oclock and make a tasty breakfast."
+				about : "Natalia is the prettiest girl in our group. She usually stend up at 7 for making 'git commit'"
 			},
 			{
 				name : "Sergiy",
 				photo : "res/img/team/savruk.jpg",
-				about : "Sergiy is a captain. He likes to drink Captain Morgan."
+				about : "Sergiy is a captain. He likes to drink Captain Morgan. He also likes to play tennis. In tennis most of all he likes... tennis"
 			},
 			{
 				name : "Roma",
 				photo : "res/img/team/tretyak.png",
-				about : "Roman likes to play football. He likes to listen opera music."
+				about : "He shouted that he won't write the code without taking 'medicine'"
 			},
 			{
 				name : "Sergiy",
 				photo : "res/img/team/trofim.png",
-				about : "Sergiy likes to eat. His best dish is pizza with tomatoes."
+				about : "Every day I helped my captain to sum up the findings. Sergiy likes to eat. His best dish is pizza with tomatoes. "
 			} ];
 
 	var colors = [ {

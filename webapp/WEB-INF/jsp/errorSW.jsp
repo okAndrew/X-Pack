@@ -75,8 +75,8 @@
 	-moz-backface-visibility: visible;
 }
 
-.active {
-	pointer-events: none;
+.hiddenlink {
+	text-decoration: none; /* to remove the underline */
 	cursor: default;
 }
 </style>
@@ -106,8 +106,8 @@
 				<li>The link you used to get here is faulty.</li>
 			</ol>
 			<p>
-				Go back to the <a href="homepage" class="active">DreamHost</a> home
-				page, and upload seven episodes of Star Wars!
+				Go back to the <a href="homepage" class="hiddenlink">DreamHost</a>
+				home page, and upload seven episodes of Star Wars!
 			</p>
 		</div>
 	</div>

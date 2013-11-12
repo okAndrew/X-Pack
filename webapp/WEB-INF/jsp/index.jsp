@@ -43,20 +43,22 @@
 					<div class="panel-footer">
 						<div class="row">
 							<div class="col-lg-4">
-								<h2>Files preview</h2>
-								<p>You can view files before download. We support images,
-									audio and video preview.</p>
+								<h2><fmt:message key="Files_preview"
+										bundle="${lang}" /></h2>
+								<p><fmt:message key="You_can_view_files_before_download._We_support_images,_audio_and_video_preview."
+										bundle="${lang}" /></p>
 							</div>
 							<div class="col-lg-4">
-								<h2>Intuitive interface</h2>
-								<p>With our drag and drop technology you can easy manage
-									files. Its look like in you OS.</p>
+								<h2><fmt:message key="Intuitive_interface"
+										bundle="${lang}" /></h2>
+								<p><fmt:message key="With_our_drag_and_drop_technology_you_can_easy_manage_files._Its_look_like_in_you_OS."
+										bundle="${lang}" /></p>
 							</div>
 							<div class="col-lg-4">
-								<h2>Reasonable prices</h2>
-								<p>You pay only for space that your use. We have different
-									tariffs for you needs. Always you can change you choose with
-									saving money.</p>
+								<h2><fmt:message key="Reasonable_prices"
+										bundle="${lang}" /></h2>
+								<p><fmt:message key="You_pay_only_for_space_that_your_use._We_have_different_tariffs_for_you_needs._Always_you_can_change_you_choose_with_saving_money."
+										bundle="${lang}" /></p>
 							</div>
 						</div>
 					</div>

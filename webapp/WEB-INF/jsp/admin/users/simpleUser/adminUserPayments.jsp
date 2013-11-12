@@ -15,14 +15,17 @@
 		<div>
 			<div class="input">
 				<div class="input-append date">
-					<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-						name="startDate" id="dpd1"
-						placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
-					<input data-date-format="yyyy-mm-dd" type="text" class="span2"
-						name="endDate"
-						placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
-						id="dpd2">
-
+					<div class="form-group col-lg-2">
+						<input data-date-format="yyyy-mm-dd" type="text"
+							class="form-control span2" name="startDate" id="dpd1"
+							placeholder="<fmt:message key="DateCreated" bundle="${lang}" />">
+					</div>
+					<div class="form-group col-lg-2">
+						<input data-date-format="yyyy-mm-dd" type="text"
+							class="form-control span2" name="endDate"
+							placeholder="<fmt:message key="DateEnd" bundle="${lang}" />"
+							id="dpd2">
+					</div>
 					<button type="submit" class="btn btn-default" name="page"
 						value="paymentsByDate" id="button" disabled="disabled">
 						<fmt:message key="Show_payments_for_period" bundle="${lang}" />

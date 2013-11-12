@@ -108,10 +108,6 @@ img.img {
 				success : function(data) {
 					$("#browser").html(data);
 				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert('xhr.status ' + xhr.status + '   thrownError:'
-							+ thrownError);
-				}
 			});
 		}
 
@@ -134,10 +130,6 @@ img.img {
 					success : function(data) {
 						$("#browser").html(data);
 					},
-					error : function(xhr, ajaxOptions, thrownError) {
-						alert('xhr.status ' + xhr.status + '   thrownError:'
-								+ thrownError);
-					}
 				});
 			}
 		}

@@ -12,10 +12,11 @@ import javax.servlet.http.HttpSession;
 public class FoldersNavigationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String USER_PAGE = "userpage";
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		long folderId = Long.valueOf(request.getParameter("folderid"));
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		session.setAttribute("folderid", folderId);
 		response.sendRedirect(USER_PAGE);
 	}

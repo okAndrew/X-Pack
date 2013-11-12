@@ -9,13 +9,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DreamHost(Administrator) | Users</title>
 
+<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
-
-<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
-<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 
 <script type="text/javascript">
 	var page = checkPage("${param.page}");
@@ -27,7 +26,7 @@
 </script>
 
 <script>
-	function checkboxesStatus() {
+function checkboxesStatus() {
 		var checkboxes = document.getElementsByName('checkUser');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {
@@ -54,6 +53,12 @@
 	});
 </script>
 
+<script type="text/javascript">
+window.onload = function() {
+	var el = document.getElementById("menu_users");
+    el.className="active";
+};
+</script>
 
 </head>
 <body onload="render();">

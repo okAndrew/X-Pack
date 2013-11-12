@@ -9,13 +9,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DreamHost(Administrator) | Tariffs</title>
 
+<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
+
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
-
-<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
-<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 
 <script type="text/javascript">
 	var page = checkPage("${param.page}");
@@ -39,6 +39,13 @@ function checkboxesStatus() {
 	     $('#isActivate').prop('disabled', true);
 	     $('#isDelete').prop('disabled', true);
 	 }
+</script>
+
+<script type="text/javascript">
+window.onload = function() {
+	var el = document.getElementById("menu_tariffs");
+    el.className="active";
+};
 </script>
 
 </head>

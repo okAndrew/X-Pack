@@ -28,6 +28,13 @@ img.img {
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/utils.js"></script>
 <script src="res/js/browser.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	var el = document.getElementById("menu_myspace");
+    el.className="active";
+};
+</script>
+
 </head>
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>
@@ -108,10 +115,6 @@ img.img {
 				success : function(data) {
 					$("#browser").html(data);
 				},
-				error : function(xhr, ajaxOptions, thrownError) {
-					alert('xhr.status ' + xhr.status + '   thrownError:'
-							+ thrownError);
-				}
 			});
 		}
 
@@ -134,10 +137,6 @@ img.img {
 					success : function(data) {
 						$("#browser").html(data);
 					},
-					error : function(xhr, ajaxOptions, thrownError) {
-						alert('xhr.status ' + xhr.status + '   thrownError:'
-								+ thrownError);
-					}
 				});
 			}
 		}

@@ -7,7 +7,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DreamHost(Administrator) | Users</title>
+<title>DreamHost(Administrator) | Logs</title>
+
+<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
+<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
 
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -15,12 +18,6 @@
 	src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
-<script type="text/javascript" src="res/js/utils.js"></script>
-
-<link rel="stylesheet" href="res/css/bootstrap.css" rel="stylesheet" />
-<link rel="stylesheet" href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/bootstrap.css" rel="stylesheet" />
-<link href="res/css/style.css" rel="stylesheet" />
 <script type="text/javascript" src="res/js/utils.js"></script>
 
 <script type="text/javascript">

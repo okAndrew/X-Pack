@@ -53,13 +53,13 @@
 								key="Pricing" bundle="${lang}" /></a></li>
 				</c:if>
 				<c:if test="${sessionScope.userRole == 'ADMIN'}">
-					<li class=""><a href="adminUsersPage"><fmt:message
+					<li id="menu_users"><a href="adminUsersPage"><fmt:message
 								key="Users" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminTariffsPage"><fmt:message
+					<li id="menu_tariffs"><a href="adminTariffsPage"><fmt:message
 								key="Tariffs" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminStatisticsPage"><fmt:message
+					<li id="menu_statistics"><a href="adminStatisticsPage"><fmt:message
 								key="Statistics" bundle="${lang}" /></a></li>
-					<li class=""><a href="adminLogsPage"><fmt:message
+					<li id="menu_logs"><a href="adminLogsPage"><fmt:message
 								key="Logger" bundle="${lang}" /></a></li>
 				</c:if>
 				<li class="dropdown" id="menu_about"><a href="#"

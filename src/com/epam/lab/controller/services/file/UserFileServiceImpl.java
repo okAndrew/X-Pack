@@ -11,12 +11,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import com.epam.lab.controller.dao.file.FileDAO;
 import com.epam.lab.controller.dao.file.FileDAOImpl;
 import com.epam.lab.controller.dao.folder.FolderDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -31,8 +31,7 @@ import com.epam.lab.model.UserFile;
 
 public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		implements UserFileService {
-	private FileDAO fileDAO = (FileDAO) dao;
-
+	private FileDAOImpl fileDAOImpl = (FileDAOImpl) dao;
 	private static final Logger logger = Logger
 			.getLogger(UserFileServiceImpl.class);
 	private static long count;
@@ -79,8 +78,8 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			// generate, while name will not be unique
 			userFile.setName(new MD5Encrypter().generateRandomHash()
 					+ extention);
-		} while (fileDAO.insert(userFile) == 0);
-		return fileDAO.getByName(userFile.getName());
+		} while (fileDAOImpl.insert(userFile) == 0);
+		return fileDAOImpl.getByName(userFile.getName());
 	}
 
 	/*
@@ -129,28 +128,25 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 
 	public List<UserFile> getByUserId(long userId) {
 		List<UserFile> files = null;
-		FileDAOImpl dao = new FileDAOImpl();
-		files = dao.getAllByUserId(userId);
+		files = fileDAOImpl.getAllByUserId(userId);
 		return files;
 	}
 
 	public List<UserFile> getByFolderId(long folderId) {
 		List<UserFile> files = null;
-		FileDAOImpl dao = new FileDAOImpl();
-		files = dao.getAllByFolderId(folderId);
+		files = fileDAOImpl.getAllByFolderId(folderId);
 		Collections.sort(files);
 		return files;
 	}
 
 	public int delete(long id) {
-		FileDAOImpl dao = new FileDAOImpl();
-		UserFile f = dao.get(id);
+		UserFile f = fileDAOImpl.get(id);
 		if (f != null) {
 			File file = new File(f.getPath() + File.separator + f.getName());
 			file.delete();
 			FolderServiceImpl service = new FolderServiceImpl();
 			service.updateSize(f.getIdFolder(), -f.getSize());
-			return dao.delete(id);
+			return fileDAOImpl.delete(id);
 		}
 		return 0;
 	}
@@ -160,9 +156,8 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	}
 
 	public boolean check(long folderId, long fileId, String name) {
-		FileDAOImpl dao = new FileDAOImpl();
 		String fullNewNameIncome = name + getExtention(fileId);
-		List<UserFile> files = dao.getAllByFolderId(folderId);
+		List<UserFile> files = fileDAOImpl.getAllByFolderId(folderId);
 		for (UserFile file : files) {
 			if (file.getNameIncome().equals(fullNewNameIncome)) {
 				return true;
@@ -172,42 +167,37 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	}
 
 	public void moveFile(long fileIdMove, long folderIdTarget) {
-		FileDAOImpl dao = new FileDAOImpl();
-		UserFile file = dao.get(fileIdMove);
+		UserFile file = fileDAOImpl.get(fileIdMove);
 		FolderServiceImpl service = new FolderServiceImpl();
 		service.updateSize(file.getIdFolder(), -file.getSize());
 		file.setIdFolder(folderIdTarget);
 		service.updateSize(folderIdTarget, file.getSize());
-		dao.update(file);
+		fileDAOImpl.update(file);
 	}
 
 	public UserFile rename(long fileId, String newNameIncome) {
-		FileDAOImpl dao = new FileDAOImpl();
-		UserFile file = dao.get(fileId);
+		UserFile file = fileDAOImpl.get(fileId);
 		String extention = getExtention(fileId);
 		file.setNameIncome(newNameIncome + extention);
-		dao.update(file);
-		return dao.get(file.getId());
+		fileDAOImpl.update(file);
+		return fileDAOImpl.get(file.getId());
 	}
 
 	@Override
 	public int deleteByUserId(long userId) {
-		FileDAOImpl fileDao = new FileDAOImpl();
-		int result = fileDao.deleteByUserId(userId);
+		int result = fileDAOImpl.deleteByUserId(userId);
 		return result;
 	}
 
 	@Override
 	public long getUploadTrafficByDates(Timestamp dataStart, Timestamp dataEnd) {
-		FileDAOImpl fileDaoImpl = new FileDAOImpl();
 		UserFile file = new UserFile();
-		file = fileDaoImpl.getSizeUploadByDates(dataStart, dataEnd);
+		file = fileDAOImpl.getSizeUploadByDates(dataStart, dataEnd);
 		return file.getSize();
 	}
 
 	public boolean isUsersFile(long id, long userId) {
-		FileDAOImpl dao = new FileDAOImpl();
-		UserFile file = dao.get(id);
+		UserFile file = fileDAOImpl.get(id);
 		if (file.getIdUser() == userId) {
 			return true;
 		} else {
@@ -218,31 +208,30 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	@Override
 	public long getUploadTrafficUserByDates(Timestamp dataStart,
 			Timestamp dataEnd, long userId) {
-		FileDAOImpl fileDaoImpl = new FileDAOImpl();
 		UserFile file = new UserFile();
-		file = fileDaoImpl.getSizeUploadUserByDates(dataStart, dataEnd, userId);
+		file = fileDAOImpl.getSizeUploadUserByDates(dataStart, dataEnd, userId);
 		return file.getSize();
 	}
 
 	public UserFile getByName(String fileName) {
-		return fileDAO.getByName(fileName);
+		return fileDAOImpl.getByName(fileName);
 	}
 
 	@Override
 	public void changePublicState(long id, boolean state) {
-		UserFile file = fileDAO.get(id);
+		UserFile file = fileDAOImpl.get(id);
 		file.setIsPublic(state);
-		fileDAO.update(file);
+		fileDAOImpl.update(file);
 	}
 
 	@Override
 	public String getLink(long fileId) {
-		String name = fileDAO.get(fileId).getName();
+		String name = fileDAOImpl.get(fileId).getName();
 		return HOST + "download?file=" + name;
 	}
 
 	public List<FilesTypesSize> getTypesFiles() {
-		return fileDAO.getFilesGroupType();
+		return fileDAOImpl.getFilesGroupType();
 	}
 
 	/*
@@ -302,8 +291,8 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			}
 			if (filesIds != null) {
 				for (int i = 0; i < filesIds.length; i++) {
-					FileDAOImpl dao = new FileDAOImpl();
-					UserFile file = dao.get(Long.parseLong(filesIds[i]));
+					UserFile file = fileDAOImpl
+							.get(Long.parseLong(filesIds[i]));
 					addToArchive(file, out);
 				}
 			}
@@ -322,8 +311,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 
 	private void addToArchive(Folder folder, ZipOutputStream out)
 			throws IOException {
-		FileDAOImpl fileDao = new FileDAOImpl();
-		List<UserFile> files = fileDao.getAllByFolderId(folder.getId());
+		List<UserFile> files = fileDAOImpl.getAllByFolderId(folder.getId());
 		for (UserFile file : files) {
 			addFileToArchive(folder.getName() + File.separator, file, out);
 		}
@@ -333,7 +321,11 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 			ZipOutputStream out) throws IOException {
 		String filePath = file.getPath() + File.separator + file.getName();
 		FileInputStream in = new FileInputStream(filePath);
-		out.putNextEntry(new ZipEntry(path + file.getNameIncome()));
+		try {
+			out.putNextEntry(new ZipEntry(path + file.getNameIncome()));
+		} catch (ZipException e) {
+			return;
+		}
 		byte[] b = new byte[1024];
 		int count;
 		while ((count = in.read(b)) > 0) {
@@ -343,8 +335,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 	}
 
 	private String getExtention(long fileId) {
-		FileDAOImpl dao = new FileDAOImpl();
-		UserFile file = dao.get(fileId);
+		UserFile file = fileDAOImpl.get(fileId);
 		int lastPointIndex = file.getNameIncome().lastIndexOf(".");
 		String extention = file.getNameIncome().substring(lastPointIndex);
 		return extention;
@@ -371,11 +362,11 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 
 	@Override
 	public void refresh(long folderId) {
-		List<UserFile> files = fileDAO.getAllByFolderId(folderId);
+		List<UserFile> files = fileDAOImpl.getAllByFolderId(folderId);
 		for (UserFile file : files) {
 			File f = new File(file.getPath() + File.separator + file.getName());
 			if (!f.exists()) {
-				fileDAO.delete(file.getId());
+				fileDAOImpl.delete(file.getId());
 			}
 		}
 	}
@@ -394,5 +385,4 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		}
 	}
 
-	
 }

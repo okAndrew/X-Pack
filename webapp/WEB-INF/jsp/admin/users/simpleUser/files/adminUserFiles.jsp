@@ -59,6 +59,11 @@ img.img {
 	<c:if test="${filelist.size() > 0}">
 		<div class="panel-body">
 			<div class="btn-group">
+				<button type="submit" name="causeDelete" class="btn btn-default"
+					data-toggle="modal" disabled="disabled" id="delete"
+					data-target="#causeDeletingSendEmailModal">
+					<fmt:message key="Delete" bundle="${lang}" />
+				</button>
 				<div class="btn-toolbar pull-left">
 					<div class="input-group" style="width: 300px;">
 						<input type="text" onkeyup="searchFiles()" class="form-control"
@@ -68,15 +73,6 @@ img.img {
 						</span>
 					</div>
 				</div>
-				<button type="submit" name="action" value="download"
-					class="btn btn-default" disabled="disabled" id="download">
-					<fmt:message key="Download" bundle="${lang}" />
-				</button>
-				<button type="submit" name="causeDelete" class="btn btn-default"
-					data-toggle="modal" disabled="disabled" id="delete"
-					data-target="#causeDeletingSendEmailModal">
-					<fmt:message key="Delete" bundle="${lang}" />
-				</button>
 			</div>
 		</div>
 	</c:if>

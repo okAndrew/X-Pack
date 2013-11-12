@@ -16,7 +16,7 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 
 	static Logger logger = Logger.getLogger(TariffServiseImpl.class);
 
-	private TariffDAO tariffDao = new TariffDAOImpl();
+	private TariffDAO tariffDao = (TariffDAO) dao;
 
 	public TariffServiseImpl() {
 		super(new TariffDAOImpl());

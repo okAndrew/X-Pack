@@ -17,28 +17,25 @@
 				<td><fmt:message key="All_users" bundle="${lang}" /></td>
 				<td>${countAllUsers}</td>
 			</tr>
+			
 			<tr>
 				<td><fmt:message key="Online_users" bundle="${lang}" /></td>
-				<td>${countUsers}</td>
-			</tr>
-			<tr>
-				<td><fmt:message key="Online_logged_users" bundle="${lang}" /></td>
 				<td>${countUsersLogged}</td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Visited_on_last_day_/_logged"
+				<td><fmt:message key="Visited_on_last_day"
 						bundle="${lang}" /></td>
-				<td>${visitorsByDay}/${loggedVisitorsByDay}</td>
+				<td>${loggedVisitorsByDay}</td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Visited_on_last_week_/_logged"
+				<td><fmt:message key="Visited_on_last_week"
 						bundle="${lang}" /></td>
-				<td>${visitorsByWeek}/${loggedVisitorsByWeek}</td>
+				<td>${loggedVisitorsByWeek}</td>
 			</tr>
 			<tr>
-				<td><fmt:message key="Visited_on_last_month_/_logged"
+				<td><fmt:message key="Visited_on_last_month"
 						bundle="${lang}" /></td>
-				<td>${visitorsByMonth}/${loggedVisitorsByMonth}</td>
+				<td>${loggedVisitorsByMonth}</td>
 			</tr>
 
 		</tbody>
@@ -113,4 +110,5 @@
 					plot1.resetZoom()
 				});
 			});
+	
 </script>

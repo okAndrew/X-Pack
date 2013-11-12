@@ -8,12 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DreamHost(Administrator) | Statistics</title>
+
+<link href="res/css/bootstrap.css" rel="stylesheet" />
+<link href="res/css/style.css" rel="stylesheet" />
+
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="res/js/jquery-1.10.2.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
-<link href="res/css/bootstrap.css" rel="stylesheet" />
-<link href="res/css/style.css" rel="stylesheet" />
 <script type="text/javascript" src="res/js/utils.js"></script>
 
 <style type="text/css">
@@ -35,6 +37,12 @@
 }
 </style>
 
+<script type="text/javascript">
+window.onload = function() {
+	var el = document.getElementById("menu_statistics");
+    el.className="active";
+};
+</script>
 </head>
 <body>
 	<!--<div class="code prettyprint">

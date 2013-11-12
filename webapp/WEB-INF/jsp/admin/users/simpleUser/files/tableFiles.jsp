@@ -93,12 +93,10 @@
 		var checkboxes = document.getElementsByName('files');
 		for ( var i = 0, n = checkboxes.length; i < n; i++) {
 			if (checkboxes[i].checked === true) {
-				$('#download').prop('disabled', false);
 				$('#delete').prop('disabled', false);
 				return;
 			}
 		}
-		$('#download').prop('disabled', true);
 		$('#delete').prop('disabled', true);
 	}
 

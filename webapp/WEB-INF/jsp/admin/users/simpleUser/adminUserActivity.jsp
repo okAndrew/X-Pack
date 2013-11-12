@@ -75,7 +75,7 @@
 			
 				// The url for our json data
 				var jsonurl = "adminUserActivityGraph";
-				<fmt:message key="Visitors" var="visitors" bundle="${lang}"/>
+				<fmt:message key="Visiting" var="visitors" bundle="${lang}"/>
 				var visitors="${visitors}"
 				var plot1 = $.jqplot('chart1', jsonurl, {
 					title : visitors,

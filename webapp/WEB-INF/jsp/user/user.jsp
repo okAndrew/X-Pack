@@ -28,6 +28,13 @@ img.img {
 <script src="res/js/bootstrap.js"></script>
 <script src="res/js/utils.js"></script>
 <script src="res/js/browser.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	var el = document.getElementById("menu_myspace");
+    el.className="active";
+};
+</script>
+
 </head>
 <body>
 	<jsp:include page="..//menu.jsp"></jsp:include>

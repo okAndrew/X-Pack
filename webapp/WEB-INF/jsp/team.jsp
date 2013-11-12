@@ -28,7 +28,17 @@
 	max-height: 400px;
 }
 </style>
+
+
+<script type="text/javascript">
+window.onload = function() {
+	var el = document.getElementById("menu_about");
+    el.className="active";
+};
+</script>
+
 </head>
+
 <body onload="initTeamPage()">
 	<jsp:include page="menu.jsp"></jsp:include>
 	<div class="container">

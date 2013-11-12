@@ -1,11 +1,7 @@
 package com.epam.lab.controller.dao.tariff;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
-import com.epam.lab.controller.dao.dbconnect.ConnectionManager;
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.Counter;
 import com.epam.lab.model.Tariff;

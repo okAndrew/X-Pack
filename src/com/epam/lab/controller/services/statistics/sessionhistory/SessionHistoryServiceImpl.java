@@ -1,9 +1,6 @@
 package com.epam.lab.controller.services.statistics.sessionhistory;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import com.epam.lab.controller.dao.sessionhistory.SessionHistoryDAOImpl;

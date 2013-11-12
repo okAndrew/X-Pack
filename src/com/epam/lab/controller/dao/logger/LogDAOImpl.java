@@ -2,8 +2,6 @@ package com.epam.lab.controller.dao.logger;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.controller.exceptions.NoSupportedActionException;
 import com.epam.lab.model.Counter;
@@ -12,7 +10,6 @@ import com.epam.lab.model.Log;
 public class LogDAOImpl implements LogDAO {
 
 	private DBQueryExecutor<Log> queryExecutor = new DBQueryExecutor<Log>();
-	private static Logger logger = Logger.getLogger(LogDAOImpl.class);
 
 	@Override
 	public Log get(long id) {

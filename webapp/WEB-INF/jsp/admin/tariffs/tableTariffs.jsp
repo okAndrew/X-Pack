@@ -17,6 +17,28 @@ function checkBoxes(sourse){
 	toggle(sourse);
 	checkboxesStatus();
 }
+
+function loadContent(id){
+	$.ajax({
+		type : "GET",
+		url : 'getEditTariffContent',
+		data : {
+			"id" : id
+		},
+		success : function(json) {
+			var table = $('#editTariffModal').find('table');
+			var data = $.parseJSON(json);
+			var b = data.name;
+			$(table).find('input[name="id"]').attr('value', data.id); 
+			$(table).find('input[name="name"]').attr('value', data.name);
+			$(table).find('input[name="maxCapacity"]').attr('value', data.maxCapacity);
+			$(table).find('input[name="price"]').attr('value', data.price);
+			$(table).find('input[name="position"]').attr('value', data.position);
+			$(table).find('textarea[name="description"]').val(data.description);
+		},
+	});
+}
+
 </script>
 
 <table class="table zebra-striped table-hover table-condensed">
@@ -54,8 +76,9 @@ function checkBoxes(sourse){
 				<td>${tariff.position}</td>
 				<td>${tariff.description}</td>
 				<td>${tariff.isDelete}</td>
-				<td><a data-toggle="modal" data-target="#editTariffModal">
-						<span class="glyphicon glyphicon-eye-open blue"></span>
+				<td><a data-toggle="modal" data-target="#editTariffModal"
+					onmousedown="loadContent(${tariff.id})"> <span
+						class="glyphicon glyphicon-eye-open blue"></span>
 				</a></td>
 			</tr>
 		</c:forEach>

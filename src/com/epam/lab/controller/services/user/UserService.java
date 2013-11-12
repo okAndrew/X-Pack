@@ -23,4 +23,6 @@ public interface UserService extends AbstractService<User> {
 	void setLastLocale(String locale, long userId);
 
 	void refresh(long userId);
+	
+//	String checkParamLogin(String email, String password);
 }

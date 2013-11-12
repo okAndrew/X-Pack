@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script type="text/javascript" src="res/js/utils.js"></script>
 <script src="res/js/bootstrap.js"></script>
+<link href="res/css/datepicker.css" rel="stylesheet" />
 <c:if test="${message != null}">
 	<script>
 		$('#myModal').modal('show')
@@ -12,7 +13,7 @@
 
 <form action="adminUser">
 	<div class="panel-body">
-		<div>
+	<c:if test="${listPayments.size()>0}">
 			<div class="input">
 				<div class="input-append date">
 					<div class="form-group col-lg-2">
@@ -38,7 +39,7 @@
 					</c:if>
 				</div>
 			</div>
-		</div>
+		</c:if>
 
 		<c:if test="${message != null}">
 			<div class="alert alert-danger">
@@ -115,16 +116,19 @@
 			newDate.setDate(newDate.getDate() + 1);
 			checkout.setValue(newDate);
 		}
+		checkout.setValue(checkin.date.valueOf()+1);
 		checkin.hide();
 		$('#dpd2')[0].focus();
+		$('#button').prop('disabled', false);
 	}).data('datepicker');
 
 	var checkout = $('#dpd2').datepicker({
 		onRender : function(date) {
-			return date.valueOf();
+			return date.valueOf()<= checkin.date.valueOf() ? 'disabled' : '';
 		}
 	}).on('changeDate', function(ev) {
 		checkout.hide();
-		$('#button').prop('disabled', false);
+		
 	}).data('datepicker');
+	
 </script>

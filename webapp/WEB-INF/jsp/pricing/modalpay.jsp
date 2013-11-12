@@ -14,11 +14,7 @@
 				</h4>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-info">Lorem ipsum dolor sit amet,
-					consectetur adipiscing elit. Vivamus ultrices nibh vitae erat
-					lobortis posuere. Donec dictum suscipit semper. In tincidunt
-					commodo mauris at interdum. Integer vel dolor turpis. Etiam vitae
-					eros diam. Aliquam in.</div>
+				<div class="alert alert-info"><fmt:message key="Choose_the_time_of_duration_for_your_tariff" bundle="${lang}" /></div>
 				<form action="CreatePaymentServlet" method="post" id="form_pay"
 					class="form-horizontal">
 					<div class="form-group">
@@ -36,10 +32,7 @@
 					</div>
 					<br>
 				</form>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Vivamus ultrices nibh vitae erat lobortis posuere. Donec dictum
-					suscipit semper. In tincidunt commodo mauris at interdum. Integer
-					vel dolor turpis. Etiam vitae eros diam. Aliquam in.</p>
+				<p><fmt:message key="You_can't_buy_your_tariff_duration_more_than_one_year" bundle="${lang}" /></p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">

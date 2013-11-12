@@ -31,75 +31,37 @@
 
 <body>
 	<jsp:include page="menu.jsp"></jsp:include>
-	<div id="carousel-home-generic" class="carousel slide"
-		data-ride="carousel">
-		<!-- Indicators -->
-		<ol class="carousel-indicators">
-			<li data-target="#carousel-home-generic" data-slide-to="0"
-				class="active"></li>
-			<li data-target="#carousel-home-generic" data-slide-to="1"></li>
-			<li data-target="#carousel-home-generic" data-slide-to="2"></li>
-		</ol>
-
-		<!-- Wrapper for slides -->
-		<div class="carousel-inner">
-			<div class="item active">
-				<img class="item-img" src="res/img/home/1.png" alt="...">
-				<div class="carousel-caption">
-					<h3>Best file hosting in the world</h3>
-					<p>free space... data privacy... low prices...</p>
-				</div>
-			</div>
-			<div class="item">
-				<img class="item-img" src="res/img/home/2.jpg" alt="...">
-				<div class="carousel-caption">
-					<h3>Easy file sharing</h3>
-					<p>Upload, set public and share link for file download</p>
-				</div>
-			</div>
-			<div class="item">
-				<img class="item-img" src="res/img/home/3.jpg" alt="...">
-				<div class="carousel-caption">
-					<h3>Easy files browsing</h3>
-					<p></p>
-				</div>
-			</div>
-		</div>
-
-		<!-- Controls -->
-		<a class="left carousel-control" href="#carousel-home-generic"
-			data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span>
-		</a> <a class="right carousel-control" href="#carousel-home-generic"
-			data-slide="next"> <span
-			class="glyphicon glyphicon-chevron-right"></span>
-		</a>
-	</div>
 	<div class="main-body">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-4">
-					<h2>Web Hosting</h2>
-					<p>Cost-effective web hosting for WordPress bloggers, website
-						designers, e-commerce and small business.</p>
-					<p>
-						<a class="btn btn-default" href="#">View details &raquo;</a>
-					</p>
-				</div>
-				<div class="col-lg-4">
-					<h2>Dedicated Hosting</h2>
-					<p>>High-performance, business class web hosting services that
-						are ideal for enterprise or advanced users.</p>
-					<p>
-						<a class="btn btn-default" href="#">View details &raquo;</a>
-					</p>
-				</div>
-				<div class="col-lg-4">
-					<h2>Virtual Private Server</h2>
-					<p>Web hosting resources allocated only to you, for improved
-						performance and scalability as your website grows.</p>
-					<p>
-						<a class="btn btn-default" href="#">View details &raquo;</a>
-					</p>
+			<div class="panel panel-default main">
+				<div class="panel-body">
+					<center>
+						<div class="row" style="margin-left: auto; margin-right: auto;">
+							<img src="res/img/back.png" />
+						</div>
+					</center>
+					<div class="panel-footer">
+						<div class="row">
+							<div class="col-lg-4">
+								<h2><fmt:message key="Files_preview"
+										bundle="${lang}" /></h2>
+								<p><fmt:message key="You_can_view_files_before_download._We_support_images,_audio_and_video_preview."
+										bundle="${lang}" /></p>
+							</div>
+							<div class="col-lg-4">
+								<h2><fmt:message key="Intuitive_interface"
+										bundle="${lang}" /></h2>
+								<p><fmt:message key="With_our_drag_and_drop_technology_you_can_easy_manage_files._Its_look_like_in_you_OS."
+										bundle="${lang}" /></p>
+							</div>
+							<div class="col-lg-4">
+								<h2><fmt:message key="Reasonable_prices"
+										bundle="${lang}" /></h2>
+								<p><fmt:message key="You_pay_only_for_space_that_your_use._We_have_different_tariffs_for_you_needs._Always_you_can_change_you_choose_with_saving_money."
+										bundle="${lang}" /></p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -25,7 +25,6 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
 		getAllVisitorsByLastMonth(request, response);
 		getLoggedUsers(request, response);
 		getAllUsers(request, response);
-		getOnlineUsers(request, response);
 		String page = "WEB-INF/jsp/admin/statistics/adminStatisticsPage.jsp";
 		return page;
 	}
@@ -40,13 +39,6 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
 
 	}
 
-	private void getOnlineUsers(HttpServletRequest request,
-			HttpServletResponse response) {
-		int countUsers = UserOnlineListener.getActiveSessionNumber();
-		request.setAttribute("countUsers", countUsers);
-
-	}
-
 	private void getLoggedUsers(HttpServletRequest request,
 			HttpServletResponse response) {
 		int countUsersLogged = UserOnlineListener
@@ -58,10 +50,6 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
 	private void getAllVisitorsByLastDay(HttpServletRequest request,
 			HttpServletResponse response) {
 		SessionHistoryServiceImpl historyServiceImpl = new SessionHistoryServiceImpl();
-		List<SessionHistory> list = historyServiceImpl.getAllVisitorsByDate(
-				TimeStampManager.getStartOfDay(TimeStampManager
-						.getCurrentTime()), TimeStampManager.getCurrentTime());
-		request.setAttribute("visitorsByDay", list.size());
 		List<SessionHistory> listLogged = historyServiceImpl
 				.getLoggedVisitorsByDate(TimeStampManager
 						.getStartOfDay(TimeStampManager.getCurrentTime()),
@@ -73,11 +61,6 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
 	private void getAllVisitorsByLastWeek(HttpServletRequest request,
 			HttpServletResponse response) {
 		SessionHistoryServiceImpl historyServiceImpl = new SessionHistoryServiceImpl();
-		List<SessionHistory> list = historyServiceImpl.getAllVisitorsByDate(
-				TimeStampManager.getStartOfWeek(TimeStampManager
-						.getCurrentTime()), TimeStampManager
-						.getEndOfWeek(TimeStampManager.getCurrentTime()));
-		request.setAttribute("visitorsByWeek", list.size());
 		List<SessionHistory> listLogged = historyServiceImpl
 				.getLoggedVisitorsByDate(TimeStampManager
 						.getStartOfWeek(TimeStampManager.getCurrentTime()),
@@ -90,11 +73,6 @@ public class AdminStatisticUsersCommand implements AdminStatisticPageCommand {
 	private void getAllVisitorsByLastMonth(HttpServletRequest request,
 			HttpServletResponse response) {
 		SessionHistoryServiceImpl historyServiceImpl = new SessionHistoryServiceImpl();
-		List<SessionHistory> list = historyServiceImpl.getAllVisitorsByDate(
-				TimeStampManager.getStartOfMonth(TimeStampManager
-						.getCurrentTime()), TimeStampManager
-						.getEndOfMonth(TimeStampManager.getCurrentTime()));
-		request.setAttribute("visitorsByMonth", list.size());
 		List<SessionHistory> listLogged = historyServiceImpl
 				.getLoggedVisitorsByDate(TimeStampManager
 						.getStartOfMonth(TimeStampManager.getCurrentTime()),

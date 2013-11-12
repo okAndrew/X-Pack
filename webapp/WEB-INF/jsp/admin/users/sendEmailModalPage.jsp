@@ -31,7 +31,7 @@
 									</tr>
 									<tr>
 										<td><fmt:message key="Message" bundle="${lang}" /></td>
-										<td><textarea class="form-control" rows="5" name="email"
+										<td><textarea class="form-control" rows="5" name="body"
 												class="form-control last"
 												placeholder=<fmt:message key="Message" bundle="${lang}" />> </textarea></td>
 									</tr>

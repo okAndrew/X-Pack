@@ -12,6 +12,7 @@ import com.epam.lab.controller.dao.token.TokenDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
+import com.epam.lab.controller.services.RegistrationService;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
@@ -33,7 +34,7 @@ import com.epam.lab.model.UserFile;
 public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		UserService {
 
-	private UserDAOImpl userDaoImpl = new UserDAOImpl();
+	private UserDAOImpl userDaoImpl = (UserDAOImpl) dao;
 	private MailSender sender = new MailSender();
 	static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
@@ -63,7 +64,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 	public User get(String email, String password) {
 		User user = null;
-		user = new UserDAOImpl().getByEmail(email);
+		user = userDaoImpl.getByEmail(email);
 		if (user != null && user.getPassword().equals(password)) {
 			return user;
 		} else {
@@ -72,7 +73,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public User get(String email) {
-		return new UserDAOImpl().getByEmail(email);
+		return userDaoImpl.getByEmail(email);
 	}
 
 	public void deleteFilesAndFolders(long[] filesId, long[] foldersId) {
@@ -148,14 +149,12 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public int activateUser(User user) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		int result = userDaoImpl.setIsActivate(true, user.getId());
 		return result;
 	}
 
 	@Override
 	public void activateUsers(String[] usersId, Long idAdmin) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		for (int i = 0; i < usersId.length; i++) {
 			if (Long.parseLong(usersId[i]) == idAdmin) {
 				continue;
@@ -247,7 +246,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public void sendUsersEmail(String[] usersId, String subject, String message) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		List<User> users = new ArrayList<User>();
 		for (int i = 0; i < usersId.length; i++) {
 			users.add(userDaoImpl.get(Long.parseLong(usersId[i])));
@@ -270,13 +268,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public boolean checkEmailById(String email, long userId) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		boolean result = userDaoImpl.checkEmailById(email, userId);
 		return result;
 	}
 
 	public boolean ckeckLoginById(String login, long userId) {
-		UserDAOImpl userDaoImpl = new UserDAOImpl();
 		boolean result = userDaoImpl.ckeckLoginById(login, userId);
 		return result;
 	}
@@ -293,7 +289,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 
 		if (Validator.USER_LOGIN.validate(login)
 				&& Validator.USER_EMAIL.validate(email)) {
-			UserDAOImpl userDaoImpl = new UserDAOImpl();
 			User user = userDaoImpl.getByEmail(email);
 			user.setLogin(login);
 
@@ -339,13 +334,9 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 			User user = get(oldEmail);
 			Token tokenObj = tokenDAO.get(token);
 
-			if (tokenObj != null && tokenObj.getAvailable()
-					&& tokenObj.getIdUser() == user.getId()) {
+			if (tokenObj != null && tokenObj.getIdUser() == user.getId()) {
 				user.setEmail(newEmail);
-				tokenObj.setAvailable(false);
-
 				update(user);
-				tokenDAO.update(tokenObj);
 				res = true;
 			} else {
 				res = false;
@@ -376,12 +367,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public void setUsersForFree() {
-		UserDAOImpl userDAO = new UserDAOImpl();
 		PaymentServiceImpl paymentService = new PaymentServiceImpl();
 		UserFileServiceImpl fileService = new UserFileServiceImpl();
 		FolderServiceImpl folderService = new FolderServiceImpl();
 
-		List<User> users = userDAO.getBannedUsers();
+		List<User> users = userDaoImpl.getBannedUsers();
 
 		for (int i = 0; i < users.size(); i++) {
 			Payment payment = paymentService.getLastUserPayment(users.get(i)
@@ -410,8 +400,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	}
 
 	public long getFreeSize(long userId) {
-		UserDAOImpl dao = new UserDAOImpl();
-		User user = dao.get(userId);
+		User user = userDaoImpl.get(userId);
 		TariffDAOImpl tariffDao = new TariffDAOImpl();
 		Tariff tarriff = tariffDao.get(user.getIdTariff());
 		long freeSize = tarriff.getMaxCapacity() - user.getCapacity();
@@ -449,8 +438,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 	public void setLastLocale(String locale, long userId) {
 		LocaleServiceImpl locImpl = new LocaleServiceImpl();
 		Locale localeObj = locImpl.getByLocale(locale.toString());
-		UserDAOImpl ui = new UserDAOImpl();
-		ui.setLastLocale(localeObj.getId(), userId);
+		userDaoImpl.setLastLocale(localeObj.getId(), userId);
 	}
 
 	public void refresh(long userId) {
@@ -466,15 +454,52 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		MD5Encrypter md5 = new MD5Encrypter();
 		String sToken = null;
 		Timestamp timestamp = TimeStampManager.getCurrentTime();
-	
+
 		sToken = md5.encrypt(user.getEmail() + timestamp);
-	
+
 		token.setIdUser(user.getId());
 		token.setDate(timestamp);
 		token.setToken(sToken);
-	
+
 		new TokenDAOImpl().insert(token);
-	
+
 		return sToken;
+	}
+
+	public String checkParam(String login, long userId) {
+		String message = null;
+		RegistrationService registrationService = new RegistrationService();
+		User userIndb = registrationService.checkLogin(login);
+		boolean userHasLogin = ckeckLoginById(login, userId);
+		if (userHasLogin) {
+			if (userIndb == null) {
+				return null;
+			} else {
+				message = "You_already_have_that_login";
+				return message;
+			}
+		} else {
+			message = "User_with_this_login_is_already_registered";
+			return message;
+		}
+
+	}
+
+	public String checkParamEmail(String newEmail, long userId) {
+		String message = null;
+		RegistrationService registrationService = new RegistrationService();
+		User user = registrationService.checkEmail(newEmail);
+		boolean userIndb = checkEmailById(newEmail, userId);
+		if (userIndb) {
+			if (user == null) {
+				return null;
+			} else {
+				message = "You_already_have_that_email";
+				return message;
+			}
+		} else {
+			message = "User_with_this_email_is_already_registered";
+			return message;
+		}
 	}
 }

@@ -41,13 +41,19 @@ public class RegistrationService {
 
 	public String chechParams(String login, String email, String password) {
 		String result = null;
-
-		if (!Validator.USER_LOGIN.validate(login)) {
+		
+		if(login == "" || email == "" || password == ""){
+			result = "Fields_cannot_be_null";
+			return result;
+		} else if (!Validator.USER_LOGIN.validate(login)) {
 			result = "Your_login_format_filed";
+			return result;
 		} else if (!Validator.USER_EMAIL.validate(email)) {
 			result = "Your_email_format_filed";
+			return result;
 		} else if (!Validator.USER_PASSWORD.validate(password)) {
 			result = "Your_password_format_filed";
+			return result;
 		}
 		return result;
 	}
@@ -72,7 +78,7 @@ public class RegistrationService {
 				result = "User_with_this_email_is_alredy_registered";
 			}
 		} else {
-			result = "Fields_cannot_be_null";
+			return result;
 		}
 		return result;
 	}
@@ -109,7 +115,7 @@ public class RegistrationService {
 	}
 
 	public boolean activateUser(String token) {
-		boolean result = false;
+		boolean result = true;
 
 		UserServiceImpl userService = new UserServiceImpl();
 		TokenDAOImpl tokenDAOImpl = new TokenDAOImpl();
@@ -122,12 +128,8 @@ public class RegistrationService {
 		logger.debug(user);
 		logger.debug(tokenObj);
 
-		if (tokenObj.getAvailable()) {
-			userService.activateUser(user);
-			tokenObj.setAvailable(false);
-			tokenDAOImpl.update(tokenObj);
-			result = true;
-		}
+		userService.activateUser(user);
+
 		return result;
 	}
 }

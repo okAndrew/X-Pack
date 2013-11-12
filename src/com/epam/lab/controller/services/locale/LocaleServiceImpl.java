@@ -9,15 +9,14 @@ import com.epam.lab.model.Locale;
 public class LocaleServiceImpl extends AbstractServiceImpl<Locale> implements
 		LocaleService {
 	static Logger logger = Logger.getLogger(LocaleServiceImpl.class);
-
+	private LocaleDAOImpl localeDAOImpl = (LocaleDAOImpl) dao;
 	public LocaleServiceImpl() {
 		super(new LocaleDAOImpl());
 	}
 
 	@Override
 	public Locale getByLocale(String locale) {
-		LocaleDAOImpl daoImpl = new LocaleDAOImpl();
-		return daoImpl.getByLocale(locale);
+		return localeDAOImpl.getByLocale(locale);
 	}
 
 }

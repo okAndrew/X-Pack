@@ -3,32 +3,32 @@ function initTeamPage() {
 			{
 				name : "Roma",
 				photo : "res/img/team/korol.png",
-				about : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi. Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin. Pellentesque tristique elementum felis eu fermentum. Maecenas eu."
+				about : "Roman Korol likes to spent his time by playing a Prince of Persia. His best hero is Korol Artyr"
 			},
 			{
 				name : "Andrew",
 				photo : "res/img/team/kravchuk.png",
-				about : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi. Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin. Pellentesque tristique elementum felis eu fermentum. Maecenas eu."
+				about : "Andrew likes to watch interesting video. His best friend is a captain."
 			},
 			{
 				name : "Natalya",
 				photo : "res/img/team/romanenko.jpg",
-				about : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi. Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin. Pellentesque tristique elementum felis eu fermentum. Maecenas eu."
+				about : "Natalja is a pretty girl. She usually stend up at 7 oclock and make a tasty breakfast."
 			},
 			{
 				name : "Sergiy",
 				photo : "res/img/team/savruk.jpg",
-				about : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi. Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin. Pellentesque tristique elementum felis eu fermentum. Maecenas eu."
+				about : "Sergiy is a captain. He likes to drink Captain Morgan."
 			},
 			{
 				name : "Roma",
 				photo : "res/img/team/tretyak.png",
-				about : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi. Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin. Pellentesque tristique elementum felis eu fermentum. Maecenas eu."
+				about : "Roman likes to play football. He likes to listen opera music."
 			},
 			{
 				name : "Sergiy",
 				photo : "res/img/team/trofim.png",
-				about : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel velit euismod, dignissim orci eu, rhoncus mi. Vivamus luctus mi nec nunc ultricies, ac aliquet nulla sollicitudin. Pellentesque tristique elementum felis eu fermentum. Maecenas eu."
+				about : "Sergiy likes to eat. His best dish is pizza with tomatoes."
 			} ];
 
 	var colors = [ {

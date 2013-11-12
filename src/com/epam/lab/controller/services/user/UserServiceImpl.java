@@ -12,6 +12,7 @@ import com.epam.lab.controller.dao.token.TokenDAOImpl;
 import com.epam.lab.controller.dao.user.UserDAOImpl;
 import com.epam.lab.controller.exceptions.notfound.FolderNotFoundException;
 import com.epam.lab.controller.services.AbstractServiceImpl;
+import com.epam.lab.controller.services.RegistrationService;
 import com.epam.lab.controller.services.file.UserFileServiceImpl;
 import com.epam.lab.controller.services.folder.FolderService;
 import com.epam.lab.controller.services.folder.FolderServiceImpl;
@@ -467,5 +468,42 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements
 		new TokenDAOImpl().insert(token);
 
 		return sToken;
+	}
+
+	public String checkParam(String login, long userId) {
+		String message = null;
+		RegistrationService registrationService = new RegistrationService();
+		User userIndb = registrationService.checkLogin(login);
+		boolean userHasLogin = ckeckLoginById(login, userId);
+		if (userHasLogin) {
+			if (userIndb == null) {
+				return null;
+			} else {
+				message = "You_already_have_that_login";
+				return message;
+			}
+		} else {
+			message = "User_with_this_login_is_already_registered";
+			return message;
+		}
+
+	}
+
+	public String checkParamEmail(String newEmail, long userId) {
+		String message = null;
+		RegistrationService registrationService = new RegistrationService();
+		User user = registrationService.checkEmail(newEmail);
+		boolean userIndb = checkEmailById(newEmail, userId);
+		if (userIndb) {
+			if (user == null) {
+				return null;
+			} else {
+				message = "You_already_have_that_email";
+				return message;
+			}
+		} else {
+			message = "User_with_this_email_is_already_registered";
+			return message;
+		}
 	}
 }

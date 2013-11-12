@@ -23,27 +23,28 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	}
 
 	public String addTariff(String name, String maxCapacity, String price,
-			String position, String description) {
+			String position, String descriptionUS, String descriptionRU,
+			String descriptionUA) {
 		String errorMessage = checkParametersTariff(name, maxCapacity, price,
-				position, description);
+				position, descriptionUS, descriptionRU, descriptionUA);
 		if (errorMessage == null) {
 			Tariff tariff = new Tariff();
 			tariff.setName(name)
 					.setMaxCapacity(Long.parseLong(maxCapacity) * 1024 * 1024)
 					.setPrice(Double.parseDouble(price))
 					.setPosition(Integer.parseInt(position))
-					.setDescription(description);
-			tariffDao.insert(tariff);
+					.setDescription(descriptionUS);
+			tariffDao.insert(tariff, descriptionRU, descriptionUA);
 		}
 		return errorMessage;
 	}
 
 	@Override
 	public String updateTariff(String id, String name, String maxCapacity,
-			String price, String position, String description) {
+			String price, String position, String descriptionUS, String descriptionRU, String descriptionUA) {
 		String errorMessage = null;
 		errorMessage = checkParametersTariff(name, maxCapacity, price,
-				position, description);
+				position, descriptionUS, descriptionRU, descriptionUA);
 		if (errorMessage == null) {
 			Tariff tariff = new Tariff();
 			tariff.setId(Long.parseLong(id))
@@ -51,7 +52,7 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 					.setMaxCapacity(Integer.parseInt(maxCapacity) * 1024 * 1024)
 					.setPrice(Double.parseDouble(price))
 					.setPosition(Integer.parseInt(position))
-					.setDescription(description);
+					.setDescription(descriptionUS);
 			tariffDao.update(tariff);
 		}
 		return errorMessage;
@@ -77,11 +78,12 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	}
 
 	private String checkParametersTariff(String name, String maxCapacity,
-			String price, String position, String description) {
+			String price, String position, String descriptionUS,
+			String descriptionRU, String descriptionUA) {
 		List<Tariff> tariffs = getAll();
 		String errorMessage = null;
 		errorMessage = validateParam(name, maxCapacity, price, position,
-				description);
+				descriptionUS, descriptionRU, descriptionUA);
 		if (errorMessage == null) {
 			for (Tariff iter : tariffs) {
 				if (iter.getName().equalsIgnoreCase(name)) {
@@ -110,7 +112,8 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	}
 
 	private String validateParam(String name, String maxCapacity, String price,
-			String position, String description) {
+			String position, String descriptionUS, String descriptionRU,
+			String descriptionUA) {
 		String errorMessage = null;
 		if (!Validator.TARIFF_NAME.validate(name)) {
 			errorMessage = "Name_tarrif_is_not_correct._Please_use_symbols_a-z_and_A-Z";
@@ -124,7 +127,8 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		} else if (!Validator.INTEGERS.validate(position)) {
 			errorMessage = "Positions_tarrif_is_not_correct._Please_use_symbols_0-9";
 			return errorMessage;
-		} else if (description == null) {
+		} else if (descriptionUA == null || descriptionRU == null
+				|| descriptionUA == null) {
 			errorMessage = "Description_can_not_be_empty";
 			return errorMessage;
 		}
@@ -161,7 +165,7 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	public HashMap<Long, Tariff> getHashMapNames() {
 		List<Tariff> tariffs = tariffDao.getAll();
 		HashMap<Long, Tariff> map = new HashMap<Long, Tariff>();
-		for (Tariff iter: tariffs){
+		for (Tariff iter : tariffs) {
 			map.put(iter.getId(), iter);
 		}
 		return map;

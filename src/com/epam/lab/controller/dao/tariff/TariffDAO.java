@@ -21,4 +21,6 @@ public interface TariffDAO extends GenericDAO<Tariff> {
 
 	List<Tariff> getByParam(Integer page, Integer count, String orderBy,
 			String sop, String language);
+	
+	public int insert(Tariff object, String descUA, String descRU);
 }

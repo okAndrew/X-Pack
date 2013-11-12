@@ -22,7 +22,7 @@ public class AdminAddTariffCommand implements AdminTariffsPageCommand {
 //		String descriptionUS = request.getParameter("descriptionUS");
 //		String descriptionRU = request.getParameter("descriptionRU");
 //		String descriptionUA = request.getParameter("descriptionUA");
-		String addTarMessage = servise.addTariff("eeeee", "234433", "111", "58",
+		String addTarMessage = servise.addTariff("ehhheeee", "234433", "111", "68",
 				"bitch", "hjhj", "hjhjhjh");
 		request.setAttribute("addTarMessage", addTarMessage);
 		page = "adminTariffsPage";

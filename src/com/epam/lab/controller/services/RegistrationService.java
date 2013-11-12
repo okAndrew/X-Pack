@@ -46,13 +46,13 @@ public class RegistrationService {
 			result = "Fields_cannot_be_null";
 			return result;
 		} else if (!Validator.USER_LOGIN.validate(login)) {
-			result = "Your_login_format_filed";
+			result = "Your_login_format_failed";
 			return result;
 		} else if (!Validator.USER_EMAIL.validate(email)) {
-			result = "Your_email_format_filed";
+			result = "Your_email_format_failed";
 			return result;
 		} else if (!Validator.USER_PASSWORD.validate(password)) {
-			result = "Your_password_format_filed";
+			result = "Your_password_format_failed";
 			return result;
 		}
 		return result;

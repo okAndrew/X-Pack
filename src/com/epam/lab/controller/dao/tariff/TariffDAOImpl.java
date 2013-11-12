@@ -1,7 +1,11 @@
 package com.epam.lab.controller.dao.tariff;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
+import com.epam.lab.controller.dao.dbconnect.ConnectionManager;
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.model.Counter;
 import com.epam.lab.model.Tariff;
@@ -150,4 +154,54 @@ public class TariffDAOImpl implements TariffDAO {
 				language, language);
 	}
 
+	@Override
+	public int insert(Tariff object, String descUA, String descRU) {
+		String sql = "INSERT INTO text_translation(id, lang, text_translation.text) "
+				+ " select id+1, 1, ?"
+				+ " from text_translation ORDER BY id DESC LIMIT 1;";
+		String sql2 = " INSERT INTO text_translation(id, lang, text_translation.text) "
+				+ "select id, 2, ? "
+				+ "from text_translation ORDER BY id DESC LIMIT 1;";
+		String sql3 = "INSERT INTO text_translation(id, lang, text_translation.text) "
+				+ "select id, 3, ? "
+				+ "from text_translation ORDER BY id DESC LIMIT 1;";
+		String sql4 = "INSERT INTO tariffs(name, max_capacity, price, description, position) "
+				+ "select ?, ?, ?, id, ? "
+				+ "from text_translation ORDER BY id DESC LIMIT 1;";
+
+		
+		queryExecutor.executeUpdate(sql, object.getDescription());
+		queryExecutor.executeUpdate(sql2, descUA);
+		queryExecutor.executeUpdate(sql3, descRU);
+		queryExecutor.executeUpdate(sql4, object.getName(), object.getMaxCapacity(),
+				 object.getPrice(), object.getPosition());
+		return 0;
+		// ConnectionManager connManager = ConnectionManager.getInstance();
+		// int result = 0;
+		// Statement pst = null;
+		// Connection connection = null;
+		// try {
+		// connection = connManager.getConnection();
+		// pst = connection.createStatement();
+		// result = pst.executeUpdate(sql);
+		// result = pst.executeUpdate(sql2);
+		// result = pst.executeUpdate(sql3);
+		// System.out.println(result);
+		// } catch (SQLException e) {
+		// throw new RuntimeException(e);
+		// } finally {
+		// connManager.closeQuality(connection);
+		// }
+
+		// +
+		// "INSERT INTO tariffs(name, max_capacity, price, description, position) "
+		// + "select ?, ?, ?, tt.id+1, ? "
+		// + "from text_translation tt "
+		// +
+		// "inner join tariffs t on t.description=tt.id ORDER BY tt.id DESC LIMIT 1;";
+		// return queryExecutor.executeUpdate(sql); // object.getDescription(),
+		// descUA, descRU); //object.getName(), object.getMaxCapacity(),
+		// object.getPrice(), object.getPosition());
+
+	}
 }

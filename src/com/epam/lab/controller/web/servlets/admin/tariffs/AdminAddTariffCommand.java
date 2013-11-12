@@ -15,13 +15,15 @@ public class AdminAddTariffCommand implements AdminTariffsPageCommand {
 			HttpServletResponse response) throws ServletException, IOException {
 		String page = null;
 		TariffServiseImpl servise = new TariffServiseImpl();
-		String name = request.getParameter("name");
-		String maxCapacity = request.getParameter("maxCapacity");
-		String price = request.getParameter("price");
-		String position = request.getParameter("position");
-		String description = request.getParameter("description");
-		String addTarMessage = servise.addTariff(name, maxCapacity, price, position,
-				description);
+//		String name = request.getParameter("name");
+//		String maxCapacity = request.getParameter("maxCapacity");
+//		String price = request.getParameter("price");
+//		String position = request.getParameter("position");
+//		String descriptionUS = request.getParameter("descriptionUS");
+//		String descriptionRU = request.getParameter("descriptionRU");
+//		String descriptionUA = request.getParameter("descriptionUA");
+		String addTarMessage = servise.addTariff("eeeee", "234433", "111", "58",
+				"bitch", "hjhj", "hjhjhjh");
 		request.setAttribute("addTarMessage", addTarMessage);
 		page = "adminTariffsPage";
 		return page;

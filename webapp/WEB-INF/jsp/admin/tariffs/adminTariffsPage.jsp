@@ -91,9 +91,10 @@ window.onload = function() {
 					</c:if>
 					<jsp:include page="tableTariffs.jsp"></jsp:include>
 					<jsp:include page="editTariffModalPage.jsp"></jsp:include>
-					<jsp:include page="addTariffModalPage.jsp"></jsp:include>
+					
 					
 				</form>
+				<jsp:include page="addTariffModalPage.jsp"></jsp:include>
 				<jsp:include page="../../paginator.jsp"></jsp:include>
 			</div>
 		</div>

@@ -52,17 +52,7 @@ window.onload = function() {
 <body onload="render();">
 	<jsp:include page="../../menu.jsp"></jsp:include>
 
-	<c:if test="${addTarMessage != null}">
-		<script>
-			$('#addTariffModal').modal('show');
-		</script>
-	</c:if>
-
-	<c:if test="${editTarMessage != null}">
-		<script>
-			$('#editTariffModal').modal('show');
-		</script>
-	</c:if>
+	
 
 	<div class="container">
 		<div class="panel panel-default main">
@@ -90,10 +80,23 @@ window.onload = function() {
 						</div>
 					</c:if>
 					<jsp:include page="tableTariffs.jsp"></jsp:include>
-					<jsp:include page="addTariffModalPage.jsp"></jsp:include>
 					<jsp:include page="editTariffModalPage.jsp"></jsp:include>
+					
+					
 				</form>
+				<jsp:include page="addTariffModalPage.jsp"></jsp:include>
 				<jsp:include page="../../paginator.jsp"></jsp:include>
+				<c:if test="${addTarMessage != null}">
+		<script>
+			$('#addTariffModal').modal('show');
+		</script>
+	</c:if>
+
+	<c:if test="${editTarMessage != null}">
+		<script>
+			$('#editTariffModal').modal('show');
+		</script>
+	</c:if>
 			</div>
 		</div>
 	</div>

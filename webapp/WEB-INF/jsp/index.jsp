@@ -43,22 +43,39 @@
 					<div class="panel-footer">
 						<div class="row">
 							<div class="col-lg-4">
-								<h2><fmt:message key="Files_preview"
-										bundle="${lang}" /></h2>
-								<p><fmt:message key="You_can_view_files_before_download._We_support_images,_audio_and_video_preview."
-										bundle="${lang}" /></p>
+								<h2>
+									<fmt:message key="Files_preview" bundle="${lang}" />
+								</h2>
+								<p>
+									<fmt:message
+										key="You_can_view_files_before_download._We_support_images,_audio_and_video_preview."
+										bundle="${lang}" />
+								</p>
 							</div>
 							<div class="col-lg-4">
-								<h2><fmt:message key="Intuitive_interface"
-										bundle="${lang}" /></h2>
-								<p><fmt:message key="With_our_drag_and_drop_technology_you_can_easy_manage_files._Its_look_like_in_you_OS."
-										bundle="${lang}" /></p>
+								<h2>
+									<fmt:message key="Intuitive_interface" bundle="${lang}" />
+								</h2>
+								<p>
+									<fmt:message
+										key="With_our_drag_and_drop_technology_you_can_easy_manage_files._Its_look_like_in_you_OS."
+										bundle="${lang}" />
+								</p>
 							</div>
 							<div class="col-lg-4">
-								<h2><fmt:message key="Reasonable_prices"
-										bundle="${lang}" /></h2>
-								<p><fmt:message key="You_pay_only_for_space_that_your_use._We_have_different_tariffs_for_you_needs._Always_you_can_change_you_choose_with_saving_money."
-										bundle="${lang}" /></p>
+								<h2>
+									<fmt:message key="Reasonable_prices" bundle="${lang}" />
+								</h2>
+								<p>
+									<fmt:message
+										key="You_pay_only_for_space_that_your_use._We_have_different_tariffs_for_you_needs._Always_you_can_change_you_choose_with_saving_money."
+										bundle="${lang}" />
+								</p>
+								<p>
+									<a
+										href="https://docs.google.com/document/d/1CyTUTKSyt-FXI0g_afYl5MjQlGNLXUuRiMC8UvSa3Ig/edit?usp=sharing">Get
+										Dreamhost API doc</a>
+								</p>
 							</div>
 						</div>
 					</div>

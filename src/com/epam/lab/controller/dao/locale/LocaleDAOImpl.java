@@ -2,15 +2,12 @@ package com.epam.lab.controller.dao.locale;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.epam.lab.controller.dao.dbquerymanaging.DBQueryExecutor;
 import com.epam.lab.controller.exceptions.NoSupportedActionException;
 import com.epam.lab.model.Locale;
 
 public class LocaleDAOImpl implements LocaleDAO {
 	private DBQueryExecutor<Locale> queryExecutor = new DBQueryExecutor<Locale>();
-	private static Logger logger = Logger.getLogger(Locale.class);
 
 	@Override
 	public Locale get(long id) {

@@ -19,9 +19,11 @@ public class AdminAddTariffCommand implements AdminTariffsPageCommand {
 		String maxCapacity = request.getParameter("maxCapacity");
 		String price = request.getParameter("price");
 		String position = request.getParameter("position");
-		String description = request.getParameter("description");
+		String descriptionUS = request.getParameter("descriptionUS");
+		String descriptionRU = request.getParameter("descriptionRU");
+		String descriptionUA = request.getParameter("descriptionUA");
 		String addTarMessage = servise.addTariff(name, maxCapacity, price, position,
-				description);
+				descriptionUS, descriptionUA, descriptionRU);
 		request.setAttribute("addTarMessage", addTarMessage);
 		page = "adminTariffsPage";
 		return page;

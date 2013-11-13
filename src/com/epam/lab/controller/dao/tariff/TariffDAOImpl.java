@@ -150,4 +150,36 @@ public class TariffDAOImpl implements TariffDAO {
 				language, language);
 	}
 
+	@Override
+	public int insert(Tariff object, String descUA, String descRU) {
+		int result = 0;
+		String sql = "INSERT INTO text_translation(id, lang, text_translation.text) "
+				+ " select id+1, 1, ?"
+				+ " from text_translation ORDER BY id DESC LIMIT 1;";
+		String sql2 = " INSERT INTO text_translation(id, lang, text_translation.text) "
+				+ "select id, 2, ? "
+				+ "from text_translation ORDER BY id DESC LIMIT 1;";
+		String sql3 = "INSERT INTO text_translation(id, lang, text_translation.text) "
+				+ "select id, 3, ? "
+				+ "from text_translation ORDER BY id DESC LIMIT 1;";
+		String sql4 = "INSERT INTO tariffs(name, max_capacity, price, description, position) "
+				+ "select ?, ?, ?, id, ? "
+				+ "from text_translation ORDER BY id DESC LIMIT 1;";
+		result += queryExecutor.executeUpdate(sql, object.getDescription());
+		result += queryExecutor.executeUpdate(sql2, descUA);
+		result += queryExecutor.executeUpdate(sql3, descRU);
+		result += queryExecutor.executeUpdate(sql4, object.getName(),
+				object.getMaxCapacity(), object.getPrice(),
+				object.getPosition());
+		return result;
+	}
+
+	@Override
+	public Tariff getPosition(String position) {
+		String sql = "SELECT id AS count FROM tariffs where position=?";
+		Tariff tariff = queryExecutor.executeQuerySingle(Tariff.class, sql,
+				position);
+		return tariff;
+	}
+
 }

@@ -324,6 +324,7 @@ public class UserFileServiceImpl extends AbstractServiceImpl<UserFile>
 		try {
 			out.putNextEntry(new ZipEntry(path + file.getNameIncome()));
 		} catch (ZipException e) {
+			in.close();
 			return;
 		}
 		byte[] b = new byte[1024];

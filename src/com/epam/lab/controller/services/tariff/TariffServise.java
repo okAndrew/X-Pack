@@ -9,7 +9,7 @@ import com.epam.lab.model.Tariff;
 public interface TariffServise extends AbstractService<Tariff> {
 
 	String updateTariff(String id, String name, String maxCapacity,
-			String price, String position, String description);
+			String price, String position, String descriptionUS, String descriptionRU, String descriptionUA);
 
 	void deteteTariffs(String[] checkTariffs);
 
@@ -29,4 +29,5 @@ public interface TariffServise extends AbstractService<Tariff> {
 			String sop, String language);
 
 	HashMap<Long, Tariff> getHashMapNames();
+
 }

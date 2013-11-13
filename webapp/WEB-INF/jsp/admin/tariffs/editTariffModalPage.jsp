@@ -6,6 +6,7 @@
 <div class="modal fade" id="editTariffModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
+	<form action="employeeControllerTariffs" method="post">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
@@ -21,7 +22,9 @@
 						<div class="navbar-collapse collapse">
 							<c:if test="${editTarMessage != null}">
 								<div id="errorinfo" class="alert alert-danger"
-									style="display: none;"><fmt:message key="${editTarMessage}" bundle="${lang}" /></div>
+									style="display: none;">
+									<fmt:message key="${editTarMessage}" bundle="${lang}" />
+								</div>
 							</c:if>
 
 							<table class="table">
@@ -29,41 +32,38 @@
 									<tr>
 										<td><fmt:message key="Id" bundle="${lang}" /></td>
 										<td><input type="text" name="id"
-											placeholder="${tariff.id}" class="form-control first"
-											value="${tariff.id}" autofocus="autofocus" /></td>
+											class="form-control first" value="${tariff.id}"
+											autofocus="autofocus" /></td>
 									</tr>
 
 									<tr>
 										<td><fmt:message key="Name" bundle="${lang}" /></td>
 										<td><input type="text" name="name"
-											placeholder="${tariff.name}" class="form-control midle"
-											value="${tariff.name}" autofocus="autofocus" /></td>
+											class="form-control midle" value="${tariff.name}"
+											autofocus="autofocus" /></td>
 									</tr>
 
 									<tr>
 										<td><fmt:message key="Max_Capacity" bundle="${lang}" /></td>
 										<td><input type="text" name="maxCapacity"
-											class="form-control midle"
-											placeholder="${tariff.maxCapacity}" /></td>
+											class="form-control midle" /></td>
 									</tr>
 
 									<tr>
 										<td><fmt:message key="Price" bundle="${lang}" /></td>
 										<td><input type="text" name="price"
-											class="form-control midle" placeholder="${tariff.price}" /></td>
+											class="form-control midle" /></td>
 									</tr>
 
 									<tr>
 										<td><fmt:message key="Position" bundle="${lang}" /></td>
 										<td><input type="text" name="position"
-											class="form-control midle" placeholder="${tariff.position}" /></td>
+											class="form-control midle"></td>
 									</tr>
-
 									<tr>
 										<td><fmt:message key="Description" bundle="${lang}" /></td>
 										<td><textarea class="form-control" rows="5"
-												name="description" class="form-control midle"
-												placeholder="${tariff.description}"></textarea></td>
+												name="description" class="form-control midle"></textarea></td>
 									</tr>
 
 								</tbody>
@@ -84,6 +84,7 @@
 				</button>
 			</div>
 		</div>
+	</form>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->

@@ -21,8 +21,8 @@ public class AdminEditTariffCommand implements AdminTariffsPageCommand {
 		String position = request.getParameter("position");
 		String description = request.getParameter("description");
 		TariffServiseImpl service = new TariffServiseImpl();
-		String editTarMessage = service.updateTariff(id, name, maxCapacity, price, position,
-				description);
+		String editTarMessage = service.updateTariff(id, name, maxCapacity,
+				price, position, description, description, description);
 		request.setAttribute("editTarMessage", editTarMessage);
 		page = "adminTariffsPage";
 		return page;

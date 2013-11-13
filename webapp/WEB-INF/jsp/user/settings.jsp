@@ -40,8 +40,6 @@
 						<ul class="nav nav-pills nav-stacked">
 							<li class="active"><a href="#tabs1-pane1" data-toggle="tab"><fmt:message
 										key="Personal_information" bundle="${lang}" /></a></li>
-							<li><a href="#tabs1-pane2" data-toggle="tab"><fmt:message
-										key="Payments" bundle="${lang}" /></a></li>
 						</ul>
 					</div>
 					<div class="col-md-9">

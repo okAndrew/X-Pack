@@ -13,13 +13,6 @@
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="res/js/bootstrap.js"></script>
-<script type="text/javascript">
-window.onload = function() {
-	var el = document.getElementById("menu_about");
-    el.className="active";
-};
-</script>
-
 </head>
 <body>
 	<jsp:include page="menu.jsp"></jsp:include>
@@ -33,5 +26,8 @@ window.onload = function() {
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		document.getElementById("menu_about").className = "active";
+	</script>
 </body>
 </html>

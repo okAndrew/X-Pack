@@ -97,5 +97,8 @@ window.onload = function() {
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		document.getElementById("menu_tariffs").className = "active";
+	</script>
 </body>
 </html>

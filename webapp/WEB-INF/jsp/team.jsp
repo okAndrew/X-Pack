@@ -28,15 +28,6 @@
 	max-height: 400px;
 }
 </style>
-
-
-<script type="text/javascript">
-window.onload = function() {
-	var el = document.getElementById("menu_about");
-    el.className="active";
-};
-</script>
-
 </head>
 
 <body onload="initTeamPage()">
@@ -48,5 +39,8 @@ window.onload = function() {
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		document.getElementById("menu_about").className = "active";
+	</script>
 </body>
 </html>

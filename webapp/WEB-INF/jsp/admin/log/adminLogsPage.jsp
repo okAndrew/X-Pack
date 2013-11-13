@@ -19,16 +19,6 @@
 	type="text/javascript"></script>
 <script src="res/js/bootstrap.js"></script>
 <script type="text/javascript" src="res/js/utils.js"></script>
-
-<script type="text/javascript">
- var page = checkPage("${param.page}");
- var perPage = checkCount("${param.count}");
- var orderBy = checkOrderBy("${param.orderby}");
- var sort = checkSort("${param.sop}");
- var pageCount = Math.ceil(parseInt("${logsCount}") / perPage);
- var linkVar = "adminLogsPage";
-</script>
-
 </head>
 
 <body onload="render();">
@@ -40,29 +30,39 @@
 				<c:if test="${message != null }">
 					<div class="alert alert-warning">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<h4><fmt:message key="Warning" bundle="${lang}" /></h4>
-						<h5><fmt:message key="${message}" bundle="${lang}" /></h5>
+						<h4>
+							<fmt:message key="Warning" bundle="${lang}" />
+						</h4>
+						<h5>
+							<fmt:message key="${message}" bundle="${lang}" />
+						</h5>
 					</div>
 				</c:if>
-				<table class="table zebra-striped table-hover table-condensed" id="tablesorter">
+				<table class="table zebra-striped table-hover table-condensed"
+					id="tablesorter">
 					<thead>
 						<tr>
-							<th onclick="changeOrderBy('id');"><fmt:message key="Id" bundle="${lang}" /></th>
-							<th onclick="changeOrderBy('date_time');"><fmt:message key="Date" bundle="${lang}" /></th>
-							<th onclick="changeOrderBy('logger');"><fmt:message key="Logger" bundle="${lang}" /></th>
-							<th onclick="changeOrderBy('lvl');"><fmt:message key="Level" bundle="${lang}" /></th>
-							<th onclick="changeOrderBy('msg');"><fmt:message key="Message" bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('id');"><fmt:message key="Id"
+									bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('date_time');"><fmt:message
+									key="Date" bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('logger');"><fmt:message
+									key="Logger" bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('lvl');"><fmt:message key="Level"
+									bundle="${lang}" /></th>
+							<th onclick="changeOrderBy('msg');"><fmt:message
+									key="Message" bundle="${lang}" /></th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="log" items="${logs}">
-						<tr>
-							<td>${log.id}</td>
-							<td>${log.datetime}</td>
-							<td style="max-width: 400px;">${log.logger}</td>
-							<td>${log.level}</td>
-							<td style="max-width: 300px;">${log.message}</td>
-						</tr>
+							<tr>
+								<td>${log.id}</td>
+								<td>${log.datetime}</td>
+								<td style="max-width: 400px;">${log.logger}</td>
+								<td>${log.level}</td>
+								<td style="max-width: 300px;">${log.message}</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -73,7 +73,9 @@
 					</div>
 					<div class="page-option">
 						<div class="btn-group">
-							<button type="button" class="btn btn-default"><fmt:message key="Rows" bundle="${lang}" /></button>
+							<button type="button" class="btn btn-default">
+								<fmt:message key="Rows" bundle="${lang}" />
+							</button>
 							<button type="button" class="btn btn-default dropdown-toggle"
 								data-toggle="dropdown">
 								<span class="caret"></span>
@@ -89,5 +91,15 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var page = checkPage("${param.page}");
+		var perPage = checkCount("${param.count}");
+		var orderBy = checkOrderBy("${param.orderby}");
+		var sort = checkSort("${param.sop}");
+		var pageCount = Math.ceil(parseInt("${logsCount}") / perPage);
+		var linkVar = "adminLogsPage";
+
+		document.getElementById("menu_logs").className = "active";
+	</script>
 </body>
 </html>

@@ -3,7 +3,9 @@ package com.epam.lab.controller.services.tariff;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+
 import com.epam.lab.controller.dao.tariff.TariffDAO;
 import com.epam.lab.controller.dao.tariff.TariffDAOImpl;
 import com.epam.lab.controller.services.AbstractServiceImpl;
@@ -23,8 +25,8 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 	}
 
 	public String addTariff(String name, String maxCapacity, String price,
-			String position, String descriptionUS, String descriptionRU,
-			String descriptionUA) {
+			String position, String descriptionUS, String descriptionUA,
+			String descriptionRU) {
 		String errorMessage = checkParametersTariff(name, maxCapacity, price,
 				position, descriptionUS, descriptionRU, descriptionUA);
 		if (errorMessage == null) {
@@ -34,14 +36,15 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 					.setPrice(Double.parseDouble(price))
 					.setPosition(Integer.parseInt(position))
 					.setDescription(descriptionUS);
-			tariffDao.insert(tariff, descriptionRU, descriptionUA);
+			tariffDao.insert(tariff, descriptionUA, descriptionRU);
 		}
 		return errorMessage;
 	}
 
 	@Override
 	public String updateTariff(String id, String name, String maxCapacity,
-			String price, String position, String descriptionUS, String descriptionRU, String descriptionUA) {
+			String price, String position, String descriptionUS,
+			String descriptionRU, String descriptionUA) {
 		String errorMessage = null;
 		errorMessage = checkParametersTariff(name, maxCapacity, price,
 				position, descriptionUS, descriptionRU, descriptionUA);

@@ -1,8 +1,10 @@
 package com.epam.lab.controller.web.servlets.admin.tariffs;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +33,8 @@ public class AdminEditTariffContentServlet extends HttpServlet {
 			Gson gson = new GsonBuilder().create();
 			String json = gson.toJson(tariff);
 			response.getWriter().write(json);
+
 		}
 	}
+
 }

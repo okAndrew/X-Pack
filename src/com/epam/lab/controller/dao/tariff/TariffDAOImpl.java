@@ -152,7 +152,7 @@ public class TariffDAOImpl implements TariffDAO {
 
 	@Override
 	public int insert(Tariff object, String descUA, String descRU) {
-		int result=0;
+		int result = 0;
 		String sql = "INSERT INTO text_translation(id, lang, text_translation.text) "
 				+ " select id+1, 1, ?"
 				+ " from text_translation ORDER BY id DESC LIMIT 1;";
@@ -173,4 +173,13 @@ public class TariffDAOImpl implements TariffDAO {
 				object.getPosition());
 		return result;
 	}
+
+	@Override
+	public Tariff getPosition(String position) {
+		String sql = "SELECT id AS count FROM tariffs where position=?";
+		Tariff tariff = queryExecutor.executeQuerySingle(Tariff.class, sql,
+				position);
+		return tariff;
+	}
+
 }

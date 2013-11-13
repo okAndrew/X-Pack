@@ -23,4 +23,6 @@ public interface TariffDAO extends GenericDAO<Tariff> {
 			String sop, String language);
 	
 	public int insert(Tariff object, String descUA, String descRU);
+
+	Tariff getPosition(String position);
 }

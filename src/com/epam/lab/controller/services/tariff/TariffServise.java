@@ -29,4 +29,5 @@ public interface TariffServise extends AbstractService<Tariff> {
 			String sop, String language);
 
 	HashMap<Long, Tariff> getHashMapNames();
+
 }

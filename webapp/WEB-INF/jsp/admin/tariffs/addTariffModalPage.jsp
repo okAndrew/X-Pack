@@ -19,16 +19,17 @@
 					<div class="container">
 
 						<div class="navbar navbar-default">
-							<div class="navbar-collapse collapse">
-
-								<c:if test="${addTarMessage != null}">
+						<c:if test="${addTarMessage != null}">
 									<div id="errorinfo" class="alert alert-danger"
 										style="${(addTarMessage != null) ? 'none' : 'none'}">
 										<fmt:message key="${addTarMessage}" bundle="${lang}" />
 									</div>
 								</c:if>
-								<table class="table">
-									<tbody>
+							<div class="navbar-collapse collapse" >
+
+								
+								<table class="table" >
+									<tbody >
 										<tr>
 											<td><fmt:message key="Name" bundle="${lang}" /></td>
 											<td><input type="text" name="name"
@@ -62,39 +63,38 @@
 										<tr>
 											<td><fmt:message key="Description" bundle="${lang}" />
 												US</td>
-											<td><textarea rows="2" name="descriptionUS"
+											<td><input type="text" name="descriptionUS"
 													class="form-control midle"
-													placeholder=<fmt:message key="Description" bundle="${lang}" />></textarea></td>
+													placeholder=<fmt:message key="Description" bundle="${lang}" />></td>
 										</tr>
 										<tr>
 											<td><fmt:message key="Description" bundle="${lang}" />
 												UA</td>
-											<td><textarea rows="2" name="descriptionUA"
+											<td><input type="text" name="descriptionUA"
 													class="form-control midle"
-													placeholder=<fmt:message key="Description" bundle="${lang}" />></textarea></td>
+													placeholder=<fmt:message key="Description" bundle="${lang}" />></td>
 										</tr>
 										<tr>
 											<td><fmt:message key="Description" bundle="${lang}" />
 												RU</td>
-											<td><textarea rows="2" name="descriptionRU"
+											<td><input type="text" name="descriptionRU"
 													class="form-control last"
 													placeholder=<fmt:message key="Description" bundle="${lang}" />
-													autofocus="autofocus"></textarea></td>
+													autofocus="autofocus"></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" name="action"
+						<button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+						<fmt:message key="Close" bundle="${lang}" />
+					</button>
+						<button type="submit" class="btn btn-primary pull-right" name="action"
 						value="addTariff">
 						<fmt:message key="Add_new_tariff" bundle="${lang}" />
 					</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						<fmt:message key="Close" bundle="${lang}" />
-					</button>
+					
+					</div>
 				</div>
 			</div>
 		</form>

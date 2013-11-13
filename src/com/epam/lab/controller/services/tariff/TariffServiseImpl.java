@@ -90,7 +90,10 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		if (errorMessage == null) {
 			for (Tariff iter : tariffs) {
 				if (iter.getName().equalsIgnoreCase(name)) {
-					errorMessage = "Tariff_with_the_same_name_already_exists!!!";
+					errorMessage = "Tariff_with_the_same_name_already_exists";
+					return errorMessage;
+				}else if(!freePosition(position)){
+					errorMessage = "Tariff_with_the_same_position_already_exists";
 					return errorMessage;
 				}
 			}
@@ -98,6 +101,14 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		return errorMessage;
 	}
 
+	
+	public boolean freePosition(String position){
+		if(tariffDao.getPosition(position)!=null){
+			return false;
+		}
+		return true;
+		
+	}
 	// Locale methods
 	@Override
 	public List<Tariff> getAll(String language) {
@@ -173,4 +184,5 @@ public class TariffServiseImpl extends AbstractServiceImpl<Tariff> implements
 		}
 		return map;
 	}
+
 }

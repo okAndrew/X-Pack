@@ -23,7 +23,7 @@
 
 								<c:if test="${addTarMessage != null}">
 									<div id="errorinfo" class="alert alert-danger"
-										style="display: none;">
+										style="${(addTarMessage != null) ? 'none' : 'none'}">
 										<fmt:message key="${addTarMessage}" bundle="${lang}" />
 									</div>
 								</c:if>

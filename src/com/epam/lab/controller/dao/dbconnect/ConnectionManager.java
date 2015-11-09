@@ -1,6 +1,7 @@
 package com.epam.lab.controller.dao.dbconnect;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,8 +50,11 @@ public class ConnectionManager {
 
 	public Connection getConnection() throws SQLException {
 		Connection result = null;
+		String url = "jdbc:mysql://localhost:3306/dreamhost";
+
 		if (connManager != null)
-			result = dataSource.getConnection();
+			//result = dataSource.getConnection();
+			result = DriverManager.getConnection(url, "root", "root");
 		// for testing
 		// try {
 		// Class.forName("com.mysql.jdbc.Driver");

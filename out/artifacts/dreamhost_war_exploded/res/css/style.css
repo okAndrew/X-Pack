@@ -1,0 +1,91 @@
+div.alert {
+	width: auto;
+	margin-top: 15px;
+}
+
+span.glyphicon.glyphicon-sort {
+	font-size: 8pt;
+	text-align: center;
+}
+
+table thead tr th {
+	cursor: pointer;
+}
+
+.blue {
+	color: #428BCA;
+}
+
+table {
+	overflow: hidden;
+}
+
+tr td {
+	overflow: hidden;
+	text-overflow: hidden;
+}
+
+body {
+	background-image: url("../img/fon-background.jpg");
+	padding-top: 60px;
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+
+div .panel.panel-default.main {
+	margin-top: 20px;
+}
+
+div .panel.panel-default.bottom {
+	margin-bottom: 20px;
+}
+
+.paginator-main {
+	width: auto;
+	float: left;
+}
+
+.paginator-main .page-pages {
+	width: auto;
+	float: left;
+}
+
+.paginator-main .page-pages .pagination {
+	margin: 0px;
+	paddign: 0px;
+	padding-right: 10px;
+}
+
+.paginator-main .page-option {
+	width: auto;
+	float: left;
+}
+
+div .rowSpace {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+div.alert.admin {
+	width: auto;
+	margin-top: 8px;
+}
+
+div.main-body {
+	height: 300px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+/* 	background-color: #101010; */
+}
+
+div.main-body-content {
+	height: 300px;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #f1f1f1;
+}

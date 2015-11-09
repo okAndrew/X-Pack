@@ -1,0 +1,13 @@
+.avatar {
+	display: block;
+	max-width: 150px;
+	max-height: 150px;
+	border-radius: 50%;
+	margin-left: auto;
+    margin-right: auto;
+}
+div .panel-body h1 {
+	font-family: 'Lobster', cursive;
+	text-align: center;
+	text-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+}

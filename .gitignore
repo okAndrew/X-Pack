@@ -3,3 +3,6 @@
 build/*
 .settings/*
 /build
+*.iml
+.idea
+.gitignore
